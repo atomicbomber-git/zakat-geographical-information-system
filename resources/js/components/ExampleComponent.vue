@@ -1,16 +1,19 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Example Component</div>
+    <div>
+        <GmapMap
+            :center="{lat:-0.026330, lng:109.342504}"
+            :zoom="14"
+            @click="moveMarker"
+            map-type-id="terrain"
+            style="width: 100%; height: 640px">
 
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
+            <GmapMarker
+                v-if="pointer_marker"
+                :position="pointer_marker"
+                :clickable="true"
+            />
+
+        </GmapMap>
     </div>
 </template>
 
@@ -18,6 +21,21 @@
     export default {
         mounted() {
             console.log('Component mounted.')
+        },
+        
+        data() {
+            return {
+                pointer_marker: null
+            }
+        },
+
+        methods: {
+            moveMarker: function (e) {
+                this.pointer_marker = {
+                    lat: e.latLng.lat(),
+                    lng: e.latLng.lng()
+                }
+            }
         }
     }
 </script>
