@@ -5,8 +5,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-            </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ Route::is("collector.*") ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('collector.index') }}">
+                        <i class="fa fa-list"></i>
+                        Pengumpul Zakat
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
