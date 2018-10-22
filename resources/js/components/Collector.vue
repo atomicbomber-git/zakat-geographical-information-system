@@ -103,7 +103,7 @@
                                 v-model="password"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.password[0]', false)}"
-                                type="password" id="password" placeholder="Nama lokasi">
+                                type="password" id="password" placeholder="Password">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.password[0]', false) }}</div>
                         </div>
 
@@ -113,7 +113,7 @@
                                 v-model="password_confirmation"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.password_confirmation[0]', false)}"
-                                type="password" id="password_confirmation" placeholder="Nama lokasi">
+                                type="password" id="password_confirmation" placeholder="Ulangi Password">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.password_confirmation[0]', false) }}</div>
                         </div>
                         

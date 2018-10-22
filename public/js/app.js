@@ -51018,7 +51018,7 @@ var render = function() {
                 attrs: {
                   type: "password",
                   id: "password",
-                  placeholder: "Nama lokasi"
+                  placeholder: "Password"
                 },
                 domProps: { value: _vm.password },
                 on: {
@@ -51063,7 +51063,7 @@ var render = function() {
                 attrs: {
                   type: "password",
                   id: "password_confirmation",
-                  placeholder: "Nama lokasi"
+                  placeholder: "Ulangi Password"
                 },
                 domProps: { value: _vm.password_confirmation },
                 on: {
