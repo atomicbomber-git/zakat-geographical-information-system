@@ -23,7 +23,7 @@ Route::redirect('/', '/collector/index');
 
 Route::view('/admin/dashboard', 'dashboard');
 
-Route::group(['prefix' => '/collector', 'as' => 'collector.'], function() {
+Route::group(['prefix' => '/collector', 'as' => 'collector.', 'middleware' => ['auth']], function() {
     Route::get('/index', 'CollectorController@index')->name('index');
     Route::post('/store', 'CollectorController@store')->name('store');
     Route::post('/delete/{collector_id}', 'CollectorController@delete')->name('delete');
