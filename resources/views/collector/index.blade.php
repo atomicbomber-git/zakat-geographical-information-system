@@ -14,7 +14,7 @@
         window.collectors.push({
             id: {{ $collector->id }},
             name: '{{ $collector->name }}',
-            address: '{{ $collector->address }}',
+            address: `{{ $collector->address }}`,
             latitude: {{ $collector->latitude }},
             longitude: {{ $collector->longitude }}
         })

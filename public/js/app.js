@@ -50548,6 +50548,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50565,6 +50602,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             name: "",
             address: "",
+            username: "",
+            password: "",
+            password_confirmation: "",
 
             error_data: null,
 
@@ -50579,7 +50619,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 latitude: this.pointer_marker.lat,
                 longitude: this.pointer_marker.lng,
                 name: this.name,
-                address: this.address
+                address: this.address,
+                username: this.username,
+                password: this.password,
+                password_confirmation: this.password_confirmation
             };
         }
     },
@@ -50677,6 +50720,10 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("form", { on: { submit: _vm.submitForm } }, [
+            _c("h3", [_vm._v(" Data Lokasi ")]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
             _c("div", { staticClass: "form-row" }, [
               _c("div", { staticClass: "form-group col-md-6" }, [
                 _c("label", { attrs: { for: "latitude" } }, [
@@ -50827,6 +50874,153 @@ var render = function() {
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
                   _vm._s(_vm.get(this.error_data, "errors.address[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h3", { staticClass: "mt-4" }, [
+              _vm._v(" Data Akun Administrator ")
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "username" } }, [
+                _vm._v(" Username: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.username,
+                    expression: "username"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.username[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "username",
+                  placeholder: "Username"
+                },
+                domProps: { value: _vm.username },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.username = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.username[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "password" } }, [
+                _vm._v(" Password: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password,
+                    expression: "password"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.password[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "password",
+                  id: "password",
+                  placeholder: "Nama lokasi"
+                },
+                domProps: { value: _vm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.password[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "password_confirmation" } }, [
+                _vm._v(" Ulangi Password: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password_confirmation,
+                    expression: "password_confirmation"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.password_confirmation[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "password",
+                  id: "password_confirmation",
+                  placeholder: "Nama lokasi"
+                },
+                domProps: { value: _vm.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password_confirmation = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.get(
+                      this.error_data,
+                      "errors.password_confirmation[0]",
+                      false
+                    )
+                  )
                 )
               ])
             ]),

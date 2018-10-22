@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Collector;
+use App\User;
 
 class CollectorController extends Controller
 {
@@ -15,14 +16,19 @@ class CollectorController extends Controller
 
     public function store()
     {
-        $data = $this->validate(request(), [
+        $data = collect($this->validate(request(), [
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'address' => 'required|string',
-            'name' => 'required|string'
-        ]);
+            'name' => 'required|string',
+            'username' => 'required|string|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]));
 
-        Collector::create($data);
+        $data->put('password', bcrypt($data->get('password')));
+
+        User::create($data->only('name', 'username', 'password')->toArray());
+        Collector::create($data->only('latitude', 'longitude', 'name', 'address')->toArray());
 
         return [
             "status" => "success",

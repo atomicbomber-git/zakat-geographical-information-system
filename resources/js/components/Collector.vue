@@ -39,6 +39,10 @@
                 </div>
                 <div class="card-body">
                     <form @submit="submitForm">
+
+                        <h3> Data Lokasi </h3>
+                        <hr>
+
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="latitude"> Latitude: </label>
@@ -68,6 +72,39 @@
                                 :class="{'is-invalid': get(this.error_data, 'errors.address[0]', false)}"
                                 type="text" id="address" placeholder="Alamat lokasi"></textarea>
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.address[0]', false) }}</div>
+                        </div>
+
+                        <h3 class="mt-4"> Data Akun Administrator </h3>
+                        <hr>
+
+                        <div class="form-group">
+                            <label for="username"> Username: </label>
+                            <input
+                                v-model="username"
+                                class="form-control"
+                                :class="{'is-invalid': get(this.error_data, 'errors.username[0]', false)}"
+                                type="text" id="username" placeholder="Username">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.username[0]', false) }}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password"> Password: </label>
+                            <input
+                                v-model="password"
+                                class="form-control"
+                                :class="{'is-invalid': get(this.error_data, 'errors.password[0]', false)}"
+                                type="password" id="password" placeholder="Nama lokasi">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.password[0]', false) }}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_confirmation"> Ulangi Password: </label>
+                            <input
+                                v-model="password_confirmation"
+                                class="form-control"
+                                :class="{'is-invalid': get(this.error_data, 'errors.password_confirmation[0]', false)}"
+                                type="password" id="password_confirmation" placeholder="Nama lokasi">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.password_confirmation[0]', false) }}</div>
                         </div>
                         
                         <div class="text-right">
@@ -128,6 +165,9 @@
 
                 name: "",
                 address: "",
+                username: "",
+                password: "",
+                password_confirmation: "",
 
                 error_data: null,
 
@@ -141,7 +181,10 @@
                     latitude: this.pointer_marker.lat,
                     longitude: this.pointer_marker.lng,
                     name: this.name,
-                    address: this.address
+                    address: this.address,
+                    username: this.username,
+                    password: this.password,
+                    password_confirmation: this.password_confirmation
                 }
             }
         },
