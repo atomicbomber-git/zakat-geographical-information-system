@@ -50585,6 +50585,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50600,8 +50610,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lng: def_lng
             },
 
-            name: "",
+            collector_name: "",
             address: "",
+
+            user_name: "",
             username: "",
             password: "",
             password_confirmation: "",
@@ -50618,8 +50630,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return {
                 latitude: this.pointer_marker.lat,
                 longitude: this.pointer_marker.lng,
-                name: this.name,
+                collector_name: this.collector_name,
                 address: this.address,
+                user_name: this.user_name,
                 username: this.username,
                 password: this.password,
                 password_confirmation: this.password_confirmation
@@ -50793,7 +50806,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "name" } }, [
+              _c("label", { attrs: { for: "collector_name" } }, [
                 _vm._v(" Nama Lokasi: ")
               ]),
               _vm._v(" "),
@@ -50802,33 +50815,39 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.name,
-                    expression: "name"
+                    value: _vm.collector_name,
+                    expression: "collector_name"
                   }
                 ],
                 staticClass: "form-control",
                 class: {
                   "is-invalid": _vm.get(
                     this.error_data,
-                    "errors.name[0]",
+                    "errors.collector_name[0]",
                     false
                   )
                 },
-                attrs: { type: "text", id: "name", placeholder: "Nama lokasi" },
-                domProps: { value: _vm.name },
+                attrs: {
+                  type: "text",
+                  id: "collector_name",
+                  placeholder: "Nama lokasi"
+                },
+                domProps: { value: _vm.collector_name },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.name = $event.target.value
+                    _vm.collector_name = $event.target.value
                   }
                 }
               }),
               _vm._v(" "),
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.name[0]", false))
+                  _vm._s(
+                    _vm.get(this.error_data, "errors.collector_name[0]", false)
+                  )
                 )
               ])
             ]),
@@ -50883,6 +50902,51 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "user_name" } }, [
+                _vm._v(" Nama Administrator: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.user_name,
+                    expression: "user_name"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.user_name[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "user_name",
+                  placeholder: "Nama Administrator"
+                },
+                domProps: { value: _vm.user_name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.user_name = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.user_name[0]", false))
+                )
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "username" } }, [

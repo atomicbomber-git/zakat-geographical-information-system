@@ -55,13 +55,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="name"> Nama Lokasi: </label>
+                            <label for="collector_name"> Nama Lokasi: </label>
                             <input
-                                v-model="name"
+                                v-model="collector_name"
                                 class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
-                                type="text" id="name" placeholder="Nama lokasi">
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                                :class="{'is-invalid': get(this.error_data, 'errors.collector_name[0]', false)}"
+                                type="text" id="collector_name" placeholder="Nama lokasi">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.collector_name[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -76,6 +76,16 @@
 
                         <h3 class="mt-4"> Data Akun Administrator </h3>
                         <hr>
+
+                        <div class="form-group">
+                            <label for="user_name"> Nama Administrator: </label>
+                            <input
+                                v-model="user_name"
+                                class="form-control"
+                                :class="{'is-invalid': get(this.error_data, 'errors.user_name[0]', false)}"
+                                type="text" id="user_name" placeholder="Nama Administrator">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.user_name[0]', false) }}</div>
+                        </div>
 
                         <div class="form-group">
                             <label for="username"> Username: </label>
@@ -163,8 +173,10 @@
                     lng: def_lng,
                 },
 
-                name: "",
+                collector_name: "",
                 address: "",
+
+                user_name: "",
                 username: "",
                 password: "",
                 password_confirmation: "",
@@ -180,8 +192,9 @@
                 return {
                     latitude: this.pointer_marker.lat,
                     longitude: this.pointer_marker.lng,
-                    name: this.name,
+                    collector_name: this.collector_name,
                     address: this.address,
+                    user_name: this.user_name,
                     username: this.username,
                     password: this.password,
                     password_confirmation: this.password_confirmation

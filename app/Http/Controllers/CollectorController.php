@@ -16,19 +16,28 @@ class CollectorController extends Controller
 
     public function store()
     {
-        $data = collect($this->validate(request(), [
+        $data = $this->validate(request(), [
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'address' => 'required|string',
-            'name' => 'required|string',
-            'username' => 'required|string|unique:users',
+            'collector_name' => 'required|string',
+            'user_name' => 'required|string', // User real name
+            'username' => 'required|string|unique:users', // User login name
             'password' => 'required|string|min:8|confirmed',
-        ]));
+        ]);
+        
+        User::create([
+            'name' => $data['user_name'],
+            'username' => $data['username'],
+            'password' => bcrypt($data['password'])
+        ]);
 
-        $data->put('password', bcrypt($data->get('password')));
-
-        User::create($data->only('name', 'username', 'password')->toArray());
-        Collector::create($data->only('latitude', 'longitude', 'name', 'address')->toArray());
+        Collector::create([
+            'latitude' => $data['latitude'],
+            'longitude' => $data['longitude'],
+            'address' => $data['address'],
+            'name' => $data['collector_name']
+        ]);
 
         return [
             "status" => "success",
