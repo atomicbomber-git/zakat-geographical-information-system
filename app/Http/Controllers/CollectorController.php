@@ -26,13 +26,15 @@ class CollectorController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
         
-        User::create([
+        $user = User::create([
             'name' => $data['user_name'],
             'username' => $data['username'],
-            'password' => bcrypt($data['password'])
+            'password' => bcrypt($data['password']),
+            'type' => 'COLLECTOR'
         ]);
 
         Collector::create([
+            'user_id' => $user->id,
             'latitude' => $data['latitude'],
             'longitude' => $data['longitude'],
             'address' => $data['address'],

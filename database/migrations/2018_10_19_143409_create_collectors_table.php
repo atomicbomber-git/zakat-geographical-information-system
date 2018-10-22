@@ -19,7 +19,10 @@ class CreateCollectorsTable extends Migration
             $table->text("address");
             $table->double("latitude");
             $table->double("longitude");
+            $table->integer("user_id")->unsigned();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
