@@ -11,7 +11,7 @@ class CollectorReportController extends Controller
 {
     public function index(Collector $collector)
     {
-        $reports = Report::select('transaction_date', 'zakat', 'fitrah', 'infak', 'note')
+        $reports = Report::select('transaction_date', 'zakat', 'fitrah', 'infak', 'note', 'id')
             ->where('collector_id', $collector->id)
             ->get();
 
@@ -27,8 +27,9 @@ class CollectorReportController extends Controller
     {
         $data = $this->validate(request(), [
             'transaction_date' => 'string|required',
-            'amount' => 'string|integer|min:1',
-            'type' => ['required', Rule::in(array_keys(Report::TYPES))],
+            'zakat' => 'required|numeric|min:1',
+            'fitrah' => 'required|numeric|min:1',
+            'infak' => 'required|numeric|min:1',
             'note' => 'string|required',
         ]);
 
@@ -38,5 +39,14 @@ class CollectorReportController extends Controller
 
         return redirect()
             ->route('collector.report.index', $collector);
+    }
+
+    public function delete(Report $report)
+    {
+        $report->delete();
+
+        return redirect()
+            ->back()
+            ->with('message.success', __('messages.delete.success'));
     }
 }

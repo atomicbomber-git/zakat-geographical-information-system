@@ -50580,31 +50580,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -50693,7 +50668,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-9" }, [
+    _c("div", { staticClass: "col" }, [
       _c("div", { staticClass: "card" }, [
         _vm._m(0),
         _vm._v(" "),
@@ -50738,9 +50713,11 @@ var render = function() {
             1
           )
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card mt-3" }, [
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-5" }, [
+      _c("div", { staticClass: "card" }, [
         _vm._m(1),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
@@ -51144,55 +51121,6 @@ var render = function() {
           ])
         ])
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-3" }, [
-      _c("div", { staticClass: "card" }, [
-        _vm._m(3),
-        _vm._v(" "),
-        _c(
-          "ul",
-          { staticClass: "list-group list-group-flush" },
-          _vm._l(_vm.collectors, function(collector) {
-            return _c(
-              "li",
-              { key: collector.id, staticClass: "list-group-item" },
-              [
-                _c("div", [
-                  _c(
-                    "h3",
-                    { staticClass: "text-capitalize font-weight-bold" },
-                    [_vm._v(" " + _vm._s(collector.name) + " ")]
-                  ),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "lead" }, [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(collector.address) +
-                        "\n                        "
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "text-right" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-sm btn-danger",
-                      on: {
-                        click: function($event) {
-                          _vm.deleteCollector(collector.id)
-                        }
-                      }
-                    },
-                    [_c("i", { staticClass: "fa fa-trash" })]
-                  )
-                ])
-              ]
-            )
-          })
-        )
-      ])
     ])
   ])
 }
@@ -51228,15 +51156,6 @@ var staticRenderFns = [
         ),
         _c("i", { staticClass: "fa fa-plus" })
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("i", { staticClass: "fa fa-list" }),
-      _vm._v("\n                Daftar Lokasi\n            ")
     ])
   }
 ]

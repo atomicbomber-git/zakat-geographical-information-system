@@ -30,27 +30,41 @@
                 </div>
 
                 <div class='form-group'>
-                    <label for='amount'> Jumlah: </label>
+                    <label for='zakat'> Zakat: </label>
                 
                     <input
-                        id='amount' name='amount' type='number'
-                        value='{{ old('amount') }}'
-                        class='form-control {{ !$errors->has('amount') ?: 'is-invalid' }}'>
+                        id='zakat' name='zakat' type='number'
+                        value='{{ old('zakat') }}'
+                        class='form-control {{ !$errors->has('zakat') ?: 'is-invalid' }}'>
                 
                     <div class='invalid-feedback'>
-                        {{ $errors->first('amount') }}
+                        {{ $errors->first('zakat') }}
                     </div>
                 </div>
 
                 <div class='form-group'>
-                    <label for='type'> Tipe: </label>
-                    <select name='type' id='type' class='form-control'>
-                        @foreach(\App\Report::TYPES as $key => $value)
-                        <option {{ old('type') !== $key ?: 'selected' }} value='{{ $key }}'> {{ $value }} </option>
-                        @endforeach
-                    </select>
+                    <label for='fitrah'> Fitrah: </label>
+                
+                    <input
+                        id='fitrah' name='fitrah' type='number'
+                        value='{{ old('fitrah') }}'
+                        class='form-control {{ !$errors->has('fitrah') ?: 'is-invalid' }}'>
+                
                     <div class='invalid-feedback'>
-                        {{ $errors->first('type') }}
+                        {{ $errors->first('fitrah') }}
+                    </div>
+                </div>
+
+                <div class='form-group'>
+                    <label for='infak'> Infak: </label>
+                
+                    <input
+                        id='infak' name='infak' type='number'
+                        value='{{ old('infak') }}'
+                        class='form-control {{ !$errors->has('infak') ?: 'is-invalid' }}'>
+                
+                    <div class='invalid-feedback'>
+                        {{ $errors->first('infak') }}
                     </div>
                 </div>
 

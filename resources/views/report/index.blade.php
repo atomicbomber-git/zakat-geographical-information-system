@@ -24,7 +24,6 @@
                         <th> Fitrah (Rp.) </th>
                         <th> Infak (Rp.) </th>
                         <th> Keterangan </th>
-                        <th> Aksi </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,7 +37,6 @@
                         <td> {{ number_format($report->fitrah) }} </td>
                         <td> {{ number_format($report->infak) }} </td>
                         <td> {{ $report->note  }} </td>
-                        <td>  </td>
                     </tr>
                     @endforeach
                 </tbody>

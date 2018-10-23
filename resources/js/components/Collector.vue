@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-9">
+        <div class="col">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-map"></i>
@@ -31,8 +31,10 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="card mt-3">
+        <div class="col-5">
+            <div class="card">
                 <div class="card-header">
                     <i class="fa fa-plus"></i>
                     Tambahkan Unit Pengumpulan Zakat
@@ -135,33 +137,6 @@
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-3">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-list"></i>
-                    Daftar Lokasi
-                </div>
-                
-                <!-- List of collectors -->
-                <ul class="list-group list-group-flush">
-                    <li v-for="collector in collectors" :key="collector.id" class="list-group-item">
-                        <div>
-                            <h3 class="text-capitalize font-weight-bold"> {{ collector.name }} </h3>
-                            <p class="lead">
-                                {{ collector.address }}
-                            </p>
-                        </div>
-
-                        <div class="text-right">
-                            <button @click="deleteCollector(collector.id)" class="btn btn-sm btn-danger">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </div>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

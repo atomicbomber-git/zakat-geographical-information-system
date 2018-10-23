@@ -18,6 +18,8 @@
         </div>
     </div>
 
+    @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
+
     <div class="card mt-5">
         <div class="card-header">
             <i class="fa fa-list"></i>
@@ -29,9 +31,9 @@
                     <tr>
                         <th> # </th>
                         <th> Tanggal Transaksi </th>
-                        <th> Zakat </th>
-                        <th> Fitrah </th>
-                        <th> Infak </th>
+                        <th> Zakat (Rp.) </th>
+                        <th> Fitrah (Rp.) </th>
+                        <th> Infak (Rp.) </th>
                         <th> Aksi </th>
                     </tr>
                 </thead>
@@ -40,10 +42,17 @@
                     <tr>
                         <td> {{ $loop->iteration }}. </td>
                         <td> {{ $report->transaction_date }} </td>
-                        <th> {{ number_format($report->zakat) }} </th>
-                        <th> {{ number_format($report->fitrah) }} </th>
-                        <th> {{ number_format($report->infak) }} </th>
-                        <td>  </td>
+                        <td> {{ number_format($report->zakat) }} </td>
+                        <td> {{ number_format($report->fitrah) }} </td>
+                        <td> {{ number_format($report->infak) }} </td>
+                        <td>
+                            <form action="{{ route('collector.report.delete', $report) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -5,13 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Collector;
 use App\User;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class CollectorController extends Controller
 {
     public function index()
     {
-        $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')->get();
+        $collectors = Collector::select('name', 'user_id', 'npwz', 'id')
+            ->with('user:id,name,username')
+            ->get();
+
         return view('collector.index', compact('collectors'));
+    }
+    
+    public function create()
+    {
+        $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
+            ->get();
+
+        return view('collector.create', compact('collectors'));
     }
 
     public function store()
@@ -43,10 +56,29 @@ class CollectorController extends Controller
             'npwz' => $data['npwz'],
         ]);
 
+        session()->flash('message.success', __('messages.create.success'));
+
         return [
             "status" => "success",
             "redirect" => route('collector.index')
         ];
+    }
+
+    public function edit(Collector $collector)
+    {
+        return view('collector.edit', compact('collector'));
+    }
+
+    public function update(Collector $collector)
+    {
+        $data = $this->validate(request(), [
+            'address' => 'required|string',
+            'collector_name' => 'required|string',
+            'npwz' => ['required', 'string', Rule::unique('collectors')->ignore($collector->id)],
+            'user_name' => 'required|string', // User real name
+            'username' => ['required', 'string', Rule::unique('users')->ignore($collector->user->id)], // User login name
+            'password' => 'sometimes|nullable|string|min:8|confirmed',
+        ]);
     }
 
     public function delete($collector_id)

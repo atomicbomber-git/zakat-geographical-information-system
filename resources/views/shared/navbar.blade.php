@@ -8,15 +8,11 @@
             <ul class="navbar-nav mr-auto">
                 @can('act-as-administrator')
 
-                    <li class="nav-item dropdown {{ Route::is("collector.*") ? 'active' : '' }}">
-                        <a class="nav-link dropdown-toggle" href="#" id="collectorMenuDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-list"></i>
+                    <li class="nav-item {{ Route::is("collector.*") ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('collector.index') }}">
+                            <i class="fa fa-building"></i>
                             Unit Pengumpulan Zakat
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="collectorMenuDropdown">
-                            <a class="dropdown-item" href="{{ route('collector.index') }}"> Kelola Unit </a>
-                            <a class="dropdown-item" href="{{ route('collector.user.index') }}"> Kelola Akun </a>
-                        </div>
                     </li>
 
                     <li class="nav-item {{ Route::is("report.*") ? 'active' : '' }}">

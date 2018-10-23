@@ -1,33 +1,65 @@
 @extends('shared.layout')
-@section('title', 'Kelola Seluruh Lokasi Unit Pengumpulan Zakat')
+@section('title', 'Kelola Unit Pengumpulan Zakat')
 @section('content')
 <div class="container mt-5">
-    
-    <script>
-        window.submit_url='{{ route('collector.store') }}'
-        window.def_lat=-0.026330
-        window.def_lng=109.342504
-
-        window.collectors = []
-
-        @foreach ($collectors as $collector)
-        window.collectors.push({
-            id: {{ $collector->id }},
-            name: '{{ $collector->name }}',
-            address: `{{ $collector->address }}`,
-            latitude: {{ $collector->latitude }},
-            longitude: {{ $collector->longitude }}
-        })
-        @endforeach
-
-    </script>
-    
-    <h1 class="mb-4">
-        Kelola Lokasi Pengumpulan Zakat
+    <h1>
+        <i class="fa fa-building"></i>
+        Kelola Unit Pengumpulan Zakat
     </h1>
 
-    <div id="app">
-        <collector/>
+    <div class="row">
+        <div class="col text-left"></div>
+        <div class="col-2"></div>
+        <div class="col text-right">
+            <a href="{{ route('collector.create') }}" class="btn btn-dark btn-sm">
+                Tambah Unit Pengumpulan Zakat
+                <i class="fa fa-plus"></i>
+            </a>
+        </div>
+    </div>
+    
+    @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
+
+    <div class="card mt-5">
+        <div class="card-header">
+            <i class="fa fa-building"></i>
+            Kelola Unit Pengumpulan Zakat
+        </div>
+        <div class="card-body">
+            <table class="table table-sm table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th> # </th>
+                        <th> Nama Administrator </th>
+                        <th> Nama Pengguna </th>
+                        <th> Tempat Pengumpul Zakat </th>
+                        <th> NPWZ </th>
+                        <th> Aksi </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($collectors as $collector)
+                    <tr>
+                        <td> {{ $loop->iteration }}. </td>
+                        <td> {{ $collector->user->name }} </td>
+                        <td> {{ $collector->user->username }} </td>
+                        <td> {{ $collector->name }} </td>
+                        <td> {{ $collector->npwz }} </td>
+                        <td>
+                            <a href="{{ route('collector.edit', $collector) }}" class="btn btn-dark btn-sm">
+                                Sunting Data
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="" class="btn btn-dark btn-sm">
+                                Sunting Lokasi
+                                <i class="fa fa-map-marker"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection
