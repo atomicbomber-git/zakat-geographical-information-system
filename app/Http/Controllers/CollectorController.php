@@ -7,6 +7,7 @@ use App\Collector;
 use App\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class CollectorController extends Controller
 {
@@ -79,6 +80,30 @@ class CollectorController extends Controller
             'username' => ['required', 'string', Rule::unique('users')->ignore($collector->user->id)], // User login name
             'password' => 'sometimes|nullable|string|min:8|confirmed',
         ]);
+
+        $user_data = [
+            'name' => $data['user_name'],
+            'username' => $data['username'],
+            'type' => 'COLLECTOR'
+        ];
+
+        if (!empty($data['password'])) {
+            $user_data['password'] = bcrypt($data['password']);
+        }
+
+        DB::transaction(function() use($user_data, $data, $collector) {
+            $collector->user->update($user_data);
+
+            $collector->update([
+                'address' => $data['address'],
+                'name' => $data['collector_name'],
+                'npwz' => $data['npwz'],
+            ]);
+        });
+
+        return redirect()
+            ->route('collector.index')
+            ->with('message.success', __('messages.update.success'));
     }
 
     public function delete($collector_id)
