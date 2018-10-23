@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return 'username';
     }
+
+    public function collector()
+    {
+        return $this->hasOne(Collector::class);
+    }
 }

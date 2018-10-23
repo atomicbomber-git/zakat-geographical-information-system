@@ -13,6 +13,22 @@
                             Pengumpul Zakat
                         </a>
                     </li>
+
+                    <li class="nav-item {{ Route::is("report.*") ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('report.index') }}">
+                            <i class="fa fa-list"></i>
+                            Laporan Zakat
+                        </a>
+                    </li>
+                @endcan
+
+                @can('act-as-collector')
+                    <li class="nav-item {{ Route::is("collector.report.*") ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('collector.report.index', auth()->user()->collector) }}">
+                            <i class="fa fa-list"></i>
+                            Laporan Zakat
+                        </a>
+                    </li>
                 @endcan
             </ul>
 
