@@ -1,5 +1,5 @@
 @extends('shared.layout')
-@section('title', 'Kelola Seluruh Lokasi Pengumpul Zakat')
+@section('title', 'Kelola Seluruh Lokasi Unit Pengumpulan Zakat')
 @section('content')
 <div class="container mt-5">
     
