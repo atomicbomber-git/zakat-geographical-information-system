@@ -11,7 +11,10 @@ class CollectorReportController extends Controller
 {
     public function index(Collector $collector)
     {
-        $reports = Report::select('transaction_date', 'amount', 'type', 'note')->get();
+        $reports = Report::select('transaction_date', 'zakat', 'fitrah', 'infak', 'note')
+            ->where('collector_id', $collector->id)
+            ->get();
+
         return view('collector_report.index', compact('collector', 'reports'));
     }
 

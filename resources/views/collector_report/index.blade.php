@@ -29,8 +29,9 @@
                     <tr>
                         <th> # </th>
                         <th> Tanggal Transaksi </th>
-                        <th> Jumlah </th>
-                        <th> Tipe </th>
+                        <th> Zakat </th>
+                        <th> Fitrah </th>
+                        <th> Infak </th>
                         <th> Aksi </th>
                     </tr>
                 </thead>
@@ -39,8 +40,9 @@
                     <tr>
                         <td> {{ $loop->iteration }}. </td>
                         <td> {{ $report->transaction_date }} </td>
-                        <td> Rp. {{ number_format($report->amount) }} </td>
-                        <td> {{ $report->type }} </td>
+                        <th> {{ number_format($report->zakat) }} </th>
+                        <th> {{ number_format($report->fitrah) }} </th>
+                        <th> {{ number_format($report->infak) }} </th>
                         <td>  </td>
                     </tr>
                     @endforeach

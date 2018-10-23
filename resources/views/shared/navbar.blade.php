@@ -21,7 +21,7 @@
 
                     <li class="nav-item {{ Route::is("report.*") ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('report.index') }}">
-                            <i class="fa fa-list"></i>
+                            <i class="fa fa-usd"></i>
                             Laporan Zakat
                         </a>
                     </li>

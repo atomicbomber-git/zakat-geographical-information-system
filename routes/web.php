@@ -23,23 +23,25 @@ Route::redirect('/', '/login');
 
 Route::view('/admin/dashboard', 'dashboard');
 
-Route::group(['prefix' => '/collector', 'as' => 'collector.', 'middleware' => ['auth']], function() {
-    Route::middleware('can:act-as-administrator')->group(function() {
-        Route::get('/index', 'CollectorController@index')->name('index');
-        Route::post('/store', 'CollectorController@store')->name('store');
-        Route::post('/delete/{collector_id}', 'CollectorController@delete')->name('delete');
-        Route::get('/user/index', 'CollectorUserController@index')->name('user.index');
+Route::middleware('auth')->group(function() {
+    Route::group(['prefix' => '/collector', 'as' => 'collector.'], function() {
+        Route::middleware('can:act-as-administrator')->group(function() {
+            Route::get('/index', 'CollectorController@index')->name('index');
+            Route::post('/store', 'CollectorController@store')->name('store');
+            Route::post('/delete/{collector_id}', 'CollectorController@delete')->name('delete');
+            Route::get('/user/index', 'CollectorUserController@index')->name('user.index');
+        });
+
+        Route::middleware('can:act-as-collector')->group(function() {
+            Route::get('/{collector}/report/index', 'CollectorReportController@index')->name('report.index');
+            Route::get('/{collector}/report/create', 'CollectorReportController@create')->name('report.create');
+            Route::post('/{collector}/report/store', 'CollectorReportController@store')->name('report.store');
+        });
     });
 
-    Route::middleware('can:act-as-collector')->group(function() {
-        Route::get('/{collector}/report/index', 'CollectorReportController@index')->name('report.index');
-        Route::get('/{collector}/report/create', 'CollectorReportController@create')->name('report.create');
-        Route::post('/{collector}/report/store', 'CollectorReportController@store')->name('report.store');
+    Route::group(['prefix' => '/report', 'as' => 'report.'], function() {
+        Route::get('/index', 'ReportController@index')->middleware('can:act-as-administrator')->name('index');
     });
-});
-
-Route::group(['prefix' => '/report', 'as' => 'report.'], function() {
-    Route::get('/index', 'ReportController@index')->name('index');
 });
 
 Route::group(['prefix' => '/error', 'as' => 'error.'], function() {

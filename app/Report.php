@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
-    const TYPES = [
-        'ZAKAT' => 'Zakat',
-        'FITRAH' => 'Fitrah',
-        'INFAK' => 'Infak'
+    public $fillable = [
+        'transaction_date', 'zakat', 'fitrah', 'infak', 'collector_id', 'note'
     ];
 
-    public $fillable = [
-        'transaction_date', 'amount', 'type', 'collector_id', 'note'
-    ];
+    public function collector()
+    {
+        return $this->belongsTo(Collector::class);
+    }
 }
