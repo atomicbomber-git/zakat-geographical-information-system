@@ -17,7 +17,6 @@ class CreateReportsTable extends Migration
             $table->increments('id');
 
             $table->date('transaction_date');
-            $table->string('npwz');
             $table->decimal('amount', 19, 4);
             $table->string('type');
             $table->integer('collector_id')->unsigned();

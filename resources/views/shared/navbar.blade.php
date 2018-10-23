@@ -7,11 +7,16 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
                 @can('act-as-administrator')
-                    <li class="nav-item {{ Route::is("collector.*") ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('collector.index') }}">
+
+                    <li class="nav-item dropdown {{ Route::is("collector.*") ? 'active' : '' }}">
+                        <a class="nav-link dropdown-toggle" href="#" id="collectorMenuDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-list"></i>
                             Pengumpul Zakat
                         </a>
+                        <div class="dropdown-menu" aria-labelledby="collectorMenuDropdown">
+                            <a class="dropdown-item" href="{{ route('collector.index') }}"> Kelola Pengumpul </a>
+                            <a class="dropdown-item" href="{{ route('collector.user.index') }}"> Kelola Akun Pengumpul </a>
+                        </div>
                     </li>
 
                     <li class="nav-item {{ Route::is("report.*") ? 'active' : '' }}">

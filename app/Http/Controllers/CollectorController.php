@@ -21,6 +21,7 @@ class CollectorController extends Controller
             'longitude' => 'required|numeric',
             'address' => 'required|string',
             'collector_name' => 'required|string',
+            'npwz' => 'required|string|unique:collectors',
             'user_name' => 'required|string', // User real name
             'username' => 'required|string|unique:users', // User login name
             'password' => 'required|string|min:8|confirmed',
@@ -38,7 +39,8 @@ class CollectorController extends Controller
             'latitude' => $data['latitude'],
             'longitude' => $data['longitude'],
             'address' => $data['address'],
-            'name' => $data['collector_name']
+            'name' => $data['collector_name'],
+            'npwz' => $data['npwz'],
         ]);
 
         return [

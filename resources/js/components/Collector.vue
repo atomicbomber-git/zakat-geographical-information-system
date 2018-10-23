@@ -65,6 +65,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="npwz"> NPWZ: </label>
+                            <input
+                                v-model="npwz"
+                                class="form-control"
+                                :class="{'is-invalid': get(this.error_data, 'errors.npwz[0]', false)}"
+                                type="text" id="npwz" placeholder="Nama lokasi">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.npwz[0]', false) }}</div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="address"> Alamat Lokasi: </label>
                             <textarea
                                 v-model="address"
@@ -174,6 +184,7 @@
                 },
 
                 collector_name: "",
+                npwz: "",
                 address: "",
 
                 user_name: "",
@@ -193,6 +204,7 @@
                     latitude: this.pointer_marker.lat,
                     longitude: this.pointer_marker.lng,
                     collector_name: this.collector_name,
+                    npwz: this.npwz,
                     address: this.address,
                     user_name: this.user_name,
                     username: this.username,

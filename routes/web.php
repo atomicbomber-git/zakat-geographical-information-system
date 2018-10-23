@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::redirect('/', '/collector/index');
+Route::redirect('/', '/login');
 
 Route::view('/admin/dashboard', 'dashboard');
 
@@ -28,11 +28,13 @@ Route::group(['prefix' => '/collector', 'as' => 'collector.', 'middleware' => ['
         Route::get('/index', 'CollectorController@index')->name('index');
         Route::post('/store', 'CollectorController@store')->name('store');
         Route::post('/delete/{collector_id}', 'CollectorController@delete')->name('delete');
+        Route::get('/user/index', 'CollectorUserController@index')->name('user.index');
     });
 
     Route::middleware('can:act-as-collector')->group(function() {
         Route::get('/{collector}/report/index', 'CollectorReportController@index')->name('report.index');
-        Route::get('/{collector}/report/create', 'CollectorReportController@index')->name('report.create');
+        Route::get('/{collector}/report/create', 'CollectorReportController@create')->name('report.create');
+        Route::post('/{collector}/report/store', 'CollectorReportController@store')->name('report.store');
     });
 });
 

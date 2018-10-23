@@ -16,6 +16,7 @@ class CreateCollectorsTable extends Migration
         Schema::create('collectors', function (Blueprint $table) {
             $table->increments('id');
             $table->string("name")->unique();
+            $table->string("npwz")->unique();
             $table->text("address");
             $table->double("latitude");
             $table->double("longitude");
