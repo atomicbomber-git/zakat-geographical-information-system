@@ -28,5 +28,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('act-as-administrator', function($user) {
             return $user->type == 'ADMINISTRATOR';
         });
+
+        Gate::define('act-as-collector', function($user) {
+            return $user->type == 'COLLECTOR';
+        });
     }
 }
