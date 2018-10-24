@@ -18,7 +18,12 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            switch (auth()->user()->type) {
+                case 'ADMINISTRATOR':
+                    return redirect()->route('collector.index');
+                case 'COLLECTOR':
+                    return redirect()->route('collector.report.index', auth()->user()->collector);
+            }
         }
 
         return $next($request);
