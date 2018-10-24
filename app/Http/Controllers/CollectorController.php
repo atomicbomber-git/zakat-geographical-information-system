@@ -71,8 +71,6 @@ class CollectorController extends Controller
 
     public function edit(Collector $collector)
     {
-        return response()->file($collector->getFirstMediaPath('images', 'thumbnail'));
-
         $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
             ->with('user:name,username')
             ->get();
