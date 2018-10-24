@@ -30,6 +30,11 @@ class LoginController extends Controller
         }
     }
 
+    public function loggedOut()
+    {
+        return redirect()->route('login');
+    }
+
     /**
      * Create a new controller instance.
      *
