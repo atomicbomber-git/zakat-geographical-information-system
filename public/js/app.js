@@ -50476,7 +50476,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -50658,23 +50657,29 @@ var render = function() {
                             }
                           },
                           [
-                            _c("div", [
-                              _c("h3", [
-                                _vm._v(" " + _vm._s(collector.name) + " ")
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(collector.address) +
-                                    "\n                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
+                            _c("div", { staticClass: "card" }, [
                               _c("img", {
-                                staticClass: "img-thumbnail",
-                                attrs: { src: collector.imageUrl, alt: "..." }
-                              })
+                                staticClass: "card-img-top",
+                                staticStyle: {
+                                  width: "14rem",
+                                  height: "14rem",
+                                  "object-fit": "cover"
+                                },
+                                attrs: {
+                                  src: collector.imageUrl,
+                                  alt: "Card image cap"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "card-body" }, [
+                                _c("h5", { staticClass: "card-title" }, [
+                                  _vm._v(" " + _vm._s(collector.name) + " ")
+                                ]),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "card-text" }, [
+                                  _vm._v(" " + _vm._s(collector.address) + " ")
+                                ])
+                              ])
                             ])
                           ]
                         )
@@ -52090,6 +52095,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -52244,14 +52252,29 @@ var render = function() {
                   },
                   [
                     _c("div", [
-                      _c("h3", [_vm._v(" " + _vm._s(collector.name) + " ")]),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(collector.address) +
-                            "\n                    "
-                        )
+                      _c("div", { staticClass: "card" }, [
+                        _c("img", {
+                          staticClass: "card-img-top",
+                          staticStyle: {
+                            width: "14rem",
+                            height: "14rem",
+                            "object-fit": "cover"
+                          },
+                          attrs: {
+                            src: collector.imageUrl,
+                            alt: "Card image cap"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("h5", { staticClass: "card-title" }, [
+                            _vm._v(" " + _vm._s(collector.name) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "card-text" }, [
+                            _vm._v(" " + _vm._s(collector.address) + " ")
+                          ])
+                        ])
                       ])
                     ])
                   ]

@@ -29,7 +29,8 @@
         latitude: {{ $collector->latitude }},
         longitude: {{ $collector->longitude }},
         name: '{{ $collector->name }}',
-        address: `{{ $collector->address }}`
+        address: `{{ $collector->address }}`,
+        imageUrl: '{{ route('collector.thumbnail', $collector) }}'
     })
     @endforeach
 

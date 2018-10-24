@@ -33,13 +33,12 @@
                                     :position="{lat: collector.latitude, lng: collector.longitude}"
                                     :opened="collector.isInfoWindowOpen"
                                     @closeclick="collector.isInfoWindowOpen=false">
-                                    <div>
-                                        <h3> {{ collector.name }} </h3>
-                                        <p>
-                                            {{ collector.address }}
-                                        </p>
-
-                                        <img :src="collector.imageUrl" alt="..." class="img-thumbnail">
+                                    <div class="card">
+                                        <img class="card-img-top" style="width: 14rem; height: 14rem; object-fit: cover" :src="collector.imageUrl" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title"> {{ collector.name }} </h5>
+                                            <p class="card-text"> {{ collector.address }} </p>
+                                        </div>
                                     </div>
                                 </GmapInfoWindow>
 
