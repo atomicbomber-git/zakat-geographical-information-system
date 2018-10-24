@@ -21,12 +21,29 @@
                                 :clickable="true"
                             />
 
-                            <GmapMarker
-                                v-for="collector in collectors"
-                                :key="collector.id"
-                                :position="{lat: collector.latitude, lng: collector.longitude}"
-                                :icon="this.icon_url"
-                            />
+                            <span v-for="collector in collectors" :key="collector.id">
+
+                                <GmapMarker
+                                    :position="{lat: collector.latitude, lng: collector.longitude}"
+                                    icon="/png/location.png"
+                                    @click="onMarkerClick(collector)">
+                                </GmapMarker>
+
+                                <GmapInfoWindow
+                                    :position="{lat: collector.latitude, lng: collector.longitude}"
+                                    :opened="collector.isInfoWindowOpen"
+                                    @closeclick="collector.isInfoWindowOpen=false">
+                                    <div>
+                                        <h3> {{ collector.name }} </h3>
+                                        <p>
+                                            {{ collector.address }}
+                                        </p>
+
+                                        <img :src="collector.imageUrl" alt="..." class="img-thumbnail">
+                                    </div>
+                                </GmapInfoWindow>
+
+                            </span>
 
                         </GmapMap>
                     </div>
@@ -184,7 +201,12 @@
 
                 error_data: null,
 
-                collectors: window.collectors
+                collectors: window.collectors.map(collector => {
+                    return {
+                        ...collector,
+                        isInfoWindowOpen: false
+                    }
+                })
             }
         },
 
@@ -216,6 +238,16 @@
 
             changeFile(event) {
                 this.picture = event.target.value
+            },
+
+            onMarkerClick(collector) {
+                this.collectors = this.collectors.map(c => {
+                    if (c.id == collector.id) {
+                        return {...c, isInfoWindowOpen: true}
+                    }
+
+                    return {...c, isInfoWindowOpen: false}
+                })
             },
 
             submitForm: function (e) {

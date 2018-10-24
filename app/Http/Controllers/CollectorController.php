@@ -49,7 +49,7 @@ class CollectorController extends Controller
             'type' => 'COLLECTOR'
         ]);
 
-        Collector::create([
+        $collector = Collector::create([
             'user_id' => $user->id,
             'latitude' => $data['latitude'],
             'longitude' => $data['longitude'],
@@ -57,6 +57,8 @@ class CollectorController extends Controller
             'name' => $data['collector_name'],
             'npwz' => $data['npwz'],
         ]);
+
+        $collector->addMediaFromRequest('picture')->toMediaCollection('images');
 
         session()->flash('message.success', __('messages.create.success'));
 
@@ -68,6 +70,8 @@ class CollectorController extends Controller
 
     public function edit(Collector $collector)
     {
+        return response()->file($collector->getFirstMediaPath('images', 'thumbnail'));
+
         $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
             ->with('user:name,username')
             ->get();
@@ -124,5 +128,10 @@ class CollectorController extends Controller
             "status" => "success",
             "redirect" => route('collector.index')
         ];
+    }
+
+    public function thumbnail(Collector $collector)
+    {
+        return response()->file($collector->getFirstMedia('images')->getPath());
     }
 }

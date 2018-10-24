@@ -21,9 +21,12 @@ class CollectorSeeder extends Seeder
             ]);
 
             foreach ($users as $user) {
-                factory(Collector::class)->create([
+                $collector = factory(Collector::class)->create([
                     'user_id' => $user->id
                 ]);
+                
+                $collector->addMediaFromUrl("https://picsum.photos/200/300/?random")
+                    ->toMediaCollection('images');
             }
         });
     }

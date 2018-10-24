@@ -50298,6 +50298,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -50484,7 +50503,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             error_data: null,
 
-            collectors: window.collectors
+            collectors: window.collectors.map(function (collector) {
+                return _extends({}, collector, {
+                    isInfoWindowOpen: false
+                });
+            })
         };
     },
 
@@ -50517,6 +50540,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         changeFile: function changeFile(event) {
             this.picture = event.target.value;
+        },
+        onMarkerClick: function onMarkerClick(collector) {
+            this.collectors = this.collectors.map(function (c) {
+                if (c.id == collector.id) {
+                    return _extends({}, c, { isInfoWindowOpen: true });
+                }
+
+                return _extends({}, c, { isInfoWindowOpen: false });
+            });
         },
 
 
@@ -50590,16 +50622,65 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm._l(_vm.collectors, function(collector) {
-                    return _c("GmapMarker", {
-                      key: collector.id,
-                      attrs: {
-                        position: {
-                          lat: collector.latitude,
-                          lng: collector.longitude
-                        },
-                        icon: this.icon_url
-                      }
-                    })
+                    return _c(
+                      "span",
+                      { key: collector.id },
+                      [
+                        _c("GmapMarker", {
+                          attrs: {
+                            position: {
+                              lat: collector.latitude,
+                              lng: collector.longitude
+                            },
+                            icon: "/png/location.png"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.onMarkerClick(collector)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "GmapInfoWindow",
+                          {
+                            attrs: {
+                              position: {
+                                lat: collector.latitude,
+                                lng: collector.longitude
+                              },
+                              opened: collector.isInfoWindowOpen
+                            },
+                            on: {
+                              closeclick: function($event) {
+                                collector.isInfoWindowOpen = false
+                              }
+                            }
+                          },
+                          [
+                            _c("div", [
+                              _c("h3", [
+                                _vm._v(" " + _vm._s(collector.name) + " ")
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(collector.address) +
+                                    "\n                                    "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("img", {
+                                staticClass: "img-thumbnail",
+                                attrs: { src: collector.imageUrl, alt: "..." }
+                              })
+                            ])
+                          ]
+                        )
+                      ],
+                      1
+                    )
                   })
                 ],
                 2

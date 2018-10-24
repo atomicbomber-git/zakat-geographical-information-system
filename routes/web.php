@@ -34,6 +34,9 @@ Route::middleware('auth')->group(function() {
             Route::get('/edit/{collector}', 'CollectorController@edit')->name('edit');
             Route::post('/update/{collector}', 'CollectorController@update')->name('update');
             Route::post('/delete/{collector_id}', 'CollectorController@delete')->name('delete');
+
+            Route::get('/image/thumbnail/{collector}', 'CollectorController@thumbnail')->name('thumbnail');
+
         });
 
         Route::middleware('can:act-as-collector')->group(function() {
