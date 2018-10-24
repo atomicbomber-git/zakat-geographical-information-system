@@ -60,6 +60,13 @@
                         </div>
                     </li>
                 @endauth
+
+                @guest
+                    <a href="{{ route('login') }}" class="btn btn-info">
+                        Log In
+                        <i class="fa fa-sign-in"></i>
+                    </a>
+                @endguest
             </ul>
         </div>
     </div>
