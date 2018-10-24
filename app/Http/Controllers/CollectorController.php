@@ -15,6 +15,7 @@ class CollectorController extends Controller
     {
         $collectors = Collector::select('name', 'user_id', 'npwz', 'id')
             ->with('user:id,name,username')
+            ->withCount('reports')
             ->get();
 
         return view('collector.index', compact('collectors'));
@@ -124,10 +125,9 @@ class CollectorController extends Controller
     {
         Collector::where('id', $collector_id)->delete();
 
-        return [
-            "status" => "success",
-            "redirect" => route('collector.index')
-        ];
+        return redirect()
+            ->back()
+            ->with('message.success', __('messages.delete.success'));
     }
 
     public function thumbnail(Collector $collector)
