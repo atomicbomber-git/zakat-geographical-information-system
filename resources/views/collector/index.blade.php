@@ -50,10 +50,6 @@
                                 Sunting Data
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a href="" class="btn btn-dark btn-sm">
-                                Sunting Lokasi
-                                <i class="fa fa-map-marker"></i>
-                            </a>
                         </td>
                     </tr>
                     @endforeach
