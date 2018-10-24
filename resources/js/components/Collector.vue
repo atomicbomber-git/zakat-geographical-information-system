@@ -87,6 +87,21 @@
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.address[0]', false) }}</div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="picture"> Gambar Lokasi: </label>
+                            <div class="custom-file">
+                                <input
+                                    ref="picture"
+                                    type="file"
+                                    class="custom-file-input"
+                                    id="picture"
+                                    @change="changeFile"
+                                    :class="{'is-invalid': get(this.error_data, 'errors.picture[0]', false)}">
+                                <div class='invalid-feedback'>{{ get(this.error_data, 'errors.picture[0]', false) }}</div>
+                                <label class="custom-file-label" for="picture"> {{ this.picture }} </label>
+                            </div>
+                        </div>
+
                         <h3 class="mt-4"> Data Akun Administrator </h3>
                         <hr>
 
@@ -148,10 +163,6 @@
     import {get} from 'lodash'
 
     export default {
-        mounted() {
-            console.log(def_lat)
-        },
-        
         data() {
             return {
                 icon_url: window.icon_url,
@@ -169,6 +180,7 @@
                 username: "",
                 password: "",
                 password_confirmation: "",
+                picture: "",
 
                 error_data: null,
 
@@ -202,10 +214,25 @@
                 }
             },
 
+            changeFile(event) {
+                this.picture = event.target.value
+            },
+
             submitForm: function (e) {
                 e.preventDefault()
-                
-                axios.post(window.submit_url, this.form_data)
+
+                let data = new FormData()
+
+                let keys = Object.keys(this.form_data)
+                for (let i = 0; i < keys.length; ++i) {
+                    data.append(keys[i], this.form_data[keys[i]])
+                }
+
+                data.append('picture', this.$refs.picture.files[0])
+
+                axios.post(window.submit_url, data, {
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                    })
                     .then(response => {
                         window.location.replace(response.data.redirect)
                     })

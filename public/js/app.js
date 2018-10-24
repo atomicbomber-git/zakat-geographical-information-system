@@ -32020,7 +32020,7 @@ exports.default = function (input) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(25);
-module.exports = __webpack_require__(88);
+module.exports = __webpack_require__(91);
 
 
 /***/ }),
@@ -32059,7 +32059,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 
 Vue.component('collector', __webpack_require__(82));
 Vue.component('collector-edit', __webpack_require__(85));
-Vue.component('guest-map', __webpack_require__(103));
+Vue.component('guest-map', __webpack_require__(88));
 
 var app = new Vue({
   el: '#app'
@@ -50443,14 +50443,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log(def_lat);
-    },
     data: function data() {
         return {
             icon_url: window.icon_url,
@@ -50468,6 +50480,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             username: "",
             password: "",
             password_confirmation: "",
+            picture: "",
 
             error_data: null,
 
@@ -50502,12 +50515,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
         },
 
+        changeFile: function changeFile(event) {
+            this.picture = event.target.value;
+        },
+
+
         submitForm: function submitForm(e) {
             var _this = this;
 
             e.preventDefault();
 
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(window.submit_url, this.form_data).then(function (response) {
+            var data = new FormData();
+
+            var keys = Object.keys(this.form_data);
+            for (var i = 0; i < keys.length; ++i) {
+                data.append(keys[i], this.form_data[keys[i]]);
+            }
+
+            data.append('picture', this.$refs.picture.files[0]);
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(window.submit_url, data, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            }).then(function (response) {
                 window.location.replace(response.data.redirect);
             }).catch(function (error) {
                 _this.error_data = error.response.data;
@@ -50787,6 +50816,43 @@ var render = function() {
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
                   _vm._s(_vm.get(this.error_data, "errors.address[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "picture" } }, [
+                _vm._v(" Gambar Lokasi: ")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  ref: "picture",
+                  staticClass: "custom-file-input",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.picture[0]",
+                      false
+                    )
+                  },
+                  attrs: { type: "file", id: "picture" },
+                  on: { change: _vm.changeFile }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(_vm.get(this.error_data, "errors.picture[0]", false))
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "custom-file-label",
+                    attrs: { for: "picture" }
+                  },
+                  [_vm._v(" " + _vm._s(this.picture) + " ")]
                 )
               ])
             ]),
@@ -51837,34 +51903,14 @@ if (false) {
 
 /***/ }),
 /* 88 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(104)
+var __vue_script__ = __webpack_require__(89)
 /* template */
-var __vue_template__ = __webpack_require__(105)
+var __vue_template__ = __webpack_require__(90)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -51903,7 +51949,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 104 */
+/* 89 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52030,7 +52076,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-/* 105 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52151,6 +52197,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-3bf35862", module.exports)
   }
 }
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

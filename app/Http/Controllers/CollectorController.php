@@ -39,6 +39,7 @@ class CollectorController extends Controller
             'user_name' => 'required|string', // User real name
             'username' => 'required|string|unique:users', // User login name
             'password' => 'required|string|min:8|confirmed',
+            'picture' => 'required|file|mimes:jpg,jpeg,png'
         ]);
         
         $user = User::create([
