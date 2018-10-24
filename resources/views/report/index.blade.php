@@ -13,13 +13,38 @@
             Kelola Laporan Zakat
         </div>
         <div class="card-body">
+
+            <div class="alert alert-info">
+                <p>
+                    <strong>
+                            Menampilkan laporan penerimaan zakat untuk tahun {{ $current_year }}:
+                    </strong>
+                </p>
+                
+                <div>
+                    Ubah ke tahun lain:
+
+                    <form class="form-inline d-inline-block">
+                        <select class="form-control form-control-sm" name="year">
+                            @foreach ($years as $year)
+                            <option {{ $current_year == $year ? 'selected' : '' }} value={{ $year }}> {{ $year }} </option>
+                            @endforeach
+                        </select>
+
+                        <button class="btn btn-dark btn-sm">
+                            Ubah <i class="fa fa-check"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
             <table class="table table-sm table-striped">
                 <thead class="thead-dark">
                     <tr>
                         <th> # </th>
                         <th> Tanggal Transaksi </th>
                         <th> NPWZ </th>
-                        <th style="width: 3rem"> Nama </th>
+                        <th> Nama </th>
                         <th> Zakat (Rp.) </th>
                         <th> Fitrah (Rp.) </th>
                         <th> Infak (Rp.) </th>
