@@ -67,12 +67,18 @@ class CollectorController extends Controller
 
     public function edit(Collector $collector)
     {
-        return view('collector.edit', compact('collector'));
+        $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
+            ->with('user:name,username')
+            ->get();
+
+        return view('collector.edit', compact('collector', 'collectors'));
     }
 
     public function update(Collector $collector)
     {
         $data = $this->validate(request(), [
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'address' => 'required|string',
             'collector_name' => 'required|string',
             'npwz' => ['required', 'string', Rule::unique('collectors')->ignore($collector->id)],
@@ -101,9 +107,12 @@ class CollectorController extends Controller
             ]);
         });
 
-        return redirect()
-            ->route('collector.index')
-            ->with('message.success', __('messages.update.success'));
+        session()->flash('message.success', __('messages.update.success'));
+
+        return [
+            "status" => "success",
+            "redirect" => route('collector.index')
+        ];
     }
 
     public function delete($collector_id)

@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div id="app">
                         <GmapMap
-                            :center="{lat:-0.026330, lng:109.342504}"
+                            :center="{lat: this.map.center_lat, lng: this.map.center_lng}"
                             :zoom="14"
                             @click="moveMarker"
                             map-type-id="terrain"
@@ -25,7 +25,7 @@
                                 v-for="collector in collectors"
                                 :key="collector.id"
                                 :position="{lat: collector.latitude, lng: collector.longitude}"
-                                :icon="this.icon_url"
+                                :icon=this.icon_url
                             />
 
                         </GmapMap>
@@ -37,8 +37,8 @@
         <div class="col-5">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-plus"></i>
-                    Tambahkan Unit Pengumpulan Zakat
+                    <i class="fa fa-pencil"></i>
+                    Sunting Data Unit Pengumpulan Zakat
                 </div>
                 <div class="card-body">
                     <form @submit="submitForm">
@@ -132,8 +132,8 @@
                         
                         <div class="text-right">
                             <button class="btn btn-primary">
-                                Tambahkan
-                                <i class="fa fa-plus"></i>
+                                Perbarui Data
+                                <i class="fa fa-check"></i>
                             </button>
                         </div>
                     </form>
@@ -149,24 +149,28 @@
 
     export default {
         mounted() {
-            console.log(def_lat)
         },
         
         data() {
             return {
                 icon_url: window.icon_url,
 
-                pointer_marker: {
-                    lat: def_lat,
-                    lng: def_lng,
+                map: {
+                    center_lat: window.collector.latitude,
+                    center_lng: window.collector.longitude,
                 },
 
-                collector_name: "",
-                npwz: "",
-                address: "",
+                pointer_marker: {
+                    lat: window.collector.latitude,
+                    lng: window.collector.longitude,
+                },
 
-                user_name: "",
-                username: "",
+                collector_name: window.collector.name,
+                npwz: window.collector.npwz,
+                address: window.collector.npwz,
+
+                user_name: window.collector.user.name,
+                username: window.collector.user.username,
                 password: "",
                 password_confirmation: "",
 

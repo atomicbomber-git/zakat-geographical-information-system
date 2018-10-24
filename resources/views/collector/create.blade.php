@@ -5,6 +5,8 @@
     
     <script>
         window.submit_url='{{ route('collector.store') }}'
+        window.icon_url='{{ asset('png/location.png') }}'
+
         window.def_lat=-0.026330
         window.def_lng=109.342504
 
@@ -23,8 +25,8 @@
     </script>
     
     <h1 class="mb-4">
-        <i class="fa fa-list"></i>
-        Kelola Lokasi Pengumpulan Zakat
+        <i class="fa fa-plus"></i>
+        Tambah Unit Pengumpulan Zakat
     </h1>
 
     <div id="app">

@@ -24,8 +24,8 @@ Vue.use(VueGoogleMaps, {
     },
 })
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('collector', require('./components/Collector.vue'));
+Vue.component('collector-edit', require('./components/CollectorEdit.vue'));
 
 const app = new Vue({
     el: '#app'
