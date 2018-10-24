@@ -26,6 +26,7 @@ Vue.use(VueGoogleMaps, {
 
 Vue.component('collector', require('./components/Collector.vue'));
 Vue.component('collector-edit', require('./components/CollectorEdit.vue'));
+Vue.component('guest-map', require('./components/GuestMap.vue'));
 
 const app = new Vue({
     el: '#app'

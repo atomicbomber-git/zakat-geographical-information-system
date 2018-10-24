@@ -19,9 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::redirect('/', '/login');
 
 Route::view('/admin/dashboard', 'dashboard');
+
+Route::get('/guest/map', 'GuestController@map')->name('guest.map');
+Route::redirect('/', '/guest/map');
 
 Route::middleware('auth')->group(function() {
     Route::group(['prefix' => '/collector', 'as' => 'collector.'], function() {

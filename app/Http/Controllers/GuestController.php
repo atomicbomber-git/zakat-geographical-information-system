@@ -3,8 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Collector;
 
 class GuestController extends Controller
 {
-    //
+    public function map()
+    {
+        $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
+            ->get();
+
+        return view('guest.map', compact('collectors'));
+    }
 }

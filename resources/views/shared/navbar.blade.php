@@ -31,6 +31,13 @@
                         </a>
                     </li>
                 @endcan
+
+                <li class="nav-item {{ Route::is("guest.*") ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('guest.map') }}">
+                        <i class="fa fa-map"></i>
+                        Peta Persebaran UPZ
+                    </a>
+                </li>
             </ul>
 
             <ul class="navbar-nav ml-auto">

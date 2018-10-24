@@ -167,7 +167,7 @@
 
                 collector_name: window.collector.name,
                 npwz: window.collector.npwz,
-                address: window.collector.npwz,
+                address: window.collector.address,
 
                 user_name: window.collector.user.name,
                 username: window.collector.user.username,
