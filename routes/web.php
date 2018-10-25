@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function() {
             Route::get('/{collector}/report/index', 'CollectorReportController@index')->name('report.index');
             Route::get('/{collector}/report/create', 'CollectorReportController@create')->name('report.create');
             Route::post('/{collector}/report/store', 'CollectorReportController@store')->name('report.store');
+            Route::get('/report/edit/{report}', 'CollectorReportController@edit')->name('report.edit');
+            Route::post('/report/update/{report}', 'CollectorReportController@update')->name('report.update');
             Route::post('/report/{report}/delete', 'CollectorReportController@delete')->name('report.delete');
         });
     });

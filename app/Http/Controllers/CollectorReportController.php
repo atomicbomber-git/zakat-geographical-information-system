@@ -41,6 +41,28 @@ class CollectorReportController extends Controller
             ->route('collector.report.index', $collector);
     }
 
+    public function edit(Report $report)
+    {
+        return view('collector_report.edit', compact('report'));
+    }
+
+    public function update(Report $report)
+    {
+        $data = $this->validate(request(), [
+            'transaction_date' => 'string|required',
+            'zakat' => 'required|numeric|gt:0',
+            'fitrah' => 'required|numeric|gt:0',
+            'infak' => 'required|numeric|gt:0',
+            'note' => 'string|required',
+        ]);
+
+        $report->update($data);
+
+        return redirect()
+            ->route('collector.report.index', auth()->user()->collector)
+            ->with('message.success', __('messages.update.success'));
+    }
+
     public function delete(Report $report)
     {
         $report->delete();

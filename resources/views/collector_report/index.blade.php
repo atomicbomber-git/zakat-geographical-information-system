@@ -46,9 +46,15 @@
                         <td> {{ number_format($report->fitrah) }} </td>
                         <td> {{ number_format($report->infak) }} </td>
                         <td>
-                            <form action="{{ route('collector.report.delete', $report) }}" method="POST">
+                            <a href="{{ route('collector.report.edit', $report) }}" class="btn btn-dark btn-sm">
+                                Sunting
+                                <i class="fa fa-pencil"></i>
+                            </a>
+
+                            <form action="{{ route('collector.report.delete', $report) }}" method="POST" class="d-inline-block">
                                 @csrf
                                 <button class="btn btn-danger btn-sm">
+                                    Hapus
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>
