@@ -34,8 +34,6 @@ Route::middleware('auth')->group(function() {
             Route::get('/edit/{collector}', 'CollectorController@edit')->name('edit');
             Route::post('/update/{collector}', 'CollectorController@update')->name('update');
             Route::post('/delete/{collector_id}', 'CollectorController@delete')->name('delete');
-            Route::get('/image/thumbnail/{collector}', 'CollectorController@thumbnail')->name('thumbnail');
-
         });
 
         Route::middleware('can:act-as-collector')->group(function() {
@@ -50,6 +48,8 @@ Route::middleware('auth')->group(function() {
         Route::get('/index', 'ReportController@index')->middleware('can:act-as-administrator')->name('index');
     });
 });
+
+Route::get('/image/thumbnail/{collector}', 'CollectorController@thumbnail')->name('collector.thumbnail');
 
 Route::group(['prefix' => '/error', 'as' => 'error.'], function() {
     Route::view('/403', 'error.403')->name('403');
