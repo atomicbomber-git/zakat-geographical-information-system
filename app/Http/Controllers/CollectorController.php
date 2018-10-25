@@ -89,6 +89,7 @@ class CollectorController extends Controller
             'user_name' => 'required|string', // User real name
             'username' => ['required', 'string', Rule::unique('users')->ignore($collector->user->id)], // User login name
             'password' => 'sometimes|nullable|string|min:8|confirmed',
+            'picture' => 'sometimes|nullable|file|mimes:jpg,jpeg,png'
         ]);
 
         $user_data = [
@@ -110,6 +111,15 @@ class CollectorController extends Controller
                 'npwz' => $data['npwz'],
             ]);
         });
+
+        // A picture replacement was uploaded
+        if(!empty($data['picture'])) {
+            // Clear the old one
+            $collector->clearMediaCollection('images');
+
+            // Store a new one
+            $collector->addMediaFromRequest('picture')->toMediaCollection('images');
+        }
 
         session()->flash('message.success', __('messages.update.success'));
 

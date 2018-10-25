@@ -30,7 +30,7 @@
         longitude: {{ $collector->longitude }},
         name: '{{ $collector->name }}',
         address: `{{ $collector->address }}`,
-        imageUrl: '{{ route('collector.thumbnail', $collector) }}'
+        imageUrl: '{{ route('collector.thumbnail', $collector) . "?" . rand() }}'
     })
     @endforeach
 

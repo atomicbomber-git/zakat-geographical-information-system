@@ -51243,6 +51243,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -51416,10 +51451,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             username: window.collector.user.username,
             password: "",
             password_confirmation: "",
+            picture: "",
 
             error_data: null,
 
-            collectors: window.collectors
+            collectors: window.collectors.map(function (collector) {
+                return _extends({}, collector, {
+                    isInfoWindowOpen: false
+                });
+            })
         };
     },
 
@@ -51450,21 +51490,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
         },
 
+        onMarkerClick: function onMarkerClick(collector) {
+            this.collectors = this.collectors.map(function (c) {
+                if (c.id == collector.id) {
+                    return _extends({}, c, { isInfoWindowOpen: true });
+                }
+
+                return _extends({}, c, { isInfoWindowOpen: false });
+            });
+        },
+
+
         submitForm: function submitForm(e) {
             var _this = this;
 
             e.preventDefault();
 
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(window.submit_url, this.form_data).then(function (response) {
-                window.location.replace(response.data.redirect);
+            // Prepare data for submitting
+            var data = new FormData();
+            var form_data_keys = Object.keys(this.form_data);
+
+            for (var i = 0; i < form_data_keys.length; ++i) {
+                data.append(form_data_keys[i], this.form_data[form_data_keys[i]]);
+            }
+
+            if (this.$refs.picture.files.length > 0) {
+                data.append('picture', this.$refs.picture.files[0]);
+            }
+
+            // Submit data
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(window.submit_url, data, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
+                if (response.data.redirect) {
+                    window.location.replace(response.data.redirect);
+                }
             }).catch(function (error) {
                 _this.error_data = error.response.data;
             });
         },
 
+        changeFile: function changeFile(e) {
+            this.picture = e.target.value;
+        },
+
+
         deleteCollector: function deleteCollector(collector_id) {
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/collector/delete/' + collector_id).then(function (response) {
-                window.location.replace(response.data.redirect);
+                if (response.data.redirect) {
+                    window.location.replace(response.data.redirect);
+                }
             }).catch(function (error) {
                 alert("Something wrong happened.");
             });
@@ -51512,16 +51585,75 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm._l(_vm.collectors, function(collector) {
-                    return _c("GmapMarker", {
-                      key: collector.id,
-                      attrs: {
-                        position: {
-                          lat: collector.latitude,
-                          lng: collector.longitude
-                        },
-                        icon: this.icon_url
-                      }
-                    })
+                    return _c(
+                      "span",
+                      { key: collector.id },
+                      [
+                        _c("GmapMarker", {
+                          attrs: {
+                            position: {
+                              lat: collector.latitude,
+                              lng: collector.longitude
+                            },
+                            icon: "/png/location.png"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.onMarkerClick(collector)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "GmapInfoWindow",
+                          {
+                            attrs: {
+                              position: {
+                                lat: collector.latitude,
+                                lng: collector.longitude
+                              },
+                              opened: collector.isInfoWindowOpen
+                            },
+                            on: {
+                              closeclick: function($event) {
+                                collector.isInfoWindowOpen = false
+                              }
+                            }
+                          },
+                          [
+                            _c("div", [
+                              _c("div", { staticClass: "card" }, [
+                                _c("img", {
+                                  staticClass: "card-img-top",
+                                  staticStyle: {
+                                    width: "14rem",
+                                    height: "14rem",
+                                    "object-fit": "cover"
+                                  },
+                                  attrs: {
+                                    src: collector.imageUrl,
+                                    alt: "Card image cap"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "card-body" }, [
+                                  _c("h5", { staticClass: "card-title" }, [
+                                    _vm._v(" " + _vm._s(collector.name) + " ")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "card-text" }, [
+                                    _vm._v(
+                                      " " + _vm._s(collector.address) + " "
+                                    )
+                                  ])
+                                ])
+                              ])
+                            ])
+                          ]
+                        )
+                      ],
+                      1
+                    )
                   })
                 ],
                 2
@@ -51738,6 +51870,43 @@ var render = function() {
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
                   _vm._s(_vm.get(this.error_data, "errors.address[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "picture" } }, [
+                _vm._v(" Gambar Lokasi: ")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  ref: "picture",
+                  staticClass: "custom-file-input",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.picture[0]",
+                      false
+                    )
+                  },
+                  attrs: { type: "file", id: "picture" },
+                  on: { change: _vm.changeFile }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(_vm.get(this.error_data, "errors.picture[0]", false))
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "custom-file-label",
+                    attrs: { for: "picture" }
+                  },
+                  [_vm._v(" " + _vm._s(this.picture) + " ")]
                 )
               ])
             ]),

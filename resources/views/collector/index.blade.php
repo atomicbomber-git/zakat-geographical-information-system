@@ -32,7 +32,7 @@
                         <th> # </th>
                         <th> Nama Administrator </th>
                         <th> Nama Pengguna </th>
-                        <th> Tempat Pengumpul Zakat </th>
+                        <th> Tempat Pengumpulan Zakat </th>
                         <th> NPWZ </th>
                         <th> Aksi </th>
                     </tr>

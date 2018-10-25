@@ -28,6 +28,7 @@
             address: `{{ $collector->address }}`,
             latitude: {{ $collector->latitude }},
             longitude: {{ $collector->longitude }},
+            imageUrl: '{{ route('collector.thumbnail', $collector) . "?" . rand() }}'
         })
         @endforeach
 

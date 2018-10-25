@@ -1,10 +1,10 @@
 @extends('shared.layout')
-@section('title', 'Kelola Laporan Zakat')
+@section('title', 'Kelola Laporan Penerimaan Zakat')
 @section('content')
 <div class="container mt-5">
     <h1>
         <i class="fa fa-list"></i>
-        Kelola Laporan Zakat
+        Kelola Laporan Penerimaan Zakat
     </h1>
 
     <div class="row">
@@ -12,7 +12,7 @@
         <div class="col-2"></div>
         <div class="col text-right">
             <a href="{{ route('collector.report.create', $collector) }}" class="btn btn-dark btn-sm">
-                Tambah Laporan Zakat
+                Tambah Laporan Penerimaan Zakat
                 <i class="fa fa-plus"></i>
             </a>
         </div>
@@ -23,7 +23,7 @@
     <div class="card mt-5">
         <div class="card-header">
             <i class="fa fa-list"></i>
-            Seluruh Laporan Zakat
+            Seluruh Laporan Penerimaan Zakat
         </div>
         <div class="card-body">
             <table class="table table-sm table-striped">
