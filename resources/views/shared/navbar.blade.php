@@ -21,6 +21,13 @@
                             Laporan Penerimaan Zakat
                         </a>
                     </li>
+
+                    <li class='nav-item {{ Route::is('receiver.*') ? 'active' : '' }}'>
+                        <a class='nav-link' href='{{ route('receiver.index') }}'>
+                            <i class='fa fa-users'></i>
+                            Penerima Zakat
+                        </a>
+                    </li>
                 @endcan
 
                 @can('act-as-collector')

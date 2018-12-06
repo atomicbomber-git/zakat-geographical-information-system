@@ -50724,10 +50724,9 @@ var render = function() {
                   ],
                   staticClass: "form-control",
                   attrs: {
-                    type: "latitude",
+                    type: "number",
                     id: "latitude",
-                    placeholder: "Latitude",
-                    readonly: ""
+                    placeholder: "Latitude"
                   },
                   domProps: { value: this.pointer_marker.lat },
                   on: {
@@ -50757,10 +50756,9 @@ var render = function() {
                   ],
                   staticClass: "form-control",
                   attrs: {
-                    type: "longitude",
+                    type: "number",
                     id: "longitude",
-                    placeholder: "Longitude",
-                    readonly: ""
+                    placeholder: "Longitude"
                   },
                   domProps: { value: this.pointer_marker.lng },
                   on: {
@@ -51692,10 +51690,9 @@ var render = function() {
                   ],
                   staticClass: "form-control",
                   attrs: {
-                    type: "latitude",
+                    type: "number",
                     id: "latitude",
-                    placeholder: "Latitude",
-                    readonly: ""
+                    placeholder: "Latitude"
                   },
                   domProps: { value: this.pointer_marker.lat },
                   on: {
@@ -51725,10 +51722,9 @@ var render = function() {
                   ],
                   staticClass: "form-control",
                   attrs: {
-                    type: "longitude",
+                    type: "number",
                     id: "longitude",
-                    placeholder: "Longitude",
-                    readonly: ""
+                    placeholder: "Longitude"
                   },
                   domProps: { value: this.pointer_marker.lng },
                   on: {

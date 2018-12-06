@@ -46,6 +46,12 @@ Route::middleware('auth')->group(function() {
         });
     });
 
+    Route::group(['prefix' => '/receiver', 'as' => 'receiver.'], function() {
+        Route::get('/index', 'ReceiverController@index')->name('index');
+        Route::get('/create', 'ReceiverController@create')->name('create');
+        Route::post('/delete', 'ReceiverController@delete')->name('delete');
+    });
+
     Route::group(['prefix' => '/report', 'as' => 'report.'], function() {
         Route::get('/index', 'ReportController@index')->middleware('can:act-as-administrator')->name('index');
     });

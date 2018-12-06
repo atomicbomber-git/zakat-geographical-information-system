@@ -67,11 +67,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="latitude"> Latitude: </label>
-                                <input v-model="this.pointer_marker.lat" type="latitude" class="form-control" id="latitude" placeholder="Latitude" readonly>
+                                <input v-model="this.pointer_marker.lat" type="number" class="form-control" id="latitude" placeholder="Latitude">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="longitude"> Longitude: </label>
-                                <input v-model="this.pointer_marker.lng" type="longitude" class="form-control" id="longitude" placeholder="Longitude" readonly>
+                                <input v-model="this.pointer_marker.lng" type="number" class="form-control" id="longitude" placeholder="Longitude">
                             </div>
                         </div>
 
