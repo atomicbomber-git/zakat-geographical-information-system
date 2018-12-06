@@ -25,7 +25,7 @@ class CollectorSeeder extends Seeder
                     'user_id' => $user->id
                 ]);
                 
-                $collector->addMediaFromUrl("https://picsum.photos/200/300/?random")
+                $collector->addMedia(__DIR__ . '/random.jpeg')->preservingOriginal()
                     ->toMediaCollection('images');
             }
         });
