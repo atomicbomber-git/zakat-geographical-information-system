@@ -32020,7 +32020,7 @@ exports.default = function (input) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(25);
-module.exports = __webpack_require__(91);
+module.exports = __webpack_require__(94);
 
 
 /***/ }),
@@ -32059,8 +32059,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 
 Vue.component('collector', __webpack_require__(82));
 Vue.component('collector-edit', __webpack_require__(85));
-Vue.component('receiver', __webpack_require__(103));
-Vue.component('guest-map', __webpack_require__(88));
+Vue.component('receiver', __webpack_require__(88));
+Vue.component('guest-map', __webpack_require__(91));
 
 var app = new Vue({
   el: '#app'
@@ -52179,338 +52179,6 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/js/components/GuestMap.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3bf35862", Component.options)
-  } else {
-    hotAPI.reload("data-v-3bf35862", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 89 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log("Component mounted.");
-    },
-    data: function data() {
-        return {
-            pointer_marker: { lat: -0.026330, lng: 109.342504 },
-
-            collectors: window.collectors.map(function (collector) {
-                return _extends({}, collector, {
-                    isInfoWindowOpen: false
-                });
-            })
-        };
-    },
-
-
-    computed: {
-        distances: function distances() {
-            var _this = this;
-
-            return this.collectors.map(function (collector) {
-                return _extends({}, collector, {
-                    distance: _this.getDistanceFromLatLonInKm(_this.pointer_marker.lat, _this.pointer_marker.lng, collector.latitude, collector.longitude)
-                });
-            });
-        },
-        sortedDistances: function sortedDistances() {
-            return this.distances.sort(function (a, b) {
-                return a.distance - b.distance;
-            });
-        }
-    },
-
-    methods: {
-        moveMarker: function moveMarker(e) {
-            this.pointer_marker = {
-                lat: e.latLng.lat(),
-                lng: e.latLng.lng()
-            };
-        },
-        onMarkerClick: function onMarkerClick(collector) {
-            this.collectors = this.collectors.map(function (c) {
-                if (c.id == collector.id) {
-                    return _extends({}, c, { isInfoWindowOpen: true });
-                }
-
-                return _extends({}, c, { isInfoWindowOpen: false });
-            });
-        },
-        getDistanceFromLatLonInKm: function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-            var R = 6371; // Radius of the earth in km
-            var dLat = this.deg2rad(lat2 - lat1); // deg2rad below
-            var dLon = this.deg2rad(lon2 - lon1);
-            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            var d = R * c;
-            return d;
-        },
-        deg2rad: function deg2rad(deg) {
-            return deg * (Math.PI / 180);
-        }
-    }
-});
-
-/***/ }),
-/* 90 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h4", [
-        _vm._v(
-          "\n        Lokasi Anda sekarang adalah: " +
-            _vm._s(this.pointer_marker.lat) +
-            ", " +
-            _vm._s(this.pointer_marker.lng) +
-            "\n    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "alert alert-info" }, [
-        _c("h4", [_vm._v(" Unit Pengumpulan Zakat terdekat dengan Anda: ")]),
-        _vm._v(" "),
-        _c("p", [
-          _c("strong", [
-            _vm._v(" " + _vm._s(_vm.sortedDistances[0].name) + " ")
-          ]),
-          _vm._v(
-            "\n            " +
-              _vm._s(_vm.sortedDistances[0].address) +
-              " (" +
-              _vm._s(_vm.sortedDistances[0].distance.toFixed(2)) +
-              " KM)\n        "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "GmapMap",
-        {
-          staticStyle: { width: "100%", height: "640px" },
-          attrs: {
-            center: { lat: -0.02633, lng: 109.342504 },
-            zoom: 14,
-            "map-type-id": "terrain"
-          },
-          on: { click: _vm.moveMarker }
-        },
-        [
-          _vm._l(_vm.collectors, function(collector) {
-            return _c(
-              "span",
-              { key: collector.id },
-              [
-                _c("GmapMarker", {
-                  attrs: {
-                    position: {
-                      lat: collector.latitude,
-                      lng: collector.longitude
-                    },
-                    icon: "/png/location.png"
-                  },
-                  on: {
-                    click: function($event) {
-                      _vm.onMarkerClick(collector)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "GmapInfoWindow",
-                  {
-                    attrs: {
-                      position: {
-                        lat: collector.latitude,
-                        lng: collector.longitude
-                      },
-                      opened: collector.isInfoWindowOpen
-                    },
-                    on: {
-                      closeclick: function($event) {
-                        collector.isInfoWindowOpen = false
-                      }
-                    }
-                  },
-                  [
-                    _c("div", [
-                      _c("div", { staticClass: "card" }, [
-                        _c("img", {
-                          staticClass: "card-img-top",
-                          staticStyle: {
-                            width: "14rem",
-                            height: "14rem",
-                            "object-fit": "cover"
-                          },
-                          attrs: {
-                            src: collector.imageUrl,
-                            alt: "Card image cap"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "card-body" }, [
-                          _c("h5", { staticClass: "card-title" }, [
-                            _vm._v(" " + _vm._s(collector.name) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "card-text" }, [
-                            _vm._v(" " + _vm._s(collector.address) + " ")
-                          ])
-                        ])
-                      ])
-                    ])
-                  ]
-                )
-              ],
-              1
-            )
-          }),
-          _vm._v(" "),
-          _c("GmapMarker", { attrs: { position: this.pointer_marker } })
-        ],
-        2
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3bf35862", module.exports)
-  }
-}
-
-/***/ }),
-/* 91 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(2)
-/* script */
-var __vue_script__ = __webpack_require__(104)
-/* template */
-var __vue_template__ = __webpack_require__(105)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
 Component.options.__file = "resources/js/components/Receiver.vue"
 
 /* hot reload */
@@ -52533,7 +52201,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 104 */
+/* 89 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52806,7 +52474,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 105 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52852,7 +52520,7 @@ var render = function() {
                               lat: receiver.latitude,
                               lng: receiver.longitude
                             },
-                            icon: "/png/location.png"
+                            icon: "/png/location_green.png"
                           }
                         })
                       ],
@@ -53452,6 +53120,327 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-25a3204c", module.exports)
   }
 }
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(92)
+/* template */
+var __vue_template__ = __webpack_require__(93)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/GuestMap.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3bf35862", Component.options)
+  } else {
+    hotAPI.reload("data-v-3bf35862", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 92 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log("Component mounted.");
+    },
+    data: function data() {
+        return {
+            pointer_marker: { lat: -0.026330, lng: 109.342504 },
+
+            collectors: window.collectors.map(function (collector) {
+                return _extends({}, collector, {
+                    isInfoWindowOpen: false
+                });
+            })
+        };
+    },
+
+
+    computed: {
+        distances: function distances() {
+            var _this = this;
+
+            return this.collectors.map(function (collector) {
+                return _extends({}, collector, {
+                    distance: _this.getDistanceFromLatLonInKm(_this.pointer_marker.lat, _this.pointer_marker.lng, collector.latitude, collector.longitude)
+                });
+            });
+        },
+        sortedDistances: function sortedDistances() {
+            return this.distances.sort(function (a, b) {
+                return a.distance - b.distance;
+            });
+        }
+    },
+
+    methods: {
+        moveMarker: function moveMarker(e) {
+            this.pointer_marker = {
+                lat: e.latLng.lat(),
+                lng: e.latLng.lng()
+            };
+        },
+        onMarkerClick: function onMarkerClick(collector) {
+            this.collectors = this.collectors.map(function (c) {
+                if (c.id == collector.id) {
+                    return _extends({}, c, { isInfoWindowOpen: true });
+                }
+
+                return _extends({}, c, { isInfoWindowOpen: false });
+            });
+        },
+        getDistanceFromLatLonInKm: function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+            var R = 6371; // Radius of the earth in km
+            var dLat = this.deg2rad(lat2 - lat1); // deg2rad below
+            var dLon = this.deg2rad(lon2 - lon1);
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c;
+            return d;
+        },
+        deg2rad: function deg2rad(deg) {
+            return deg * (Math.PI / 180);
+        }
+    }
+});
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("h4", [
+        _vm._v(
+          "\n        Lokasi Anda sekarang adalah: " +
+            _vm._s(this.pointer_marker.lat) +
+            ", " +
+            _vm._s(this.pointer_marker.lng) +
+            "\n    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "alert alert-info" }, [
+        _c("h4", [_vm._v(" Unit Pengumpulan Zakat terdekat dengan Anda: ")]),
+        _vm._v(" "),
+        _c("p", [
+          _c("strong", [
+            _vm._v(" " + _vm._s(_vm.sortedDistances[0].name) + " ")
+          ]),
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.sortedDistances[0].address) +
+              " (" +
+              _vm._s(_vm.sortedDistances[0].distance.toFixed(2)) +
+              " KM)\n        "
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "GmapMap",
+        {
+          staticStyle: { width: "100%", height: "640px" },
+          attrs: {
+            center: { lat: -0.02633, lng: 109.342504 },
+            zoom: 14,
+            "map-type-id": "terrain"
+          },
+          on: { click: _vm.moveMarker }
+        },
+        [
+          _vm._l(_vm.collectors, function(collector) {
+            return _c(
+              "span",
+              { key: collector.id },
+              [
+                _c("GmapMarker", {
+                  attrs: {
+                    position: {
+                      lat: collector.latitude,
+                      lng: collector.longitude
+                    },
+                    icon: "/png/location.png"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.onMarkerClick(collector)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "GmapInfoWindow",
+                  {
+                    attrs: {
+                      position: {
+                        lat: collector.latitude,
+                        lng: collector.longitude
+                      },
+                      opened: collector.isInfoWindowOpen
+                    },
+                    on: {
+                      closeclick: function($event) {
+                        collector.isInfoWindowOpen = false
+                      }
+                    }
+                  },
+                  [
+                    _c("div", [
+                      _c("div", { staticClass: "card" }, [
+                        _c("img", {
+                          staticClass: "card-img-top",
+                          staticStyle: {
+                            width: "14rem",
+                            height: "14rem",
+                            "object-fit": "cover"
+                          },
+                          attrs: {
+                            src: collector.imageUrl,
+                            alt: "Card image cap"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("h5", { staticClass: "card-title" }, [
+                            _vm._v(" " + _vm._s(collector.name) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "card-text" }, [
+                            _vm._v(" " + _vm._s(collector.address) + " ")
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]
+                )
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _c("GmapMarker", { attrs: { position: this.pointer_marker } })
+        ],
+        2
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3bf35862", module.exports)
+  }
+}
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

@@ -25,7 +25,7 @@
 
                                 <GmapMarker
                                     :position="{lat: receiver.latitude, lng: receiver.longitude}"
-                                    icon="/png/location.png">
+                                    icon="/png/location_green.png">
                                 </GmapMarker>
 
                             </span>
