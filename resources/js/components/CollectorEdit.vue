@@ -71,7 +71,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="longitude"> Longitude: </label>
-                                <input v-model.number="pointer_marker.lat" step="any" type="number" class="form-control" id="longitude" placeholder="Longitude">
+                                <input v-model.number="pointer_marker.lng" step="any" type="number" class="form-control" id="longitude" placeholder="Longitude">
                             </div>
                         </div>
 

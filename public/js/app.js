@@ -51744,8 +51744,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: _vm.pointer_marker.lat,
-                      expression: "pointer_marker.lat",
+                      value: _vm.pointer_marker.lng,
+                      expression: "pointer_marker.lng",
                       modifiers: { number: true }
                     }
                   ],
@@ -51756,7 +51756,7 @@ var render = function() {
                     id: "longitude",
                     placeholder: "Longitude"
                   },
-                  domProps: { value: _vm.pointer_marker.lat },
+                  domProps: { value: _vm.pointer_marker.lng },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
@@ -51764,7 +51764,7 @@ var render = function() {
                       }
                       _vm.$set(
                         _vm.pointer_marker,
-                        "lat",
+                        "lng",
                         _vm._n($event.target.value)
                       )
                     },
