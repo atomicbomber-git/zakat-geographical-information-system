@@ -56,6 +56,13 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
+  'spatie/laravel-blade-javascript' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\BladeJavaScript\\BladeJavaScriptServiceProvider',
+    ),
+  ),
   'spatie/laravel-medialibrary' => 
   array (
     'providers' => 

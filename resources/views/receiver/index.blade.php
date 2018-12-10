@@ -7,7 +7,7 @@
         Daftar Penerima Zakat
     </h1>
 
-    <div class="row mb-2">
+    <div class="row">
         <div class="col text-left"></div>
         <div class="col-2"></div>
         <div class="col text-right">
@@ -20,7 +20,7 @@
 
     @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
 
-    <div class="card">
+    <div class="card mt-5">
         <div class="card-header">
             <i class="fa fa-users"></i>
             Daftar Penerima Zakat
@@ -64,6 +64,7 @@
                                 <form action='{{ route('receiver.delete') }}' method='POST' class='d-inline-block'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
+                                        Hapus
                                         <i class='fa fa-trash'></i>
                                     </button>
                                 </form>

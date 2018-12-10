@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function() {
     Route::group(['prefix' => '/receiver', 'as' => 'receiver.'], function() {
         Route::get('/index', 'ReceiverController@index')->name('index');
         Route::get('/create', 'ReceiverController@create')->name('create');
+        Route::post('/store', 'ReceiverController@store')->name('store');
         Route::post('/delete', 'ReceiverController@delete')->name('delete');
     });
 
