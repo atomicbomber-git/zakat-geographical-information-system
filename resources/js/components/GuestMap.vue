@@ -8,11 +8,12 @@
             <h4> Unit Pengumpulan Zakat terdekat dengan Anda: </h4>
             <p>
                 <strong> {{ sortedDistances[0].name }} </strong>
-                {{ sortedDistances[0].address }} ({{ sortedDistances[0].distance.toFixed(2) }} KM)
+                {{ sortedDistances[0].address }} ({{ this.nearestDistance }})
             </p>
         </div>
 
         <GmapMap
+            ref="mapRef"
             :center="{lat:-0.026330, lng:109.342504}"
             :zoom="14"
             @click="moveMarker"
@@ -25,7 +26,7 @@
 
                 <GmapMarker
                     :position="{lat: collector.latitude, lng: collector.longitude}"
-                    icon="/png/location.png"
+                    icon="/png/mosque.png"
                     @click="onMarkerClick(collector)">
                 </GmapMarker>
 
@@ -55,9 +56,18 @@
 </template>
 
 <script>
+import {gmapApi} from 'vue2-google-maps'
+
 export default {
     mounted() {
-        console.log("Component mounted.")
+        
+        this.$refs.mapRef.$mapPromise.then((map) => {
+            this.map = map
+            this.directionsService = new google.maps.DirectionsService()
+            this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true})
+            this.distanceMatrixService = new google.maps.DistanceMatrixService();
+            this.directionsDisplay.setMap(map);
+        })
     },
 
     data() {
@@ -69,7 +79,9 @@ export default {
                     ...collector,
                     isInfoWindowOpen: false
                 }
-            })
+            }),
+
+            nearestDistance: null
         }
     },
 
@@ -85,6 +97,39 @@ export default {
 
         sortedDistances() {
             return this.distances.sort((a, b) => { return a.distance - b.distance })
+        },
+
+        google: gmapApi
+    },
+
+    watch: {
+        sortedDistances(locationDistances) {
+
+            let nearestLocation = locationDistances[0]
+            let travelMode = 'DRIVING'
+
+            // Create a directions request
+            let directionRequest = {
+                origin: new google.maps.LatLng(this.pointer_marker),
+                destination: new google.maps.LatLng({lat: nearestLocation.latitude, lng: nearestLocation.longitude}),
+                travelMode: travelMode
+            }
+
+            let distanceRequest = {
+                origins: [directionRequest.origin],
+                destinations: [directionRequest.destination],
+                travelMode: travelMode
+            }
+
+            this.distanceMatrixService.getDistanceMatrix(distanceRequest, (response, status) => {
+                if (status != 'OK') { return }
+                this.nearestDistance = response.rows[0].elements[0].distance.text
+            })
+
+            this.directionsService.route(directionRequest, (result, status) => {
+                if (status != 'OK') { return }
+                this.directionsDisplay.setDirections(result)
+            });
         }
     },
 

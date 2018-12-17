@@ -50632,7 +50632,7 @@ var render = function() {
                               lat: collector.latitude,
                               lng: collector.longitude
                             },
-                            icon: "/png/location.png"
+                            icon: "/png/mosque.png"
                           },
                           on: {
                             click: function($event) {
@@ -53174,6 +53174,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -53232,10 +53234,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
-        console.log("Component mounted.");
+        var _this = this;
+
+        this.$refs.mapRef.$mapPromise.then(function (map) {
+            _this.map = map;
+            _this.directionsService = new google.maps.DirectionsService();
+            _this.directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
+            _this.distanceMatrixService = new google.maps.DistanceMatrixService();
+            _this.directionsDisplay.setMap(map);
+        });
     },
     data: function data() {
         return {
@@ -53245,24 +53258,65 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 return _extends({}, collector, {
                     isInfoWindowOpen: false
                 });
-            })
+            }),
+
+            nearestDistance: null
         };
     },
 
 
     computed: {
         distances: function distances() {
-            var _this = this;
+            var _this2 = this;
 
             return this.collectors.map(function (collector) {
                 return _extends({}, collector, {
-                    distance: _this.getDistanceFromLatLonInKm(_this.pointer_marker.lat, _this.pointer_marker.lng, collector.latitude, collector.longitude)
+                    distance: _this2.getDistanceFromLatLonInKm(_this2.pointer_marker.lat, _this2.pointer_marker.lng, collector.latitude, collector.longitude)
                 });
             });
         },
         sortedDistances: function sortedDistances() {
             return this.distances.sort(function (a, b) {
                 return a.distance - b.distance;
+            });
+        },
+
+
+        google: __WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__["gmapApi"]
+    },
+
+    watch: {
+        sortedDistances: function sortedDistances(locationDistances) {
+            var _this3 = this;
+
+            var nearestLocation = locationDistances[0];
+            var travelMode = 'DRIVING';
+
+            // Create a directions request
+            var directionRequest = {
+                origin: new google.maps.LatLng(this.pointer_marker),
+                destination: new google.maps.LatLng({ lat: nearestLocation.latitude, lng: nearestLocation.longitude }),
+                travelMode: travelMode
+            };
+
+            var distanceRequest = {
+                origins: [directionRequest.origin],
+                destinations: [directionRequest.destination],
+                travelMode: travelMode
+            };
+
+            this.distanceMatrixService.getDistanceMatrix(distanceRequest, function (response, status) {
+                if (status != 'OK') {
+                    return;
+                }
+                _this3.nearestDistance = response.rows[0].elements[0].distance.text;
+            });
+
+            this.directionsService.route(directionRequest, function (result, status) {
+                if (status != 'OK') {
+                    return;
+                }
+                _this3.directionsDisplay.setDirections(result);
             });
         }
     },
@@ -53330,8 +53384,8 @@ var render = function() {
             "\n            " +
               _vm._s(_vm.sortedDistances[0].address) +
               " (" +
-              _vm._s(_vm.sortedDistances[0].distance.toFixed(2)) +
-              " KM)\n        "
+              _vm._s(this.nearestDistance) +
+              ")\n        "
           )
         ])
       ]),
@@ -53339,6 +53393,7 @@ var render = function() {
       _c(
         "GmapMap",
         {
+          ref: "mapRef",
           staticStyle: { width: "100%", height: "640px" },
           attrs: {
             center: { lat: -0.02633, lng: 109.342504 },
@@ -53359,7 +53414,7 @@ var render = function() {
                       lat: collector.latitude,
                       lng: collector.longitude
                     },
-                    icon: "/png/location.png"
+                    icon: "/png/mosque.png"
                   },
                   on: {
                     click: function($event) {

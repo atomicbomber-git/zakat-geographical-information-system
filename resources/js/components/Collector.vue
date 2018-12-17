@@ -25,7 +25,7 @@
 
                                 <GmapMarker
                                     :position="{lat: collector.latitude, lng: collector.longitude}"
-                                    icon="/png/location.png"
+                                    icon="/png/mosque.png"
                                     @click="onMarkerClick(collector)">
                                 </GmapMarker>
 
