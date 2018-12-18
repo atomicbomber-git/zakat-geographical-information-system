@@ -25,8 +25,44 @@
 
                                 <GmapMarker
                                     :position="{lat: receiver.latitude, lng: receiver.longitude}"
-                                    icon="/png/location_green.png">
+                                    @click="onMarkerClick(receiver)"
+                                    icon="/png/person.png">
                                 </GmapMarker>
+
+                                <GmapInfoWindow
+                                    :position="{lat: receiver.latitude, lng: receiver.longitude}"
+                                    :opened="receiver.isInfoWindowOpen"
+                                    @closeclick="receiver.isInfoWindowOpen=false">
+                                    <div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title"> {{ receiver.name }} </h5>
+                                            <hr>
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <dl>
+                                                        <dt> NIK: </dt> <dd> {{ receiver.nik }} </dd>
+                                                        <dt> Alamat: </dt> <dd> {{ receiver.address }} </dd>
+                                                        <dt> Kecamatan: </dt> <dd> {{ receiver.kecamatan }} </dd>
+                                                        <dt> Kelurahan: </dt> <dd> {{ receiver.kelurahan }} </dd>
+                                                        <dt> No. Telp: </dt> <dd> {{ receiver.phone }} </dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="col">
+                                                    <dl>
+                                                        <dt> Jenis Kelamin: </dt> <dd> {{ receiver.sex }} </dd>
+                                                        <dt> Pendidikan: </dt> <dd> {{ receiver.education }} </dd>
+                                                        <dt> Ansaf: </dt> <dd> {{ receiver.ansaf }} </dd>
+                                                        <dt> Program Bantuan: </dt> <dd> {{ receiver.help_program }} </dd>
+                                                        <dt> Jumlah: </dt> <dd> Rp. {{ parseFloat(receiver.amount).toLocaleString('id-ID') }} </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </GmapInfoWindow>
 
                             </span>
 
@@ -51,11 +87,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="latitude"> Latitude: </label>
-                                <input v-model="this.pointer_marker.lat" type="number" step="any" class="form-control" id="latitude" placeholder="Latitude">
+                                <input v-model.number="this.pointer_marker.lat" type="number" step="any" class="form-control" id="latitude" placeholder="Latitude">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="longitude"> Longitude: </label>
-                                <input v-model="this.pointer_marker.lng" type="number" step="any" class="form-control" id="longitude" placeholder="Longitude">
+                                <input v-model.number="this.pointer_marker.lng" type="number" step="any" class="form-control" id="longitude" placeholder="Longitude">
                             </div>
                         </div>
 
@@ -209,7 +245,7 @@
 
                 error_data: null,
 
-                receivers: window.receivers
+                receivers: window.receivers.map(receiver => { return {...receiver, isInfoWindowOpen: false} })
             }
         },
 
@@ -243,7 +279,8 @@
                 }
             },
 
-            onMarkerClick(collector) {
+            onMarkerClick(receiver) {
+                receiver.isInfoWindowOpen = true
             },
 
             submitForm: function (e) {

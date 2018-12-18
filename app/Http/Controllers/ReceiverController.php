@@ -22,8 +22,12 @@ class ReceiverController extends Controller
     
     public function create()
     {
-        $receivers = Receiver::select('id', 'name', 'latitude', 'longitude')
-            ->get();
+        $receivers = Receiver::select(
+            'id', 'name', 'latitude', 'longitude', 'nik', 'address',
+            'kecamatan', 'kelurahan', 'phone', 'sex', 'occupation',
+            'ansaf', 'help_program', 'amount'
+        )
+        ->get();
 
         return view('receiver.create', compact('receivers'));
     }
