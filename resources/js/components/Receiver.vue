@@ -34,36 +34,59 @@
                                     :opened="receiver.isInfoWindowOpen"
                                     @closeclick="receiver.isInfoWindowOpen=false">
                                     <div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title"> {{ receiver.name }} </h5>
-                                            <hr>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title"> {{ receiver.name }} </h5>
+                                                <hr>
 
-                                            <div class="row">
-                                                <div class="col">
-                                                    <dl>
-                                                        <dt> NIK: </dt> <dd> {{ receiver.nik }} </dd>
-                                                        <dt> Alamat: </dt> <dd> {{ receiver.address }} </dd>
-                                                        <dt> Kecamatan: </dt> <dd> {{ receiver.kecamatan }} </dd>
-                                                        <dt> Kelurahan: </dt> <dd> {{ receiver.kelurahan }} </dd>
-                                                        <dt> No. Telp: </dt> <dd> {{ receiver.phone }} </dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="col">
-                                                    <dl>
-                                                        <dt> Jenis Kelamin: </dt> <dd> {{ receiver.sex }} </dd>
-                                                        <dt> Pendidikan: </dt> <dd> {{ receiver.education }} </dd>
-                                                        <dt> Ansaf: </dt> <dd> {{ receiver.ansaf }} </dd>
-                                                        <dt> Program Bantuan: </dt> <dd> {{ receiver.help_program }} </dd>
-                                                        <dt> Jumlah: </dt> <dd> Rp. {{ parseFloat(receiver.amount).toLocaleString('id-ID') }} </dd>
-                                                    </dl>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <dl>
+                                                            <dt> NIK: </dt> <dd> {{ receiver.nik }} </dd>
+                                                            <dt> Alamat: </dt> <dd> {{ receiver.address }} </dd>
+                                                            <dt> Kecamatan: </dt> <dd> {{ receiver.kecamatan }} </dd>
+                                                            <dt> Kelurahan: </dt> <dd> {{ receiver.kelurahan }} </dd>
+                                                            <dt> No. Telp: </dt> <dd> {{ receiver.phone }} </dd>
+                                                        </dl>
+                                                    </div>
+                                                    <div class="col">
+                                                        <dl>
+                                                            <dt> Jenis Kelamin: </dt> <dd> {{ receiver.sex }} </dd>
+                                                            <dt> Pendidikan: </dt> <dd> {{ receiver.education }} </dd>
+                                                            <dt> Ansaf: </dt> <dd> {{ receiver.ansaf }} </dd>
+                                                            <dt> Program Bantuan: </dt> <dd> {{ receiver.help_program }} </dd>
+                                                            <dt> Jumlah: </dt> <dd> Rp. {{ parseFloat(receiver.amount).toLocaleString('id-ID') }} </dd>
+                                                        </dl>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </GmapInfoWindow>
+                                </GmapInfoWindow>
 
+                            </span>
+
+                            <span v-for="collector in collectors" :key="'R' + collector.id">
+                                <GmapMarker
+                                    :position="{lat: collector.latitude, lng: collector.longitude}"
+                                    @click="onCollectorMarkerClick(collector)"
+                                    icon="/png/mosque.png">
+                                </GmapMarker>
+
+                                <GmapInfoWindow
+                                    :position="{lat: collector.latitude, lng: collector.longitude}"
+                                    :opened="collector.isInfoWindowOpen"
+                                    @closeclick="collector.isInfoWindowOpen=false">
+                                    <div>
+                                        <div class="card">
+                                            <img class="card-img-top" style="width: 14rem; height: 14rem; object-fit: cover" :src="collector.imageUrl" alt="Card image cap">
+                                            <div class="card-body">
+                                                <h5 class="card-title"> {{ collector.name }} </h5>
+                                                <p class="card-text"> {{ collector.address }} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </GmapInfoWindow>
                             </span>
 
                         </GmapMap>
@@ -245,7 +268,8 @@
 
                 error_data: null,
 
-                receivers: window.receivers.map(receiver => { return {...receiver, isInfoWindowOpen: false} })
+                receivers: window.receivers.map(receiver => { return {...receiver, isInfoWindowOpen: false} }),
+                collectors: window.collectors.map(collector => { return {...collector, isInfoWindowOpen: false} })
             }
         },
 
@@ -281,6 +305,11 @@
 
             onMarkerClick(receiver) {
                 receiver.isInfoWindowOpen = true
+            },
+
+            onCollectorMarkerClick(collector) {
+                console.log(collector)
+                collector.isInfoWindowOpen = true
             },
 
             submitForm: function (e) {

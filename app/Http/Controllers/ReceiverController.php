@@ -30,8 +30,13 @@ class ReceiverController extends Controller
         )
         ->get();
 
-        $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
-            ->get();
+        $collectors = Collector::query()
+            ->select('id', 'name', 'address', 'latitude', 'longitude')
+            ->get()
+            ->transform(function($collector) {
+                $collector->imageUrl = route('collector.thumbnail', $collector) . "?" . rand();
+                return $collector;
+            });
 
         return view('receiver.create', compact('receivers', 'collectors'));
     }

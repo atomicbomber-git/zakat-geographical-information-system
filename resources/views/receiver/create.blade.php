@@ -12,5 +12,6 @@
     </div>
 
     @javascript('receivers', $receivers)
+    @javascript('collectors', $collectors)
 </div>
 @endsection
