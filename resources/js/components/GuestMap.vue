@@ -40,11 +40,42 @@
                             <div class="card-body">
                                 <h5 class="card-title"> {{ collector.name }} </h5>
                                 <p class="card-text"> {{ collector.address }} </p>
+                            
+                                <hr>
+
+                                <h5 class="mb-2"> Penerima Zakat Terdekat: </h5>
+                                <p class="mb-1" v-for="receiver in collector.nearestReceivers" :key="receiver.id">
+                                    {{ receiver.name }}, {{ receiver.address }}
+                                </p>
+                            
                             </div>
                         </div>
                     </div>
                 </GmapInfoWindow>
 
+            </span>
+
+            <span v-for="receiver in receivers"
+                :key="'R' + receiver.id">
+                <GmapMarker
+                    :position="{lat: receiver.latitude, lng: receiver.longitude}"
+                    icon="/png/person.png"
+                    @click="onReceiverMarkerClick(receiver)">
+                </GmapMarker>
+
+                <GmapInfoWindow
+                    :position="{lat: receiver.latitude, lng: receiver.longitude}"
+                    :opened="receiver.isInfoWindowOpen"
+                    @closeclick="receiver.isInfoWindowOpen=false">
+                    <div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5> {{ receiver.name }} </h5>
+                                <p style="margin-bottom: 0px"> {{ receiver.address }} </p>
+                            </div> 
+                        </div>
+                    </div>
+                </GmapInfoWindow>
             </span>
 
             <GmapMarker
@@ -77,6 +108,14 @@ export default {
             collectors: window.collectors.map(collector => {
                 return {
                     ...collector,
+                    isInfoWindowOpen: false,
+                    nearestReceivers: [],
+                }
+            }),
+
+            receivers: window.receivers.map(receiver => {
+                return {
+                    ...receiver,
                     isInfoWindowOpen: false
                 }
             }),
@@ -144,10 +183,32 @@ export default {
         onMarkerClick(collector) {
             this.collectors = this.collectors.map(c => {
                 if (c.id == collector.id) {
-                    return {...c, isInfoWindowOpen: true}
+
+                    let nearestReceivers = []
+
+                    // Calculate distance with all receiver
+                    receivers.forEach(receiver => {
+                        let distance = this.getDistanceFromLatLonInKm(
+                            receiver.latitude, receiver.longitude,
+                            collector.latitude, collector.longitude
+                        )
+
+                        if (distance <= 0.5) {
+                            nearestReceivers.push(receiver)
+                        }
+                    })
+
+                    return {...c, isInfoWindowOpen: true, nearestReceivers: nearestReceivers}
                 }
 
                 return {...c, isInfoWindowOpen: false}
+            })
+        },
+
+        onReceiverMarkerClick(receiver) {
+            this.receivers = this.receivers.map(c => {
+                if (c.id == receiver.id) { return {...c, isInfoWindowOpen: true} }
+                return {...c, isInfoWindowOpen: false }
             })
         },
 

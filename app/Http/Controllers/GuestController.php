@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Collector;
+use App\Receiver;
 
 class GuestController extends Controller
 {
@@ -12,6 +13,9 @@ class GuestController extends Controller
         $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
             ->get();
 
-        return view('guest.map', compact('collectors'));
+        $receivers = Receiver::select('id', 'name', 'address', 'latitude', 'longitude')
+            ->get();
+
+        return view('guest.map', compact('collectors', 'receivers'));
     }
 }

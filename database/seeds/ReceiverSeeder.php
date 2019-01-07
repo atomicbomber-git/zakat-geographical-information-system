@@ -11,6 +11,6 @@ class ReceiverSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Receiver::class, 20)->create();
+        factory(App\Receiver::class, 200)->create();
     }
 }

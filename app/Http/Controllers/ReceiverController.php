@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Receiver;
+use App\Collector;
 use Illuminate\Validation\Rule;
 
 class ReceiverController extends Controller
@@ -29,7 +30,10 @@ class ReceiverController extends Controller
         )
         ->get();
 
-        return view('receiver.create', compact('receivers'));
+        $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
+            ->get();
+
+        return view('receiver.create', compact('receivers', 'collectors'));
     }
     
     public function store()

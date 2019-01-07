@@ -33,7 +33,8 @@
         imageUrl: '{{ route('collector.thumbnail', $collector) . "?" . rand() }}'
     })
     @endforeach
-
 </script>
+
+@javascript('receivers', $receivers)
 
 @endsection
