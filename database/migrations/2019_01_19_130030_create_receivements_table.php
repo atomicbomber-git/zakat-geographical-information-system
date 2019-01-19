@@ -15,6 +15,19 @@ class CreateReceivementsTable extends Migration
     {
         Schema::create('receivements', function (Blueprint $table) {
             $table->increments('id');
+            $table->date('transaction_date');
+            $table->integer('collector_id')->unsigned();
+            $table->string("name");
+            $table->string("NIK");
+            $table->string("kecamatan");
+            $table->string("kelurahan");
+            $table->string("phone");
+            $table->string("gender");
+            $table->string("npwz");
+            $table->decimal('zakat', 19, 4);
+            $table->decimal('fitrah', 19, 4);
+            $table->decimal('infak', 19, 4);
+            $table->foreign('collector_id')->references('id')->on('collectors');
             $table->timestamps();
         });
     }

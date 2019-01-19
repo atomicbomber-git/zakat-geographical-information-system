@@ -31,10 +31,10 @@
                 @endcan
 
                 @can('act-as-collector')
-                    <li class="nav-item {{ Route::is("collector.report.*") ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('collector.report.index', auth()->user()->collector) }}">
-                            <i class="fa fa-list"></i>
-                            Laporan Penerimaan Zakat
+                    <li class='nav-item {{ Route::is('receivement.*') ? 'active' : '' }}'>
+                        <a class='nav-link' href='{{ route('receivement.index') }}'>
+                            <i class='fa fa-arrow-down'></i>
+                            Penerimaan Zakat
                         </a>
                     </li>
                 @endcan
