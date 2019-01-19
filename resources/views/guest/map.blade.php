@@ -1,23 +1,13 @@
 @extends('shared.layout')
 @section('title', 'Peta Persebaran UPZ')
 @section('content')
-<div class="container my-5">
+<div class="container my-5" id="app">
     <h1 class="mb-5">
         <i class="fa fa-map"></i>
         Peta Persebaran Unit Pengumpulan Zakat
     </h1>
 
-    <div class="card">
-        <div class="card-header">
-            <i class="fa fa-map"></i>
-            Peta Persebaran Unit Pengumpulan Zakat
-        </div>
-        <div class="card-body">
-            <div id="app">
-                <guest-map/>
-            </div>
-        </div>
-    </div>
+    <guest-map/>
 </div>
 
 <script>
@@ -36,5 +26,8 @@
 </script>
 
 @javascript('receivers', $receivers)
+
+@javascript('receivers_count', $receivers->count())
+@javascript('collectors_count', $collectors->count())
 
 @endsection

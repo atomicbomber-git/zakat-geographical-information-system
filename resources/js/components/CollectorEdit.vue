@@ -18,8 +18,7 @@
                             <GmapMarker
                                 v-if="pointer_marker"
                                 :position="pointer_marker"
-                                :clickable="true"
-                            />
+                                :clickable="true"/>
 
                             <span v-for="collector in collectors" :key="collector.id">
 
