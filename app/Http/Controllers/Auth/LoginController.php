@@ -26,7 +26,7 @@ class LoginController extends Controller
             case 'ADMINISTRATOR':
                 return route('collector.index');
             case 'COLLECTOR':
-                return route('receivement.index', auth()->user()->collector);
+                return route('collector.receivement.index', auth()->user()->collector);
         }
     }
 

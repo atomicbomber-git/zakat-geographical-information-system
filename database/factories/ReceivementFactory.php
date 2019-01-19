@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Receivement::class, function (Faker $faker) {
     return [
-        'transaction_date' =>  now()->subYear(rand(1, 8)),
+        'transaction_date' =>  now()->subYear(rand(1, 3)),
         'name' => $faker->name,
         'NIK' => $faker->randomNumber(6),
         'kecamatan' => $faker->randomElement(['A', 'B', 'C', 'D', 'E']),

@@ -46,13 +46,22 @@ Route::middleware('auth')->group(function() {
         });
     });
 
-    Route::group(['prefix' => '/receivement', 'as' => 'receivement.'], function() {
-        Route::get('/index', 'ReceivementController@index')->name('index');
-        Route::get('/create', 'ReceivementController@create')->name('create');
-        Route::post('/store', 'ReceivementController@store')->name('store');
-        Route::get('/edit/{receivement}', 'ReceivementController@edit')->name('edit');
-        Route::post('/update/{receivement}', 'ReceivementController@update')->name('update');
-        Route::post('/delete/{receivement}', 'ReceivementController@delete')->name('delete');
+    Route::group(['prefix' => '/collector-receivement', 'as' => 'collector.receivement.'], function() {
+        Route::get('/index', 'CollectorReceivementController@index')->name('index');
+        Route::get('/create', 'CollectorReceivementController@create')->name('create');
+        Route::post('/store', 'CollectorReceivementController@store')->name('store');
+        Route::get('/edit/{receivement}', 'CollectorReceivementController@edit')->name('edit');
+        Route::post('/update/{receivement}', 'CollectorReceivementController@update')->name('update');
+        Route::post('/delete/{receivement}', 'CollectorReceivementController@delete')->name('delete');
+    });
+
+    Route::group(['prefix' => '/collector-donation', 'as' => 'collector.donation.'], function() {
+        Route::get('/index', 'CollectorDonationController@index')->name('index');
+        Route::get('/create', 'CollectorDonationController@create')->name('create');
+        Route::post('/store', 'CollectorDonationController@store')->name('store');
+        Route::get('/edit/{donation}', 'CollectorDonationController@edit')->name('edit');
+        Route::post('/update/{donation}', 'CollectorDonationController@update')->name('update');
+        Route::post('/delete/{donation}', 'CollectorDonationController@delete')->name('delete');
     });
 
     Route::group(['prefix' => '/receiver', 'as' => 'receiver.'], function() {

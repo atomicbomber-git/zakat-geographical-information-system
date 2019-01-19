@@ -31,10 +31,17 @@
                 @endcan
 
                 @can('act-as-collector')
-                    <li class='nav-item {{ Route::is('receivement.*') ? 'active' : '' }}'>
-                        <a class='nav-link' href='{{ route('receivement.index') }}'>
+                    <li class='nav-item {{ Route::is('collector.receivement.*') ? 'active' : '' }}'>
+                        <a class='nav-link' href='{{ route('collector.receivement.index') }}'>
                             <i class='fa fa-arrow-down'></i>
                             Penerimaan Zakat
+                        </a>
+                    </li>
+
+                    <li class='nav-item {{ Route::is('collector.donation.*') ? 'active' : '' }}'>
+                        <a class='nav-link' href='{{ route('collector.donation.index') }}'>
+                            <i class='fa fa-arrow-up'></i>
+                            Pemberian Zakat
                         </a>
                     </li>
                 @endcan

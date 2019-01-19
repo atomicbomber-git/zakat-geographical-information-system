@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use App\Receivement;
 
-class ReceivementController extends Controller
+class CollectorReceivementController extends Controller
 {
     public function index()
     {

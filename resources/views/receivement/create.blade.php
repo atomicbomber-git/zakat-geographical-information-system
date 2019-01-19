@@ -12,7 +12,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item"> <a href="{{ route('receivement.index') }}"> Penerimaan Zakat </a> </li>
+            <li class="breadcrumb-item"> <a href="{{ route('collector.receivement.index') }}"> Penerimaan Zakat </a> </li>
             <li class="breadcrumb-item active"> Tambah Penerimaan Zakat </li>
         </ol>
     </nav>
@@ -23,7 +23,7 @@
             Tambah Penerimaan Zakat
         </div>
         <div class="card-body">
-            <form action="{{ route('receivement.store') }}" method="POST">
+            <form action="{{ route('collector.receivement.store') }}" method="POST">
                 @csrf
                 <h4> Identitas Pemberi Zakat </h4>
                 <hr class="mt-0">

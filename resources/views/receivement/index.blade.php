@@ -17,7 +17,7 @@
     </nav>
 
     <div class="my-4 text-right">
-        <a href="{{ route('receivement.create') }}" class="btn btn-dark btn-sm">
+        <a href="{{ route('collector.receivement.create') }}" class="btn btn-dark btn-sm">
             Tambah Penerimaan Zakat
             <i class="fa fa-plus"></i>
         </a>
@@ -78,11 +78,11 @@
                             <td class="text-right"> {{ number_format($receivement->fitrah) }} </td>
                             <td class="text-right"> {{ number_format($receivement->infak) }} </td>
                             <th class="text-center">
-                                <a href="{{ route('receivement.edit', $receivement) }}" class="btn btn-dark btn-sm">
+                                <a href="{{ route('collector.receivement.edit', $receivement) }}" class="btn btn-dark btn-sm">
                                     <i class="fa fa-pencil"></i>
                                 </a>
                                 
-                                <form action='{{ route('receivement.delete', $receivement) }}' method='POST' class='d-inline-block'>
+                                <form action='{{ route('collector.receivement.delete', $receivement) }}' method='POST' class='d-inline-block'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
                                         <i class='fa fa-trash'></i>

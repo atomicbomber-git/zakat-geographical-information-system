@@ -34,6 +34,10 @@ Vue.component('receiver', require('./components/Receiver.vue'));
 Vue.component('guest-map', require('./components/GuestMap.vue'));
 Vue.component('guest-chart', require('./components/GuestChart.vue'));
 
+Vue.component('collector-donation-create', require('./components/collector/donation/Create.vue'));
+Vue.component('collector-donation-edit', require('./components/collector/donation/Edit.vue'));
+
+
 const app = new Vue({
     el: '#app'
 });
