@@ -9,6 +9,20 @@
 
     @include('shared.alert.success')
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> SIG Zakat </li>
+            <li class="breadcrumb-item active"> Penerimaan Zakat </li>
+        </ol>
+    </nav>
+
+    <div class="my-4 text-right">
+        <a href="{{ route('receivement.create') }}" class="btn btn-dark btn-sm">
+            Tambah Penerimaan Zakat
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+
     <div class="card">
         <div class="card-header">
             <i class="fa fa-arrow-down"></i>
@@ -55,6 +69,8 @@
                             <td> {{ $receivement->transaction_date->format('d-m-Y') }} </td>
                             <td>
                                 <div> <strong> {{ $receivement->name }} </strong> </div>
+                                <div> {{ $receivement->NIK }} (NIK), {{ $receivement->npwz }} (NPWZ) </div>
+                                <div> {{ $receivement->phone }} (Telp) </div>
                                 <div> {{ $receivement->gender }} </div>
                                 <div> Kecamatan {{ $receivement->kecamatan }}, Kelurahan {{ $receivement->kelurahan }} </div>
                             </td>

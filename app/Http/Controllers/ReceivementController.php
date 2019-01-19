@@ -35,10 +35,30 @@ class ReceivementController extends Controller
     
     public function create()
     {
+        return view('receivement.create');
     }
     
     public function store()
-    {   
+    {
+        $data = $this->validate(request(), [
+            'name' => 'required|string',
+            'gender' => Rule::in(array_keys(Receivement::GENDERS)),
+            'NIK' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kelurahan' => 'required|string',
+            'transaction_date' => 'required|date',
+            'npwz' => 'required|string',
+            'phone' => 'required|string',
+            'zakat' => 'required|numeric|gte:0',
+            'fitrah' => 'required|numeric|gte:0',
+            'infak' => 'required|numeric|gte:0',
+        ]);
+        
+        $data['collector_id'] = auth()->user()->collector->id;
+        Receivement::create($data);
+
+        return back()
+            ->with('message-success', __('messages.create.success'));
     }
     
     public function edit(Receivement $receivement)
@@ -54,6 +74,8 @@ class ReceivementController extends Controller
             'NIK' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
+            'npwz' => 'required|string',
+            'phone' => 'required|string',
             'transaction_date' => 'required|date',
             'zakat' => 'required|numeric|gte:0',
             'fitrah' => 'required|numeric|gte:0',

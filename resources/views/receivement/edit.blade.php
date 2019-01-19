@@ -9,6 +9,14 @@
 
     @include('shared.alert.success')
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> SIG Zakat </li>
+            <li class="breadcrumb-item"> <a href="{{ route('receivement.index') }}"> Penerimaan Zakat </a> </li>
+            <li class="breadcrumb-item active"> Sunting Penerimaan Zakat </li>
+        </ol>
+    </nav>
+
     <div class="card">
         <div class="card-header">
             <i class="fa fa-pencil"></i>
@@ -87,6 +95,34 @@
                         {{ $errors->first('kelurahan') }}
                     </div>
                 </div>
+
+                <div class='form-group'>
+                        <label for='npwz'> NPWZ: </label>
+                    
+                        <input
+                            id='npwz' name='npwz' type='text'
+                            placeholder='NPWZ'
+                            value='{{ old('npwz', $receivement->npwz) }}'
+                            class='form-control {{ !$errors->has('npwz') ?: 'is-invalid' }}'>
+                    
+                        <div class='invalid-feedback'>
+                            {{ $errors->first('npwz') }}
+                        </div>
+                    </div>
+    
+                    <div class='form-group'>
+                        <label for='phone'> No. Telefon: </label>
+                    
+                        <input
+                            id='phone' name='phone' type='phone'
+                            placeholder='No. Telefon'
+                            value='{{ old('phone', $receivement->phone) }}'
+                            class='form-control {{ !$errors->has('phone') ?: 'is-invalid' }}'>
+                    
+                        <div class='invalid-feedback'>
+                            {{ $errors->first('phone') }}
+                        </div>
+                    </div>
     
                 <h4 class="mt-5"> Informasi Zakat </h4>
                 <hr class="mt-0">
