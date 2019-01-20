@@ -28,12 +28,12 @@ Vue.use(VueGoogleMaps, {
     },
 })
 
-Vue.component('collector', require('./components/Collector.vue'));
-Vue.component('collector-edit', require('./components/CollectorEdit.vue'));
 Vue.component('receiver', require('./components/Receiver.vue'));
 Vue.component('guest-map', require('./components/GuestMap.vue'));
 Vue.component('guest-chart', require('./components/GuestChart.vue'));
 
+Vue.component('collector-create', require('./components/collector/Create.vue'));
+Vue.component('collector-edit', require('./components/collector/Edit.vue'));
 Vue.component('collector-donation-create', require('./components/collector/donation/Create.vue'));
 Vue.component('collector-donation-edit', require('./components/collector/donation/Edit.vue'));
 

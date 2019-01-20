@@ -31,7 +31,7 @@
     </h1>
 
     <div id="app">
-        <collector/>
+        <collector-create/>
     </div>
 </div>
 @endsection

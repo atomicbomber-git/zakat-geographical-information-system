@@ -15,7 +15,7 @@ class CollectorController extends Controller
     {
         $collectors = Collector::select('name', 'user_id', 'npwz', 'id')
             ->with('user:id,name,username')
-            ->withCount('reports')
+            ->withCount('receivements', 'donations')
             ->get();
 
         return view('collector.index', compact('collectors'));
@@ -73,7 +73,13 @@ class CollectorController extends Controller
     {
         $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
             ->with('user:name,username')
-            ->get();
+            ->get()
+            ->transform(function($collector) {
+                $collector->image_url = route('collector.thumbnail', $collector) . "?" . rand();
+                return $collector;
+            });
+        
+        $collector->load('user');
 
         return view('collector.edit', compact('collector', 'collectors'));
     }
@@ -106,6 +112,8 @@ class CollectorController extends Controller
             $collector->user->update($user_data);
 
             $collector->update([
+                'latitude' => $data['latitude'],
+                'longitude' => $data['longitude'],
                 'address' => $data['address'],
                 'name' => $data['collector_name'],
                 'npwz' => $data['npwz'],

@@ -51,10 +51,6 @@ Route::middleware('auth')->group(function() {
         Route::get('/detail/{collector}', 'ReceivementController@detail')->name('detail');
     });
 
-    Route::group(['prefix' => '/donation', 'as' => 'donation.'], function() {
-        Route::get('/api/count/{collector}', 'DonationController@count')->name('api.count');
-    });
-
     Route::group(['prefix' => '/collector-receivement', 'as' => 'collector.receivement.'], function() {
         Route::get('/index', 'CollectorReceivementController@index')->name('index');
         Route::get('/create', 'CollectorReceivementController@create')->name('create');
@@ -83,6 +79,10 @@ Route::middleware('auth')->group(function() {
     Route::group(['prefix' => '/report', 'as' => 'report.'], function() {
         Route::get('/index', 'ReportController@index')->middleware('can:act-as-administrator')->name('index');
     });
+});
+
+Route::group(['prefix' => '/donation', 'as' => 'donation.'], function() {
+    Route::get('/api/count/{collector}', 'DonationController@count')->name('api.count');
 });
 
 Route::get('/image/thumbnail/{collector}', 'CollectorController@thumbnail')->name('collector.thumbnail');

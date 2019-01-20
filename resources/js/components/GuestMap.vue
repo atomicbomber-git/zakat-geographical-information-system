@@ -72,9 +72,16 @@
                                                     :labels="collector.donation_counts.map(record => record.year)"
                                                     title="Perkembangan Jumlah Penerima Zakat"
                                                     type="bar"
-                                                    :dataSets="[
-                                                        {values: collector.donation_counts.map(record => record.count)}
-                                                    ]">
+                                                    :dataSets="[{
+                                                            name: 'Penerima Zakat',
+                                                            values: collector.donation_counts.map(record => record.count)
+                                                    }]"
+                                                    
+                                                    :tooltipOptions="{
+                                                        formatTooltipX: d => (d + '').toUpperCase(),
+                                                        formatTooltipY: d => d,
+                                                    }"
+                                                    >
                                                 </vue-frappe>
 
                                                 <hr>
