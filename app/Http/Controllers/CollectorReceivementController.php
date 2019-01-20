@@ -30,12 +30,12 @@ class CollectorReceivementController extends Controller
             ->whereYear('transaction_date', $year)
             ->get();
 
-        return view('receivement.index', compact('year', 'available_years', 'receivements'));
+        return view('collector.receivement.index', compact('year', 'available_years', 'receivements'));
     }
     
     public function create()
     {
-        return view('receivement.create');
+        return view('collector.receivement.create');
     }
     
     public function store()
@@ -63,7 +63,7 @@ class CollectorReceivementController extends Controller
     
     public function edit(Receivement $receivement)
     {
-        return view('receivement.edit', compact('receivement'));
+        return view('collector.receivement.edit', compact('receivement'));
     }
     
     public function update(Receivement $receivement)

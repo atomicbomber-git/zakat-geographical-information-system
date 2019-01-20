@@ -31,7 +31,7 @@
 
                         <GmapMap
                             ref="mapRef"
-                            :center="{lat:-0.026330, lng:109.342504}"
+                            :center="this.center"
                             :zoom="14"
                             @click="moveMarker"
                             map-type-id="terrain"
@@ -114,19 +114,22 @@ export default {
         this.$refs.mapRef.$mapPromise.then((map) => {
             this.map = map
             this.directionsService = new google.maps.DirectionsService()
-            this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true})
+            this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true, preserveViewport: true})
             this.distanceMatrixService = new google.maps.DistanceMatrixService();
             this.directionsDisplay.setMap(map);
 
             navigator.geolocation.getCurrentPosition(position => {
                 this.pointer_marker.lat = position.coords.latitude
                 this.pointer_marker.lng = position.coords.longitude
+                this.center.lat = position.coords.latitude
+                this.center.lng = position.coords.longitude
             })
         })
     },
 
     data() {
         return {
+            center: {lat:-0.026330, lng:109.342504},
             pointer_marker: {lat:-0.026330, lng:109.342504},
 
             receivers_count: window.receivers_count,
@@ -208,6 +211,9 @@ export default {
         },
 
         onMarkerClick(collector) {
+            this.center.lat = collector.latitude
+            this.center.lng = collector.longitude
+
             this.collectors = this.collectors.map(c => {
                 if (c.id == collector.id) {
 

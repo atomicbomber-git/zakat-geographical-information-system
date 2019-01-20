@@ -46,6 +46,15 @@ Route::middleware('auth')->group(function() {
         });
     });
 
+    Route::group(['prefix' => '/receivement', 'as' => 'receivement.'], function() {
+        Route::get('/index', 'ReceivementController@index')->name('index');
+        Route::get('/create', 'ReceivementController@create')->name('create');
+        Route::post('/store', 'ReceivementController@store')->name('store');
+        Route::get('/edit/{receivement}', 'ReceivementController@edit')->name('edit');
+        Route::post('/update/{receivement}', 'ReceivementController@update')->name('update');
+        Route::post('/delete/{receivement}', 'ReceivementController@delete')->name('delete');
+    });
+
     Route::group(['prefix' => '/collector-receivement', 'as' => 'collector.receivement.'], function() {
         Route::get('/index', 'CollectorReceivementController@index')->name('index');
         Route::get('/create', 'CollectorReceivementController@create')->name('create');

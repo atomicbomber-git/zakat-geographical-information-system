@@ -37,4 +37,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Collector::class);
     }
+
+    public function getDescriptionAttribute()
+    {
+        switch ($this->type) {
+            case 'ADMINISTRATOR':
+                return "Administrator Situs";
+            case 'COLLECTOR':
+                return "Administrator UPZ " . $this->collector->name;
+        }
+    }
 }
