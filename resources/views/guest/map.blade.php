@@ -10,24 +10,6 @@
     <guest-map/>
 </div>
 
-<script>
-    window.collectors = []
-
-    @foreach ($collectors as $collector)
-    collectors.push({
-        id: {{ $collector->id }},
-        latitude: {{ $collector->latitude }},
-        longitude: {{ $collector->longitude }},
-        name: '{{ $collector->name }}',
-        address: `{{ $collector->address }}`,
-        imageUrl: '{{ route('collector.thumbnail', $collector) . "?" . rand() }}'
-    })
-    @endforeach
-</script>
-
-@javascript('receivers', $receivers)
-
-@javascript('receivers_count', $receivers->count())
-@javascript('collectors_count', $collectors->count())
+@javascript('collectors', $collectors)
 
 @endsection

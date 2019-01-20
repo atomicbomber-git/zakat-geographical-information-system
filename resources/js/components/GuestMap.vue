@@ -1,14 +1,5 @@
 <template>
     <div>
-        <div class="card mb-3">
-            <div class="card-body">
-                <guest-chart
-                    :receivers_count="receivers_count"
-                    :collectors_count="collectors_count"
-                    />
-            </div>
-        </div>
-
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-map"></i>
@@ -47,49 +38,53 @@
                                     @click="onMarkerClick(collector)">
                                 </GmapMarker>
 
+                                <span v-for="donation in collector.donations" :key="donation.id">
+                                    <GmapMarker
+                                        @click="donation.isInfoWindowOpen=true"
+                                        :position="{lat: donation.latitude, lng: donation.longitude}"
+                                        icon="/png/person.png"/>
+                                    
+                                    <GmapInfoWindow
+                                        @closeclick="donation.isInfoWindowOpen=false"
+                                        :position="{lat: donation.latitude, lng: donation.longitude}"
+                                        :opened="donation.isInfoWindowOpen">
+                                        {{ donation.name }}
+                                    </GmapInfoWindow>
+                                </span>
+
+
                                 <GmapInfoWindow
                                     :position="{lat: collector.latitude, lng: collector.longitude}"
                                     :opened="collector.isInfoWindowOpen"
                                     @closeclick="collector.isInfoWindowOpen=false">
                                     <div>
-                                        <div class="card">
-                                            <img class="card-img-top" style="width: 14rem; height: 14rem; object-fit: cover" :src="collector.imageUrl" alt="Card image cap">
+                                        <div class="card" style="width: 25rem;">
+                                            <img class="card-img-top" style="width: auto; height: auto; object-fit: cover" :src="collector.image_url" alt="Card image cap">
                                             <div class="card-body">
                                                 <h5 class="card-title"> {{ collector.name }} </h5>
                                                 <p class="card-text"> {{ collector.address }} </p>
-                                            
+                                                
                                                 <hr>
 
-                                                <h5 class="mb-2"> Penerima Zakat Terdekat: </h5>
-                                                <p class="mb-1" v-for="receiver in collector.nearestReceivers" :key="receiver.id">
-                                                    {{ receiver.name }}, {{ receiver.address }}
+                                                <vue-frappe
+                                                    v-if="collector.donation_counts.length !== 0"
+                                                    :id="`chart_${collector.id}`"
+                                                    :labels="collector.donation_counts.map(record => record.year)"
+                                                    title="Perkembangan Jumlah Penerima Zakat"
+                                                    type="bar"
+                                                    :dataSets="[
+                                                        {values: collector.donation_counts.map(record => record.count)}
+                                                    ]">
+                                                </vue-frappe>
+
+                                                <hr>
+
+                                                <p class="mb-2"> <strong> Penerima Zakat Terdekat: </strong> </p>
+                                                <p class="mb-1" v-for="donation in collector.nearestDonations" :key="donation.id">
+                                                    {{ donation.name }}, {{ donation.address }}
                                                 </p>
                                             
                                             </div>
-                                        </div>
-                                    </div>
-                                </GmapInfoWindow>
-
-                            </span>
-
-                            <span v-for="receiver in receivers"
-                                :key="'R' + receiver.id">
-                                <GmapMarker
-                                    :position="{lat: receiver.latitude, lng: receiver.longitude}"
-                                    icon="/png/person.png"
-                                    @click="onReceiverMarkerClick(receiver)">
-                                </GmapMarker>
-
-                                <GmapInfoWindow
-                                    :position="{lat: receiver.latitude, lng: receiver.longitude}"
-                                    :opened="receiver.isInfoWindowOpen"
-                                    @closeclick="receiver.isInfoWindowOpen=false">
-                                    <div>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5> {{ receiver.name }} </h5>
-                                                <p style="margin-bottom: 0px"> {{ receiver.address }} </p>
-                                            </div> 
                                         </div>
                                     </div>
                                 </GmapInfoWindow>
@@ -139,14 +134,9 @@ export default {
                 return {
                     ...collector,
                     isInfoWindowOpen: false,
-                    nearestReceivers: [],
-                }
-            }),
-
-            receivers: window.receivers.map(receiver => {
-                return {
-                    ...receiver,
-                    isInfoWindowOpen: false
+                    donation_counts: [],
+                    donations: collector.donations.map(donation => { return {...donation, isInfoWindowOpen: false } }),
+                    nearestDonations: [],
                 }
             }),
 
@@ -155,6 +145,12 @@ export default {
     },
 
     computed: {
+        donations() {
+            return this.collectors.reduce((acc, collector) => {
+                return [...acc, ...collector.donations]
+            }, [])
+        },
+
         distances() {
             return this.collectors.map(collector => {
                 return {
@@ -211,37 +207,47 @@ export default {
         },
 
         onMarkerClick(collector) {
-            this.center.lat = collector.latitude
-            this.center.lng = collector.longitude
+
+            this.collectors = this.collectors.map(c => {
+                if (c.id == collector.id) {
+                    return {...c, isInfoWindowOpen: true}
+                }
+                return c;
+            })
+
+            axios.get(`/donation/api/count/${collector.id}`)
+                .then((response) => {
+                    this.collectors = this.collectors.map(c => {
+                        if (c.id == collector.id) {
+                            return {...c, donation_counts: response.data}
+                        }
+                        return c;
+                    })
+                })
+                .catch()
+
 
             this.collectors = this.collectors.map(c => {
                 if (c.id == collector.id) {
 
-                    let nearestReceivers = []
+                    let nearestDonations = []
 
                     // Calculate distance with all receiver
-                    receivers.forEach(receiver => {
+                    this.donations.forEach(donation => {
                         let distance = this.getDistanceFromLatLonInKm(
-                            receiver.latitude, receiver.longitude,
+                            donation.latitude, donation.longitude,
                             collector.latitude, collector.longitude
                         )
 
                         if (distance <= 0.5) {
-                            nearestReceivers.push(receiver)
+                            nearestDonations.push(donation)
                         }
                     })
 
-                    return {...c, isInfoWindowOpen: true, nearestReceivers: nearestReceivers}
+                    return {...c, isInfoWindowOpen: true, nearestDonations: nearestDonations}
                 }
 
                 return {...c, isInfoWindowOpen: false}
-            })
-        },
-
-        onReceiverMarkerClick(receiver) {
-            this.receivers = this.receivers.map(c => {
-                if (c.id == receiver.id) { return {...c, isInfoWindowOpen: true} }
-                return {...c, isInfoWindowOpen: false }
             })
         },
 

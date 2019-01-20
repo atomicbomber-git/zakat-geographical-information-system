@@ -51,6 +51,10 @@ Route::middleware('auth')->group(function() {
         Route::get('/detail/{collector}', 'ReceivementController@detail')->name('detail');
     });
 
+    Route::group(['prefix' => '/donation', 'as' => 'donation.'], function() {
+        Route::get('/api/count/{collector}', 'DonationController@count')->name('api.count');
+    });
+
     Route::group(['prefix' => '/collector-receivement', 'as' => 'collector.receivement.'], function() {
         Route::get('/index', 'CollectorReceivementController@index')->name('index');
         Route::get('/create', 'CollectorReceivementController@create')->name('create');
