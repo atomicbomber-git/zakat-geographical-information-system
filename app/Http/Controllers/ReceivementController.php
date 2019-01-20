@@ -55,6 +55,6 @@ class ReceivementController extends Controller
             ->whereYear('transaction_date', $year)
             ->get();
 
-        return view('receivement.detail', compact('collector', 'receivements'));
+        return view('receivement.detail', compact('collector', 'receivements', 'year'));
     }
 }

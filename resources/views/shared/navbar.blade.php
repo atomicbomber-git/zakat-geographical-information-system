@@ -22,6 +22,13 @@
                         </a>
                     </li>
 
+                    <li class='nav-item {{ Route::is('donation.*') ? 'active' : '' }}'>
+                        <a class='nav-link' href='{{ route('donation.index') }}'>
+                            <i class='fa fa-arrow-up'></i>
+                            Pemberian Zakat
+                        </a>
+                    </li>
+
                 @endcan
 
                 @can('act-as-collector')

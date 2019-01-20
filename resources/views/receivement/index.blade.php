@@ -16,13 +16,6 @@
         </ol>
     </nav>
 
-    <div class="my-4 text-right">
-        <a href="{{ route('collector.receivement.create') }}" class="btn btn-dark btn-sm">
-            Tambah Penerimaan Zakat
-            <i class="fa fa-plus"></i>
-        </a>
-    </div>
-
     <div class="card">
         <div class="card-header">
             <i class="fa fa-arrow-down"></i>

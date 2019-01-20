@@ -12,7 +12,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item"> <a href="{{ route('receivement.index') }}"> Penerimaan Zakat </a> </li>
+            <li class="breadcrumb-item"> <a href="{{ route('receivement.index', ['year' => $year]) }}"> Penerimaan Zakat </a> </li>
             <li class="breadcrumb-item"> Detail Penerimaan Zakat </li>
         </ol>
     </nav>
