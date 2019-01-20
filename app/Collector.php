@@ -28,6 +28,11 @@ class Collector extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function receivements()
+    {
+        return $this->hasMany(Receivement::class);
+    }
+
     public function reports()
     {
         return $this->hasMany(Report::class);

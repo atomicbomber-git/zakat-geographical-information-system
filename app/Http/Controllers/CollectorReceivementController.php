@@ -24,7 +24,8 @@ class CollectorReceivementController extends Controller
             ->select(
                 'id', 'transaction_date', 'collector_id', 'name',
                 'NIK', 'kecamatan', 'kelurahan', 'phone',
-                'gender', 'npwz', 'zakat', 'fitrah', 'infak'
+                'gender', 'npwz', 'zakat', 'fitrah', 'infak',
+                DB::raw('(zakat + fitrah + infak) AS total')
             )
             ->where('collector_id', auth()->user()->collector->id)
             ->whereYear('transaction_date', $year)

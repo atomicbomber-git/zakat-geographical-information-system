@@ -43,7 +43,7 @@
                 <li class="nav-item {{ Route::is("guest.*") ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('guest.map') }}">
                         <i class="fa fa-map"></i>
-                        Peta Persebaran UPZ
+                        Peta
                     </a>
                 </li>
             </ul>

@@ -47,8 +47,6 @@
                 </form>
             </div>
 
-            
-
             <div class='table-responsive'>
                 <table class='table table-sm table-bordered'>
                    <thead class="thead thead-dark">
@@ -59,6 +57,7 @@
                             <th class="text-right"> Zakat (Rp.) </th>
                             <th class="text-right"> Fitrah (Rp.) </th>
                             <th class="text-right"> Infak (Rp.) </th>
+                            <th class="text-right"> Total (Rp.) </th>
                             <th class="text-center"> Aksi </th>
                         </tr>
                    </thead>
@@ -77,6 +76,7 @@
                             <td class="text-right"> {{ number_format($receivement->zakat) }} </td>
                             <td class="text-right"> {{ number_format($receivement->fitrah) }} </td>
                             <td class="text-right"> {{ number_format($receivement->infak) }} </td>
+                            <td class="text-right"> {{ number_format($receivement->total) }} </td>
                             <th class="text-center">
                                 <a href="{{ route('collector.receivement.edit', $receivement) }}" class="btn btn-dark btn-sm">
                                     <i class="fa fa-pencil"></i>
@@ -96,6 +96,7 @@
                            <td class="text-right"> {{ number_format($receivements->sum('zakat')) }} </td>
                            <td class="text-right"> {{ number_format($receivements->sum('fitrah')) }} </td>
                            <td class="text-right"> {{ number_format($receivements->sum('infak')) }} </td>
+                           <td class="text-right"> {{ number_format($receivements->sum('total')) }} </td>
                            <td> </td>
                        </tr>
                    </tbody>

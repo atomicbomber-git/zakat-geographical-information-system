@@ -22,6 +22,11 @@ class Receivement extends Model
         "zakat","fitrah","infak"
     ];
 
+    public function collector()
+    {
+        return $this->belongsTo(Collector::class);
+    }
+
     public function getGenderAttribute($value)
     {
         return $this::GENDERS[$value];

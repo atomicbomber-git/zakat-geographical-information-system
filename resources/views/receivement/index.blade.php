@@ -47,56 +47,44 @@
                 </form>
             </div>
 
-            
-
             <div class='table-responsive'>
                 <table class='table table-sm table-bordered'>
                    <thead class="thead thead-dark">
                         <tr>
                             <th> # </th>
-                            <th> Tanggal Transaksi </th>
-                            <th> Identitas Pemberi </th>
+                            <th> UPZ </th>
                             <th class="text-right"> Zakat (Rp.) </th>
                             <th class="text-right"> Fitrah (Rp.) </th>
                             <th class="text-right"> Infak (Rp.) </th>
+                            <th class="text-right"> Total </th>
                             <th class="text-center"> Aksi </th>
                         </tr>
                    </thead>
                    <tbody>
-                       @foreach ($receivements as $receivement)
+                       @foreach ($collectors as $collector)
                         <tr>
                             <td> {{ $loop->iteration }}. </td>
-                            <td> {{ $receivement->transaction_date->format('d-m-Y') }} </td>
-                            <td>
-                                <div> <strong> {{ $receivement->name }} </strong> </div>
-                                <div> {{ $receivement->NIK }} (NIK), {{ $receivement->npwz }} (NPWZ) </div>
-                                <div> {{ $receivement->phone }} (Telp) </div>
-                                <div> {{ $receivement->gender }} </div>
-                                <div> Kecamatan {{ $receivement->kecamatan }}, Kelurahan {{ $receivement->kelurahan }} </div>
-                            </td>
-                            <td class="text-right"> {{ number_format($receivement->zakat) }} </td>
-                            <td class="text-right"> {{ number_format($receivement->fitrah) }} </td>
-                            <td class="text-right"> {{ number_format($receivement->infak) }} </td>
-                            <th class="text-center">
-                                <a href="{{ route('collector.receivement.edit', $receivement) }}" class="btn btn-dark btn-sm">
-                                    <i class="fa fa-pencil"></i>
+                            <td> {{ $collector->name }} </td>
+                            <td class="text-right"> {{ number_format($collector->receivement['zakat']) }} </td>
+                            <td class="text-right"> {{ number_format($collector->receivement['fitrah']) }} </td>
+                            <td class="text-right"> {{ number_format($collector->receivement['infak']) }} </td>
+                            <td class="text-right"> {{ number_format($collector->receivement['subtotal']) }} </td>
+                            <td class="text-center">
+                                <a href="{{ route('receivement.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm">
+                                    Detail
+                                    <i class="fa fa-list"></i>
                                 </a>
-                                
-                                <form action='{{ route('collector.receivement.delete', $receivement) }}' method='POST' class='d-inline-block'>
-                                    @csrf
-                                    <button type='submit' class='btn btn-danger btn-sm'>
-                                        <i class='fa fa-trash'></i>
-                                    </button>
-                                </form>
-                            </th>
+                            </td>
                         </tr>
                        @endforeach
                        <tr>
-                           <td colspan="3" class="text-right"> Total: </td>
-                           <td class="text-right"> {{ number_format($receivements->sum('zakat')) }} </td>
-                           <td class="text-right"> {{ number_format($receivements->sum('fitrah')) }} </td>
-                           <td class="text-right"> {{ number_format($receivements->sum('infak')) }} </td>
-                           <td> </td>
+                           <td></td>
+                           <td class="text-right"> Total: </td>
+                           <td class="text-right"> {{ number_format($collectors->sum('receivement.zakat')) }} </td>
+                           <td class="text-right"> {{ number_format($collectors->sum('receivement.fitrah')) }} </td>
+                           <td class="text-right"> {{ number_format($collectors->sum('receivement.infak')) }} </td>
+                           <td class="text-right"> {{ number_format($collectors->sum('receivement.subtotal')) }} </td>
+                           <td></td>
                        </tr>
                    </tbody>
                 </table>
