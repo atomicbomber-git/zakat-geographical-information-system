@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0",
+        "numeral": "^2.0.6",
         "vue2-frappe": "^1.0.28",
         "vue2-google-maps": "^0.10.2"
     }

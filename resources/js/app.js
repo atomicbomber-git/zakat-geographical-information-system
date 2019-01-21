@@ -32,11 +32,36 @@ Vue.component('receiver', require('./components/Receiver.vue'));
 Vue.component('guest-map', require('./components/GuestMap.vue'));
 Vue.component('guest-chart', require('./components/GuestChart.vue'));
 
+Vue.component('receivement-chart', require('./components/receivement/Chart.vue'));
 Vue.component('collector-create', require('./components/collector/Create.vue'));
 Vue.component('collector-edit', require('./components/collector/Edit.vue'));
 Vue.component('collector-donation-create', require('./components/collector/donation/Create.vue'));
 Vue.component('collector-donation-edit', require('./components/collector/donation/Edit.vue'));
 
+
+// numeral.js
+
+import numeral from 'numeral'
+
+numeral.register('locale', 'id', {
+    delimiters: {
+        thousands: '.',
+        decimal: ','
+    },
+    abbreviations: {
+        thousand: 'Ribu',
+        million: 'Juta',
+        billion: 'Miliar',
+        trillion: 'Triliun'
+    },
+    currency: {
+        symbol: 'Rp.'
+    }
+});
+
+numeral.locale('id')
+
+window.numeral = numeral
 
 const app = new Vue({
     el: '#app'
