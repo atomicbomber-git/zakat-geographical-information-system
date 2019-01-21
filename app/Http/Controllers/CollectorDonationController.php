@@ -52,6 +52,7 @@ class CollectorDonationController extends Controller
         $data = $this->validate(request(), [
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
+            'transaction_date' => 'required|date',
             'name' => 'required|string',
             'nik' => 'required|string',
             'address' => 'required|string',
