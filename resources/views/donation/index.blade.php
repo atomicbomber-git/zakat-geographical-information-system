@@ -16,6 +16,10 @@
         </ol>
     </nav>
 
+    <div id="app">
+        <donation-chart/>
+    </div>
+
     <div class="card">
         <div class="card-header">
             <i class="fa fa-arrow-up"></i>
@@ -76,4 +80,6 @@
         </div>
     </div>
 </div>
+
+@javascript('donations', $yearly_donations)
 @endsection

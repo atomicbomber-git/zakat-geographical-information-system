@@ -23,6 +23,10 @@
         </a>
     </div>
 
+    <div id="app">
+        <receivement-chart/>
+    </div>
+
     <div class="card">
         <div class="card-header">
             <i class="fa fa-arrow-down"></i>
@@ -105,4 +109,6 @@
         </div>
     </div>
 </div>
+
+@javascript('receivements', $yearly_receivements)
 @endsection

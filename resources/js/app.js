@@ -28,11 +28,19 @@ Vue.use(VueGoogleMaps, {
     },
 })
 
+
+Vue.component('receivement-base-chart', require('./components/shared/ReceivementChart.vue'));
+Vue.component('donation-base-chart', require('./components/shared/DonationChart.vue'));
+
 Vue.component('receiver', require('./components/Receiver.vue'));
 Vue.component('guest-map', require('./components/GuestMap.vue'));
 Vue.component('guest-chart', require('./components/GuestChart.vue'));
 
 Vue.component('receivement-chart', require('./components/receivement/Chart.vue'));
+Vue.component('receivement-detail-chart', require('./components/receivement/DetailChart.vue'));
+Vue.component('donation-chart', require('./components/donation/Chart.vue'));
+Vue.component('donation-detail-chart', require('./components/donation/DetailChart.vue'));
+
 Vue.component('collector-create', require('./components/collector/Create.vue'));
 Vue.component('collector-edit', require('./components/collector/Edit.vue'));
 Vue.component('collector-donation-create', require('./components/collector/donation/Create.vue'));

@@ -35,7 +35,12 @@ class DonationController extends Controller
                 return $collector;
             });
 
-        return view('donation.index', compact('year', 'available_years', 'collectors'));
+        $yearly_donations = Donation::query()
+            ->select(DB::raw('SUM(amount) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->groupBy('year')
+            ->get();
+
+        return view('donation.index', compact('year', 'available_years', 'yearly_donations', 'collectors'));
     }
 
     public function detail(Collector $collector)
@@ -53,7 +58,13 @@ class DonationController extends Controller
             ->whereYear('transaction_date', $year)
             ->get();
 
-        return view('donation.detail', compact('collector', 'donations', 'year'));
+        $yearly_donations = Donation::query()
+            ->select(DB::raw('SUM(amount) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->where('collector_id', $collector->id)
+            ->groupBy('year')
+            ->get();
+
+        return view('donation.detail', compact('collector', 'donations', 'year', 'yearly_donations'));
     }
 
     public function count(Collector $collector) {

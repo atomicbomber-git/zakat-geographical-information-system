@@ -30,8 +30,14 @@ class CollectorDonationController extends Controller
             ->where('collector_id', auth()->user()->collector->id)
             ->whereYear('transaction_date', $year)
             ->get();
-        
-        return view('collector.donation.index', compact('donations', 'year', 'available_years'));
+
+        $yearly_donations = Donation::query()
+            ->select(DB::raw('SUM(amount) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->where('collector_id', auth()->user()->collector->id)
+            ->groupBy('year')
+            ->get();
+
+        return view('collector.donation.index', compact('donations', 'year', 'available_years', 'yearly_donations'));
     }
     
     public function create()

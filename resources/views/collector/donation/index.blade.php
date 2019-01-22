@@ -23,6 +23,10 @@
         </a>
     </div>
 
+    <div id="app">
+        <donation-chart/>
+    </div>
+
     <div class="card mt-5">
         <div class="card-header">
             <i class="fa fa-arrow-up"></i>
@@ -99,4 +103,6 @@
         </div>
     </div>
 </div>
+
+@javascript('donations', $yearly_donations)
 @endsection

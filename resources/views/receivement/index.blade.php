@@ -91,5 +91,4 @@
 </div>
 
 @javascript('receivements', $receivements)
-
 @endsection

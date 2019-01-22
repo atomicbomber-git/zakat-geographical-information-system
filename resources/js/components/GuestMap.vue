@@ -130,8 +130,16 @@ export default {
     },
 
     data() {
+
+        let center = {lat:-0.026330, lng:109.342504}
+
+        if (window.collector) {
+            center.lat = window.collector.latitude
+            center.lng = window.collector.longitude
+        }
+
         return {
-            center: {lat:-0.026330, lng:109.342504},
+            center: center,
             pointer_marker: {lat:-0.026330, lng:109.342504},
 
             receivers_count: window.receivers_count,

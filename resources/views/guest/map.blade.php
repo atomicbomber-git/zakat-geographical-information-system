@@ -11,5 +11,5 @@
 </div>
 
 @javascript('collectors', $collectors)
-
+@javascript('collector', auth()->user()->collector)
 @endsection

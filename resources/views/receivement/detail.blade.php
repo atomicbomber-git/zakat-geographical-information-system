@@ -17,6 +17,10 @@
         </ol>
     </nav>
 
+    <div id="app">
+        <receivement-detailchart/>
+    </div>
+
     <div class="card">
         <div class="card-header">
             <i class="fa fa-list"></i>
@@ -67,4 +71,6 @@
         </div>
     </div>
 </div>
+
+@javascript('receivements', $yearly_receivements)
 @endsection

@@ -1,10 +1,10 @@
 <template>
     <div class="card mb-3">
         <div class="card-body">
-            <receivement-base-chart
+            <donation-base-chart
                 name='chart'
-                title='Perkembangan Jumlah Nominal Penerimaan Zakat (Dalam Jutaan Rupiah)'
-                :data="receivements"/>
+                title='Perkembangan Jumlah Nominal Pemberian Zakat (Dalam Jutaan Rupiah)'
+                :data="donations"/>
         </div>
     </div>
 </template>
@@ -19,7 +19,7 @@ export default {
 
     data() {
         return {
-            receivements: window.receivements
+            donations: window.donations
         }
     },
 
