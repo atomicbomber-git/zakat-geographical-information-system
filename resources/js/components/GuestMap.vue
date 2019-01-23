@@ -34,7 +34,7 @@
 
                                 <GmapMarker
                                     :position="{lat: collector.latitude, lng: collector.longitude}"
-                                    icon="/png/mosque.png"
+                                    :icon="(this.collector && this.collector.id == collector.id) ? '/png/mosque_red.png' : '/png/mosque.png'"
                                     @click="onMarkerClick(collector)">
                                 </GmapMarker>
 
@@ -123,8 +123,12 @@ export default {
             navigator.geolocation.getCurrentPosition(position => {
                 this.pointer_marker.lat = position.coords.latitude
                 this.pointer_marker.lng = position.coords.longitude
-                this.center.lat = position.coords.latitude
-                this.center.lng = position.coords.longitude
+                
+                if (!this.collector) {
+                    this.center.lat = position.coords.latitude
+                    this.center.lng = position.coords.longitude
+                }
+                
             })
         })
     },
@@ -141,6 +145,7 @@ export default {
         return {
             center: center,
             pointer_marker: {lat:-0.026330, lng:109.342504},
+            collector: window.collector,
 
             receivers_count: window.receivers_count,
             collectors_count: window.collectors_count,
