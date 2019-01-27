@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function() {
 
     Route::group(['prefix' => '/receivement', 'as' => 'receivement.'], function() {
         Route::get('/index', 'ReceivementController@index')->name('index');
+        Route::get('/index/print', 'ReceivementController@printIndex')->name('printIndex');
         Route::get('/detail/{collector}', 'ReceivementController@detail')->name('detail');
     });
 

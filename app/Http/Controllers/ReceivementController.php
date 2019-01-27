@@ -75,4 +75,29 @@ class ReceivementController extends Controller
 
         return view('receivement.detail', compact('collector', 'receivements', 'yearly_receivements', 'year'));
     }
+
+    public function printIndex()
+    {
+        $year = request('year') ?? today()->format('Y');
+
+        $collectors = Collector::select('id', 'name', 'npwz')
+            ->with([
+                'receivements' => function ($query) use($year) {
+                    $query->select(
+                        'collector_id', DB::raw('SUM(infak) AS infak'),
+                        DB::raw('SUM(zakat) AS zakat'), DB::raw('SUM(fitrah) AS fitrah'),
+                        DB::raw('(SUM(infak) + SUM(zakat) + SUM(fitrah)) AS subtotal')
+                    );
+                    $query->whereYear('transaction_date', $year);
+                    $query->groupBy('collector_id');
+                }
+            ])
+            ->get()
+            ->transform(function($collector) {
+                $collector->receivement = $collector->receivements->first();
+                return $collector;
+            });
+
+        return view('receivement.printIndex', compact('year', 'collectors'));
+    }
 }

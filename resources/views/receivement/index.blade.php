@@ -16,6 +16,24 @@
         </ol>
     </nav>
 
+    <div class="my-3">
+        <form class="form-inline text-right" action="{{ route('receivement.printIndex') }}" method="GET">
+            <label for="year" class="ml-auto mr-2"> Tahun Laporan: </label>
+            <select class="form-control form-control-sm mr-2" name="year" id="year">
+                @foreach ($available_years as $year)
+                <option value="{{ $year }}">
+                    {{ $year }}
+                </option>
+                @endforeach
+            </select>
+
+            <button class="btn btn-dark btn-sm">
+                Cetak Laporan
+                <i class="fa fa-print"></i>
+            </button>
+        </form>
+    </div>
+
     <div id="app">
         <receivement-chart/>
     </div>
