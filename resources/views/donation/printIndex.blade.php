@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Laporan Penerimaan Zakat </title>
+    <title> Laporan Pemberian Zakat Tahun {{ $year }} </title>
     <link rel="stylesheet" href="{{ asset('css/paper.css') }}">
     <style>@page { size: A4 }</style>
     <style>
@@ -27,16 +27,10 @@
         <table>
             <thead>
                 <tr>
-                    <th rowspan="2"> # </th>
-                    <th rowspan="2"> UPZ</th>
-                    <th rowspan="2"> NPWZ </th>
-                    <th rowspan="1" colspan="3"> Penerimaan </th>
-                    {{-- <th>  </th> --}}
-                </tr>
-                <tr>
-                    <th> Zakat </th>
-                    <th> Fitrah </th>
-                    <th> Infak </th>
+                    <th> # </th>
+                    <th> UPZ</th>
+                    <th> NPWZ </th>
+                    <th> Pemberian </th>
                 </tr>
             </thead>
             <tbody>
@@ -45,18 +39,14 @@
                     <td> {{ $loop->iteration }}. </td>
                     <td> {{ $collector->name }} </td>
                     <td> {{ $collector->npwz }} </td>
-                    <td style="text-align:right"> {{ number_format($collector->receivement->zakat ?? 0) }} </td>
-                    <td style="text-align:right"> {{ number_format($collector->receivement->fitrah ?? 0) }} </td>
-                    <td style="text-align:right"> {{ number_format($collector->receivement->infak ?? 0) }} </td>
+                    <td style="text-align:right"> {{ number_format($collector->donation->total ?? 0) }} </td>
                 </tr>
                 @endforeach
                 <tr>
                     <td></td>
                     <td></td>
                     <td style="text-align: right; font-weight: bold"> Total: </td>
-                    <td style="text-align: right"> {{ number_format($collectors->sum('receivement.zakat')) }} </td>
-                    <td style="text-align: right"> {{ number_format($collectors->sum('receivement.fitrah')) }} </td>
-                    <td style="text-align: right"> {{ number_format($collectors->sum('receivement.infak')) }} </td>
+                    <td style="text-align: right"> {{ number_format($collectors->sum('donation.total')) }} </td>
                 </tr>
             </tbody>
         </table>

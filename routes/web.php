@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function() {
 
     Route::group(['prefix' => '/donation', 'as' => 'donation.'], function() {
         Route::get('/index', 'DonationController@index')->name('index');
+        Route::get('/index/print', 'DonationController@printIndex')->name('printIndex');
         Route::get('/detail/{collector}', 'DonationController@detail')->name('detail');
     });
 

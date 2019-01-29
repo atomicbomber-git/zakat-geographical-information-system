@@ -43,6 +43,29 @@ class DonationController extends Controller
         return view('donation.index', compact('year', 'available_years', 'yearly_donations', 'collectors'));
     }
 
+    public function printIndex()
+    {
+        $year = request('year') ?? today()->format('Y');
+
+        $collectors = Collector::select('id', 'name')
+            ->with([
+                'donations' => function ($query) use($year) {
+                    $query->select(
+                        'collector_id', DB::raw('SUM(amount) AS total')
+                    );
+                    $query->whereYear('transaction_date', $year);
+                    $query->groupBy('collector_id');
+                }
+            ])
+            ->get()
+            ->transform(function($collector) {
+                $collector->donation = $collector->donations->first();
+                return $collector;
+            });
+
+        return view('donation.printIndex', compact('collectors', 'year'));
+    }
+
     public function detail(Collector $collector)
     {
         $year = request('year');
