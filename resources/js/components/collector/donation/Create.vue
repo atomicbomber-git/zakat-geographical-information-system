@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col">
+        <div class="col-md-7 mb-4">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-map"></i>
@@ -8,6 +8,7 @@
                 </div>
                 <div class="card-body p-0">
                     <GmapMap
+                        ref="mapRef"
                         @click="onMapClick"
                         :center="center"
                         :zoom="14"
@@ -42,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-5">
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
                     <!-- <i class="fa fa-pencil"></i> -->
@@ -200,6 +201,12 @@
 import {get} from 'lodash'
 
 export default {
+    mounted() {
+        this.$refs.mapRef.$mapPromise.then(map => {
+            
+        })
+    },
+
     data() {
         return {
             center: {lat: window.collector.latitude, lng: window.collector.longitude},
@@ -233,6 +240,27 @@ export default {
         onMapClick(e) {
             this.donation.latitude = e.latLng.lat()
             this.donation.longitude = e.latLng.lng()
+
+            let temp_x_csrf_token = window.axios.defaults.headers.common['X-CSRF-TOKEN'];
+            let temp_x_req_with = window.axios.defaults.headers.common['X-Requested-With'];
+
+            delete window.axios.defaults.headers.common['X-CSRF-TOKEN'];
+            delete window.axios.defaults.headers.common['X-Requested-With'];
+
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.donation.latitude},${this.donation.longitude}&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id`)
+                .then(response => {
+                    console.log(response)
+
+                    let address = response.data.results[0].formatted_address.split(', ')
+                    this.donation.address = address[0]
+                    this.donation.kecamatan = address[1]
+                    this.donation.kelurahan = address[2]
+                })
+                .catch(error => {
+                })
+
+            window.axios.defaults.headers.common['X-CSRF-TOKEN'] = temp_x_csrf_token
+            window.axios.defaults.headers.common['X-Requested-With'] = temp_x_req_with
         },
 
         onFormSubmit(e) {

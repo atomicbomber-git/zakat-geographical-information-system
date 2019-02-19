@@ -217,6 +217,27 @@ export default {
         onMapClick(e) {
             this.donation.latitude = e.latLng.lat()
             this.donation.longitude = e.latLng.lng()
+
+            let temp_x_csrf_token = window.axios.defaults.headers.common['X-CSRF-TOKEN'];
+            let temp_x_req_with = window.axios.defaults.headers.common['X-Requested-With'];
+
+            delete window.axios.defaults.headers.common['X-CSRF-TOKEN'];
+            delete window.axios.defaults.headers.common['X-Requested-With'];
+
+            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.donation.latitude},${this.donation.longitude}&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id`)
+                .then(response => {
+                    console.log(response)
+
+                    let address = response.data.results[0].formatted_address.split(', ')
+                    this.donation.address = address[0]
+                    this.donation.kecamatan = address[1]
+                    this.donation.kelurahan = address[2]
+                })
+                .catch(error => {
+                })
+
+            window.axios.defaults.headers.common['X-CSRF-TOKEN'] = temp_x_csrf_token
+            window.axios.defaults.headers.common['X-Requested-With'] = temp_x_req_with
         },
 
         onFormSubmit(e) {
