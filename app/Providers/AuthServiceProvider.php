@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\User;
+use App\Mustahiq;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,14 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('act-as-collector', function($user) {
             return $user->type == 'COLLECTOR';
+        });
+
+        Gate::define('update', function(User $user, Mustahiq $mustahiq) {
+            return $user->collector->id === $mustahiq->collector_id;
+        });
+
+        Gate::define('delete', function(User $user, Mustahiq $mustahiq) {
+            return ($mustahiq->donations_count ?? 1) === 0;
         });
     }
 }

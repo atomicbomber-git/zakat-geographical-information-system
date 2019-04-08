@@ -1,3 +1,7 @@
+@php
+    use App\Mustahiq;
+@endphp
+
 @extends('shared.layout')
 @section('title', 'Pemberian Zakat')
 @section('content')
@@ -70,15 +74,15 @@
                             <td> {{ $loop->iteration }}. </td>
                             <td> {{ $donation->transaction_date->format('d-m-Y') }} </td>
                             <td>
-                                <div> <strong> {{ $donation->name }} </strong> </div>
-                                <div> {{ $donation->nik }} (NIK) </div>
-                                <div> {{ $donation->gender }}, {{ $donation->occupation }} </div>
-                                <div> {{ $donation->phone }} (Telp.) </div>
-                                <div> {{ $donation->address }} </div>
-                                <div> Kecamatan {{ $donation->kecamatan }}, Kelurahan {{ $donation->kelurahan }} </div>
+                                <div> <strong> {{ $donation->mustahiq->name }} </strong> </div>
+                                <div> {{ $donation->mustahiq->nik }} (NIK) </div>
+                                <div> {{ Mustahiq::GENDERS[$donation->mustahiq->gender] }}, {{ $donation->occupation }} </div>
+                                <div> {{ $donation->mustahiq->phone }} (Telp.) </div>
+                                <div> {{ $donation->mustahiq->address }} </div>
+                                <div> Kecamatan {{ $donation->mustahiq->kecamatan }}, Kelurahan {{ $donation->mustahiq->kelurahan }} </div>
                             </td>
-                            <td> {{ $donation->ansaf }} </td>
-                            <td> {{ $donation->help_program }} </td>
+                            <td> {{ $donation->mustahiq->ansaf }} </td>
+                            <td> {{ $donation->mustahiq->help_program }} </td>
                             <td class="text-right"> {{ number_format($donation->amount) }} </td>
                             <td class="text-center">
                                 <a href="{{ route('collector.donation.edit', $donation) }}" class="btn btn-dark btn-sm">
@@ -93,11 +97,18 @@
                             </td>
                         </tr>
                         @endforeach
-                        <tr>
-                            <td colspan="5" class="text-right"> Total: </td>
-                            <td class="text-right"> {{ number_format($donations->sum('amount')) }} </td>
-                        </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right"> Total: </td>
+                            <td class="text-right"> {{ number_format($donations->sum('amount')) }} </td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -105,4 +116,8 @@
 </div>
 
 @javascript('donations', $yearly_donations)
+@endsection
+
+@section('script')
+    @include("shared.datatables")
 @endsection

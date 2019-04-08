@@ -45,6 +45,13 @@
                             Pemberian Zakat
                         </a>
                     </li>
+
+                    <li class='nav-item {{ Route::is('collector.mustahiq.*') ? 'active' : '' }}'>
+                        <a class='nav-link' href='{{ route('collector.mustahiq.index') }}'>
+                            <i class='fa fa-user'></i>
+                            Mustahiq
+                        </a>
+                    </li>
                 @endcan
 
                 <li class="nav-item {{ Route::is("guest.*") ? 'active' : '' }}">

@@ -9,6 +9,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import 'vue-multiselect/dist/vue-multiselect.min.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 // Add Vue-2 Frappe Charts
@@ -46,6 +47,8 @@ Vue.component('collector-edit', require('./components/collector/Edit.vue'));
 Vue.component('collector-donation-create', require('./components/collector/donation/Create.vue'));
 Vue.component('collector-donation-edit', require('./components/collector/donation/Edit.vue'));
 
+Vue.component('collector-mustahiq-create', require('./components/collector/mustahiq/Create.vue'));
+Vue.component('collector-mustahiq-edit', require('./components/collector/mustahiq/Edit.vue'));
 
 // numeral.js
 

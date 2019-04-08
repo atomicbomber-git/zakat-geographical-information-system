@@ -2,10 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Collector;
-use App\Receivement;
-use App\Mustahiq;
 
-class ReceivementSeeder extends Seeder
+class MustahiqSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +13,14 @@ class ReceivementSeeder extends Seeder
     public function run()
     {
         DB::transaction(function() {
+
             $collectors = Collector::select('id')->get();
 
-            factory(Receivement::class, 60)
+            factory(App\Mustahiq::class, 300)
                 ->make()
-                ->each(function($receivement) use($collectors) {
-                    $receivement->collector_id = $collectors->random()->id;
-                    $receivement->save();
+                ->each(function ($mustahiq) use($collectors) {
+                    $mustahiq->collector_id = $collectors->random()->id;
+                    $mustahiq->save();
                 });
         });
     }

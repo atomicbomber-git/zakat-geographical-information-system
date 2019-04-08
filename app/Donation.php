@@ -22,8 +22,13 @@ class Donation extends Model
     public $fillable = [
         'transaction_date', 'name', 'nik', 'address', 'kecamatan', 'kelurahan',
         'phone', 'gender', 'occupation', 'ansaf', 'help_program',
-        'amount', 'latitude', 'longitude', 'collector_id'
+        'amount', 'latitude', 'longitude', 'collector_id', "mustahiq_id",
     ];
+
+    public function mustahiq()
+    {
+        return $this->belongsTo(Mustahiq::class);
+    }
 
     public function getGenderAttribute($value)
     {

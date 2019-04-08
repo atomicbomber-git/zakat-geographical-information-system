@@ -97,3 +97,12 @@ Route::get('/image/thumbnail/{collector}', 'CollectorController@thumbnail')->nam
 Route::group(['prefix' => '/error', 'as' => 'error.'], function() {
     Route::view('/403', 'error.403')->name('403');
 });
+
+Route::group(['prefix' => '/mustahiq', 'as' => 'collector.mustahiq.'], function() {
+    Route::get('/index', 'MustahiqController@index')->name('index');
+    Route::get('/create', 'MustahiqController@create')->name('create');
+    Route::post('/store', 'MustahiqController@store')->name('store');
+    Route::get('/edit/{mustahiq}', 'MustahiqController@edit')->name('edit');
+    Route::post('/update/{mustahiq}', 'MustahiqController@update')->name('update');
+    Route::post('/delete/{mustahiq}', 'MustahiqController@delete')->name('delete');
+});

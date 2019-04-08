@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
-use Illuminate\Http\Request;
 use App\Donation;
 use App\Collector;
+use App\Mustahiq;
+use Illuminate\Support\Facades\Auth;
 
 class CollectorDonationController extends Controller
 {
@@ -23,10 +24,9 @@ class CollectorDonationController extends Controller
 
         $donations = Donation::query()
             ->select(
-                "id", "transaction_date", "name", "nik", "address", "kecamatan", "kelurahan",
-                "phone", "gender", "occupation", "ansaf", "help_program",
-                "amount"
+                "id", "transaction_date", "mustahiq_id", "amount"
             )
+            ->with("mustahiq")
             ->where('collector_id', auth()->user()->collector->id)
             ->whereYear('transaction_date', $year)
             ->get();
@@ -42,38 +42,28 @@ class CollectorDonationController extends Controller
     
     public function create()
     {
-        $collectors = Collector::query()
-            ->select('id', 'name', 'address', 'latitude', 'longitude')
-            ->get()
-            ->each(function ($collector) {
-                $collector->image_url = route('collector.thumbnail', $collector);
-                return $collector;
-            });
+        $mustahiqs = Mustahiq::query()
+            ->select("name", "id", "nik")
+            ->whereHas("collector", function ($query) {
+                $query->where("id", Auth::user()->collector->id);
+            })
+            ->orderBy("name")
+            ->get();
 
-        return view('collector.donation.create', compact('collectors'));
+        return view('collector.donation.create', compact('collectors', 'mustahiqs'));
     }
     
     public function store()
     {
         $data = $this->validate(request(), [
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
             'transaction_date' => 'required|date',
-            'name' => 'required|string',
-            'nik' => 'required|string',
-            'address' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kelurahan' => 'required|string',
-            'phone' => 'required|string',
-            'gender' => ['required', Rule::in('l', 'p')],
-            'occupation' => 'required|string',
-            'ansaf' => 'required|string',
-            'help_program' => 'required|string',
             'amount' => 'required|gt:0',
+            'mustahiq_id' => 'required|exists:mustahiqs,id'
         ]);
         
-        $data['collector_id'] = auth()->user()->collector->id;
-        Donation::create($data);
+        Donation::create(array_merge($data, [
+            "collector_id" => Auth::user()->collector->id
+        ]));
 
         session()->flash('message-success', __('messages.create.success'));
     }

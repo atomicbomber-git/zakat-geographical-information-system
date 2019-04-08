@@ -18,13 +18,13 @@
     </nav>
 
     <div id="app">
-        <collector-donation-create/>
+        <collector-donation-create
+            :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
+            submit_url="{{ route('collector.donation.store') }}"
+            redirect_url="{{ route('collector.donation.index') }}"
+            :mustahiqs='{{ json_encode($mustahiqs) }}'
+            />
     </div>
 </div>
-
-@javascript('submit_route', route('collector.donation.store'))
-@javascript('collector', auth()->user()->collector)
-@javascript('collectors', $collectors)
-@javascript('default_center', config('gmap_settings.default_center'))
 
 @endsection
