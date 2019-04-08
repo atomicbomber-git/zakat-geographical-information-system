@@ -50,7 +50,7 @@ class CollectorDonationController extends Controller
             ->orderBy("name")
             ->get();
 
-        return view('collector.donation.create', compact('collectors', 'mustahiqs'));
+        return view('collector.donation.create', compact('mustahiqs'));
     }
     
     public function store()
@@ -70,35 +70,24 @@ class CollectorDonationController extends Controller
     
     public function edit(Donation $donation)
     {
-        $collectors = Collector::query()
-            ->select('id', 'name', 'address', 'latitude', 'longitude')
-            ->get()
-            ->each(function ($collector) {
-                $collector->image_url = route('collector.thumbnail', $collector);
-                return $collector;
-            });
+        $mustahiqs = Mustahiq::query()
+            ->select("name", "id", "nik")
+            ->whereHas("collector", function ($query) {
+                $query->where("id", Auth::user()->collector->id);
+            })
+            ->orderBy("name")
+            ->get();
 
-        $donation->original_gender = $donation->getOriginal('gender');
-
-        return view('collector.donation.edit', compact('donation', 'collectors'));
+        $donation->load("mustahiq");
+        return view('collector.donation.edit', compact('donation', 'mustahiqs'));
     }
     
     public function update(Donation $donation)
     {
         $data = $this->validate(request(), [
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'name' => 'required|string',
-            'nik' => 'required|string',
-            'address' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kelurahan' => 'required|string',
-            'phone' => 'required|string',
-            'gender' => ['required', Rule::in('l', 'p')],
-            'occupation' => 'required|string',
-            'ansaf' => 'required|string',
-            'help_program' => 'required|string',
+            'transaction_date' => 'required|date',
             'amount' => 'required|gt:0',
+            'mustahiq_id' => 'required|exists:mustahiqs,id'
         ]);
 
         $donation->update($data);

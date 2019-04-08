@@ -18,12 +18,13 @@
     </nav>
 
     <div id="app">
-        <collector-donation-edit/>
+        <collector-donation-edit
+            :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
+            submit_url="{{ route('collector.donation.update', $donation) }}"
+            redirect_url="{{ route('collector.donation.edit', $donation) }}"
+            :mustahiqs='{{ json_encode($mustahiqs) }}'
+            :donation='{{ json_encode($donation) }}'
+            />
     </div>
 </div>
-
-@javascript('submit_route', route('collector.donation.update', $donation))
-@javascript('collectors', $collectors)
-@javascript('donation', $donation)
-
 @endsection

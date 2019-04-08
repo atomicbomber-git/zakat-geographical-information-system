@@ -68,14 +68,14 @@ class DonationController extends Controller
 
     public function detail(Collector $collector)
     {
-        $year = request('year');
+        $year = request('year') ?: abort(404);
 
         $donations = Donation::query()
             ->select(
-                "id", "transaction_date", "name", "nik", "address", "kecamatan", "kelurahan",
-                "phone", "gender", "occupation", "ansaf", "help_program",
+                "id", "transaction_date", "mustahiq_id",
                 "amount"
             )
+            ->with("mustahiq")
             ->orderByDesc('transaction_date')
             ->where('collector_id', $collector->id)
             ->whereYear('transaction_date', $year)

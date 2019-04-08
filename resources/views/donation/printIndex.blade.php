@@ -22,7 +22,7 @@
 </head>
 <body class="A4">
     <section class="sheet padding-10mm">
-        <h1 style="text-align: center"> LAPORAN PENERIMAAN ZAKAT TAHUN {{ $year }} </h1>
+        <h1 style="text-align: center"> LAPORAN PEMBERIAN ZAKAT TAHUN {{ $year }} </h1>
         
         <table>
             <thead>
