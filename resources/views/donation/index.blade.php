@@ -20,9 +20,9 @@
         <form class="form-inline text-right" action="{{ route('donation.printIndex') }}" method="GET">
             <label for="year" class="ml-auto mr-2"> Tahun Laporan: </label>
             <select class="form-control form-control-sm mr-2" name="year" id="year">
-                @foreach ($available_years as $year)
-                <option value="{{ $year }}">
-                    {{ $year }}
+                @foreach ($available_years as $av_year)
+                <option value="{{ $av_year }}">
+                    {{ $av_year }}
                 </option>
                 @endforeach
             </select>
@@ -86,13 +86,15 @@
                            </td>
                        </tr>
                       @endforeach
+                  </tbody>
+                  <tfoot>
                       <tr>
                           <td></td>
                           <td class="text-right"> Total: </td>
                           <td class="text-right"> {{ number_format($collectors->sum('donation.total')) }} </td>
                           <td></td>
                       </tr>
-                  </tbody>
+                  </tfoot>
                </table>
            </div>
         </div>
@@ -100,4 +102,8 @@
 </div>
 
 @javascript('donations', $yearly_donations)
+@endsection
+
+@section("script")
+    @include("shared.datatables")
 @endsection

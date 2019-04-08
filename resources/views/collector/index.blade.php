@@ -67,3 +67,7 @@
     </div>
 </div>
 @endsection
+
+@section("script")
+    @include("shared.datatables")
+@endsection
