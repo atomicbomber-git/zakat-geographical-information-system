@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use App\Receivement;
+use App\Muzakki;
+use Illuminate\Support\Facades\Auth;
 
 class CollectorReceivementController extends Controller
 {
@@ -22,11 +24,10 @@ class CollectorReceivementController extends Controller
 
         $receivements = Receivement::query()
             ->select(
-                'id', 'transaction_date', 'collector_id', 'name',
-                'NIK', 'kecamatan', 'kelurahan', 'phone',
-                'gender', 'npwz', 'zakat', 'fitrah', 'infak',
+                'id', 'transaction_date', 'muzakki_id', 'zakat', 'fitrah', 'infak',
                 DB::raw('(zakat + fitrah + infak) AS total')
             )
+            ->with('muzakki')
             ->where('collector_id', auth()->user()->collector->id)
             ->whereYear('transaction_date', $year)
             ->get();
@@ -46,20 +47,22 @@ class CollectorReceivementController extends Controller
     
     public function create()
     {
-        return view('collector.receivement.create');
+        $muzakkis = Muzakki::query()
+            ->select("id", "name", "nik")
+            ->whereHas("collector", function ($query) {
+                $query->where("id", Auth::user()->collector->id);
+            })
+            ->orderBy("name")
+            ->get();
+
+        return view('collector.receivement.create', compact('muzakkis'));
     }
     
     public function store()
     {
         $data = $this->validate(request(), [
-            'name' => 'required|string',
-            'gender' => Rule::in(array_keys(Receivement::GENDERS)),
-            'NIK' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kelurahan' => 'required|string',
+            'muzakki_id' => 'required|exists:muzakkis,id',
             'transaction_date' => 'required|date',
-            'npwz' => 'required|string',
-            'phone' => 'required|string',
             'zakat' => 'required|numeric|gte:0',
             'fitrah' => 'required|numeric|gte:0',
             'infak' => 'required|numeric|gte:0',
@@ -68,25 +71,26 @@ class CollectorReceivementController extends Controller
         $data['collector_id'] = auth()->user()->collector->id;
         Receivement::create($data);
 
-        return back()
-            ->with('message-success', __('messages.create.success'));
+        session()->flash('message-success', __('messages.create.success'));
     }
     
     public function edit(Receivement $receivement)
     {
-        return view('collector.receivement.edit', compact('receivement'));
+        $muzakkis = Muzakki::query()
+            ->select("id", "name", "nik")
+            ->whereHas("collector", function ($query) {
+                $query->where("id", Auth::user()->collector->id);
+            })
+            ->orderBy("name")
+            ->get();
+
+        return view('collector.receivement.edit', compact('receivement', 'muzakkis'));
     }
     
     public function update(Receivement $receivement)
     {
         $data = $this->validate(request(), [
-            'name' => 'required|string',
-            'gender' => Rule::in(array_keys(Receivement::GENDERS)),
-            'NIK' => 'required|string',
-            'kecamatan' => 'required|string',
-            'kelurahan' => 'required|string',
-            'npwz' => 'required|string',
-            'phone' => 'required|string',
+            'muzakki_id' => 'required|exists:muzakkis,id',
             'transaction_date' => 'required|date',
             'zakat' => 'required|numeric|gte:0',
             'fitrah' => 'required|numeric|gte:0',
@@ -94,9 +98,7 @@ class CollectorReceivementController extends Controller
         ]);
 
         $receivement->update($data);
-
-        return back()
-            ->with('message-success', __('messages.update.success'));
+        session()->flash('message-success', __('messages.update.success'));
     }
     
     public function delete(Receivement $receivement) {

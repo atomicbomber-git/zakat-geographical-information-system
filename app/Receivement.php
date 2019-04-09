@@ -28,6 +28,11 @@ class Receivement extends Model
         return $this->belongsTo(Collector::class);
     }
 
+    public function muzakki()
+    {
+        return $this->belongsTo(Muzakki::class);
+    }
+
     public function getGenderAttribute($value)
     {
         return $this::GENDERS[$value];

@@ -62,6 +62,8 @@ class MuzakkiController extends Controller
         Muzakki::create(array_merge($data, [
             "collector_id" => Auth::user()->collector->id,
         ]));
+
+        session()->flash('message-success', __('messages.create.success'));
     }
     
     public function edit(Muzakki $muzakki)

@@ -44,8 +44,11 @@ Vue.component('donation-detail-chart', require('./components/donation/DetailChar
 
 Vue.component('collector-create', require('./components/collector/Create.vue'));
 Vue.component('collector-edit', require('./components/collector/Edit.vue'));
+
 Vue.component('collector-donation-create', require('./components/collector/donation/Create.vue'));
 Vue.component('collector-donation-edit', require('./components/collector/donation/Edit.vue'));
+Vue.component('collector-receivement-create', require('./components/collector/receivement/Create.vue'));
+Vue.component('collector-receivement-edit', require('./components/collector/receivement/Edit.vue'));
 
 Vue.component('collector-mustahiq-create', require('./components/collector/mustahiq/Create.vue'));
 Vue.component('collector-mustahiq-edit', require('./components/collector/mustahiq/Edit.vue'));
