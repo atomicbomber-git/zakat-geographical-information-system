@@ -1,9 +1,18 @@
 
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Boostrap Custom Colors
+$theme-colors: (
+  "primary": #0074d9,
+  "danger": #ff4136,
+  "dark": #005426
+);
 
-// Variables
-@import 'variables';
+$body-bg: #f2f2f2;
+
+$table-dark-color: #f2f2f2;
+$table-dark-bg: #005426;
+$table-dark-border-color: #005426;
+$navbar-dark-color: #d4c8c8;
+$navbar-dark-active-color: #f2f2f2;
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -13,8 +22,3 @@
 
 // Font Awesome
 @import '~font-awesome/css/font-awesome.css';
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
