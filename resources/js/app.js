@@ -49,6 +49,8 @@ Vue.component('collector-donation-edit', require('./components/collector/donatio
 
 Vue.component('collector-mustahiq-create', require('./components/collector/mustahiq/Create.vue'));
 Vue.component('collector-mustahiq-edit', require('./components/collector/mustahiq/Edit.vue'));
+Vue.component('collector-muzakki-create', require('./components/collector/muzakki/Create.vue'));
+Vue.component('collector-muzakki-edit', require('./components/collector/muzakki/Edit.vue'));
 
 // numeral.js
 

@@ -18,14 +18,14 @@ class CreateMuzakkisTable extends Migration
 
             $table->string("name");
             $table->string("NIK");
+            $table->text("address");
             $table->string("kecamatan");
             $table->string("kelurahan");
             $table->string("phone");
             $table->string("gender");
             $table->string("npwz");
-            $table->decimal('zakat', 19, 4);
-            $table->decimal('fitrah', 19, 4);
-            $table->decimal('infak', 19, 4);
+            $table->double("latitude");
+            $table->double("longitude");
             $table->unsignedInteger('collector_id');
             $table->foreign('collector_id')
                 ->references('id')

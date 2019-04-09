@@ -34,28 +34,28 @@
                             }"
                             />
 
-                        <span v-for="mustahiq in mustahiqs" :key="mustahiq.id">
+                        <span v-for="muzakki in muzakkis" :key="muzakki.id">
                             <GmapMarker
                                 icon="/png/person.png"
                                 :position="{
-                                    lat: mustahiq.latitude,
-                                    lng: mustahiq.longitude
+                                    lat: muzakki.latitude,
+                                    lng: muzakki.longitude
                                 }"
-                                @click="mustahiq.infoWindowOpened=true"
+                                @click="muzakki.infoWindowOpened=true"
                                 />
 
                             <GmapInfoWindow
                                 :position="{
-                                    lat: mustahiq.latitude,
-                                    lng: mustahiq.longitude
+                                    lat: muzakki.latitude,
+                                    lng: muzakki.longitude
                                 }"
-                                :opened="mustahiq.infoWindowOpened"
-                                @closeclick="mustahiq.infoWindowOpened=false"
+                                :opened="muzakki.infoWindowOpened"
+                                @closeclick="muzakki.infoWindowOpened=false"
                                 >
                                 
                                 <div>
-                                    <p> {{ mustahiq.name }} </p>
-                                    <p> {{ mustahiq.address }} </p>
+                                    <p> {{ muzakki.name }} </p>
+                                    <p> {{ muzakki.address }} </p>
                                 </div>
                             </GmapInfoWindow>
                         </span>
@@ -108,7 +108,7 @@
 
                         <div class='form-group'>
                             <label for='gender'> Jenis Kelamin: </label>
-                            <select class="form-control" v-model="gender" name="gender" id="gender">
+                            <select class="form-control" v-model="this.gender" name="gender" id="gender">
                                 <option value="l"> Laki-Laki </option>
                                 <option value="p"> Perempuan </option>
                             </select>
@@ -167,33 +167,13 @@
                         </div>
 
                         <div class='form-group'>
-                            <label for='occupation'> Pekerjaan: </label>
+                            <label for='npwz'> NPWZ: </label>
                             <input
-                                v-model='occupation'
+                                v-model='npwz'
                                 class='form-control'
-                                :class="{'is-invalid': get(this.error_data, 'errors.occupation[0]', false)}"
-                                type='text' id='occupation' placeholder='Pekerjaan'>
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.occupation[0]', false) }}</div>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='ansaf'> Ansaf: </label>
-                            <input
-                                v-model='ansaf'
-                                class='form-control'
-                                :class="{'is-invalid': get(this.error_data, 'errors.ansaf[0]', false)}"
-                                type='text' id='ansaf' placeholder='Ansaf'>
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.ansaf[0]', false) }}</div>
-                        </div>
-
-                        <div class='form-group'>
-                            <label for='help_program'> Program Bantuan: </label>
-                            <input
-                                v-model='help_program'
-                                class='form-control'
-                                :class="{'is-invalid': get(this.error_data, 'errors.help_program[0]', false)}"
-                                type='text' id='help_program' placeholder='Program Bantuan'>
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.help_program[0]', false) }}</div>
+                                :class="{'is-invalid': get(this.error_data, 'errors.npwz[0]', false)}"
+                                type='text' id='npwz' placeholder='NPWZ'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.npwz[0]', false) }}</div>
                         </div>
 
                         <div class="text-right">
@@ -218,13 +198,13 @@ export default {
     props: [
         "gmap_settings", "collector",
         "submit_url", "redirect_url",
-        "original_mustahiqs"
+        "original_muzakkis"
     ],
 
     data() {
         return {
-            mustahiqs: this.original_mustahiqs.map(mustahiq => ({
-                ...mustahiq,
+            muzakkis: this.original_muzakkis.map(muzakki => ({
+                ...muzakki,
                 infoWindowOpened: false
             })),
 
@@ -242,9 +222,7 @@ export default {
             kecamatan: null,
             kelurahan: null,
             phone: null,
-            occupation: null,
-            ansaf: null,
-            help_program: null,
+            npwz: null,
         }
     },
 
@@ -260,9 +238,7 @@ export default {
                 kecamatan: this.kecamatan,
                 kelurahan: this.kelurahan,
                 phone: this.phone,
-                occupation: this.occupation,
-                ansaf: this.ansaf,
-                help_program: this.help_program,
+                npwz: this.npwz,
             }
         }
     },

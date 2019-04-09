@@ -122,7 +122,7 @@
                             <label for="gender">Jenis Kelamin:</label>
                             <select
                                 class="form-control"
-                                v-model="this.gender"
+                                v-model="gender"
                                 name="gender"
                                 id="gender"
                             >

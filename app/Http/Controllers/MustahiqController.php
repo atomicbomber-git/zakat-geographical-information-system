@@ -68,6 +68,8 @@ class MustahiqController extends Controller
     
     public function edit(Mustahiq $mustahiq)
     {
+        $this->authorize("update", $mustahiq);
+
         $mustahiqs = Mustahiq::query()
             ->select("name", "id", "latitude", "longitude", "address")
             ->whereHas("collector", function ($query) {
@@ -82,6 +84,8 @@ class MustahiqController extends Controller
     
     public function update(Mustahiq $mustahiq)
     {
+        $this->authorize("update", $mustahiq);
+
         $data = $this->validate(request(), [
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
@@ -103,7 +107,11 @@ class MustahiqController extends Controller
     
     public function delete(Mustahiq $mustahiq)
     {
+        $mustahiq->donations_count = $mustahiq->donations()->count();
+        $this->authorize("delete", $mustahiq);
+
         $mustahiq->delete();
+        
         return back()
             ->with("message-success", __("messages.delete.success"));
     }

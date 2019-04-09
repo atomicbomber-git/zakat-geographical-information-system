@@ -106,3 +106,12 @@ Route::group(['prefix' => '/mustahiq', 'as' => 'collector.mustahiq.'], function(
     Route::post('/update/{mustahiq}', 'MustahiqController@update')->name('update');
     Route::post('/delete/{mustahiq}', 'MustahiqController@delete')->name('delete');
 });
+
+Route::group(['prefix' => '/muzakki', 'as' => 'collector.muzakki.'], function() {
+    Route::get('/index', 'MuzakkiController@index')->name('index');
+    Route::get('/create', 'MuzakkiController@create')->name('create');
+    Route::post('/store', 'MuzakkiController@store')->name('store');
+    Route::get('/edit/{muzakki}', 'MuzakkiController@edit')->name('edit');
+    Route::post('/update/{muzakki}', 'MuzakkiController@update')->name('update');
+    Route::post('/delete/{muzakki}', 'MuzakkiController@delete')->name('delete');
+});
