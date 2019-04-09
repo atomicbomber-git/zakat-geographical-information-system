@@ -19,7 +19,8 @@ class Receivement extends Model
         "transaction_date","collector_id","name",
         "NIK","kecamatan","kelurahan",
         "phone", "gender","npwz",
-        "zakat","fitrah","infak"
+        "zakat","fitrah","infak",
+        "muzakki_id"
     ];
 
     public function collector()

@@ -16,8 +16,9 @@ class DatabaseSeeder extends Seeder
         // $this->call(ReportSeeder::class);
         // $this->call(ReceiverSeeder::class);
 
-        $this->call(MustahiqSeeder::class);
+        $this->call(MuzakkiSeeder::class);
         $this->call(ReceivementSeeder::class);
+        $this->call(MustahiqSeeder::class);
         $this->call(DonationSeeder::class);
     }
 }

@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use App\Collector;
 use App\Donation;
-use App\Mustahiq;
 
 class DonationSeeder extends Seeder
 {
@@ -15,14 +14,16 @@ class DonationSeeder extends Seeder
     public function run()
     {
         DB::transaction(function() {
-            $collectors = Collector::select('id')->get();
-            $mustahiqs = Mustahiq::select('id')->get();
+            $collectors = Collector::select('id')
+                ->with("mustahiqs:id,collector_id")
+                ->get();
 
             factory(Donation::class, 400)
                 ->make()
-                ->each(function($donation) use($collectors, $mustahiqs) {
-                    $donation->collector_id = $collectors->random()->id;
-                    $donation->mustahiq_id = $mustahiqs->random()->id;
+                ->each(function($donation) use($collectors) {
+                    $collector = $collectors->random();
+                    $donation->collector_id = $collector->id;
+                    $donation->mustahiq_id = $collector->mustahiqs->random()->id;
                     $donation->save();
                 });
         });

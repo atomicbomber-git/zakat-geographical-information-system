@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use App\Collector;
 use App\Receivement;
-use App\Mustahiq;
 
 class ReceivementSeeder extends Seeder
 {
@@ -15,12 +14,16 @@ class ReceivementSeeder extends Seeder
     public function run()
     {
         DB::transaction(function() {
-            $collectors = Collector::select('id')->get();
+            $collectors = Collector::select('id')
+                ->with("muzakkis:id,collector_id")
+                ->get();
 
-            factory(Receivement::class, 60)
+            factory(Receivement::class, 400)
                 ->make()
                 ->each(function($receivement) use($collectors) {
-                    $receivement->collector_id = $collectors->random()->id;
+                    $collector = $collectors->random();
+                    $receivement->collector_id = $collector->id;
+                    $receivement->muzakki_id = $collector->muzakkis->random()->id;
                     $receivement->save();
                 });
         });
