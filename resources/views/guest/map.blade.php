@@ -7,13 +7,9 @@
         Peta Persebaran Unit Pengumpulan Zakat
     </h1>
 
-    <guest-map/>
+    <guest-map
+        :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
+        :collectors='{{ json_encode($collectors) }}'
+        />
 </div>
-
-@javascript('collectors', $collectors)
-
-@auth
-@javascript('collector', auth()->user()->collector)
-@endauth
-
 @endsection

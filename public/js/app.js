@@ -86216,6 +86216,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(309)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(239)
@@ -86224,7 +86228,7 @@ var __vue_template__ = __webpack_require__(240)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -86264,298 +86268,145 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__icons_js__ = __webpack_require__(311);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__icons_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__icons_js__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        var _this = this;
+    props: ["collectors", "gmap_settings"],
 
-        this.$refs.mapRef.$mapPromise.then(function (map) {
-            _this.map = map;
-            _this.directionsService = new google.maps.DirectionsService();
-            _this.directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true, preserveViewport: true });
-            _this.distanceMatrixService = new google.maps.DistanceMatrixService();
-            _this.directionsDisplay.setMap(map);
-
-            navigator.geolocation.getCurrentPosition(function (position) {
-                _this.pointer_marker.lat = position.coords.latitude;
-                _this.pointer_marker.lng = position.coords.longitude;
-
-                if (!_this.collector) {
-                    _this.center.lat = position.coords.latitude;
-                    _this.center.lng = position.coords.longitude;
-                }
-            });
-        });
-    },
     data: function data() {
-
-        var center = { lat: -0.026330, lng: 109.342504 };
-
-        if (window.collector) {
-            center.lat = window.collector.latitude;
-            center.lng = window.collector.longitude;
-        }
-
         return {
-            center: center,
-            pointer_marker: { lat: -0.026330, lng: 109.342504 },
-            collector: window.collector,
-
-            receivers_count: window.receivers_count,
-            collectors_count: window.collectors_count,
-
-            collectors: window.collectors.map(function (collector) {
+            icons: __WEBPACK_IMPORTED_MODULE_0__icons_js___default.a,
+            pointer_marker: this.gmap_settings.center,
+            p_collectors: this.collectors.map(function (collector) {
                 return _extends({}, collector, {
-                    isInfoWindowOpen: false,
-                    donation_counts: [],
-                    donations: collector.donations.map(function (donation) {
-                        return _extends({}, donation, { isInfoWindowOpen: false });
+                    info_window_opened: false,
+                    muzakkis: collector.muzakkis.map(function (muzakki) {
+                        return _extends({}, muzakki, { info_window_opened: false });
                     }),
-                    nearestDonations: []
+                    mustahiqs: collector.mustahiqs.map(function (mustahiq) {
+                        return _extends({}, mustahiq, { info_window_opened: false });
+                    })
                 });
-            }),
-
-            nearestDistance: null
+            })
         };
     },
 
 
-    computed: {
-        donations: function donations() {
-            return this.collectors.reduce(function (acc, collector) {
-                return [].concat(_toConsumableArray(acc), _toConsumableArray(collector.donations));
-            }, []);
-        },
-        distances: function distances() {
-            var _this2 = this;
-
-            return this.collectors.map(function (collector) {
-                return _extends({}, collector, {
-                    distance: _this2.getDistanceFromLatLonInKm(_this2.pointer_marker.lat, _this2.pointer_marker.lng, collector.latitude, collector.longitude)
-                });
-            });
-        },
-        sortedDistances: function sortedDistances() {
-            return this.distances.sort(function (a, b) {
-                return a.distance - b.distance;
-            });
-        },
-
-
-        google: __WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__["gmapApi"]
-    },
-
-    watch: {
-        sortedDistances: function sortedDistances(locationDistances) {
-            var _this3 = this;
-
-            var nearestLocation = locationDistances[0];
-            var travelMode = 'DRIVING';
-
-            // Create a directions request
-            var directionRequest = {
-                origin: new google.maps.LatLng(this.pointer_marker),
-                destination: new google.maps.LatLng({ lat: nearestLocation.latitude, lng: nearestLocation.longitude }),
-                travelMode: travelMode
-            };
-
-            var distanceRequest = {
-                origins: [directionRequest.origin],
-                destinations: [directionRequest.destination],
-                travelMode: travelMode
-            };
-
-            this.distanceMatrixService.getDistanceMatrix(distanceRequest, function (response, status) {
-                if (status != 'OK') {
-                    return;
-                }
-                _this3.nearestDistance = response.rows[0].elements[0].distance.text;
-            });
-
-            this.directionsService.route(directionRequest, function (result, status) {
-                if (status != 'OK') {
-                    return;
-                }
-                _this3.directionsDisplay.setDirections(result);
-            });
-        }
-    },
-
     methods: {
-        moveMarker: function moveMarker(e) {
+        onMapClick: function onMapClick(e) {
             this.pointer_marker = {
                 lat: e.latLng.lat(),
                 lng: e.latLng.lng()
             };
         },
-        onMarkerClick: function onMarkerClick(collector) {
-            var _this4 = this;
-
-            this.collectors = this.collectors.map(function (c) {
-                if (c.id == collector.id) {
-                    return _extends({}, c, { isInfoWindowOpen: true });
-                }
-                return c;
-            });
-
-            axios.get('/donation/api/count/' + collector.id).then(function (response) {
-                _this4.collectors = _this4.collectors.map(function (c) {
-                    if (c.id == collector.id) {
-                        return _extends({}, c, { donation_counts: response.data });
+        onMuzakkiMarkerClick: function onMuzakkiMarkerClick(muzakki) {
+            this.p_collectors.forEach(function (collector) {
+                collector.muzakkis.forEach(function (o_muzakki) {
+                    if (muzakki.id === o_muzakki.id) {
+                        o_muzakki.info_window_opened = true;
+                    } else {
+                        o_muzakki.info_window_opened = false;
                     }
-                    return c;
                 });
-            }).catch();
-
-            this.collectors = this.collectors.map(function (c) {
-                if (c.id == collector.id) {
-
-                    var nearestDonations = [];
-
-                    // Calculate distance with all receiver
-                    _this4.donations.forEach(function (donation) {
-                        var distance = _this4.getDistanceFromLatLonInKm(donation.latitude, donation.longitude, collector.latitude, collector.longitude);
-
-                        if (distance <= 0.5) {
-                            nearestDonations.push(donation);
-                        }
-                    });
-
-                    return _extends({}, c, { isInfoWindowOpen: true, nearestDonations: nearestDonations });
-                }
-
-                return _extends({}, c, { isInfoWindowOpen: false });
             });
         },
-        getDistanceFromLatLonInKm: function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-            var R = 6371; // Radius of the earth in km
-            var dLat = this.deg2rad(lat2 - lat1); // deg2rad below
-            var dLon = this.deg2rad(lon2 - lon1);
-            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            var d = R * c;
-            return d;
-        },
-        deg2rad: function deg2rad(deg) {
-            return deg * (Math.PI / 180);
+        onMustahiqMarkerClick: function onMustahiqMarkerClick(mustahiq) {
+            this.p_collectors.forEach(function (collector) {
+                collector.mustahiqs.forEach(function (o_mustahiq) {
+                    if (mustahiq.id === o_mustahiq.id) {
+                        o_mustahiq.info_window_opened = true;
+                    } else {
+                        o_mustahiq.info_window_opened = false;
+                    }
+                });
+            });
         }
     }
 });
@@ -86568,272 +86419,143 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "card" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", [
-          _c(
-            "div",
-            [
-              _c("h4", [
-                _vm._v(
-                  "\n                        Lokasi Anda sekarang adalah: " +
-                    _vm._s(this.pointer_marker.lat) +
-                    ", " +
-                    _vm._s(this.pointer_marker.lng) +
-                    "\n                    "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "alert alert-info" }, [
-                _c("h4", [
-                  _vm._v(" Unit Pengumpulan Zakat terdekat dengan Anda: ")
-                ]),
-                _vm._v(" "),
-                _c("p", [
-                  _c("strong", [
-                    _vm._v(" " + _vm._s(_vm.sortedDistances[0].name) + " ")
-                  ]),
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(_vm.sortedDistances[0].address) +
-                      " (" +
-                      _vm._s(this.nearestDistance) +
-                      ")\n                        "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "GmapMap",
-                {
-                  ref: "mapRef",
-                  staticStyle: { width: "100%", height: "640px" },
+  return _c("div", { staticClass: "card" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "card-body" },
+      [
+        _c(
+          "GmapMap",
+          {
+            style: this.gmap_settings.style,
+            attrs: {
+              center: this.gmap_settings.center,
+              zoom: this.gmap_settings.zoom,
+              "map-type-id": this.gmap_settings.map_type_id
+            },
+            on: { click: _vm.onMapClick }
+          },
+          [
+            _c("GmapMarker", { attrs: { position: _vm.pointer_marker } }),
+            _vm._v(" "),
+            _vm._l(_vm.p_collectors, function(collector) {
+              return [
+                _c("GmapMarker", {
+                  key: collector.id,
                   attrs: {
-                    center: this.center,
-                    zoom: 14,
-                    "map-type-id": "terrain"
-                  },
-                  on: { click: _vm.moveMarker }
-                },
-                [
-                  _vm._l(_vm.collectors, function(collector) {
-                    return _c(
-                      "span",
-                      { key: collector.id },
-                      [
-                        _c("GmapMarker", {
-                          attrs: {
-                            position: {
-                              lat: collector.latitude,
-                              lng: collector.longitude
-                            },
-                            icon:
-                              this.collector &&
-                              this.collector.id == collector.id
-                                ? "/png/mosque_red.png"
-                                : "/png/mosque.png"
+                    icon: _vm.icons.mosque_black,
+                    position: {
+                      lat: collector.latitude,
+                      lng: collector.longitude
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._l(collector.muzakkis, function(muzakki) {
+                  return [
+                    _c("GmapMarker", {
+                      key: "muzakki_marker_" + muzakki.id,
+                      attrs: {
+                        icon: _vm.icons.person_red,
+                        position: {
+                          lat: muzakki.latitude,
+                          lng: muzakki.longitude
+                        }
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.onMuzakkiMarkerClick(muzakki)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "GmapInfoWindow",
+                      {
+                        key: "muzakki_info_" + muzakki.id,
+                        attrs: {
+                          position: {
+                            lat: muzakki.latitude,
+                            lng: muzakki.longitude
                           },
-                          on: {
-                            click: function($event) {
-                              _vm.onMarkerClick(collector)
-                            }
+                          opened: muzakki.info_window_opened
+                        },
+                        on: {
+                          closeclick: function($event) {
+                            muzakki.info_window_opened = false
                           }
-                        }),
-                        _vm._v(" "),
-                        _vm._l(collector.donations, function(donation) {
-                          return _c(
-                            "span",
-                            { key: donation.id },
-                            [
-                              _c("GmapMarker", {
-                                attrs: {
-                                  position: {
-                                    lat: donation.latitude,
-                                    lng: donation.longitude
-                                  },
-                                  icon: "/png/person.png"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    donation.isInfoWindowOpen = true
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "GmapInfoWindow",
-                                {
-                                  attrs: {
-                                    position: {
-                                      lat: donation.latitude,
-                                      lng: donation.longitude
-                                    },
-                                    opened: donation.isInfoWindowOpen
-                                  },
-                                  on: {
-                                    closeclick: function($event) {
-                                      donation.isInfoWindowOpen = false
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(donation.name) +
-                                      "\n                                "
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "GmapInfoWindow",
-                          {
-                            attrs: {
-                              position: {
-                                lat: collector.latitude,
-                                lng: collector.longitude
-                              },
-                              opened: collector.isInfoWindowOpen
-                            },
-                            on: {
-                              closeclick: function($event) {
-                                collector.isInfoWindowOpen = false
-                              }
-                            }
-                          },
-                          [
-                            _c("div", [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "card",
-                                  staticStyle: { width: "25rem" }
-                                },
-                                [
-                                  _c("img", {
-                                    staticClass: "card-img-top",
-                                    staticStyle: {
-                                      width: "auto",
-                                      height: "auto",
-                                      "object-fit": "cover"
-                                    },
-                                    attrs: {
-                                      src: collector.image_url,
-                                      alt: "Card image cap"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "card-body" },
-                                    [
-                                      _c("h5", { staticClass: "card-title" }, [
-                                        _vm._v(
-                                          " " + _vm._s(collector.name) + " "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("p", { staticClass: "card-text" }, [
-                                        _vm._v(
-                                          " " + _vm._s(collector.address) + " "
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("hr"),
-                                      _vm._v(" "),
-                                      collector.donation_counts.length !== 0
-                                        ? _c("vue-frappe", {
-                                            attrs: {
-                                              id: "chart_" + collector.id,
-                                              labels: collector.donation_counts.map(
-                                                function(record) {
-                                                  return record.year
-                                                }
-                                              ),
-                                              title:
-                                                "Perkembangan Jumlah Penerima Zakat",
-                                              type: "bar",
-                                              dataSets: [
-                                                {
-                                                  name: "Penerima Zakat",
-                                                  values: collector.donation_counts.map(
-                                                    function(record) {
-                                                      return record.count
-                                                    }
-                                                  )
-                                                }
-                                              ],
-                                              tooltipOptions: {
-                                                formatTooltipX: function(d) {
-                                                  return (d + "").toUpperCase()
-                                                },
-                                                formatTooltipY: function(d) {
-                                                  return d
-                                                }
-                                              }
-                                            }
-                                          })
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      _c("hr"),
-                                      _vm._v(" "),
-                                      _c("p", { staticClass: "mb-2" }, [
-                                        _c("strong", [
-                                          _vm._v(" Penerima Zakat Terdekat: ")
-                                        ])
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm._l(
-                                        collector.nearestDonations,
-                                        function(donation) {
-                                          return _c(
-                                            "p",
-                                            {
-                                              key: donation.id,
-                                              staticClass: "mb-1"
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                                                " +
-                                                  _vm._s(donation.name) +
-                                                  ", " +
-                                                  _vm._s(donation.address) +
-                                                  "\n                                            "
-                                              )
-                                            ]
-                                          )
-                                        }
-                                      )
-                                    ],
-                                    2
-                                  )
-                                ]
-                              )
-                            ])
-                          ]
-                        )
-                      ],
-                      2
+                        }
+                      },
+                      [
+                        _c("div", [
+                          _c("h4", [_vm._v(" Muzakki ")]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(muzakki.name))]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(muzakki.address))])
+                        ])
+                      ]
                     )
-                  }),
-                  _vm._v(" "),
-                  _c("GmapMarker", { attrs: { position: this.pointer_marker } })
-                ],
-                2
-              )
-            ],
-            1
-          )
-        ])
-      ])
-    ])
+                  ]
+                }),
+                _vm._v(" "),
+                _vm._l(collector.mustahiqs, function(mustahiq) {
+                  return [
+                    _c("GmapMarker", {
+                      key: "mustahiq_" + mustahiq.id,
+                      attrs: {
+                        icon: _vm.icons.person_green,
+                        position: {
+                          lat: mustahiq.latitude,
+                          lng: mustahiq.longitude
+                        }
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.onMustahiqMarkerClick(mustahiq)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "GmapInfoWindow",
+                      {
+                        key: "mustahiq_info_" + mustahiq.id,
+                        attrs: {
+                          position: {
+                            lat: mustahiq.latitude,
+                            lng: mustahiq.longitude
+                          },
+                          opened: mustahiq.info_window_opened
+                        },
+                        on: {
+                          closeclick: function($event) {
+                            mustahiq.info_window_opened = false
+                          }
+                        }
+                      },
+                      [
+                        _c("div", [
+                          _c("h4", [_vm._v(" Mustahiq ")]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(mustahiq.name))]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(mustahiq.address))])
+                        ])
+                      ]
+                    )
+                  ]
+                })
+              ]
+            })
+          ],
+          2
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -86843,7 +86565,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fa fa-map" }),
-      _vm._v("\n            Peta Persebaran Unit Pengumpulan Zakat\n        ")
+      _vm._v("\n        Peta Persebaran UPZ, Muzakki, dan Mustahiq\n    ")
     ])
   }
 ]
@@ -97080,6 +96802,67 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(310);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("3f01f6b7", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3bf35862\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GuestMap.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3bf35862\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GuestMap.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 310 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 311 */
+/***/ (function(module, exports) {
+
+module.exports = {
+    'mosque_black': '/png/mosque.png',
+    'mosque_red': '/png/mosque_red.png',
+    'person_red': '/png/person.png',
+    'person_green': '/png/person_green.png'
+};
 
 /***/ })
 /******/ ]);
