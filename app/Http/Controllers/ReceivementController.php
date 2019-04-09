@@ -55,11 +55,10 @@ class ReceivementController extends Controller
 
         $receivements = Receivement::query()
             ->select(
-                'id', 'transaction_date', 'collector_id', 'name',
-                'NIK', 'kecamatan', 'kelurahan', 'phone',
-                'gender', 'npwz', 'zakat', 'fitrah', 'infak',
+                'id', 'transaction_date', 'collector_id', 'zakat', 'fitrah', 'infak', 'muzakki_id',
                 DB::raw('(zakat + fitrah + infak) AS total')
             )
+            ->with('muzakki')
             ->where('collector_id', $collector->id)
             ->whereYear('transaction_date', $year)
             ->get();

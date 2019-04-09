@@ -46,11 +46,11 @@
                             <td> {{ $loop->iteration }}. </td>
                             <td> {{ $receivement->transaction_date->format('d-m-Y') }} </td>
                             <td>
-                                <div> <strong> {{ $receivement->name }} </strong> </div>
-                                <div> {{ $receivement->NIK }} (NIK), {{ $receivement->npwz }} (NPWZ) </div>
-                                <div> {{ $receivement->phone }} (Telp) </div>
-                                <div> {{ $receivement->gender }} </div>
-                                <div> Kecamatan {{ $receivement->kecamatan }}, Kelurahan {{ $receivement->kelurahan }} </div>
+                                <div> <strong> {{ $receivement->muzakki->name }} </strong> </div>
+                                <div> {{ $receivement->muzakki->NIK }} (NIK), {{ $receivement->muzakki->npwz }} (NPWZ) </div>
+                                <div> {{ $receivement->muzakki->phone }} (Telp) </div>
+                                <div> {{ $receivement->muzakki->gender }} </div>
+                                <div> Kecamatan {{ $receivement->muzakki->kecamatan }}, Kelurahan {{ $receivement->muzakki->kelurahan }} </div>
                             </td>
                             <td class="text-right"> {{ number_format($receivement->zakat) }} </td>
                             <td class="text-right"> {{ number_format($receivement->fitrah) }} </td>
@@ -58,6 +58,8 @@
                             <td class="text-right"> {{ number_format($receivement->total) }} </td>
                         </tr>
                         @endforeach
+                    </tbody>
+                    <tfoot>
                         <tr>
                             <td colspan="3" class="text-right"> Total: </td>
                             <td class="text-right"> {{ number_format($receivements->sum('zakat')) }} </td>
@@ -65,7 +67,7 @@
                             <td class="text-right"> {{ number_format($receivements->sum('infak')) }} </td>
                             <td class="text-right"> {{ number_format($receivements->sum('total')) }} </td>
                         </tr>
-                    </tbody>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -73,4 +75,8 @@
 </div>
 
 @javascript('receivements', $yearly_receivements)
+@endsection
+
+@section('script')
+    @include('shared.datatables')
 @endsection
