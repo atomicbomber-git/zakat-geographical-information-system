@@ -86353,6 +86353,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -86389,23 +86403,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         onMuzakkiMarkerClick: function onMuzakkiMarkerClick(muzakki) {
             this.p_collectors.forEach(function (collector) {
                 collector.muzakkis.forEach(function (o_muzakki) {
-                    if (muzakki.id === o_muzakki.id) {
-                        o_muzakki.info_window_opened = true;
-                    } else {
-                        o_muzakki.info_window_opened = false;
-                    }
+                    o_muzakki.info_window_opened = muzakki.id === o_muzakki.id;
                 });
             });
         },
         onMustahiqMarkerClick: function onMustahiqMarkerClick(mustahiq) {
             this.p_collectors.forEach(function (collector) {
                 collector.mustahiqs.forEach(function (o_mustahiq) {
-                    if (mustahiq.id === o_mustahiq.id) {
-                        o_mustahiq.info_window_opened = true;
-                    } else {
-                        o_mustahiq.info_window_opened = false;
-                    }
+                    o_mustahiq.info_window_opened = mustahiq.id === o_mustahiq.id;
                 });
+            });
+        },
+        onCollectorMarkerClick: function onCollectorMarkerClick(collector) {
+            this.p_collectors.forEach(function (o_collector) {
+                o_collector.info_window_opened = o_collector.id === collector.id;
             });
         }
     }
@@ -86450,8 +86461,41 @@ var render = function() {
                       lat: collector.latitude,
                       lng: collector.longitude
                     }
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.onCollectorMarkerClick(collector)
+                    }
                   }
                 }),
+                _vm._v(" "),
+                _c(
+                  "GmapInfoWindow",
+                  {
+                    key: "collector_info_" + collector.id,
+                    attrs: {
+                      position: {
+                        lat: collector.latitude,
+                        lng: collector.longitude
+                      },
+                      opened: collector.info_window_opened
+                    },
+                    on: {
+                      closeclick: function($event) {
+                        collector.info_window_opened = false
+                      }
+                    }
+                  },
+                  [
+                    _c("div", [
+                      _c("h4", [_vm._v(" Unit Pengumpulan Zakat ")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(collector.name))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(collector.address))])
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _vm._l(collector.muzakkis, function(muzakki) {
                   return [
@@ -96848,7 +96892,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 

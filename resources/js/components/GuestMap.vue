@@ -19,13 +19,27 @@
                     :position="pointer_marker"
                     />
 
-                <!-- Collector Markers -->
+                <!-- Collector Markers and Info Windows -->
                 <template v-for="collector in p_collectors">
                     <GmapMarker
+                        @click="onCollectorMarkerClick(collector)"
                         :icon="icons.mosque_black"
                         :position="{ lat: collector.latitude, lng: collector.longitude }"
                         :key="collector.id"
                         />
+
+                    <GmapInfoWindow
+                        :position="{lat: collector.latitude, lng: collector.longitude}"
+                        :opened="collector.info_window_opened"
+                        @closeclick="collector.info_window_opened=false"
+                        :key="`collector_info_${collector.id}`"
+                        >
+                        <div>
+                            <h4> Unit Pengumpulan Zakat </h4>
+                            <p>{{ collector.name }}</p>
+                            <p>{{ collector.address }}</p>
+                        </div>
+                    </GmapInfoWindow>
 
                     <!-- Muzakki Markers and Info Windows -->
                     <template v-for="muzakki in collector.muzakkis">
@@ -113,12 +127,7 @@ export default {
         onMuzakkiMarkerClick(muzakki) {
             this.p_collectors.forEach(collector => {
                 collector.muzakkis.forEach(o_muzakki => {
-                    if (muzakki.id === o_muzakki.id) {
-                        o_muzakki.info_window_opened = true
-                    }
-                    else {
-                        o_muzakki.info_window_opened = false
-                    }
+                    o_muzakki.info_window_opened = (muzakki.id === o_muzakki.id)
                 })
             })
         },
@@ -126,13 +135,14 @@ export default {
         onMustahiqMarkerClick(mustahiq) {
             this.p_collectors.forEach(collector => {
                 collector.mustahiqs.forEach(o_mustahiq => {
-                    if (mustahiq.id === o_mustahiq.id) {
-                        o_mustahiq.info_window_opened = true
-                    }
-                    else {
-                        o_mustahiq.info_window_opened = false
-                    }
+                    o_mustahiq.info_window_opened = (mustahiq.id === o_mustahiq.id)
                 })
+            })
+        },
+
+        onCollectorMarkerClick(collector) {
+            this.p_collectors.forEach(o_collector => {
+                o_collector.info_window_opened = (o_collector.id === collector.id)
             })
         }
     },
