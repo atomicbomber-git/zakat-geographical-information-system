@@ -21,8 +21,8 @@
                         <i class="fa fa-info"></i>
                         Unit Pengumpulan Zakat Terdekat:
                     </h2>
-                    {{ this.nearest_collector.name }} <br/>
-                    {{ this.nearest_collector.address }}
+                    {{ get(this.nearest_collector, 'name', '-')  }} <br/>
+                    {{ get(this.nearest_collector, 'address', '-') }}
                 </div>
             </div>
 
@@ -88,8 +88,8 @@
 
                                 <p class="mb-2"> <strong> Mustahiq Terdekat: </strong> </p>
                                 <p>
-                                    {{ collector.nearest_mustahiq.name }} <br/>
-                                    {{ collector.nearest_mustahiq.address }}
+                                    {{ get(collector.nearest_mustahiq, 'name', '-') }} <br/>
+                                    {{ get(collector.nearest_mustahiq, 'address', '-') }}
                                 </p>
                             </div>
                         </div>
@@ -149,6 +149,7 @@
 
 <script>
 
+import { get } from 'lodash'
 import icons from '../icons.js'
 import { getDistance } from '../helpers.js'
 
@@ -190,6 +191,7 @@ export default {
                         info_window_opened: false,
                         distance_from_collector: getDistance(mustahiq.latitude, mustahiq.longitude, collector.latitude, collector.longitude)
                     }))
+
                 
                 return {
                     ...collector,
@@ -197,15 +199,17 @@ export default {
                     donation_counts: [],
                     // muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
                     mustahiqs: prepared_mustahiqs,
-                    nearest_mustahiq: prepared_mustahiqs.reduce((acc, cur) =>
-                        acc.distance_from_collector <= cur.distance_from_collector ? acc : cur
-                    ),
+                    nearest_mustahiq: prepared_mustahiqs.length === 0 ? null:
+                        prepared_mustahiqs.reduce((acc, cur) =>
+                            acc.distance_from_collector <= cur.distance_from_collector ? acc : cur
+                        ),
                 }
             }),
 
-            nearest_collector: this.collectors.reduce((acc, cur) => {
-                return getDistance(acc.latitude, acc.longitude, default_center.lat, default_center.lng) <=
-                       getDistance(cur.latitude, cur.longitude, default_center.lat, default_center.lng) ? acc : cur
+            nearest_collector: this.collectors.length === 0 ? null :
+                this.collectors.reduce((acc, cur) => {
+                    return getDistance(acc.latitude, acc.longitude, default_center.lat, default_center.lng) <=
+                           getDistance(cur.latitude, cur.longitude, default_center.lat, default_center.lng) ? acc : cur
             }),
 
             route_steps: [],
@@ -215,7 +219,8 @@ export default {
     watch: {
         pointer_marker(pointer_marker) {
             // Determine the nearest collector
-            this.nearest_collector = this.p_collectors.reduce((acc, cur) => {
+            this.nearest_collector = this.p_collectors.length === 0 ? null :
+                this.p_collectors.reduce((acc, cur) => {
                 return getDistance(acc.latitude, acc.longitude, pointer_marker.lat, pointer_marker.lng) <=
                        getDistance(cur.latitude, cur.longitude, pointer_marker.lat, pointer_marker.lng) ? acc : cur
             })
@@ -227,14 +232,18 @@ export default {
             )
 
             // Display route from the current pointer location to the nearest collector
-            this.loadAndDisplayRouteOnMap(this.pointer_marker, {
-                lat: this.nearest_collector.latitude,
-                lng: this.nearest_collector.longitude
-            })
+            if (this.nearest_collector !== null) {
+                this.loadAndDisplayRouteOnMap(this.pointer_marker, {
+                    lat: this.nearest_collector.latitude,
+                    lng: this.nearest_collector.longitude
+                })
+            }
         }
     },
 
     methods: {
+        get,
+
         onMapClick(e) {
             this.pointer_marker = {
                 lat: e.latLng.lat(),
