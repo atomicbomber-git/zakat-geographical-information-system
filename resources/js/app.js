@@ -21,6 +21,7 @@ Vue.use(VueGoogleMaps, {
     load: {
       key: 'AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU',
       libraries: 'places',
+      language: 'id',
     },
 })
 
