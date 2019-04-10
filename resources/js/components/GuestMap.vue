@@ -42,7 +42,7 @@
                     </GmapInfoWindow>
 
                     <!-- Muzakki Markers and Info Windows -->
-                    <template v-for="muzakki in collector.muzakkis">
+                    <!-- <template v-for="muzakki in collector.muzakkis">
                         <GmapMarker
                             @click="onMuzakkiMarkerClick(muzakki)"
                             :icon="icons.person_red"
@@ -62,7 +62,7 @@
                                 <p>{{ muzakki.address }}</p>
                             </div>
                         </GmapInfoWindow>
-                    </template>
+                    </template> -->
 
                     <!-- Mustahiq Markers -->
                     <template v-for="mustahiq in collector.mustahiqs">
@@ -110,7 +110,7 @@ export default {
             p_collectors: this.collectors.map(collector => ({
                 ...collector,
                 info_window_opened: false,
-                muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
+                // muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
                 mustahiqs: collector.mustahiqs.map(mustahiq => ({...mustahiq, info_window_opened: false }))
             }))
         }
@@ -124,13 +124,13 @@ export default {
             }
         },
 
-        onMuzakkiMarkerClick(muzakki) {
-            this.p_collectors.forEach(collector => {
-                collector.muzakkis.forEach(o_muzakki => {
-                    o_muzakki.info_window_opened = (muzakki.id === o_muzakki.id)
-                })
-            })
-        },
+        // onMuzakkiMarkerClick(muzakki) {
+        //     this.p_collectors.forEach(collector => {
+        //         collector.muzakkis.forEach(o_muzakki => {
+        //             o_muzakki.info_window_opened = (muzakki.id === o_muzakki.id)
+        //         })
+        //     })
+        // },
 
         onMustahiqMarkerClick(mustahiq) {
             this.p_collectors.forEach(collector => {
