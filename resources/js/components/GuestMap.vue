@@ -34,10 +34,44 @@
                         @closeclick="collector.info_window_opened=false"
                         :key="`collector_info_${collector.id}`"
                         >
-                        <div>
-                            <h4> Unit Pengumpulan Zakat </h4>
-                            <p>{{ collector.name }}</p>
-                            <p>{{ collector.address }}</p>
+
+                        <div class="card" style="width: 25rem;">
+                            <img class="card-img-top" style="width: auto; height: auto; object-fit: cover" :src="collector.image_url" alt="Gambar UPZ">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ collector.name }}
+                                </h5>
+                                <p class="card-text">
+                                    {{ collector.address }}
+                                </p>
+                                
+                                <hr>
+
+                                <!-- <vue-frappe
+                                    v-if="collector.donation_counts.length !== 0"
+                                    :id="`chart_${collector.id}`"
+                                    :labels="collector.donation_counts.map(record => record.year)"
+                                    title="Perkembangan Jumlah Penerima Zakat"
+                                    type="bar"
+                                    :dataSets="[{
+                                        name: 'Penerima Zakat',
+                                        values: collector.donation_counts.map(record => record.count)
+                                    }]"
+                                    
+                                    :tooltipOptions="{
+                                        formatTooltipX: d => (d + '').toUpperCase(),
+                                        formatTooltipY: d => d,
+                                    }"
+                                    >
+                                </vue-frappe> -->
+
+                                <hr>
+
+                                <p class="mb-2"> <strong> Mustahiq Terdekat: </strong> </p>
+                                <!-- <p class="mb-1" v-for="donation in collector.nearestDonations" :key="donation.id">
+                                    {{ donation.name }}, {{ donation.address }}
+                                </p> -->
+                            </div>
                         </div>
                     </GmapInfoWindow>
 

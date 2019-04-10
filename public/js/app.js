@@ -49901,11 +49901,12 @@ module.exports = __webpack_require__(301);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_multiselect_dist_vue_multiselect_min_css__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_multiselect_dist_vue_multiselect_min_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_multiselect_dist_vue_multiselect_min_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue2_google_maps__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue2_google_maps__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue2_frappe__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_numeral__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_numeral___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_numeral__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue2_frappe__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue2_google_maps__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue2_google_maps__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__numeral_js__ = __webpack_require__(313);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_js__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helpers_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__helpers_js__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -49914,81 +49915,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  */
 
 __webpack_require__(158);
-
 window.Vue = __webpack_require__(180);
 
-
+// Add Vue Multiselect CSS
 
 
 // Add Vue-2 Frappe Charts
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue2_frappe__["a" /* default */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue2_frappe__["a" /* default */]);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+// Add Vue Google Maps
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue2_google_maps__, {
+Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue2_google_maps__, {
     load: {
         key: 'AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU',
         libraries: 'places'
     }
 });
 
+// Register all Vue components
 Vue.component('receivement-base-chart', __webpack_require__(225));
 Vue.component('donation-base-chart', __webpack_require__(230));
-
 Vue.component('receiver', __webpack_require__(235));
 Vue.component('guest-map', __webpack_require__(238));
 Vue.component('guest-chart', __webpack_require__(244));
-
 Vue.component('receivement-chart', __webpack_require__(249));
 Vue.component('receivement-detail-chart', __webpack_require__(254));
 Vue.component('donation-chart', __webpack_require__(259));
 Vue.component('donation-detail-chart', __webpack_require__(264));
-
 Vue.component('collector-create', __webpack_require__(269));
 Vue.component('collector-edit', __webpack_require__(272));
-
 Vue.component('collector-donation-create', __webpack_require__(275));
 Vue.component('collector-donation-edit', __webpack_require__(279));
 Vue.component('collector-receivement-create', __webpack_require__(282));
 Vue.component('collector-receivement-edit', __webpack_require__(285));
-
 Vue.component('collector-mustahiq-create', __webpack_require__(289));
 Vue.component('collector-mustahiq-edit', __webpack_require__(292));
 Vue.component('collector-muzakki-create', __webpack_require__(295));
 Vue.component('collector-muzakki-edit', __webpack_require__(298));
 
-// numeral.js
-
-
-
-__WEBPACK_IMPORTED_MODULE_3_numeral___default.a.register('locale', 'id', {
-    delimiters: {
-        thousands: '.',
-        decimal: ','
-    },
-    abbreviations: {
-        thousand: 'Ribu',
-        million: 'Juta',
-        billion: 'Miliar',
-        trillion: 'Triliun'
-    },
-    currency: {
-        symbol: 'Rp.'
-    }
-});
-
-__WEBPACK_IMPORTED_MODULE_3_numeral___default.a.locale('id');
-
-window.numeral = __WEBPACK_IMPORTED_MODULE_3_numeral___default.a;
-
 var app = new Vue({
     el: '#app'
 });
+
+
+window.numeral = __WEBPACK_IMPORTED_MODULE_3__numeral_js__["a" /* default */];
+
+
+window.example = __WEBPACK_IMPORTED_MODULE_4__helpers_js__["getDistance"];
 
 /***/ }),
 /* 158 */
@@ -86297,7 +86271,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -86312,6 +86286,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__icons_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__icons_js__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -86539,13 +86547,47 @@ var render = function() {
                     }
                   },
                   [
-                    _c("div", [
-                      _c("h4", [_vm._v(" Unit Pengumpulan Zakat ")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(collector.name))]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(collector.address))])
-                    ])
+                    _c(
+                      "div",
+                      { staticClass: "card", staticStyle: { width: "25rem" } },
+                      [
+                        _c("img", {
+                          staticClass: "card-img-top",
+                          staticStyle: {
+                            width: "auto",
+                            height: "auto",
+                            "object-fit": "cover"
+                          },
+                          attrs: { src: collector.image_url, alt: "Gambar UPZ" }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("h5", { staticClass: "card-title" }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(collector.name) +
+                                "\n                            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "card-text" }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(collector.address) +
+                                "\n                            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "mb-2" }, [
+                            _c("strong", [_vm._v(" Mustahiq Terdekat: ")])
+                          ])
+                        ])
+                      ]
+                    )
                   ]
                 ),
                 _vm._v(" "),
@@ -96850,6 +96892,69 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */
+/***/ (function(module, exports) {
+
+// Helper functions
+
+// Convert degree to radian
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
+
+// Returns distance in kilometers
+function getDistance(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2 - lat1); // deg2rad below
+    var dLon = deg2rad(lon2 - lon1);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
+}
+
+module.exports = { getDistance: getDistance, deg2rad: deg2rad };
+
+/***/ }),
+/* 313 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_numeral__);
+
+
+__WEBPACK_IMPORTED_MODULE_0_numeral___default.a.register('locale', 'id', {
+    delimiters: {
+        thousands: '.',
+        decimal: ','
+    },
+    abbreviations: {
+        thousand: 'Ribu',
+        million: 'Juta',
+        billion: 'Miliar',
+        trillion: 'Triliun'
+    },
+    currency: {
+        symbol: 'Rp.'
+    }
+});
+
+__WEBPACK_IMPORTED_MODULE_0_numeral___default.a.locale('id');
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_numeral___default.a);
 
 /***/ })
 /******/ ]);
