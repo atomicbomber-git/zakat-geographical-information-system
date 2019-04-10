@@ -86190,10 +86190,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(239)
-}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(241)
@@ -86202,7 +86198,7 @@ var __vue_template__ = __webpack_require__(243)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+var __vue_styles__ = null
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -86237,46 +86233,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 239 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(240);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("3f01f6b7", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3bf35862\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GuestMap.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3bf35862\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./GuestMap.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 240 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 239 */,
+/* 240 */,
 /* 241 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -86284,6 +86242,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__icons_js__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__icons_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__icons_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_js__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__helpers_js__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -86415,6 +86375,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -86422,22 +86403,77 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ["collectors", "gmap_settings"],
 
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$refs.mapRef.$mapPromise.then(function (map) {
+            _this.map = map;
+
+            // Load Geocoder Service
+            _this.geocoder = new google.maps.Geocoder();
+
+            // Load Directions Service and Display
+            _this.directionsService = new google.maps.DirectionsService();
+            _this.directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true, preserveViewport: true });
+            _this.directionsDisplay.setMap(map);
+        });
+
+        this.loadAndSetCurrentLocation();
+    },
     data: function data() {
+
+        var default_center = this.gmap_settings.center;
+
         return {
             icons: __WEBPACK_IMPORTED_MODULE_0__icons_js___default.a,
-            pointer_marker: this.gmap_settings.center,
+            pointer_marker: default_center,
+            pointer_address: null,
+
             p_collectors: this.collectors.map(function (collector) {
+                var prepared_mustahiqs = collector.mustahiqs.map(function (mustahiq) {
+                    return _extends({}, mustahiq, {
+                        info_window_opened: false,
+                        distance_from_collector: Object(__WEBPACK_IMPORTED_MODULE_1__helpers_js__["getDistance"])(mustahiq.latitude, mustahiq.longitude, collector.latitude, collector.longitude)
+                    });
+                });
+
                 return _extends({}, collector, {
                     info_window_opened: false,
+                    donation_counts: [],
                     // muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
-                    mustahiqs: collector.mustahiqs.map(function (mustahiq) {
-                        return _extends({}, mustahiq, { info_window_opened: false });
+                    mustahiqs: prepared_mustahiqs,
+                    nearest_mustahiq: prepared_mustahiqs.reduce(function (acc, cur) {
+                        return acc.distance_from_collector <= cur.distance_from_collector ? acc : cur;
                     })
                 });
-            })
+            }),
+
+            nearest_collector: this.collectors.reduce(function (acc, cur) {
+                return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_js__["getDistance"])(acc.latitude, acc.longitude, default_center.lat, default_center.lng) <= Object(__WEBPACK_IMPORTED_MODULE_1__helpers_js__["getDistance"])(cur.latitude, cur.longitude, default_center.lat, default_center.lng) ? acc : cur;
+            }),
+
+            route_steps: []
         };
     },
 
+
+    watch: {
+        pointer_marker: function pointer_marker(_pointer_marker) {
+            // Determine the nearest collector
+            this.nearest_collector = this.p_collectors.reduce(function (acc, cur) {
+                return Object(__WEBPACK_IMPORTED_MODULE_1__helpers_js__["getDistance"])(acc.latitude, acc.longitude, _pointer_marker.lat, _pointer_marker.lng) <= Object(__WEBPACK_IMPORTED_MODULE_1__helpers_js__["getDistance"])(cur.latitude, cur.longitude, _pointer_marker.lat, _pointer_marker.lng) ? acc : cur;
+            });
+
+            // Reverse geocode current pointer's location to determine its real world address
+            this.loadAndSetCurrentAddress(_pointer_marker.lat, _pointer_marker.lng);
+
+            // Display route from the current pointer location to the nearest collector
+            this.loadAndDisplayRouteOnMap(this.pointer_marker, {
+                lat: this.nearest_collector.latitude,
+                lng: this.nearest_collector.longitude
+            });
+        }
+    },
 
     methods: {
         onMapClick: function onMapClick(e) {
@@ -86467,6 +86503,57 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.p_collectors.forEach(function (o_collector) {
                 o_collector.info_window_opened = o_collector.id === collector.id;
             });
+
+            this.loadDonationCount(collector);
+        },
+        loadAndSetCurrentLocation: function loadAndSetCurrentLocation() {
+            var _this2 = this;
+
+            navigator.geolocation.getCurrentPosition(function (position) {
+                _this2.pointer_marker.lat = position.coords.latitude;
+                _this2.pointer_marker.lng = position.coords.longitude;
+
+                _this2.loadAndSetCurrentAddress(_this2.pointer_marker.lat, _this2.pointer_marker.lng);
+            });
+        },
+        loadAndSetCurrentAddress: function loadAndSetCurrentAddress(latitude, longitude) {
+            var _this3 = this;
+
+            this.geocoder.geocode({ location: { lat: latitude, lng: longitude } }, function (results, status) {
+                if (status == "OK") {
+                    _this3.pointer_address = results[0].formatted_address;
+                    return;
+                }
+
+                console.error({ results: results, status: status });
+            });
+        },
+        loadAndDisplayRouteOnMap: function loadAndDisplayRouteOnMap(origin, destination) {
+            var _this4 = this;
+
+            var travel_mode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'DRIVING';
+
+            var direction_request = {
+                origin: new google.maps.LatLng(origin),
+                destination: new google.maps.LatLng(destination),
+                travelMode: travel_mode
+            };
+
+            this.directionsService.route(direction_request, function (result, status) {
+                if (status == 'OK') {
+                    _this4.directionsDisplay.setDirections(result);
+                    return;
+                }
+
+                console.error({ result: result, status: status });
+            });
+        },
+        loadDonationCount: function loadDonationCount(collector) {
+            axios.get('/donation/api/count/' + collector.id).then(function (response) {
+                collector.donation_counts = response.data;
+            }).catch(function (error) {
+                console.error(error);
+            });
         }
     }
 });
@@ -86495,11 +86582,40 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "card-body" },
+      { staticClass: "card-body p-0" },
       [
+        _c("div", { staticClass: "my-4 mx-4" }, [
+          _c("p", [
+            _vm._v(
+              "\n                Anda sekarang berada di\n                "
+            ),
+            _c("strong", [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(this.pointer_address) +
+                  "\n                "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "alert alert-info" }, [
+            _vm._m(1),
+            _vm._v(
+              "\n                " + _vm._s(this.nearest_collector.name) + " "
+            ),
+            _c("br"),
+            _vm._v(
+              "\n                " +
+                _vm._s(this.nearest_collector.address) +
+                "\n            "
+            )
+          ])
+        ]),
+        _vm._v(" "),
         _c(
           "GmapMap",
           {
+            ref: "mapRef",
             style: this.gmap_settings.style,
             attrs: {
               center: this.gmap_settings.center,
@@ -86561,31 +86677,84 @@ var render = function() {
                           attrs: { src: collector.image_url, alt: "Gambar UPZ" }
                         }),
                         _vm._v(" "),
-                        _c("div", { staticClass: "card-body" }, [
-                          _c("h5", { staticClass: "card-title" }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(collector.name) +
-                                "\n                            "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "card-text" }, [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(collector.address) +
-                                "\n                            "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("hr"),
-                          _vm._v(" "),
-                          _c("hr"),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "mb-2" }, [
-                            _c("strong", [_vm._v(" Mustahiq Terdekat: ")])
-                          ])
-                        ])
+                        _c(
+                          "div",
+                          { staticClass: "card-body" },
+                          [
+                            _c("h5", { staticClass: "card-title" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(collector.name) +
+                                  "\n                            "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "card-text" }, [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(collector.address) +
+                                  "\n                            "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            collector.donation_counts.length !== 0
+                              ? _c("vue-frappe", {
+                                  attrs: {
+                                    id: "chart_" + collector.id,
+                                    labels: collector.donation_counts.map(
+                                      function(record) {
+                                        return record.year
+                                      }
+                                    ),
+                                    title:
+                                      "Perkembangan Jumlah Penerimaan Zakat",
+                                    type: "bar",
+                                    dataSets: [
+                                      {
+                                        name: "Penerimaan Zakat",
+                                        values: collector.donation_counts.map(
+                                          function(record) {
+                                            return record.count
+                                          }
+                                        )
+                                      }
+                                    ],
+                                    tooltipOptions: {
+                                      formatTooltipX: function(d) {
+                                        return (d + "").toUpperCase()
+                                      },
+                                      formatTooltipY: function(d) {
+                                        return d
+                                      }
+                                    }
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("hr"),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mb-2" }, [
+                              _c("strong", [_vm._v(" Mustahiq Terdekat: ")])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(collector.nearest_mustahiq.name) +
+                                  " "
+                              ),
+                              _c("br"),
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(collector.nearest_mustahiq.address) +
+                                  "\n                            "
+                              )
+                            ])
+                          ],
+                          1
+                        )
                       ]
                     )
                   ]
@@ -86596,7 +86765,7 @@ var render = function() {
                     _c("GmapMarker", {
                       key: "mustahiq_" + mustahiq.id,
                       attrs: {
-                        icon: _vm.icons.person_green,
+                        icon: _vm.icons.person_red,
                         position: {
                           lat: mustahiq.latitude,
                           lng: mustahiq.longitude
@@ -86656,6 +86825,17 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fa fa-map" }),
       _vm._v("\n        Peta Persebaran UPZ, Muzakki, dan Mustahiq\n    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h2", { staticClass: "h3" }, [
+      _c("i", { staticClass: "fa fa-info" }),
+      _vm._v(
+        "\n                    Unit Pengumpulan Zakat Terdekat:\n                "
+      )
     ])
   }
 ]
