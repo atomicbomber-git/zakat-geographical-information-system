@@ -185,6 +185,8 @@ export default {
             this.directionsService = new google.maps.DirectionsService()
             this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true, preserveViewport: true})
             this.directionsDisplay.setMap(map);
+
+            this.loadAndSetCurrentAddress(this.pointer_marker.lat, this.pointer_marker.lng)
         })
 
         this.loadAndSetCurrentLocation()
@@ -289,7 +291,6 @@ export default {
             navigator.geolocation.getCurrentPosition(position => {
                 this.pointer_marker.lat = position.coords.latitude
                 this.pointer_marker.lng = position.coords.longitude
-                this.loadAndSetCurrentAddress(this.pointer_marker.lat, this.pointer_marker.lng)
             })
         },
 
