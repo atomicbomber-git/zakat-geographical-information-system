@@ -21,7 +21,7 @@ class Donation extends Model
 
     public $fillable = [
         'transaction_date', 'name', 'nik', 'address', 'kecamatan', 'kelurahan',
-        'phone', 'gender', 'occupation', 'ansaf', 'help_program',
+        'phone', 'gender', 'occupation', 'asnaf', 'help_program',
         'amount', 'latitude', 'longitude', 'collector_id', "mustahiq_id",
     ];
 

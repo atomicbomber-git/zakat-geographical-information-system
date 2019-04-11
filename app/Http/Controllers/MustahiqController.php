@@ -15,7 +15,7 @@ class MustahiqController extends Controller
             ->select(
                 "id", "name", "nik", "address",
                 "kecamatan", "kelurahan", "phone", "gender",
-                "occupation", "ansaf", "help_program" ,
+                "occupation", "asnaf", "help_program" ,
                 "collector_id"
             )
             ->whereHas("collector", function (Builder $query) {
@@ -55,7 +55,7 @@ class MustahiqController extends Controller
             'phone' => 'required|string',
             'gender' => ['required', Rule::in('l', 'p')],
             'occupation' => 'required|string',
-            'ansaf' => 'required|string',
+            'asnaf' => 'required|string',
             'help_program' => 'required|string',
         ]);
 
@@ -97,7 +97,7 @@ class MustahiqController extends Controller
             'phone' => 'required|string',
             'gender' => ['required', Rule::in('l', 'p')],
             'occupation' => 'required|string',
-            'ansaf' => 'required|string',
+            'asnaf' => 'required|string',
             'help_program' => 'required|string',
         ]);
 

@@ -53,7 +53,7 @@
                                                         <dl>
                                                             <dt> Jenis Kelamin: </dt> <dd> {{ receiver.sex }} </dd>
                                                             <dt> Pendidikan: </dt> <dd> {{ receiver.education }} </dd>
-                                                            <dt> Ansaf: </dt> <dd> {{ receiver.ansaf }} </dd>
+                                                            <dt> asnaf: </dt> <dd> {{ receiver.asnaf }} </dd>
                                                             <dt> Program Bantuan: </dt> <dd> {{ receiver.help_program }} </dd>
                                                             <dt> Jumlah: </dt> <dd> Rp. {{ parseFloat(receiver.amount).toLocaleString('id-ID') }} </dd>
                                                         </dl>
@@ -198,13 +198,13 @@
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.occupation[0]', false) }}</div>
                         </div>
                         <div class='form-group'>
-                            <label for='ansaf'> Ansaf: </label>
+                            <label for='asnaf'> asnaf: </label>
                             <input
-                                v-model='ansaf'
+                                v-model='asnaf'
                                 class='form-control'
-                                :class="{'is-invalid': get(this.error_data, 'errors.ansaf[0]', false)}"
-                                type='text' id='ansaf' placeholder='Ansaf'>
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.ansaf[0]', false) }}</div>
+                                :class="{'is-invalid': get(this.error_data, 'errors.asnaf[0]', false)}"
+                                type='text' id='asnaf' placeholder='asnaf'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.asnaf[0]', false) }}</div>
                         </div>
 
                         <div class='form-group'>
@@ -262,7 +262,7 @@
                 phone: "",
                 sex: "",
                 occupation: "",
-                ansaf: "",
+                asnaf: "",
                 help_program: "",
                 amount: null,
 
@@ -286,7 +286,7 @@
                     phone: this.phone,
                     sex: this.sex,
                     occupation: this.occupation,
-                    ansaf: this.ansaf,
+                    asnaf: this.asnaf,
                     help_program: this.help_program,
                     amount: this.amount
                 }

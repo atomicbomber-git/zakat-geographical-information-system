@@ -22,7 +22,7 @@ class Mustahiq extends Model
         "phone",
         "gender",
         "occupation",
-        "ansaf",
+        "asnaf",
         "help_program",
         "collector_id",
     ];

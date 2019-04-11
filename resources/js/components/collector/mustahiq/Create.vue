@@ -177,13 +177,16 @@
                         </div>
 
                         <div class='form-group'>
-                            <label for='ansaf'> Ansaf: </label>
-                            <input
-                                v-model='ansaf'
-                                class='form-control'
-                                :class="{'is-invalid': get(this.error_data, 'errors.ansaf[0]', false)}"
-                                type='text' id='ansaf' placeholder='Ansaf'>
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.ansaf[0]', false) }}</div>
+                            <label for='asnaf'> Asnaf: </label>
+                            <multiselect
+                                :options="asnafs"
+                                v-model="asnaf"
+                                selectLabel=""
+                                selectedLabel=""
+                                deselectLabel=""	
+                                :preselect-first="true"
+                                />
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.asnaf[0]', false) }}</div>
                         </div>
 
                         <div class='form-group'>
@@ -213,8 +216,12 @@
 
 import { get } from 'lodash'
 import axios from 'axios'
+import asnafs from '../../../asnaf_catalog'
+import { Multiselect } from 'vue-multiselect'
 
 export default {
+    components: { Multiselect },
+
     props: [
         "gmap_settings", "collector",
         "submit_url", "redirect_url",
@@ -243,12 +250,16 @@ export default {
             kelurahan: null,
             phone: null,
             occupation: null,
-            ansaf: null,
+            asnaf: null,
             help_program: null,
         }
     },
 
     computed: {
+        asnafs() {
+            return asnafs
+        },
+
         form_data() {
             return {
                 latitude: this.pointer_marker.lat,
@@ -261,7 +272,7 @@ export default {
                 kelurahan: this.kelurahan,
                 phone: this.phone,
                 occupation: this.occupation,
-                ansaf: this.ansaf,
+                asnaf: this.asnaf,
                 help_program: this.help_program,
             }
         }

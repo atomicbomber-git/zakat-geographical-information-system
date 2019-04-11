@@ -13,7 +13,7 @@ class ReceiverController extends Controller
     {
         $receivers = Receiver::select(
             "name", "nik", "address", "kecamatan", "kelurahan",
-            "phone", "sex", "occupation", "ansaf", "help_program",
+            "phone", "sex", "occupation", "asnaf", "help_program",
             "amount"
         )
         ->get();
@@ -26,7 +26,7 @@ class ReceiverController extends Controller
         $receivers = Receiver::select(
             'id', 'name', 'latitude', 'longitude', 'nik', 'address',
             'kecamatan', 'kelurahan', 'phone', 'sex', 'occupation',
-            'ansaf', 'help_program', 'amount'
+            'asnaf', 'help_program', 'amount'
         )
         ->get();
 
@@ -54,7 +54,7 @@ class ReceiverController extends Controller
             'phone' => 'required',
             'sex' => ['required', Rule::in('L', 'P')],
             'occupation' => 'required',
-            'ansaf' => 'required',
+            'asnaf' => 'required',
             'help_program' => 'required',
             'amount' => 'required|gt:0',
         ]);

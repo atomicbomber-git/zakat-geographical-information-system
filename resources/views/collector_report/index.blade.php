@@ -51,7 +51,7 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
 
-                            <form action="{{ route('collector.report.delete', $report) }}" method="POST" class="d-inline-block">
+                            <form class="form-delete" action="{{ route('collector.report.delete', $report) }}" method="POST" class="d-inline-block">
                                 @csrf
                                 <button class="btn btn-danger btn-sm">
                                     Hapus

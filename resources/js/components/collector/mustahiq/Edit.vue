@@ -226,18 +226,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="ansaf">Ansaf:</label>
+                            <label for="asnaf"> Asnaf: </label>
                             <input
-                                v-model="ansaf"
+                                v-model="asnaf"
                                 class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.ansaf[0]', false)}"
+                                :class="{'is-invalid': get(this.error_data, 'errors.asnaf[0]', false)}"
                                 type="text"
-                                id="ansaf"
-                                placeholder="Ansaf"
+                                id="asnaf"
+                                placeholder="asnaf"
                             >
                             <div
                                 class="invalid-feedback"
-                            >{{ get(this.error_data, 'errors.ansaf[0]', false) }}</div>
+                            >{{ get(this.error_data, 'errors.asnaf[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -303,7 +303,7 @@ export default {
             kelurahan: this.mustahiq.kelurahan,
             phone: this.mustahiq.phone,
             occupation: this.mustahiq.occupation,
-            ansaf: this.mustahiq.ansaf,
+            asnaf: this.mustahiq.asnaf,
             help_program: this.mustahiq.help_program,
         }
     },
@@ -321,7 +321,7 @@ export default {
                 kelurahan: this.kelurahan,
                 phone: this.phone,
                 occupation: this.occupation,
-                ansaf: this.ansaf,
+                asnaf: this.asnaf,
                 help_program: this.help_program,
             }
         }

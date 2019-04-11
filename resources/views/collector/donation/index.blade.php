@@ -62,7 +62,7 @@
                             <th> # </th>
                             <th> Tanggal Transaksi </th>
                             <th> Identitas Penerima </th>
-                            <th> Ansaf </th>
+                            <th> asnaf </th>
                             <th> Program Bantuan </th>
                             <th class="text-right"> Jumlah Zakat (Rp.) </th>
                             <th class="text-center"> Aksi </th>
@@ -81,14 +81,14 @@
                                 <div> {{ $donation->mustahiq->address }} </div>
                                 <div> Kecamatan {{ $donation->mustahiq->kecamatan }}, Kelurahan {{ $donation->mustahiq->kelurahan }} </div>
                             </td>
-                            <td> {{ $donation->mustahiq->ansaf }} </td>
+                            <td> {{ $donation->mustahiq->asnaf }} </td>
                             <td> {{ $donation->mustahiq->help_program }} </td>
                             <td class="text-right"> {{ number_format($donation->amount) }} </td>
                             <td class="text-center">
                                 <a href="{{ route('collector.donation.edit', $donation) }}" class="btn btn-dark btn-sm">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action='{{ route('collector.donation.delete', $donation) }}' method='POST' class='d-inline-block'>
+                                <form class="form-delete" action='{{ route('collector.donation.delete', $donation) }}' method='POST' class='d-inline-block'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
                                         <i class='fa fa-trash'></i>

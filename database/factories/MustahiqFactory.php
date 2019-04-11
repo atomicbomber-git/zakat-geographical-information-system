@@ -12,7 +12,7 @@ $factory->define(App\Mustahiq::class, function (Faker $faker) {
         "phone" => $faker->phoneNumber,
         "gender" => $faker->randomElement(['l', 'p']),
         "occupation" => $faker->randomElement(['Buruh', 'Kuli', 'Pedagang', 'Rumah Tangga']),
-        "ansaf" => $faker->randomElement(['X', 'Y']),
+        "asnaf" => $faker->randomElement(['X', 'Y']),
         "help_program" => $faker->randomElement(['U', 'V']),
         'latitude' => rand(-50, 50) / 1000 + -0.026330,
         'longitude' => rand(-50, 50) / 1000 + 109.342504

@@ -25,7 +25,7 @@ class CreateDonationsTable extends Migration
             $table->string("phone")->nullable();
             $table->string("gender");
             $table->string("occupation");
-            $table->string("ansaf");
+            $table->string("asnaf");
             $table->string("help_program");
             $table->decimal("amount", 19, 4);
             $table->double("latitude");

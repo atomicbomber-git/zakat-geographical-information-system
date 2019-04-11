@@ -24,5 +24,30 @@
     @yield('content')
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('script')
+
+    <script>
+        $(document).ready(function() {
+
+            $("form.form-delete").submit(function(e) {
+                e.preventDefault()
+
+                let form = this
+
+                swal("Apakah Anda yakin ingin menghapus data ini?", {
+                    dangerMode: true,
+                    icon: "warning",
+                    buttons: {
+                        cancel: "Tidak",
+                        confirm: "Ya"
+                    },
+                })
+                .then(will_submit => {
+                    if (will_submit) {
+                        $(form).off("submit").submit()
+                    }
+                })
+            })
+        })
+    </script>
 </body>
 </html>

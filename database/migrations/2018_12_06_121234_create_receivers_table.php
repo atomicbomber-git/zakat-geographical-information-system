@@ -24,7 +24,7 @@ class CreateReceiversTable extends Migration
             $table->string("phone")->nullable();
             $table->string("sex");
             $table->string("occupation");
-            $table->string("ansaf");
+            $table->string("asnaf");
             $table->string("help_program");
             $table->decimal("amount", 19, 4);
             $table->double("latitude");

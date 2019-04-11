@@ -86,7 +86,7 @@
                                     <i class="fa fa-pencil"></i>
                                 </a>
                                 
-                                <form action='{{ route('collector.receivement.delete', $receivement) }}' method='POST' class='d-inline-block'>
+                                <form class="form-delete" action='{{ route('collector.receivement.delete', $receivement) }}' method='POST' class='d-inline-block'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
                                         <i class='fa fa-trash'></i>

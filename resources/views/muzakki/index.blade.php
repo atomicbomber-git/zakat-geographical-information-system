@@ -62,7 +62,7 @@
                                 </a>
 
                                 @can('delete', $muzakki)
-                                <form action='{{ route('collector.muzakki.delete', $muzakki) }}' method='POST' class='d-inline-block'>
+                                <form class="form-delete" action='{{ route('collector.muzakki.delete', $muzakki) }}' method='POST' class='d-inline-block'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
                                         <i class='fa fa-trash'></i>

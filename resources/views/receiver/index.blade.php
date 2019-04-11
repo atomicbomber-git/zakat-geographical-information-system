@@ -39,7 +39,7 @@
                             <th> No. HP </th>
                             <th> Jenis Kelamin </th>
                             <th> Pekerjaan </th>
-                            <th> Ansaf </th>
+                            <th> asnaf </th>
                             <th> Program Bantuan </th>
                             <th> Jumlah Zakat (Rp.) </th>
                             <th> Aksi </th>
@@ -57,11 +57,11 @@
                             <td> {{ $receiver->phone }} </td>
                             <td> {{ $receiver->sex }} </td>
                             <td> {{ $receiver->occupation }} </td>
-                            <td> {{ $receiver->ansaf }} </td>
+                            <td> {{ $receiver->asnaf }} </td>
                             <td> {{ $receiver->help_program }} </td>
                             <td> {{ number_format($receiver->amount) }} </td>
                             <td>
-                                <form action='{{ route('receiver.delete') }}' method='POST' class='d-inline-block'>
+                                <form class="form-delete" action='{{ route('receiver.delete') }}' method='POST' class='d-inline-block'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
                                         Hapus

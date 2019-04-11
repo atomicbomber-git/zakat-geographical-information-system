@@ -12,7 +12,7 @@ $factory->define(App\Receiver::class, function (Faker $faker) {
         "phone" => $faker->phoneNumber,
         "sex" => $faker->randomElement(['L', 'P']),
         "occupation" => $faker->randomElement(['Buruh', 'Kuli', 'Pedagang']),
-        "ansaf" => $faker->randomElement(['X', 'Y']),
+        "asnaf" => $faker->randomElement(['X', 'Y']),
         "help_program" => $faker->randomElement(['U', 'V']),
         "amount" => rand(10, 20) * 10000000,
         'latitude' => rand(-50, 50) / 1000 + -0.026330,

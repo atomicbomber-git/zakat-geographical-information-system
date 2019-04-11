@@ -39,7 +39,7 @@
                             <th> Telepon </th>
                             <th> J. Kelamin </th>
                             <th> Pekerjaan </th>
-                            <th> Ansaf </th>
+                            <th> Asnaf </th>
                             <th> P. Bantuan </th>
                             <th class="text-center"> Aksi </th>
                         </tr>
@@ -57,7 +57,7 @@
                             <td> {{ $mustahiq->phone }} </td>
                             <td> {{ \App\Mustahiq::GENDERS[$mustahiq->gender] ?? '-' }} </td>
                             <td> {{ $mustahiq->occupation }} </td>
-                            <td> {{ $mustahiq->ansaf }} </td>
+                            <td> {{ $mustahiq->asnaf }} </td>
                             <td> {{ $mustahiq->help_program }} </td>
                             <td class="text-center">
                                 @can("update", $mustahiq)
@@ -67,7 +67,7 @@
                                 @endcan
 
                                 @can("delete", $mustahiq)
-                                <form action='{{ route("collector.mustahiq.delete", $mustahiq) }}' method='POST' class='d-inline-block'>
+                                <form class="form-delete" action='{{ route("collector.mustahiq.delete", $mustahiq) }}' method='POST' class='d-inline-block'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
                                         <i class='fa fa-trash'></i>

@@ -8,6 +8,9 @@
 require('./bootstrap');
 window.Vue = require('vue');
 
+import sweetalert from 'sweetalert'
+window.swal = sweetalert
+
 // Add Vue Multiselect CSS
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 

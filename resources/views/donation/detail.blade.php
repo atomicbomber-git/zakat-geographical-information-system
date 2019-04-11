@@ -34,7 +34,7 @@
                         <th> # </th>
                         <th> Tanggal Transaksi </th>
                         <th> Identitas Penerima </th>
-                        <th> Ansaf </th>
+                        <th> asnaf </th>
                         <th> Program Bantuan </th>
                         <th class="text-right"> Jumlah Zakat (Rp.) </th>
                     </tr>
@@ -52,7 +52,7 @@
                             <div> {{ $donation->mustahiq->address }} </div>
                             <div> Kecamatan {{ $donation->mustahiq->kecamatan }}, Kelurahan {{ $donation->mustahiq->kelurahan }} </div>
                         </td>
-                        <td> {{ $donation->mustahiq->ansaf }} </td>
+                        <td> {{ $donation->mustahiq->asnaf }} </td>
                         <td> {{ $donation->mustahiq->help_program }} </td>
                         <td class="text-right"> {{ number_format($donation->amount) }} </td>
                     </tr>

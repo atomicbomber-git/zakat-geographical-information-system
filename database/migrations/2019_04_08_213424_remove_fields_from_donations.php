@@ -22,7 +22,7 @@ class RemoveFieldsFromDonations extends Migration
             $table->dropColumn("phone");
             $table->dropColumn("gender");
             $table->dropColumn("occupation");
-            $table->dropColumn("ansaf");
+            $table->dropColumn("asnaf");
             $table->dropColumn("help_program");
             $table->dropColumn("latitude");
             $table->dropColumn("longitude");
@@ -45,7 +45,7 @@ class RemoveFieldsFromDonations extends Migration
             $table->string("phone")->nullable();
             $table->string("gender");
             $table->string("occupation");
-            $table->string("ansaf");
+            $table->string("asnaf");
             $table->string("help_program");
             $table->double("latitude");
             $table->double("longitude");
