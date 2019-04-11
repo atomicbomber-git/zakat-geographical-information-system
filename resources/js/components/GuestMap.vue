@@ -26,6 +26,8 @@
                         </strong>
                     </div>
 
+                    <h4> Petunjuk Jalan </h4>
+
                     <ol class="list-group" :style="{ 'max-height': '400px', 'overflow-y': 'scroll' }">
                         <li class="list-group-item" v-for="(step, i) in route_steps" :key="i">
                             <span v-html="step.instructions"></span>
@@ -244,13 +246,13 @@ export default {
                 pointer_marker.lng
             )
 
-            // Display route from the current pointer location to the nearest collector
-            // if (this.nearest_collector !== null) {
-            //     this.loadAndDisplayRouteOnMap(this.pointer_marker, {
-            //         lat: this.nearest_collector.latitude,
-            //         lng: this.nearest_collector.longitude
-            //     })
-            // }
+            // Display route from the current pointer location to the selected collector
+            if (this.selected_collector !== null) {
+                this.loadAndDisplayRouteOnMap(this.pointer_marker, {
+                    lat: this.selected_collector.latitude,
+                    lng: this.selected_collector.longitude
+                })
+            }
         }
     },
 
