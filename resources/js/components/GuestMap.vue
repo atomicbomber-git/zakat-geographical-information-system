@@ -5,20 +5,10 @@
             Peta Persebaran UPZ, Muzakki, dan Mustahiq
         </div>
 
-        <div class="card-body p-0">
-
-            <div class="my-4 mx-4">
-
-                <p>
-                    Anda sekarang berada di
-                    <strong>
-                        {{ this.pointer_address }}
-                    </strong>
-                </p>
-
-                <div class="alert alert-info">
+        <div class="card-body">
+            <div class="my-4">
+                <div class="alert alert-primary">
                     <h2 class="h3">
-                        <i class="fa fa-info"></i>
                         Unit Pengumpulan Zakat Terdekat:
                     </h2>
                     {{ get(this.nearest_collector, 'name', '-')  }} <br/>
@@ -26,124 +16,147 @@
                 </div>
             </div>
 
-            <GmapMap
-                ref="mapRef"
-                @click="onMapClick"
-                :center="this.gmap_settings.center"
-                :zoom="this.gmap_settings.zoom"
-                :map-type-id="this.gmap_settings.map_type_id"
-                :style="this.gmap_settings.style"
-                >
+            <div class="row">
+                <div class="col-md-3" v-if="this.route_steps">
+                    <div class="alert alert-info">
+                        <i class="fa fa-info"></i>
+                        Anda sekarang berada di
+                        <strong>
+                            {{ this.pointer_address }}
+                        </strong>
+                    </div>
 
-                <!-- Pointer Marker -->
-                <GmapMarker
-                    :position="pointer_marker"
-                    />
-
-                <!-- Collector Markers and Info Windows -->
-                <template v-for="collector in p_collectors">
-                    <GmapMarker
-                        @click="onCollectorMarkerClick(collector)"
-                        :icon="icons.mosque_black"
-                        :position="{ lat: collector.latitude, lng: collector.longitude }"
-                        :key="collector.id"
-                        />
-
-                    <GmapInfoWindow
-                        :position="{lat: collector.latitude, lng: collector.longitude}"
-                        :opened="collector.info_window_opened"
-                        @closeclick="collector.info_window_opened=false"
-                        :key="`collector_info_${collector.id}`"
+                    <ol class="list-group" :style="{ 'max-height': '400px', 'overflow-y': 'scroll' }">
+                        <li class="list-group-item" v-for="(step, i) in route_steps" :key="i">
+                            <span v-html="step.instructions"></span>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-md">
+                    <GmapMap
+                        ref="mapRef"
+                        @click="onMapClick"
+                        :center="this.gmap_settings.center"
+                        :zoom="this.gmap_settings.zoom"
+                        :map-type-id="this.gmap_settings.map_type_id"
+                        :style="this.gmap_settings.style"
                         >
 
-                        <div class="card" style="width: 25rem;">
-                            <img class="card-img-top" style="width: auto; height: auto; object-fit: cover" :src="collector.image_url" alt="Gambar UPZ">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    {{ collector.name }}
-                                </h5>
-                                <p class="card-text">
-                                    {{ collector.address }}
-                                </p>
-                                
-                                <hr>
-                                <vue-frappe
-                                    v-if="collector.donation_counts.length !== 0"
-                                    :id="`chart_${collector.id}`"
-                                    :labels="collector.donation_counts.map(record => record.year)"
-                                    title="Perkembangan Jumlah Penerimaan Zakat"
-                                    type="bar"
-                                    :dataSets="[{
-                                        name: 'Penerimaan Zakat',
-                                        values: collector.donation_counts.map(record => record.count)
-                                    }]"
-                                    :tooltipOptions="{
-                                        formatTooltipX: d => (d + '').toUpperCase(),
-                                        formatTooltipY: d => d,
-                                    }"
-                                    >
-                                </vue-frappe>
-
-                                <hr>
-
-                                <p class="mb-2"> <strong> Mustahiq Terdekat: </strong> </p>
-                                <p>
-                                    {{ get(collector.nearest_mustahiq, 'name', '-') }} <br/>
-                                    {{ get(collector.nearest_mustahiq, 'address', '-') }}
-                                </p>
-                            </div>
-                        </div>
-                    </GmapInfoWindow>
-
-                    <!-- Muzakki Markers and Info Windows -->
-                    <!-- <template v-for="muzakki in collector.muzakkis">
+                        <!-- Pointer Marker -->
                         <GmapMarker
-                            @click="onMuzakkiMarkerClick(muzakki)"
-                            :icon="icons.person_red"
-                            :position="{ lat: muzakki.latitude, lng: muzakki.longitude }"
-                            :key="`muzakki_marker_${muzakki.id}`"
+                            :position="pointer_marker"
                             />
 
-                        <GmapInfoWindow
-                            :position="{lat: muzakki.latitude, lng: muzakki.longitude}"
-                            :opened="muzakki.info_window_opened"
-                            @closeclick="muzakki.info_window_opened=false"
-                            :key="`muzakki_info_${muzakki.id}`"
-                            >
-                            <div>
-                                <h4> Muzakki </h4>
-                                <p>{{ muzakki.name }}</p>
-                                <p>{{ muzakki.address }}</p>
-                            </div>
-                        </GmapInfoWindow>
-                    </template> -->
+                        <!-- Collector Markers and Info Windows -->
+                        <template v-for="collector in p_collectors">
+                            <GmapMarker
+                                @click="onCollectorMarkerClick(collector)"
+                                :icon="icons.mosque_black"
+                                :position="{ lat: collector.latitude, lng: collector.longitude }"
+                                :key="collector.id"
+                                />
 
-                    <!-- Mustahiq Markers -->
-                    <template v-for="mustahiq in collector.mustahiqs">
-                        <GmapMarker
-                            @click="onMustahiqMarkerClick(mustahiq)"
-                            :icon="icons.person_red"
-                            :position="{ lat: mustahiq.latitude, lng: mustahiq.longitude }"
-                            :key="`mustahiq_${mustahiq.id}`"
-                            />
+                            <!-- Mustahiq Markers -->
+                            <template v-for="mustahiq in collector.mustahiqs">
+                                <GmapMarker
+                                    @click="onMustahiqMarkerClick(mustahiq)"
+                                    :icon="icons.person_red"
+                                    :position="{ lat: mustahiq.latitude, lng: mustahiq.longitude }"
+                                    :key="`mustahiq_${mustahiq.id}`"
+                                    />
+                            </template>
 
-                        <GmapInfoWindow
-                            :position="{lat: mustahiq.latitude, lng: mustahiq.longitude}"
-                            :opened="mustahiq.info_window_opened"
-                            @closeclick="mustahiq.info_window_opened=false"
-                            :key="`mustahiq_info_${mustahiq.id}`"
-                            >
-                            <div>
-                                <h4> Mustahiq </h4>
-                                <p>{{ mustahiq.name }}</p>
-                                <p>{{ mustahiq.address }}</p>
-                            </div>
-                        </GmapInfoWindow>
-                    </template>
-
-                </template>
-            </GmapMap>
+                        </template>
+                    </GmapMap>
+                </div>
+            </div>
         </div>
+
+        <!-- Modal -->
+        <modal name="collector-info" height="auto" width="800">
+            <div class="card" v-if="selected_collector">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img
+                                style="width: 100%; object-fit: cover"
+                                :src="selected_collector.image_url"
+                                :alt="selected_collector.name">
+                        </div>
+                        <div class="col-md-6">
+                            <dl>
+                                <dt> Nama Unit Pengumpulan Zakat: </dt>
+                                <dd> {{ selected_collector.name }} </dd>
+
+                                <dt> Alamat: </dt>
+                                <dd> {{ selected_collector.address }} </dd>
+                            
+                                <dt> Jumlah Mustahiq </dt>
+                                <dd> {{ selected_collector.mustahiqs.length }} </dd>
+                            </dl>
+
+                            <hr>
+                            <vue-frappe
+                                v-if="selected_collector.donation_counts.length !== 0"
+                                :id="`chart_${selected_collector.id}`"
+                                :labels="selected_collector.donation_counts.map(record => record.year)"
+                                title="Perkembangan Jumlah Penerimaan Zakat"
+                                type="bar"
+                                :dataSets="[{
+                                    name: 'Penerimaan Zakat',
+                                    values: selected_collector.donation_counts.map(record => record.count)
+                                }]"
+                                :tooltipOptions="{
+                                    formatTooltipX: d => (d + '').toUpperCase(),
+                                    formatTooltipY: d => d,
+                                }"
+                                >
+                            </vue-frappe>
+
+                            <div v-else>
+                                <i class="fa fa-warning"></i>
+                                Data kosong.
+                            </div>
+
+                            <hr>
+
+                            <p class="mb-2"> <strong> Mustahiq Terdekat: </strong> </p>
+                            <p>
+                                {{ get(selected_collector.nearest_mustahiq, 'name', '-') }} <br/>
+                                {{ get(selected_collector.nearest_mustahiq, 'address', '-') }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-right">
+                        <button class="btn btn-sm btn-primary" @click="onDisplayRouteButtonClick">
+                            Rute
+                            <i class="fa fa-road"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </modal>
+
+        <modal name="mustahiq-info" height="auto" width="800">
+            <div class="card" v-if="selected_mustahiq">
+                <div class="card-body">
+                    <dl>
+                        <dt> Nama: </dt>
+                        <dd> {{ selected_mustahiq.name }} </dd>
+
+                        <dt> Alamat: </dt>
+                        <dd> {{ selected_mustahiq.address }} </dd>
+
+                        <dt> Usia: </dt>
+                        <dd> {{ selected_mustahiq.age }} </dd>
+
+                        <dt> Pekerjaan: </dt>
+                        <dd> {{ selected_mustahiq.occupation }} </dd>
+                    </dl>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
@@ -188,14 +201,12 @@ export default {
                 let prepared_mustahiqs = 
                     collector.mustahiqs.map(mustahiq => ({
                         ...mustahiq,
-                        info_window_opened: false,
                         distance_from_collector: getDistance(mustahiq.latitude, mustahiq.longitude, collector.latitude, collector.longitude)
                     }))
 
                 
                 return {
                     ...collector,
-                    info_window_opened: false,
                     donation_counts: [],
                     // muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
                     mustahiqs: prepared_mustahiqs,
@@ -212,7 +223,9 @@ export default {
                            getDistance(cur.latitude, cur.longitude, default_center.lat, default_center.lng) ? acc : cur
             }),
 
-            route_steps: [],
+            route_steps: null,
+            selected_collector: null,
+            selected_mustahiq: null,
         }
     },
 
@@ -232,12 +245,12 @@ export default {
             )
 
             // Display route from the current pointer location to the nearest collector
-            if (this.nearest_collector !== null) {
-                this.loadAndDisplayRouteOnMap(this.pointer_marker, {
-                    lat: this.nearest_collector.latitude,
-                    lng: this.nearest_collector.longitude
-                })
-            }
+            // if (this.nearest_collector !== null) {
+            //     this.loadAndDisplayRouteOnMap(this.pointer_marker, {
+            //         lat: this.nearest_collector.latitude,
+            //         lng: this.nearest_collector.longitude
+            //     })
+            // }
         }
     },
 
@@ -251,35 +264,29 @@ export default {
             }
         },
 
-        // onMuzakkiMarkerClick(muzakki) {
-        //     this.p_collectors.forEach(collector => {
-        //         collector.muzakkis.forEach(o_muzakki => {
-        //             o_muzakki.info_window_opened = (muzakki.id === o_muzakki.id)
-        //         })
-        //     })
-        // },
-
         onMustahiqMarkerClick(mustahiq) {
-            this.p_collectors.forEach(collector => {
-                collector.mustahiqs.forEach(o_mustahiq => {
-                    o_mustahiq.info_window_opened = (mustahiq.id === o_mustahiq.id)
-                })
-            })
+            this.selected_mustahiq = mustahiq
+            this.$modal.show('mustahiq-info');
         },
 
         onCollectorMarkerClick(collector) {
-            this.p_collectors.forEach(o_collector => {
-                o_collector.info_window_opened = (o_collector.id === collector.id)
-            })
-
             this.loadDonationCount(collector)
+            this.selected_collector = collector
+            this.$modal.show('collector-info');
+        },
+
+        onDisplayRouteButtonClick() {
+            this.loadAndDisplayRouteOnMap(this.pointer_marker, {
+                lat: this.selected_collector.latitude,
+                lng: this.selected_collector.longitude
+            })
+            this.$modal.hide('collector-info');
         },
 
         loadAndSetCurrentLocation() {
             navigator.geolocation.getCurrentPosition(position => {
                 this.pointer_marker.lat = position.coords.latitude
                 this.pointer_marker.lng = position.coords.longitude
-
                 this.loadAndSetCurrentAddress(this.pointer_marker.lat, this.pointer_marker.lng)
             })
         },
@@ -305,6 +312,7 @@ export default {
             this.directionsService.route(direction_request, (result, status) => {
                 if (status == 'OK') {
                     this.directionsDisplay.setDirections(result)
+                    this.route_steps = result.routes[0].legs[0].steps
                     return
                 }
 

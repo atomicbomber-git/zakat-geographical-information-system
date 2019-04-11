@@ -15,6 +15,10 @@ import 'vue-multiselect/dist/vue-multiselect.min.css'
 import Chart from 'vue2-frappe'
 Vue.use(Chart)
 
+// Add vue-js-modal
+import VModal from 'vue-js-modal'
+Vue.use(VModal)
+
 // Add Vue Google Maps
 import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
