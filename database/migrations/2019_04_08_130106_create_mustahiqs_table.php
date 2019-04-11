@@ -23,7 +23,7 @@ class CreateMustahiqsTable extends Migration
             $table->string("phone")->nullable();
             $table->string("gender");
             $table->string("occupation");
-            $table->string("asnaf");
+            $table->string("ansaf");
             $table->string("help_program");
             $table->double("latitude");
             $table->double("longitude");
