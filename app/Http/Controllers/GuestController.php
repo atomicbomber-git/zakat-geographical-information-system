@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Collector;
 use App\Receiver;
 use App\Muzakki;
+use App\Mustahiq;
 
 class GuestController extends Controller
 {
@@ -21,7 +22,7 @@ class GuestController extends Controller
             });
 
         $muzakkis_count = Muzakki::count();
-        $mustahiqs_count = Muzakki::count();
+        $mustahiqs_count = Mustahiq::count();
 
         return view('guest.map', compact('collectors', "muzakkis_count", "mustahiqs_count"));
     }
