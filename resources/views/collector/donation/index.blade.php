@@ -88,7 +88,7 @@
                                 <a href="{{ route('collector.donation.edit', $donation) }}" class="btn btn-dark btn-sm">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <form class="form-delete" action='{{ route('collector.donation.delete', $donation) }}' method='POST' class='d-inline-block'>
+                                <form class="form-delete d-inline-block" action='{{ route('collector.donation.delete', $donation) }}' method='POST'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
                                         <i class='fa fa-trash'></i>

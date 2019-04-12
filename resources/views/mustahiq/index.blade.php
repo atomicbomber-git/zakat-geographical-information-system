@@ -67,7 +67,7 @@
                                 @endcan
 
                                 @can("delete", $mustahiq)
-                                <form class="form-delete" action='{{ route("collector.mustahiq.delete", $mustahiq) }}' method='POST' class='d-inline-block'>
+                                <form class="form-delete d-inline-block" action='{{ route("collector.mustahiq.delete", $mustahiq) }}' method='POST'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
                                         <i class='fa fa-trash'></i>

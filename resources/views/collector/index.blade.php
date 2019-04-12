@@ -51,9 +51,9 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
 
-                            <form action="{{ route('collector.delete', $collector) }}" method="POST" class="d-inline-block">
+                            <form class="form-delete d-inline-block" action="{{ route('collector.delete', $collector) }}" method="POST">
                                 @csrf
-                                <button class="form-delete" {{ ($collector->receivements_count + $collector->donations_count) != 0 ? 'disabled' : '' }}  class="btn btn-danger btn-sm">
+                                <button {{ ($collector->receivements_count + $collector->donations_count) != 0 ? 'disabled' : '' }}  class="btn btn-danger btn-sm">
                                     Hapus
                                     <i class="fa fa-trash"></i>
                                 </button>

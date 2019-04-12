@@ -34,7 +34,7 @@
                         <th> # </th>
                         <th> Tanggal Transaksi </th>
                         <th> Identitas Penerima </th>
-                        <th> asnaf </th>
+                        <th> Asnaf </th>
                         <th> Program Bantuan </th>
                         <th class="text-right"> Jumlah Zakat (Rp.) </th>
                     </tr>
