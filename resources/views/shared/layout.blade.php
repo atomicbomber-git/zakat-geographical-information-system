@@ -10,18 +10,20 @@
     @yield('head')
 </head>
 <body>
-    @include('shared.navbar')
+    <div class="mb-5" style="min-height: 90vh">
+        @include('shared.navbar')
 
-    <div class="container">
-        @auth
-        <div class="alert alert-primary">
-            Anda masuk sebagai <strong> {{ auth()->user()->name }} </strong>
-            ({{ auth()->user()->description }})
+        <div class="container">
+            @auth
+            <div class="alert alert-primary">
+                Anda masuk sebagai <strong> {{ auth()->user()->name }} </strong>
+                ({{ auth()->user()->description }})
+            </div>
+            @endauth
         </div>
-        @endauth
+    
+        @yield('content')
     </div>
-
-    @yield('content')
 
     <footer class="bg-dark text-light">
         <div class="container py-3">
@@ -44,7 +46,6 @@
             </div>
         </div>
     </footer>
-
 
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('script')
