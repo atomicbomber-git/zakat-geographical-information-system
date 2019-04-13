@@ -35,6 +35,7 @@
                         <tr>
                             <th> Nama </th>
                             <th> NIK </th>
+                            <th> Usia </th>
                             <th> Alamat </th>
                             <th> Telepon </th>
                             <th> J. Kelamin </th>
@@ -49,6 +50,7 @@
                         <tr>
                             <td> {{ $mustahiq->name }} </td>
                             <td> {{ $mustahiq->nik }} </td>
+                            <td> {{ $mustahiq->age }} </td>
                             <td>
                                 {{ $mustahiq->address }},
                                 {{ $mustahiq->kecamatan }}, <br/>

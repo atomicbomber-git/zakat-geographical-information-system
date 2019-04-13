@@ -16,6 +16,7 @@ class Mustahiq extends Model
         "longitude",
         "name",
         "nik",
+        "age",
         "address",
         "kecamatan",
         "kelurahan",

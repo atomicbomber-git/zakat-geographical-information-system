@@ -127,6 +127,16 @@
                         </div>
 
                         <div class='form-group'>
+                            <label for='age'> Usia: </label>
+                            <input
+                                v-model.number='age'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.age[0]', false)}"
+                                type='text' id='age' placeholder='Usia'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.age[0]', false) }}</div>
+                        </div>
+
+                        <div class='form-group'>
                             <label for='address'> Alamat: </label>
                             <textarea
                                 v-model='address'
@@ -245,6 +255,7 @@ export default {
             name: null,
             gender: 'l',
             nik: null,
+            age: null,
             address: null,
             kecamatan: null,
             kelurahan: null,
@@ -265,6 +276,7 @@ export default {
                 latitude: this.pointer_marker.lat,
                 longitude: this.pointer_marker.lng,
                 name: this.name,
+                age: this.age,
                 gender: this.gender,
                 nik: this.nik,
                 address: this.address,

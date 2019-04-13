@@ -150,6 +150,16 @@
                             >{{ get(this.error_data, 'errors.nik[0]', false) }}</div>
                         </div>
 
+                        <div class='form-group'>
+                            <label for='age'> Usia: </label>
+                            <input
+                                v-model.number='age'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.age[0]', false)}"
+                                type='text' id='age' placeholder='Usia'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.age[0]', false) }}</div>
+                        </div>
+
                         <div class="form-group">
                             <label for="address">Alamat:</label>
                             <textarea
@@ -298,6 +308,7 @@ export default {
             name: this.mustahiq.name,
             gender: this.mustahiq.gender,
             nik: this.mustahiq.nik,
+            age: this.mustahiq.age,
             address: this.mustahiq.address,
             kecamatan: this.mustahiq.kecamatan,
             kelurahan: this.mustahiq.kelurahan,
@@ -316,6 +327,7 @@ export default {
                 name: this.name,
                 gender: this.gender,
                 nik: this.nik,
+                age: this.age,
                 address: this.address,
                 kecamatan: this.kecamatan,
                 kelurahan: this.kelurahan,

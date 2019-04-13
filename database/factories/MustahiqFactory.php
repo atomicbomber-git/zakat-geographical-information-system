@@ -14,6 +14,7 @@ $factory->define(App\Mustahiq::class, function (Faker $faker) {
         "occupation" => $faker->randomElement(['Buruh', 'Kuli', 'Pedagang', 'Rumah Tangga']),
         "asnaf" => $faker->randomElement(['X', 'Y']),
         "help_program" => $faker->randomElement(['U', 'V']),
+        "age" => rand(14, 80),
         'latitude' => rand(-50, 50) / 1000 + -0.026330,
         'longitude' => rand(-50, 50) / 1000 + 109.342504
     ];

@@ -16,7 +16,7 @@ class MustahiqController extends Controller
                 "id", "name", "nik", "address",
                 "kecamatan", "kelurahan", "phone", "gender",
                 "occupation", "asnaf", "help_program" ,
-                "collector_id"
+                "collector_id", "age"
             )
             ->whereHas("collector", function (Builder $query) {
                 $query->where("id", Auth::user()->collector->id);
@@ -49,6 +49,7 @@ class MustahiqController extends Controller
             'longitude' => 'required|numeric',
             'name' => 'required|string',
             'nik' => 'required|string',
+            'age' => 'required|gte:1',
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
@@ -91,6 +92,7 @@ class MustahiqController extends Controller
             'longitude' => 'required|numeric',
             'name' => 'required|string',
             'nik' => 'required|string',
+            'age' => 'required|gte:1',
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
