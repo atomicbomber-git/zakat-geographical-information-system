@@ -14,7 +14,7 @@ class GuestController extends Controller
     {
         $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude', 'kecamatan', 'kelurahan')
             ->with('mustahiqs')
-            // ->with('muzakkis')
+            ->with('muzakkis')
             ->get()
             ->transform(function($collector) {
                 $collector->image_url = route('collector.thumbnail', $collector) . "?" . rand();

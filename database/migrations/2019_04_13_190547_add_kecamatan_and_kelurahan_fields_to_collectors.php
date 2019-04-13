@@ -14,8 +14,8 @@ class AddKecamatanAndKelurahanFieldsToCollectors extends Migration
     public function up()
     {
         Schema::table('collectors', function (Blueprint $table) {
-            $table->string("kecamatan");
-            $table->string("kelurahan");
+            $table->string("kecamatan")->default("-");
+            $table->string("kelurahan")->default("-");
         });
     }
 

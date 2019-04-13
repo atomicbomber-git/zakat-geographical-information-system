@@ -67,14 +67,35 @@
                                     :key="`mustahiq_${mustahiq.id}`"
                                     />
                             </template>
+                            
+                            <!-- Muzakki Markers -->
+                            <template v-for="muzakki in collector.muzakkis">
+                                <GmapMarker
+                                    @click="onMuzakkiMarkerClick(muzakki)"
+                                    :icon="icons.person_green"
+                                    :position="{ lat: muzakki.latitude, lng: muzakki.longitude }"
+                                    :key="`muzakki_${muzakki.id}`"
+                                    />
+                            </template>
 
                         </template>
                     </GmapMap>
                 </div>
 
                 <div class="col-md-3 pl-0">
+                    
+                    <div class="list-group-item mb-3">
+                        <div
+                            class="custom-control custom-checkbox">
+                            <input v-model="is_muzakkis_visible" type="checkbox" class="custom-control-input" id="checkbox_muzakki_visibility">
+                            <label class="custom-control-label" for="checkbox_muzakki_visibility">
+                                Tampilkan Muzakki
+                            </label>
+                        </div>
+                    </div>
+
                     <h2 class="h5">
-                        Kecamatan
+                        Tampilkan Kecamatan
                     </h2>
 
                     <div v-if="p_kecamatans.length > 0" class="list-group">
@@ -182,6 +203,17 @@
                 </div>
             </div>
         </modal>
+
+        <modal name="muzakki-info" height="auto" width="800">
+            <div class="card" v-if="selected_muzakki">
+                <div class="card-body">
+                    <dl>
+                        <dt> Nama: </dt>
+                        <dd> {{ selected_muzakki.name }} </dd>
+                    </dl>
+                </div>
+            </div>
+        </modal>
     </div>
 </template>
 
@@ -236,6 +268,8 @@ export default {
             route_steps: null,
             selected_collector: null,
             selected_mustahiq: null,
+            selected_muzakki: null,
+            is_muzakkis_visible: true,
         }
     },
 
@@ -284,7 +318,7 @@ export default {
                     return {
                         ...collector,
                         donation_counts: [],
-                        // muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
+                        muzakkis: collector.muzakkis.filter(muzakki => this.is_muzakkis_visible),
                         mustahiqs: prepared_mustahiqs,
                         nearest_mustahiq: prepared_mustahiqs.length === 0 ? null:
                             prepared_mustahiqs.reduce((acc, cur) =>
@@ -308,6 +342,11 @@ export default {
         onMustahiqMarkerClick(mustahiq) {
             this.selected_mustahiq = mustahiq
             this.$modal.show('mustahiq-info');
+        },
+
+        onMuzakkiMarkerClick(muzakki) {
+            this.selected_muzakki = muzakki
+            this.$modal.show('muzakki-info');
         },
 
         onCollectorMarkerClick(collector) {
