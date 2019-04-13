@@ -27,6 +27,7 @@ class GuestController extends Controller
         $kecamatans = collect()
             ->merge(Muzakki::select("kecamatan")->distinct()->pluck("kecamatan"))
             ->merge(Mustahiq::select("kecamatan")->distinct()->pluck("kecamatan"))
+            ->merge(Collector::select("kecamatan")->distinct()->pluck("kecamatan"))
             ->unique()
             ->sort()
             ->values();
