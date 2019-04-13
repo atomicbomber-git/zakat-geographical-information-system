@@ -35,6 +35,8 @@ class CollectorController extends Controller
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'address' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kelurahan' => 'required|string',
             'collector_name' => 'required|string',
             'npwz' => 'required|string|unique:collectors',
             'user_name' => 'required|string', // User real name
@@ -42,24 +44,28 @@ class CollectorController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'picture' => 'required|file|mimes:jpg,jpeg,png'
         ]);
-        
-        $user = User::create([
-            'name' => $data['user_name'],
-            'username' => $data['username'],
-            'password' => bcrypt($data['password']),
-            'type' => 'COLLECTOR'
-        ]);
 
-        $collector = Collector::create([
-            'user_id' => $user->id,
-            'latitude' => $data['latitude'],
-            'longitude' => $data['longitude'],
-            'address' => $data['address'],
-            'name' => $data['collector_name'],
-            'npwz' => $data['npwz'],
-        ]);
+        DB::transaction(function() use($data) {
+            $user = User::create([
+                'name' => $data['user_name'],
+                'username' => $data['username'],
+                'password' => bcrypt($data['password']),
+                'type' => 'COLLECTOR'
+            ]);
+    
+            $collector = Collector::create([
+                'user_id' => $user->id,
+                'latitude' => $data['latitude'],
+                'longitude' => $data['longitude'],
+                'kecamatan' => $data['kecamatan'],
+                'kelurahan' => $data['kelurahan'],
+                'address' => $data['address'],
+                'name' => $data['collector_name'],
+                'npwz' => $data['npwz'],
+            ]);
 
-        $collector->addMediaFromRequest('picture')->toMediaCollection('images');
+            $collector->addMediaFromRequest('picture')->toMediaCollection('images');
+        });
 
         session()->flash('message.success', __('messages.create.success'));
 
@@ -90,6 +96,8 @@ class CollectorController extends Controller
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'address' => 'required|string',
+            'kecamatan' => 'required|string',
+            'kelurahan' => 'required|string',
             'collector_name' => 'required|string',
             'npwz' => ['required', 'string', Rule::unique('collectors')->ignore($collector->id)],
             'user_name' => 'required|string', // User real name
@@ -114,20 +122,22 @@ class CollectorController extends Controller
             $collector->update([
                 'latitude' => $data['latitude'],
                 'longitude' => $data['longitude'],
+                'kecamatan' => $data['kecamatan'],
+                'kelurahan' => $data['kelurahan'],
                 'address' => $data['address'],
                 'name' => $data['collector_name'],
                 'npwz' => $data['npwz'],
             ]);
+
+            // A picture replacement was uploaded
+            if(!empty($data['picture'])) {
+                // Clear the old one
+                $collector->clearMediaCollection('images');
+
+                // Store a new one
+                $collector->addMediaFromRequest('picture')->toMediaCollection('images');
+            }
         });
-
-        // A picture replacement was uploaded
-        if(!empty($data['picture'])) {
-            // Clear the old one
-            $collector->clearMediaCollection('images');
-
-            // Store a new one
-            $collector->addMediaFromRequest('picture')->toMediaCollection('images');
-        }
 
         session()->flash('message.success', __('messages.update.success'));
 

@@ -17,7 +17,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-3" v-if="this.route_steps">
+                <div class="col-md-3 pr-0" v-if="this.route_steps">
                     <div class="alert alert-info">
                         <i class="fa fa-info"></i>
                         Anda sekarang berada di
@@ -26,7 +26,7 @@
                         </strong>
                     </div>
 
-                    <h4> Petunjuk Jalan </h4>
+                    <h5> Petunjuk Jalan </h5>
 
                     <ol class="list-group" :style="{ 'max-height': '400px', 'overflow-y': 'scroll' }">
                         <li class="list-group-item" v-for="(step, i) in route_steps" :key="i">
@@ -70,6 +70,29 @@
 
                         </template>
                     </GmapMap>
+                </div>
+
+                <div class="col-md-3 pl-0">
+                    <h2 class="h5">
+                        Kecamatan
+                    </h2>
+
+                    <div v-if="p_kecamatans.length > 0" class="list-group">
+                        <div class="list-group-item" v-for="kecamatan in p_kecamatans" :key="kecamatan.name">
+                            <div
+                                class="custom-control custom-checkbox">
+                                <input v-model="kecamatan.is_visible" type="checkbox" class="custom-control-input" :id="`checkbox_kecamatan_${kecamatan.name}`">
+                                <label class="custom-control-label" :for="`checkbox_kecamatan_${kecamatan.name}`">
+                                    {{ kecamatan.name }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-else class="alert alert-warning">
+                        <i class="fa fa-warning"></i>
+                        Data tidak tersedia.
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,6 +195,7 @@ export default {
     props: [
         "collectors",
         "gmap_settings",
+        "kecamatans",
     ],
 
     mounted() {
@@ -200,26 +224,8 @@ export default {
             icons,
             pointer_marker: default_center,
             pointer_address: null,
+            p_kecamatans: this.kecamatans.map(kecamatan => ({name: kecamatan, is_visible: true})),
 
-            p_collectors: this.collectors.map(collector => {
-                let prepared_mustahiqs = 
-                    collector.mustahiqs.map(mustahiq => ({
-                        ...mustahiq,
-                        distance_from_collector: getDistance(mustahiq.latitude, mustahiq.longitude, collector.latitude, collector.longitude)
-                    }))
-
-                
-                return {
-                    ...collector,
-                    donation_counts: [],
-                    // muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
-                    mustahiqs: prepared_mustahiqs,
-                    nearest_mustahiq: prepared_mustahiqs.length === 0 ? null:
-                        prepared_mustahiqs.reduce((acc, cur) =>
-                            acc.distance_from_collector <= cur.distance_from_collector ? acc : cur
-                        ),
-                }
-            }),
 
             nearest_collector: this.collectors.length === 0 ? null :
                 this.collectors.reduce((acc, cur) => {
@@ -255,6 +261,37 @@ export default {
                     lng: this.selected_collector.longitude
                 })
             }
+        }
+    },
+    
+    computed: {
+        visible_kecamatan_names() {
+            return this.p_kecamatans
+                .filter(kecamatan => kecamatan.is_visible)
+                .map(({ name }) => name)
+        },
+
+        p_collectors() {
+            return this.collectors
+                .filter(({ kecamatan }) => this.visible_kecamatan_names.includes(kecamatan))
+                .map(collector => {
+                    let prepared_mustahiqs = collector.mustahiqs
+                        .map(mustahiq => ({
+                            ...mustahiq,
+                            distance_from_collector: getDistance(mustahiq.latitude, mustahiq.longitude, collector.latitude, collector.longitude)
+                        }))
+
+                    return {
+                        ...collector,
+                        donation_counts: [],
+                        // muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
+                        mustahiqs: prepared_mustahiqs,
+                        nearest_mustahiq: prepared_mustahiqs.length === 0 ? null:
+                            prepared_mustahiqs.reduce((acc, cur) =>
+                                acc.distance_from_collector <= cur.distance_from_collector ? acc : cur
+                            ),
+                    }
+            })
         }
     },
 

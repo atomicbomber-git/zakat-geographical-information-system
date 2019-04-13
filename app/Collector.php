@@ -12,7 +12,7 @@ class Collector extends Model implements HasMedia
     use HasMediaTrait;
 
     public $fillable = [
-        'name', 'address', 'latitude', 'longitude', 'user_id', 'npwz'
+        'name', 'address', 'latitude', 'longitude', 'user_id', 'npwz', "kecamatan", "kelurahan"
     ];
 
     public function registerMediaConversions(Media $media = null)

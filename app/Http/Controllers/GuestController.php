@@ -12,7 +12,7 @@ class GuestController extends Controller
 {
     public function map()
     {
-        $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
+        $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude', 'kecamatan', 'kelurahan')
             ->with('mustahiqs')
             // ->with('muzakkis')
             ->get()
@@ -24,6 +24,13 @@ class GuestController extends Controller
         $muzakkis_count = Muzakki::count();
         $mustahiqs_count = Mustahiq::count();
 
-        return view('guest.map', compact('collectors', "muzakkis_count", "mustahiqs_count"));
+        $kecamatans = collect()
+            ->merge(Muzakki::select("kecamatan")->distinct()->pluck("kecamatan"))
+            ->merge(Mustahiq::select("kecamatan")->distinct()->pluck("kecamatan"))
+            ->unique()
+            ->sort()
+            ->values();
+
+        return view('guest.map', compact('collectors', "muzakkis_count", "mustahiqs_count", "kecamatans"));
     }
 }

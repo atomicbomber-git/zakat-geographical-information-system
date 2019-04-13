@@ -8,6 +8,7 @@
                 </div>
                 <div class="card-body p-0">
                     <GmapMap
+                        ref="mapRef"
                         :center="{lat: this.map.center_lat, lng: this.map.center_lng}"
                         :zoom="14"
                         @click="moveMarker"
@@ -93,13 +94,33 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="address"> Alamat Lokasi: </label>
+                            <label for="address"> Alamat: </label>
                             <textarea
                                 v-model="address"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.address[0]', false)}"
                                 type="text" id="address" placeholder="Alamat lokasi"></textarea>
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.address[0]', false) }}</div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='kecamatan'> Kecamatan: </label>
+                            <input
+                                v-model='kecamatan'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.kecamatan[0]', false)}"
+                                type='text' id='kecamatan' placeholder='Kecamatan'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.kecamatan[0]', false) }}</div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='kelurahan'> Kelurahan: </label>
+                            <input
+                                v-model='kelurahan'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.kelurahan[0]', false)}"
+                                type='text' id='kelurahan' placeholder='Kelurahan'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.kelurahan[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -179,6 +200,10 @@
 
     export default {
         mounted() {
+            this.$refs.mapRef.$mapPromise.then(map => {
+                // Load Geocoder Service
+                this.geocoder = new google.maps.Geocoder;
+            })
         },
         
         data() {
@@ -198,6 +223,8 @@
                 collector_name: window.collector.name,
                 npwz: window.collector.npwz,
                 address: window.collector.address,
+                kecamatan: window.collector.kecamatan,
+                kelurahan: window.collector.kelurahan,
 
                 user_name: window.collector.user.name,
                 username: window.collector.user.username,
@@ -224,11 +251,42 @@
                     collector_name: this.collector_name,
                     npwz: this.npwz,
                     address: this.address,
+                    kecamatan: this.kecamatan,
+                    kelurahan: this.kelurahan,
                     user_name: this.user_name,
                     username: this.username,
                     password: this.password,
                     password_confirmation: this.password_confirmation
                 }
+            }
+        },
+
+        watch: {
+            pointer_marker() {
+                this.geocoder.geocode({location: this.pointer_marker}, (results, status) => {
+                    if (status == "OK") {
+                        let first_result = results[0]
+
+                        this.address = get(first_result, "formatted_address", "-")
+
+                        if (first_result.address_components !== null) {
+                            let kelurahan_component = first_result.address_components.find(component => {
+                                return component.types[0] === "administrative_area_level_4" &&
+                                    component.types[1] === "political"
+                            })
+                            this.kelurahan = get(kelurahan_component, "long_name", "-")
+
+                            let kecamatan_component = first_result.address_components.find(component => {
+                                return component.types[0] === "administrative_area_level_3" &&
+                                    component.types[1] === "political"
+                            })
+                            this.kecamatan = get(kecamatan_component, "long_name", "-")
+                        }
+                        return
+                    }
+                    
+                    console.error({results, status})
+                })
             }
         },
 

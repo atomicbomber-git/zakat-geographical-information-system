@@ -7,6 +7,8 @@
         Sunting Data Unit Pengumpulan Zakat
     </h1>
 
+    @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
+
     <div id="app">
         <collector-edit/>
     </div>

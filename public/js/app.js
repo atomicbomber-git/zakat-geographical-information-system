@@ -86459,6 +86459,29 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -86466,7 +86489,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["collectors", "gmap_settings"],
+    props: ["collectors", "gmap_settings", "kecamatans"],
 
     mounted: function mounted() {
         var _this = this;
@@ -86495,22 +86518,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             icons: __WEBPACK_IMPORTED_MODULE_1__icons_js___default.a,
             pointer_marker: default_center,
             pointer_address: null,
-
-            p_collectors: this.collectors.map(function (collector) {
-                var prepared_mustahiqs = collector.mustahiqs.map(function (mustahiq) {
-                    return _extends({}, mustahiq, {
-                        distance_from_collector: Object(__WEBPACK_IMPORTED_MODULE_2__helpers_js__["getDistance"])(mustahiq.latitude, mustahiq.longitude, collector.latitude, collector.longitude)
-                    });
-                });
-
-                return _extends({}, collector, {
-                    donation_counts: [],
-                    // muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
-                    mustahiqs: prepared_mustahiqs,
-                    nearest_mustahiq: prepared_mustahiqs.length === 0 ? null : prepared_mustahiqs.reduce(function (acc, cur) {
-                        return acc.distance_from_collector <= cur.distance_from_collector ? acc : cur;
-                    })
-                });
+            p_kecamatans: this.kecamatans.map(function (kecamatan) {
+                return { name: kecamatan, is_visible: true };
             }),
 
             nearest_collector: this.collectors.length === 0 ? null : this.collectors.reduce(function (acc, cur) {
@@ -86544,6 +86553,40 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     },
 
+    computed: {
+        visible_kecamatan_names: function visible_kecamatan_names() {
+            return this.p_kecamatans.filter(function (kecamatan) {
+                return kecamatan.is_visible;
+            }).map(function (_ref) {
+                var name = _ref.name;
+                return name;
+            });
+        },
+        p_collectors: function p_collectors() {
+            var _this2 = this;
+
+            return this.collectors.filter(function (_ref2) {
+                var kecamatan = _ref2.kecamatan;
+                return _this2.visible_kecamatan_names.includes(kecamatan);
+            }).map(function (collector) {
+                var prepared_mustahiqs = collector.mustahiqs.map(function (mustahiq) {
+                    return _extends({}, mustahiq, {
+                        distance_from_collector: Object(__WEBPACK_IMPORTED_MODULE_2__helpers_js__["getDistance"])(mustahiq.latitude, mustahiq.longitude, collector.latitude, collector.longitude)
+                    });
+                });
+
+                return _extends({}, collector, {
+                    donation_counts: [],
+                    // muzakkis: collector.muzakkis.map(muzakki => ({...muzakki, info_window_opened: false })),
+                    mustahiqs: prepared_mustahiqs,
+                    nearest_mustahiq: prepared_mustahiqs.length === 0 ? null : prepared_mustahiqs.reduce(function (acc, cur) {
+                        return acc.distance_from_collector <= cur.distance_from_collector ? acc : cur;
+                    })
+                });
+            });
+        }
+    },
+
     methods: {
         get: __WEBPACK_IMPORTED_MODULE_0_lodash__["get"],
 
@@ -86570,19 +86613,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$modal.hide('collector-info');
         },
         loadAndSetCurrentLocation: function loadAndSetCurrentLocation() {
-            var _this2 = this;
+            var _this3 = this;
 
             navigator.geolocation.getCurrentPosition(function (position) {
-                _this2.pointer_marker.lat = position.coords.latitude;
-                _this2.pointer_marker.lng = position.coords.longitude;
+                _this3.pointer_marker.lat = position.coords.latitude;
+                _this3.pointer_marker.lng = position.coords.longitude;
             });
         },
         loadAndSetCurrentAddress: function loadAndSetCurrentAddress(latitude, longitude) {
-            var _this3 = this;
+            var _this4 = this;
 
             this.geocoder.geocode({ location: { lat: latitude, lng: longitude } }, function (results, status) {
                 if (status == "OK") {
-                    _this3.pointer_address = results[0].formatted_address;
+                    _this4.pointer_address = results[0].formatted_address;
                     return;
                 }
 
@@ -86590,7 +86633,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             });
         },
         loadAndDisplayRouteOnMap: function loadAndDisplayRouteOnMap(origin, destination) {
-            var _this4 = this;
+            var _this5 = this;
 
             var travel_mode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'DRIVING';
 
@@ -86602,8 +86645,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             this.directionsService.route(direction_request, function (result, status) {
                 if (status == 'OK') {
-                    _this4.directionsDisplay.setDirections(result);
-                    _this4.route_steps = result.routes[0].legs[0].steps;
+                    _this5.directionsDisplay.setDirections(result);
+                    _this5.route_steps = result.routes[0].legs[0].steps;
                     return;
                 }
 
@@ -86669,7 +86712,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           this.route_steps
-            ? _c("div", { staticClass: "col-md-3" }, [
+            ? _c("div", { staticClass: "col-md-3 pr-0" }, [
                 _c("div", { staticClass: "alert alert-info" }, [
                   _c("i", { staticClass: "fa fa-info" }),
                   _vm._v(
@@ -86684,7 +86727,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("h4", [_vm._v(" Petunjuk Jalan ")]),
+                _c("h5", [_vm._v(" Petunjuk Jalan ")]),
                 _vm._v(" "),
                 _c(
                   "ol",
@@ -86770,7 +86813,106 @@ var render = function() {
               )
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-3 pl-0" }, [
+            _c("h2", { staticClass: "h5" }, [
+              _vm._v("\n                    Kecamatan\n                ")
+            ]),
+            _vm._v(" "),
+            _vm.p_kecamatans.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "list-group" },
+                  _vm._l(_vm.p_kecamatans, function(kecamatan) {
+                    return _c(
+                      "div",
+                      { key: kecamatan.name, staticClass: "list-group-item" },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "custom-control custom-checkbox" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: kecamatan.is_visible,
+                                  expression: "kecamatan.is_visible"
+                                }
+                              ],
+                              staticClass: "custom-control-input",
+                              attrs: {
+                                type: "checkbox",
+                                id: "checkbox_kecamatan_" + kecamatan.name
+                              },
+                              domProps: {
+                                checked: Array.isArray(kecamatan.is_visible)
+                                  ? _vm._i(kecamatan.is_visible, null) > -1
+                                  : kecamatan.is_visible
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = kecamatan.is_visible,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          kecamatan,
+                                          "is_visible",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          kecamatan,
+                                          "is_visible",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(kecamatan, "is_visible", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "custom-control-label",
+                                attrs: {
+                                  for: "checkbox_kecamatan_" + kecamatan.name
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(kecamatan.name) +
+                                    "\n                            "
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  })
+                )
+              : _c("div", { staticClass: "alert alert-warning" }, [
+                  _c("i", { staticClass: "fa fa-warning" }),
+                  _vm._v(
+                    "\n                    Data tidak tersedia.\n                "
+                  )
+                ])
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -88027,11 +88169,40 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$refs.mapRef.$mapPromise.then(function (map) {
+            // Load Geocoder Service
+            _this.geocoder = new google.maps.Geocoder();
+        });
+    },
     data: function data() {
         return {
             icon_url: window.icon_url,
@@ -88044,6 +88215,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             collector_name: "",
             npwz: "",
             address: "",
+            kelurahan: "",
+            kecamatan: "",
 
             user_name: "",
             username: "",
@@ -88070,6 +88243,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 collector_name: this.collector_name,
                 npwz: this.npwz,
                 address: this.address,
+                kecamatan: this.kecamatan,
+                kelurahan: this.kelurahan,
                 user_name: this.user_name,
                 username: this.username,
                 password: this.password,
@@ -88103,7 +88278,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
         submitForm: function submitForm(e) {
-            var _this = this;
+            var _this2 = this;
 
             e.preventDefault();
 
@@ -88121,7 +88296,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }).then(function (response) {
                 window.location.replace(response.data.redirect);
             }).catch(function (error) {
-                _this.error_data = error.response.data;
+                _this2.error_data = error.response.data;
             });
         },
 
@@ -88130,6 +88305,35 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 window.location.replace(response.data.redirect);
             }).catch(function (error) {
                 alert("Something wrong happened.");
+            });
+        }
+    },
+
+    watch: {
+        pointer_marker: function pointer_marker() {
+            var _this3 = this;
+
+            this.geocoder.geocode({ location: this.pointer_marker }, function (results, status) {
+                if (status == "OK") {
+                    var first_result = results[0];
+
+                    _this3.address = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(first_result, "formatted_address", "-");
+
+                    if (first_result.address_components !== null) {
+                        var kelurahan_component = first_result.address_components.find(function (component) {
+                            return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
+                        });
+                        _this3.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kelurahan_component, "long_name", "-");
+
+                        var kecamatan_component = first_result.address_components.find(function (component) {
+                            return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
+                        });
+                        _this3.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kecamatan_component, "long_name", "-");
+                    }
+                    return;
+                }
+
+                console.error({ results: results, status: status });
             });
         }
     }
@@ -88156,6 +88360,7 @@ var render = function() {
               _c(
                 "GmapMap",
                 {
+                  ref: "mapRef",
                   staticStyle: { width: "100%", height: "640px" },
                   attrs: {
                     center: { lat: -0.02633, lng: 109.342504 },
@@ -88429,9 +88634,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "address" } }, [
-                _vm._v(" Alamat Lokasi: ")
-              ]),
+              _c("label", { attrs: { for: "address" } }, [_vm._v(" Alamat: ")]),
               _vm._v(" "),
               _c("textarea", {
                 directives: [
@@ -88469,6 +88672,96 @@ var render = function() {
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
                   _vm._s(_vm.get(this.error_data, "errors.address[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "kecamatan" } }, [
+                _vm._v(" Kecamatan: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.kecamatan,
+                    expression: "kecamatan"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.kecamatan[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "kecamatan",
+                  placeholder: "Kecamatan"
+                },
+                domProps: { value: _vm.kecamatan },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.kecamatan = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.kecamatan[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "kelurahan" } }, [
+                _vm._v(" Kelurahan: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.kelurahan,
+                    expression: "kelurahan"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.kelurahan[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "kelurahan",
+                  placeholder: "Kelurahan"
+                },
+                domProps: { value: _vm.kelurahan },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.kelurahan = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.kelurahan[0]", false))
                 )
               ])
             ]),
@@ -88987,12 +89280,40 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {},
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$refs.mapRef.$mapPromise.then(function (map) {
+            // Load Geocoder Service
+            _this.geocoder = new google.maps.Geocoder();
+        });
+    },
     data: function data() {
         return {
             icon_url: window.icon_url,
@@ -89010,6 +89331,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             collector_name: window.collector.name,
             npwz: window.collector.npwz,
             address: window.collector.address,
+            kecamatan: window.collector.kecamatan,
+            kelurahan: window.collector.kelurahan,
 
             user_name: window.collector.user.name,
             username: window.collector.user.username,
@@ -89036,11 +89359,42 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 collector_name: this.collector_name,
                 npwz: this.npwz,
                 address: this.address,
+                kecamatan: this.kecamatan,
+                kelurahan: this.kelurahan,
                 user_name: this.user_name,
                 username: this.username,
                 password: this.password,
                 password_confirmation: this.password_confirmation
             };
+        }
+    },
+
+    watch: {
+        pointer_marker: function pointer_marker() {
+            var _this2 = this;
+
+            this.geocoder.geocode({ location: this.pointer_marker }, function (results, status) {
+                if (status == "OK") {
+                    var first_result = results[0];
+
+                    _this2.address = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(first_result, "formatted_address", "-");
+
+                    if (first_result.address_components !== null) {
+                        var kelurahan_component = first_result.address_components.find(function (component) {
+                            return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
+                        });
+                        _this2.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kelurahan_component, "long_name", "-");
+
+                        var kecamatan_component = first_result.address_components.find(function (component) {
+                            return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
+                        });
+                        _this2.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kecamatan_component, "long_name", "-");
+                    }
+                    return;
+                }
+
+                console.error({ results: results, status: status });
+            });
         }
     },
 
@@ -89066,7 +89420,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
         submitForm: function submitForm(e) {
-            var _this = this;
+            var _this3 = this;
 
             e.preventDefault();
 
@@ -89088,7 +89442,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                     window.location.reload(true);
                 }
             }).catch(function (error) {
-                _this.error_data = error.response.data;
+                _this3.error_data = error.response.data;
             });
         },
 
@@ -89118,6 +89472,7 @@ var render = function() {
             _c(
               "GmapMap",
               {
+                ref: "mapRef",
                 staticStyle: { width: "100%", height: "640px" },
                 attrs: {
                   center: {
@@ -89398,9 +89753,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "address" } }, [
-                _vm._v(" Alamat Lokasi: ")
-              ]),
+              _c("label", { attrs: { for: "address" } }, [_vm._v(" Alamat: ")]),
               _vm._v(" "),
               _c("textarea", {
                 directives: [
@@ -89438,6 +89791,96 @@ var render = function() {
               _c("div", { staticClass: "invalid-feedback" }, [
                 _vm._v(
                   _vm._s(_vm.get(this.error_data, "errors.address[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "kecamatan" } }, [
+                _vm._v(" Kecamatan: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.kecamatan,
+                    expression: "kecamatan"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.kecamatan[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "kecamatan",
+                  placeholder: "Kecamatan"
+                },
+                domProps: { value: _vm.kecamatan },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.kecamatan = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.kecamatan[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "kelurahan" } }, [
+                _vm._v(" Kelurahan: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.kelurahan,
+                    expression: "kelurahan"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.kelurahan[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "kelurahan",
+                  placeholder: "Kelurahan"
+                },
+                domProps: { value: _vm.kelurahan },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.kelurahan = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.kelurahan[0]", false))
                 )
               ])
             ]),
