@@ -93404,10 +93404,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var _this = this;
 
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.pointer_marker.lat + ',' + this.pointer_marker.lng + '&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id').then(function (response) {
-                var address = response.data.results[0].formatted_address.split(', ');
-                _this.address = address[0];
-                _this.kecamatan = address[1];
-                _this.kelurahan = address[2];
+                var first_result = response.data.results[0];
+
+                _this.address = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(first_result, "formatted_address", "-");
+
+                if (first_result.address_components !== null) {
+                    var kelurahan_component = first_result.address_components.find(function (component) {
+                        return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
+                    });
+                    _this.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(kelurahan_component, "long_name", "-");
+
+                    var kecamatan_component = first_result.address_components.find(function (component) {
+                        return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
+                    });
+                    _this.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(kecamatan_component, "long_name", "-");
+                }
             }).catch(function (error) {
                 console.error(error);
             });
@@ -94607,10 +94618,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var _this = this;
 
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.pointer_marker.lat + ',' + this.pointer_marker.lng + '&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id').then(function (response) {
-                var address = response.data.results[0].formatted_address.split(', ');
-                _this.address = address[0];
-                _this.kecamatan = address[1];
-                _this.kelurahan = address[2];
+                var first_result = response.data.results[0];
+
+                _this.address = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(first_result, "formatted_address", "-");
+
+                if (first_result.address_components !== null) {
+                    var kelurahan_component = first_result.address_components.find(function (component) {
+                        return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
+                    });
+                    _this.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(kelurahan_component, "long_name", "-");
+
+                    var kecamatan_component = first_result.address_components.find(function (component) {
+                        return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
+                    });
+                    _this.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(kecamatan_component, "long_name", "-");
+                }
             }).catch(function (error) {
                 console.error(error);
             });
@@ -95706,10 +95728,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var _this = this;
 
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.pointer_marker.lat + ',' + this.pointer_marker.lng + '&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id').then(function (response) {
-                var address = response.data.results[0].formatted_address.split(', ');
-                _this.address = address[0];
-                _this.kecamatan = address[1];
-                _this.kelurahan = address[2];
+                var first_result = response.data.results[0];
+
+                _this.address = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(first_result, "formatted_address", "-");
+
+                if (first_result.address_components !== null) {
+                    var kelurahan_component = first_result.address_components.find(function (component) {
+                        return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
+                    });
+                    _this.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(kelurahan_component, "long_name", "-");
+
+                    var kecamatan_component = first_result.address_components.find(function (component) {
+                        return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
+                    });
+                    _this.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(kecamatan_component, "long_name", "-");
+                }
             }).catch(function (error) {
                 console.error(error);
             });
@@ -96678,10 +96711,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var _this = this;
 
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.pointer_marker.lat + ',' + this.pointer_marker.lng + '&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id').then(function (response) {
-                var address = response.data.results[0].formatted_address.split(', ');
-                _this.address = address[0];
-                _this.kecamatan = address[1];
-                _this.kelurahan = address[2];
+                var first_result = response.data.results[0];
+
+                _this.address = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(first_result, "formatted_address", "-");
+
+                if (first_result.address_components !== null) {
+                    var kelurahan_component = first_result.address_components.find(function (component) {
+                        return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
+                    });
+                    _this.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(kelurahan_component, "long_name", "-");
+
+                    var kecamatan_component = first_result.address_components.find(function (component) {
+                        return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
+                    });
+                    _this.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(kecamatan_component, "long_name", "-");
+                }
             }).catch(function (error) {
                 console.error(error);
             });

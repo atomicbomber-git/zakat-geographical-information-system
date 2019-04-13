@@ -304,10 +304,23 @@ export default {
         autofillAdresses() {
             axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.pointer_marker.lat},${this.pointer_marker.lng}&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id`)
                 .then(response => {
-                    let address = response.data.results[0].formatted_address.split(', ')
-                    this.address = address[0]
-                    this.kecamatan = address[1]
-                    this.kelurahan = address[2]
+                    let first_result = response.data.results[0]
+
+                    this.address = get(first_result, "formatted_address", "-")
+
+                    if (first_result.address_components !== null) {
+                         let kelurahan_component = first_result.address_components.find(component => {
+                            return component.types[0] === "administrative_area_level_4" &&
+                                component.types[1] === "political"
+                        })
+                        this.kelurahan = get(kelurahan_component, "long_name", "-")
+
+                        let kecamatan_component = first_result.address_components.find(component => {
+                            return component.types[0] === "administrative_area_level_3" &&
+                                component.types[1] === "political"
+                        })
+                        this.kecamatan = get(kecamatan_component, "long_name", "-")
+                    }
                 })
                 .catch(error => {
                     console.error(error)
