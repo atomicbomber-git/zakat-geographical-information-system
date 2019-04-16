@@ -84,7 +84,11 @@
 
                 <div class="col-md-3 pl-0">
                     
-                    <div class="list-group-item mb-3">
+                    <!-- Muzakkis visibility toggle -->
+                    <div
+                        v-if="this.can_see_muzakkis"
+                        class="list-group-item mb-3"
+                        >
                         <div
                             class="custom-control custom-checkbox">
                             <input v-model="is_muzakkis_visible" type="checkbox" class="custom-control-input" id="checkbox_muzakki_visibility">
@@ -228,6 +232,7 @@ export default {
         "collectors",
         "gmap_settings",
         "kecamatans",
+        "can_see_muzakkis",
     ],
 
     mounted() {
@@ -269,7 +274,7 @@ export default {
             selected_collector: null,
             selected_mustahiq: null,
             selected_muzakki: null,
-            is_muzakkis_visible: true,
+            is_muzakkis_visible: this.can_see_muzakkis,
         }
     },
 
@@ -318,7 +323,7 @@ export default {
                     return {
                         ...collector,
                         donation_counts: [],
-                        muzakkis: collector.muzakkis.filter(muzakki => this.is_muzakkis_visible),
+                        muzakkis: collector.muzakkis !== undefined ? collector.muzakkis.filter(muzakki => this.is_muzakkis_visible) : [],
                         mustahiqs: prepared_mustahiqs,
                         nearest_mustahiq: prepared_mustahiqs.length === 0 ? null:
                             prepared_mustahiqs.reduce((acc, cur) =>

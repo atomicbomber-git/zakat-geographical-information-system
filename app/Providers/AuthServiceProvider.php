@@ -38,5 +38,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('act-as-collector', function($user) {
             return $user->type == 'COLLECTOR';
         });
+
+        Gate::define('see-muzakkis-on-map', function (?User $user) {
+            return $user !== null;
+        });
     }
 }
