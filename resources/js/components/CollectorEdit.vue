@@ -273,7 +273,7 @@
                 axios.post(window.submit_url, data, {headers: { 'Content-Type': 'multipart/form-data' }})
                     .then(response => {
                         if (response.data.redirect) {
-                            window.location.replace(response.data.redirect)
+                            // window.location.replace(response.data.redirect)
                         }
                     })
                     .catch(error => {

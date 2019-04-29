@@ -11,7 +11,9 @@
 </head>
 <body>
     <div style="min-height: 90vh">
-        @include('shared.navbar')
+        @unless(isset($dont_show_navbar) && $dont_show_navbar)
+            @include('shared.navbar')
+        @endunless
 
         <div class="container">
             @auth
@@ -39,7 +41,7 @@
                         untuk memberi zakat kepada UPZ ataupun
                         langsung kepada Mustahiq.
                     </div>
-                    <div class="col-md-5 h5">
+                    <div class="col-md-5">
                         KANTOR BAZNAS KOTA PONTIANAK <br/>
                         Jl. Tabrani Ahmad (Komplek Kantor Camat Barat) Pontianak 78115 <br/>
                         TEL: (0561) 812 8215 / 0812 5645 1201 <br/>

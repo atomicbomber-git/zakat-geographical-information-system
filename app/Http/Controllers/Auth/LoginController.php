@@ -30,6 +30,11 @@ class LoginController extends Controller
         }
     }
 
+    public function showLoginForm()
+    {
+        return view('auth.login', ["dont_show_navbar" => true]);
+    }
+
     public function loggedOut()
     {
         return redirect()->route('login');
