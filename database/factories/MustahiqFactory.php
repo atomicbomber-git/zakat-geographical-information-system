@@ -3,12 +3,16 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Mustahiq::class, function (Faker $faker) {
+
+    $kecamatan = $faker->randomElement(['A', 'B', 'C', 'D', 'E']);
+    $kelurahan = $kecamatan . $faker->randomElement(['P', 'Q', 'R', 'T', 'U']);
+
     return [
         "name" => $faker->name,
         "nik" => $faker->unique->randomNumber(6),
         "address" => $faker->streetAddress,
-        "kecamatan" => $faker->randomElement(['A', 'B', 'C', 'D', 'E']),
-        "kelurahan" => $faker->randomElement(['F', 'G', 'H', 'I', 'J']),
+        "kecamatan" => $kecamatan,
+        "kelurahan" => $kelurahan,
         "phone" => $faker->phoneNumber,
         "gender" => $faker->randomElement(['l', 'p']),
         "occupation" => $faker->randomElement(['Buruh', 'Kuli', 'Pedagang', 'Rumah Tangga']),

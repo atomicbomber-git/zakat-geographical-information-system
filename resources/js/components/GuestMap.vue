@@ -8,10 +8,9 @@
         <div class="card-body">
             <div class="my-4">
                 <div class="alert alert-primary">
-                    <h2 class="h3">
-                        Unit Pengumpulan Zakat Terdekat:
-                    </h2>
-                    {{ get(this.nearest_collector, 'name', '-')  }} <br/>
+                    <h2 class="h3">Unit Pengumpulan Zakat Terdekat:</h2>
+                    {{ get(this.nearest_collector, 'name', '-') }}
+                    <br>
                     {{ get(this.nearest_collector, 'address', '-') }}
                 </div>
             </div>
@@ -21,14 +20,15 @@
                     <div class="alert alert-info">
                         <i class="fa fa-info"></i>
                         Anda sekarang berada di
-                        <strong>
-                            {{ this.pointer_address }}
-                        </strong>
+                        <strong>{{ this.pointer_address }}</strong>
                     </div>
 
-                    <h5> Petunjuk Jalan </h5>
+                    <h5>Petunjuk Jalan</h5>
 
-                    <ol class="list-group" :style="{ 'max-height': '400px', 'overflow-y': 'scroll' }">
+                    <ol
+                        class="list-group"
+                        :style="{ 'max-height': '400px', 'overflow-y': 'scroll' }"
+                    >
                         <li class="list-group-item" v-for="(step, i) in route_steps" :key="i">
                             <span v-html="step.instructions"></span>
                         </li>
@@ -42,12 +42,9 @@
                         :zoom="this.gmap_settings.zoom"
                         :map-type-id="this.gmap_settings.map_type_id"
                         :style="this.gmap_settings.style"
-                        >
-
+                    >
                         <!-- Pointer Marker -->
-                        <GmapMarker
-                            :position="pointer_marker"
-                            />
+                        <GmapMarker :position="pointer_marker"/>
 
                         <!-- Collector Markers and Info Windows -->
                         <template v-for="collector in p_collectors">
@@ -56,7 +53,7 @@
                                 :icon="icons.mosque_black"
                                 :position="{ lat: collector.latitude, lng: collector.longitude }"
                                 :key="collector.id"
-                                />
+                            />
 
                             <!-- Mustahiq Markers -->
                             <template v-for="mustahiq in collector.mustahiqs">
@@ -65,9 +62,9 @@
                                     :icon="icons.person_red"
                                     :position="{ lat: mustahiq.latitude, lng: mustahiq.longitude }"
                                     :key="`mustahiq_${mustahiq.id}`"
-                                    />
+                                />
                             </template>
-                            
+
                             <!-- Muzakki Markers -->
                             <template v-for="muzakki in collector.muzakkis">
                                 <GmapMarker
@@ -75,43 +72,76 @@
                                     :icon="icons.person_green"
                                     :position="{ lat: muzakki.latitude, lng: muzakki.longitude }"
                                     :key="`muzakki_${muzakki.id}`"
-                                    />
+                                />
                             </template>
-
                         </template>
                     </GmapMap>
                 </div>
 
-                <div class="col-md-3 pl-0">
-                    
+                <div class="col-md-3 pl-0" style="max-height: 640px; overflow-y: scroll">
                     <!-- Muzakkis visibility toggle -->
-                    <div
-                        v-if="this.can_see_muzakkis"
-                        class="list-group-item mb-3"
-                        >
-                        <div
-                            class="custom-control custom-checkbox">
-                            <input v-model="is_muzakkis_visible" type="checkbox" class="custom-control-input" id="checkbox_muzakki_visibility">
-                            <label class="custom-control-label" for="checkbox_muzakki_visibility">
-                                Tampilkan Muzakki
-                            </label>
+                    <div v-if="this.can_see_muzakkis" class="list-group-item mb-3">
+                        <div class="custom-control custom-checkbox">
+                            <input
+                                v-model="is_muzakkis_visible"
+                                type="checkbox"
+                                class="custom-control-input"
+                                id="checkbox_muzakki_visibility"
+                            >
+                            <label
+                                class="custom-control-label"
+                                for="checkbox_muzakki_visibility"
+                            >Tampilkan Muzakki</label>
                         </div>
                     </div>
 
-                    <h2 class="h5">
-                        Tampilkan Kecamatan
-                    </h2>
+                    <!-- <h2 class="h5">Tampilkan Kecamatan</h2> -->
 
-                    <div v-if="p_kecamatans.length > 0" class="list-group">
-                        <div class="list-group-item" v-for="kecamatan in p_kecamatans" :key="kecamatan.name">
-                            <div
-                                class="custom-control custom-checkbox">
-                                <input v-model="kecamatan.is_visible" type="checkbox" class="custom-control-input" :id="`checkbox_kecamatan_${kecamatan.name}`">
-                                <label class="custom-control-label" :for="`checkbox_kecamatan_${kecamatan.name}`">
-                                    {{ kecamatan.name }}
+                    <div v-if="administrative_divisions.length > 0">
+                        <div
+                            v-for="(administrative_division, i) in administrative_divisions"
+                            :key="i"
+                        >
+                            <kecamatan-toggle
+                                v-model="administrative_division.kecamatan"
+                                />
+                            <!-- Kecamatan visibility switches -->
+                            <!-- <div class="custom-control custom-checkbox font-weight-bold mb-2">
+                                <input
+                                    v-model="kecamatan.is_visible"
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    :id="`checkbox_kecamatan_${kecamatan.name}`"
+                                >
+                                <label
+                                    class="custom-control-label"
+                                    :for="`checkbox_kecamatan_${kecamatan.name}`"
+                                    >
+                                    Kecamatan {{ kecamatan.name }}
                                 </label>
                             </div>
+
+                            <div
+                                class="custom-control custom-checkbox ml-4"
+                                v-for="kelurahan in kecamatan.kelurahans" :key="kelurahan.id">
+                                
+                                <input
+                                    v-model="kelurahan.is_visible"
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    :id="`checkbox_kelurahan_${kelurahan.name}`"
+                                >
+                                <label
+                                    class="custom-control-label"
+                                    :for="`checkbox_kelurahan_${kelurahan.name}`"
+                                    >
+                                    Kelurahan {{ kelurahan.name }}
+                                </label>
+                            </div> -->
+
+                            <hr/>
                         </div>
+
                     </div>
 
                     <div v-else class="alert alert-warning">
@@ -131,18 +161,19 @@
                             <img
                                 style="width: 100%; object-fit: cover"
                                 :src="selected_collector.image_url"
-                                :alt="selected_collector.name">
+                                :alt="selected_collector.name"
+                            >
                         </div>
                         <div class="col-md-6">
                             <dl>
-                                <dt> Nama Unit Pengumpulan Zakat: </dt>
-                                <dd> {{ selected_collector.name }} </dd>
+                                <dt>Nama Unit Pengumpulan Zakat:</dt>
+                                <dd>{{ selected_collector.name }}</dd>
 
-                                <dt> Alamat: </dt>
-                                <dd> {{ selected_collector.address }} </dd>
-                            
-                                <dt> Jumlah Mustahiq </dt>
-                                <dd> {{ selected_collector.mustahiqs.length }} </dd>
+                                <dt>Alamat:</dt>
+                                <dd>{{ selected_collector.address }}</dd>
+
+                                <dt>Jumlah Mustahiq</dt>
+                                <dd>{{ selected_collector.mustahiqs.length }}</dd>
                             </dl>
 
                             <hr>
@@ -160,8 +191,7 @@
                                     formatTooltipX: d => (d + '').toUpperCase(),
                                     formatTooltipY: d => d,
                                 }"
-                                >
-                            </vue-frappe>
+                            ></vue-frappe>
 
                             <div v-else>
                                 <i class="fa fa-warning"></i>
@@ -170,14 +200,17 @@
 
                             <hr>
 
-                            <p class="mb-2"> <strong> Mustahiq Terdekat: </strong> </p>
+                            <p class="mb-2">
+                                <strong>Mustahiq Terdekat:</strong>
+                            </p>
                             <p>
-                                {{ get(selected_collector.nearest_mustahiq, 'name', '-') }} <br/>
+                                {{ get(selected_collector.nearest_mustahiq, 'name', '-') }}
+                                <br>
                                 {{ get(selected_collector.nearest_mustahiq, 'address', '-') }}
                             </p>
                         </div>
                     </div>
-                    
+
                     <div class="text-right">
                         <button class="btn btn-sm btn-primary" @click="onDisplayRouteButtonClick">
                             Rute
@@ -192,17 +225,17 @@
             <div class="card" v-if="selected_mustahiq">
                 <div class="card-body">
                     <dl>
-                        <dt> Nama: </dt>
-                        <dd> {{ selected_mustahiq.name }} </dd>
+                        <dt>Nama:</dt>
+                        <dd>{{ selected_mustahiq.name }}</dd>
 
-                        <dt> Alamat: </dt>
-                        <dd> {{ selected_mustahiq.address }} </dd>
+                        <dt>Alamat:</dt>
+                        <dd>{{ selected_mustahiq.address }}</dd>
 
-                        <dt> Usia: </dt>
-                        <dd> {{ selected_mustahiq.age }} </dd>
+                        <dt>Usia:</dt>
+                        <dd>{{ selected_mustahiq.age }}</dd>
 
-                        <dt> Pekerjaan: </dt>
-                        <dd> {{ selected_mustahiq.occupation }} </dd>
+                        <dt>Pekerjaan:</dt>
+                        <dd>{{ selected_mustahiq.occupation }}</dd>
                     </dl>
                 </div>
             </div>
@@ -212,8 +245,8 @@
             <div class="card" v-if="selected_muzakki">
                 <div class="card-body">
                     <dl>
-                        <dt> Nama: </dt>
-                        <dd> {{ selected_muzakki.name }} </dd>
+                        <dt>Nama:</dt>
+                        <dd>{{ selected_muzakki.name }}</dd>
                     </dl>
                 </div>
             </div>
@@ -226,6 +259,7 @@
 import { get } from 'lodash'
 import icons from '../icons.js'
 import { getDistance } from '../helpers.js'
+import KecamatanToggle from './KecamatanToggle'
 
 export default {
     props: [
@@ -234,6 +268,8 @@ export default {
         "kecamatans",
         "can_see_muzakkis",
     ],
+
+    components: { KecamatanToggle },
 
     mounted() {
         this.$refs.mapRef.$mapPromise.then(map => {
@@ -261,8 +297,14 @@ export default {
             icons,
             pointer_marker: default_center,
             pointer_address: null,
-            p_kecamatans: this.kecamatans.map(kecamatan => ({name: kecamatan, is_visible: true})),
 
+            administrative_divisions: Object.keys(this.kecamatans).map(kecamatan => ({
+                kecamatan: {
+                    name: kecamatan,
+                    kelurahans: this.kecamatans[kecamatan].map(({ kelurahan }) => ({ name: kelurahan, is_visible: true })),
+                    is_visible: true
+                }
+            })),
 
             nearest_collector: this.collectors.length === 0 ? null :
                 this.collectors.reduce((acc, cur) => {
@@ -305,14 +347,29 @@ export default {
     
     computed: {
         visible_kecamatan_names() {
-            return this.p_kecamatans
-                .filter(kecamatan => kecamatan.is_visible)
-                .map(({ name }) => name)
+            return this.administrative_divisions
+                .filter(administrative_division => administrative_division.kecamatan.is_visible)
+                .map(administrative_division => administrative_division.kecamatan.name)
+        },
+
+        visible_kelurahan_names() {
+
+            let kelurahan_names = []
+
+            this.administrative_divisions.forEach(({ kecamatan }) => {
+                kecamatan.kelurahans.forEach(kelurahan => {
+                    if (kelurahan.is_visible) {
+                        kelurahan_names.push(kelurahan.name)
+                    }
+                })
+            })
+
+            return kelurahan_names
         },
 
         p_collectors() {
             return this.collectors
-                .filter(({ kecamatan }) => this.visible_kecamatan_names.includes(kecamatan))
+                .filter(({ kelurahan }) => this.visible_kelurahan_names.includes(kelurahan))
                 .map(collector => {
                     let prepared_mustahiqs = collector.mustahiqs
                         .map(mustahiq => ({

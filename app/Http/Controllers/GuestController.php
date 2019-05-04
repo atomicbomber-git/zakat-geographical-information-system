@@ -31,16 +31,21 @@ class GuestController extends Controller
         $muzakkis_count = Muzakki::count();
         $mustahiqs_count = Mustahiq::count();
 
-        $kecamatans = collect()
-            ->merge(Muzakki::select("kecamatan")->distinct()->pluck("kecamatan"))
-            ->merge(Mustahiq::select("kecamatan")->distinct()->pluck("kecamatan"))
-            ->merge(Collector::select("kecamatan")->distinct()->pluck("kecamatan"))
-            ->unique()
-            ->sort()
-            ->values();
-
         $can_see_muzakkis = Gate::allows("see-muzakkis-on-map");
 
-        return view('guest.map', compact('collectors', "muzakkis_count", "mustahiqs_count", "kecamatans", "can_see_muzakkis"));
+        $kecamatans = collect()
+            ->merge($can_see_muzakkis ? Muzakki::select("kecamatan", "kelurahan")->distinct()->get() : [])
+            ->merge(Mustahiq::select("kecamatan", "kelurahan")->distinct()->get())
+            ->merge(Collector::select("kecamatan", "kelurahan")->distinct()->get())
+            ->unique(function ($record) {
+                return $record->kecamatan . $record->kelurahan;
+            })
+            ->sortBy("kecamatan")
+            ->values()
+            ->groupBy("kecamatan");
+            
+        return view('guest.map',
+            compact('collectors', "muzakkis_count", "mustahiqs_count", "kecamatans", "can_see_muzakkis")
+        );
     }
 }
