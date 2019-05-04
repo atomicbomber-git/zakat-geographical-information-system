@@ -79,74 +79,47 @@
                 </div>
 
                 <div class="col-md-3 pl-0" style="max-height: 640px; overflow-y: scroll">
-                    <!-- Muzakkis visibility toggle -->
-                    <div v-if="this.can_see_muzakkis" class="list-group-item mb-3">
-                        <div class="custom-control custom-checkbox">
-                            <input
-                                v-model="is_muzakkis_visible"
-                                type="checkbox"
-                                class="custom-control-input"
-                                id="checkbox_muzakki_visibility"
-                            >
-                            <label
-                                class="custom-control-label"
-                                for="checkbox_muzakki_visibility"
-                            >Tampilkan Muzakki</label>
-                        </div>
-                    </div>
-
-                    <!-- <h2 class="h5">Tampilkan Kecamatan</h2> -->
-
-                    <div v-if="administrative_divisions.length > 0">
-                        <div
-                            v-for="(administrative_division, i) in administrative_divisions"
-                            :key="i"
+                    <button class="btn btn-default w-100 mb-3"
+                        @click="is_filter_visible =! is_filter_visible"
                         >
-                            <kecamatan-toggle
-                                v-model="administrative_division.kecamatan"
-                                />
-                            <!-- Kecamatan visibility switches -->
-                            <!-- <div class="custom-control custom-checkbox font-weight-bold mb-2">
+                        Filter
+                        <i
+                            class="fa"
+                            :class="{
+                                'fa-chevron-up': !is_filter_visible,
+                                'fa-chevron-down': is_filter_visible
+                                }">
+                        </i>
+                    </button>
+
+                    <div v-if="is_filter_visible">
+                        <!-- Muzakkis visibility toggle -->
+                        <div v-if="this.can_see_muzakkis" class="list-group-item mb-3">
+                            <div class="custom-control custom-checkbox">
                                 <input
-                                    v-model="kecamatan.is_visible"
+                                    v-model="is_muzakkis_visible"
                                     type="checkbox"
                                     class="custom-control-input"
-                                    :id="`checkbox_kecamatan_${kecamatan.name}`"
+                                    id="checkbox_muzakki_visibility"
                                 >
                                 <label
                                     class="custom-control-label"
-                                    :for="`checkbox_kecamatan_${kecamatan.name}`"
-                                    >
-                                    Kecamatan {{ kecamatan.name }}
-                                </label>
+                                    for="checkbox_muzakki_visibility"
+                                >Tampilkan Muzakki</label>
                             </div>
-
-                            <div
-                                class="custom-control custom-checkbox ml-4"
-                                v-for="kelurahan in kecamatan.kelurahans" :key="kelurahan.id">
-                                
-                                <input
-                                    v-model="kelurahan.is_visible"
-                                    type="checkbox"
-                                    class="custom-control-input"
-                                    :id="`checkbox_kelurahan_${kelurahan.name}`"
-                                >
-                                <label
-                                    class="custom-control-label"
-                                    :for="`checkbox_kelurahan_${kelurahan.name}`"
-                                    >
-                                    Kelurahan {{ kelurahan.name }}
-                                </label>
-                            </div> -->
-
-                            <hr/>
                         </div>
 
-                    </div>
-
-                    <div v-else class="alert alert-warning">
-                        <i class="fa fa-warning"></i>
-                        Data tidak tersedia.
+                        <div class="list-group">
+                            <div
+                                class="list-group-item"
+                                v-for="(administrative_division, i) in administrative_divisions"
+                                :key="i"
+                                >
+                                <kecamatan-toggle
+                                    v-model="administrative_division.kecamatan"
+                                    />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -312,6 +285,7 @@ export default {
                            getDistance(cur.latitude, cur.longitude, default_center.lat, default_center.lng) ? acc : cur
             }),
 
+            is_filter_visible: false,
             route_steps: null,
             selected_collector: null,
             selected_mustahiq: null,
