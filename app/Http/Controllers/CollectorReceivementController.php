@@ -61,7 +61,7 @@ class CollectorReceivementController extends Controller
     public function store()
     {
         $data = $this->validate(request(), [
-            'muzakki_id' => 'required|exists:muzakkis,id',
+            'muzakki_id' => 'nullable|exists:muzakkis,id',
             'transaction_date' => 'required|date',
             'zakat' => 'required|numeric|gte:0',
             'fitrah' => 'required|numeric|gte:0',
@@ -90,7 +90,7 @@ class CollectorReceivementController extends Controller
     public function update(Receivement $receivement)
     {
         $data = $this->validate(request(), [
-            'muzakki_id' => 'required|exists:muzakkis,id',
+            'muzakki_id' => 'nullable|exists:muzakkis,id',
             'transaction_date' => 'required|date',
             'zakat' => 'required|numeric|gte:0',
             'fitrah' => 'required|numeric|gte:0',

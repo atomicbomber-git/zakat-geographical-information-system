@@ -64,6 +64,9 @@
                         v-model="muzakki"
                         :preselect-first="true"
                         />
+                    <div class='text-danger' v-if="get(this.error_data, 'errors.muzakki_id[0]', false)">
+                        {{ get(this.error_data, 'errors.muzakki_id[0]', false) }}
+                    </div>
                 </div>
 
                 <div class="text-right">

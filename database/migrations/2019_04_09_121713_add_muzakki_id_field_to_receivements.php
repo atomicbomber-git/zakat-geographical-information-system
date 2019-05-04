@@ -14,7 +14,7 @@ class AddMuzakkiIdFieldToReceivements extends Migration
     public function up()
     {
         Schema::table('receivements', function (Blueprint $table) {
-            $table->unsignedInteger('muzakki_id');
+            $table->unsignedInteger('muzakki_id')->nullable();
             $table->foreign('muzakki_id')
                 ->references('id')
                 ->on('muzakkis');

@@ -71,11 +71,17 @@
                             <td> {{ $loop->iteration }}. </td>
                             <td> {{ $receivement->transaction_date->format('d-m-Y') }} </td>
                             <td>
+                                @isset($receivement->muzakki)
+
                                 <div> <strong> {{ $receivement->muzakki->name }} </strong> </div>
                                 <div> {{ $receivement->muzakki->NIK }} (NIK), {{ $receivement->muzakki->npwz }} (NPWZ) </div>
                                 <div> {{ $receivement->muzakki->phone }} (Telp) </div>
                                 <div> {{ $receivement->muzakki->gender }} </div>
                                 <div> Kecamatan {{ $receivement->muzakki->kecamatan }}, Kelurahan {{ $receivement->muzakki->kelurahan }} </div>
+
+                                @else
+                                    -
+                                @endisset
                             </td>
                             <td class="text-right"> {{ number_format($receivement->zakat) }} </td>
                             <td class="text-right"> {{ number_format($receivement->fitrah) }} </td>

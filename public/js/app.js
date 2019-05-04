@@ -92841,6 +92841,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -93107,7 +93110,23 @@ var render = function() {
                   },
                   expression: "muzakki"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.get(this.error_data, "errors.muzakki_id[0]", false)
+                ? _c("div", { staticClass: "text-danger" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(
+                          _vm.get(
+                            this.error_data,
+                            "errors.muzakki_id[0]",
+                            false
+                          )
+                        ) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
             ],
             1
           ),
