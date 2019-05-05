@@ -120,12 +120,7 @@
 
                         <div class="form-group">
                             <label for="gender">Jenis Kelamin:</label>
-                            <select
-                                class="form-control"
-                                v-model="gender"
-                                name="gender"
-                                id="gender"
-                            >
+                            <select class="form-control" v-model="gender" name="gender" id="gender">
                                 <option value="l">Laki-Laki</option>
                                 <option value="p">Perempuan</option>
                             </select>
@@ -150,14 +145,19 @@
                             >{{ get(this.error_data, 'errors.nik[0]', false) }}</div>
                         </div>
 
-                        <div class='form-group'>
-                            <label for='age'> Usia: </label>
+                        <div class="form-group">
+                            <label for="age">Usia:</label>
                             <input
-                                v-model.number='age'
-                                class='form-control'
+                                v-model.number="age"
+                                class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.age[0]', false)}"
-                                type='text' id='age' placeholder='Usia'>
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.age[0]', false) }}</div>
+                                type="text"
+                                id="age"
+                                placeholder="Usia"
+                            >
+                            <div
+                                class="invalid-feedback"
+                            >{{ get(this.error_data, 'errors.age[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -235,19 +235,17 @@
                             >{{ get(this.error_data, 'errors.occupation[0]', false) }}</div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="asnaf"> Asnaf: </label>
-                            <input
+                        <div class='form-group'>
+                            <label for='asnaf'> Asnaf: </label>
+                            <multiselect
+                                :options="asnafs"
                                 v-model="asnaf"
-                                class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.asnaf[0]', false)}"
-                                type="text"
-                                id="asnaf"
-                                placeholder="asnaf"
-                            >
-                            <div
-                                class="invalid-feedback"
-                            >{{ get(this.error_data, 'errors.asnaf[0]', false) }}</div>
+                                selectLabel=""
+                                selectedLabel=""
+                                deselectLabel=""	
+                                :preselect-first="true"
+                                />
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.asnaf[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -279,16 +277,21 @@
 </template>
 
 <script>
-
-import { get } from 'lodash'
-import axios from 'axios'
+import { get } from "lodash";
+import axios from "axios";
+import asnafs from "../../../asnaf_catalog";
+import { Multiselect } from 'vue-multiselect'
 
 export default {
-    props: [
-        "gmap_settings", "collector",
-        "submit_url", "redirect_url",
-        "original_mustahiqs", "mustahiq"
+    components: { Multiselect },
 
+    props: [
+        "gmap_settings",
+        "collector",
+        "submit_url",
+        "redirect_url",
+        "original_mustahiqs",
+        "mustahiq"
     ],
 
     data() {
@@ -302,7 +305,7 @@ export default {
 
             pointer_marker: {
                 lat: this.mustahiq.latitude,
-                lng: this.mustahiq.longitude,
+                lng: this.mustahiq.longitude
             },
 
             name: this.mustahiq.name,
@@ -315,11 +318,15 @@ export default {
             phone: this.mustahiq.phone,
             occupation: this.mustahiq.occupation,
             asnaf: this.mustahiq.asnaf,
-            help_program: this.mustahiq.help_program,
-        }
+            help_program: this.mustahiq.help_program
+        };
     },
 
     computed: {
+        asnafs() {
+            return asnafs;
+        },
+
         form_data() {
             return {
                 latitude: this.pointer_marker.lat,
@@ -334,8 +341,8 @@ export default {
                 phone: this.phone,
                 occupation: this.occupation,
                 asnaf: this.asnaf,
-                help_program: this.help_program,
-            }
+                help_program: this.help_program
+            };
         }
     },
 
@@ -346,45 +353,71 @@ export default {
             this.pointer_marker = {
                 lat: e.latLng.lat(),
                 lng: e.latLng.lng()
-            }
-            this.autofillAdresses()
+            };
+            this.autofillAdresses();
         },
 
         autofillAdresses() {
-            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.pointer_marker.lat},${this.pointer_marker.lng}&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id`)
+            axios
+                .get(
+                    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${
+                        this.pointer_marker.lat
+                    },${
+                        this.pointer_marker.lng
+                    }&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id`
+                )
                 .then(response => {
-                    let first_result = response.data.results[0]
+                    let first_result = response.data.results[0];
 
-                    this.address = get(first_result, "formatted_address", "-")
+                    this.address = get(first_result, "formatted_address", "-");
 
                     if (first_result.address_components !== null) {
-                         let kelurahan_component = first_result.address_components.find(component => {
-                            return component.types[0] === "administrative_area_level_4" &&
-                                component.types[1] === "political"
-                        })
-                        this.kelurahan = get(kelurahan_component, "long_name", "-")
+                        let kelurahan_component = first_result.address_components.find(
+                            component => {
+                                return (
+                                    component.types[0] ===
+                                        "administrative_area_level_4" &&
+                                    component.types[1] === "political"
+                                );
+                            }
+                        );
+                        this.kelurahan = get(
+                            kelurahan_component,
+                            "long_name",
+                            "-"
+                        );
 
-                        let kecamatan_component = first_result.address_components.find(component => {
-                            return component.types[0] === "administrative_area_level_3" &&
-                                component.types[1] === "political"
-                        })
-                        this.kecamatan = get(kecamatan_component, "long_name", "-")
+                        let kecamatan_component = first_result.address_components.find(
+                            component => {
+                                return (
+                                    component.types[0] ===
+                                        "administrative_area_level_3" &&
+                                    component.types[1] === "political"
+                                );
+                            }
+                        );
+                        this.kecamatan = get(
+                            kecamatan_component,
+                            "long_name",
+                            "-"
+                        );
                     }
                 })
                 .catch(error => {
-                    console.error(error)
-                })
+                    console.error(error);
+                });
         },
 
         onFormSubmit() {
-            axios.post(this.submit_url, this.form_data)
-               .then(response => {
-                    window.location.replace(this.redirect_url)
-               })
-               .catch(error => {
-                   this.error_data = error.response.data
-               })
+            axios
+                .post(this.submit_url, this.form_data)
+                .then(response => {
+                    window.location.replace(this.redirect_url);
+                })
+                .catch(error => {
+                    this.error_data = error.response.data;
+                });
         }
     }
-}
+};
 </script>

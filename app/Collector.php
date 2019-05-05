@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Illuminate\Support\Facades\DB;
 
 class Collector extends Model implements HasMedia
 {
@@ -48,8 +49,15 @@ class Collector extends Model implements HasMedia
         return $this->hasMany(Mustahiq::class);
     }
 
-    // public function reports()
-    // {
-    //     return $this->hasMany(Report::class);
-    // }
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    public function report_total_amount()
+    {
+        return $this->hasOne(Report::class)
+            ->addSelect("collector_id", DB::raw("SUM(zakat + fitrah + infak) AS value"))
+            ->groupBy("collector_id");
+    }
 }

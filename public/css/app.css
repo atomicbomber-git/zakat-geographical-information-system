@@ -2540,6 +2540,10 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:las
   overflow: visible;
   clip: auto;
 }
+.width-md {
+  max-width: 440px;
+}
+
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors

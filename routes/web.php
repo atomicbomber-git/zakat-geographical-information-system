@@ -115,3 +115,18 @@ Route::group(['prefix' => '/muzakki', 'as' => 'collector.muzakki.'], function() 
     Route::post('/update/{muzakki}', 'MuzakkiController@update')->name('update');
     Route::post('/delete/{muzakki}', 'MuzakkiController@delete')->name('delete');
 });
+
+Route::group(['prefix' => '/report', 'as' => 'report.'], function() {
+    Route::get('/index', 'ReportController@index')->name('index');
+    Route::get('/create', 'ReportController@create')->name('create');
+    Route::post('/store', 'ReportController@store')->name('store');
+    Route::get('/edit/{report}', 'ReportController@edit')->name('edit');
+    Route::post('/update/{report}', 'ReportController@update')->name('update');
+    Route::post('/delete/{report}', 'ReportController@delete')->name('delete');
+});
+
+Route::group(['prefix' => '/admin-report', 'as' => 'admin-report.'], function() {
+    Route::get('/index', 'AdminReportController@index')->name('index');
+    Route::get('/print-index', 'AdminReportController@printIndex')->name('print-index');
+    Route::get('/detail/{collector}', 'AdminReportController@detail')->name('detail');
+});

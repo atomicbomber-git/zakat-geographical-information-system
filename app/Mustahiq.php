@@ -11,6 +11,17 @@ class Mustahiq extends Model
         'p' => 'Perempuan'
     ];
 
+    const ASNAFS = [
+        "Fakir",
+        "Miskin",
+        "Amil",
+        "Muallaf",
+        "Riqab (Hamba Sahaya)",
+        "Ghorim",
+        "Sabilillah",
+        "Ibnu Sabil",
+    ];
+
     public $fillable = [
         "latitude",
         "longitude",

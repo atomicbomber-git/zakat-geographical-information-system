@@ -52,6 +52,7 @@ Vue.component('collector-mustahiq-create', require('./components/collector/musta
 Vue.component('collector-mustahiq-edit', require('./components/collector/mustahiq/Edit.vue'));
 Vue.component('collector-muzakki-create', require('./components/collector/muzakki/Create.vue'));
 Vue.component('collector-muzakki-edit', require('./components/collector/muzakki/Edit.vue'));
+Vue.component('report-chart', require('./components/shared/ReportChart.vue'));
 
 const app = new Vue({
     el: '#app'

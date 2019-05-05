@@ -50059,6 +50059,7 @@ Vue.component('collector-mustahiq-create', __webpack_require__(293));
 Vue.component('collector-mustahiq-edit', __webpack_require__(297));
 Vue.component('collector-muzakki-create', __webpack_require__(300));
 Vue.component('collector-muzakki-edit', __webpack_require__(303));
+Vue.component('report-chart', __webpack_require__(318));
 
 var app = new Vue({
     el: '#app'
@@ -84769,10 +84770,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(234)
-}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(236)
@@ -84781,7 +84778,7 @@ var __vue_template__ = __webpack_require__(237)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+var __vue_styles__ = null
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -84816,46 +84813,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 234 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(235);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(6)("095e208e", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-89f5fa26\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DonationChart.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-89f5fa26\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DonationChart.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 235 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 234 */,
+/* 235 */,
 /* 236 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -84895,7 +84854,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['data', 'name', 'title'],
+    props: ["data", "name", "title"],
     methods: {
         numeral: __WEBPACK_IMPORTED_MODULE_0_numeral___default.a
     }
@@ -95125,6 +95084,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__asnaf_catalog__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__asnaf_catalog___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__asnaf_catalog__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_multiselect__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_multiselect__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -95405,14 +95368,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
+
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: { Multiselect: __WEBPACK_IMPORTED_MODULE_3_vue_multiselect__["Multiselect"] },
+
     props: ["gmap_settings", "collector", "submit_url", "redirect_url", "original_mustahiqs", "mustahiq"],
 
     data: function data() {
@@ -95446,6 +95410,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
     computed: {
+        asnafs: function asnafs() {
+            return __WEBPACK_IMPORTED_MODULE_2__asnaf_catalog___default.a;
+        },
         form_data: function form_data() {
             return {
                 latitude: this.pointer_marker.lat,
@@ -95478,7 +95445,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         autofillAdresses: function autofillAdresses() {
             var _this = this;
 
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.pointer_marker.lat + ',' + this.pointer_marker.lng + '&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + this.pointer_marker.lat + "," + this.pointer_marker.lng + "&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id").then(function (response) {
                 var first_result = response.data.results[0];
 
                 _this.address = Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(first_result, "formatted_address", "-");
@@ -95876,7 +95843,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "age" } }, [_vm._v(" Usia: ")]),
+                _c("label", { attrs: { for: "age" } }, [_vm._v("Usia:")]),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -96137,44 +96104,39 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "asnaf" } }, [_vm._v(" Asnaf: ")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { attrs: { for: "asnaf" } }, [
+                    _vm._v(" Asnaf: ")
+                  ]),
+                  _vm._v(" "),
+                  _c("multiselect", {
+                    attrs: {
+                      options: _vm.asnafs,
+                      selectLabel: "",
+                      selectedLabel: "",
+                      deselectLabel: "",
+                      "preselect-first": true
+                    },
+                    model: {
                       value: _vm.asnaf,
+                      callback: function($$v) {
+                        _vm.asnaf = $$v
+                      },
                       expression: "asnaf"
                     }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.asnaf[0]",
-                      false
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(
+                      _vm._s(_vm.get(this.error_data, "errors.asnaf[0]", false))
                     )
-                  },
-                  attrs: { type: "text", id: "asnaf", placeholder: "asnaf" },
-                  domProps: { value: _vm.asnaf },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.asnaf = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(_vm.get(this.error_data, "errors.asnaf[0]", false))
-                  )
-                ])
-              ]),
+                  ])
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("label", { attrs: { for: "help_program" } }, [
@@ -98269,6 +98231,172 @@ __WEBPACK_IMPORTED_MODULE_0_numeral___default.a.locale('id');
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(319)
+/* template */
+var __vue_template__ = __webpack_require__(320)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/shared/ReportChart.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-28e011cb", Component.options)
+  } else {
+    hotAPI.reload("data-v-28e011cb", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 319 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_numeral__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ["data", "name", "title"],
+    methods: {
+        numeral: __WEBPACK_IMPORTED_MODULE_0_numeral___default.a
+    }
+});
+
+/***/ }),
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.data.length !== 0
+        ? _c("vue-frappe", {
+            attrs: {
+              id: _vm.name,
+              labels: _vm.data.map(function(record) {
+                return record.year
+              }),
+              title: _vm.title,
+              type: "bar",
+              colors: ["blue", "violet", "red", "orange"],
+              dataSets: [
+                {
+                  name: "Nominal",
+                  values: _vm.data.map(function(record) {
+                    return parseFloat(record.amount / 1000000)
+                  })
+                }
+              ],
+              tooltipOptions: {
+                formatTooltipX: function(d) {
+                  return (d + "").toUpperCase()
+                },
+                formatTooltipY: function(d) {
+                  return "" + _vm.numeral(d * 1000000).format("$ 0.[000] a")
+                }
+              }
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.data.length == 0
+        ? _c("div", { staticClass: "alert alert-warning" }, [
+            _c("i", { staticClass: "fa fa-warning" }),
+            _vm._v(
+              "\n        Grafik tidak dapat ditampilkan karena data tidak tersedia.\n    "
+            )
+          ])
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-28e011cb", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

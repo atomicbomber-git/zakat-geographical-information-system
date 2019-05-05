@@ -1,4 +1,3 @@
-
 // Boostrap Custom Colors
 $theme-colors: (
   "primary": #0074d9,
@@ -7,19 +6,21 @@ $theme-colors: (
 );
 
 $body-bg: #f2f2f2;
-
 $table-dark-color: #f2f2f2;
 $table-dark-bg: #005426;
 $table-dark-border-color: #005426;
 $navbar-dark-color: #d4c8c8;
 $navbar-dark-active-color: #f2f2f2;
 
-
 $container-max-widths: (
   // sm: 1500px,
   md: 700px,
   lg: 1100px
 );
+
+.width-md {
+  max-width: 440px
+}
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';

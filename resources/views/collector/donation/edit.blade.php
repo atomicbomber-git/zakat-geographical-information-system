@@ -17,7 +17,7 @@
         </ol>
     </nav>
 
-    <div id="app">
+    <div id="app" class="width-md">
         <collector-donation-edit
             :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
             submit_url="{{ route('collector.donation.update', $donation) }}"

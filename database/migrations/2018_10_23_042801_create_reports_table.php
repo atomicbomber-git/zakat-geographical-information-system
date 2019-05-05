@@ -23,9 +23,6 @@ class CreateReportsTable extends Migration
             $table->decimal('zakat', 19, 4);
             $table->decimal('fitrah', 19, 4);
             $table->decimal('infak', 19, 4);
-
-            $table->text('note');
-            
             $table->foreign('collector_id')->references('id')->on('collectors');
 
             $table->timestamps();

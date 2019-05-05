@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\Mustahiq;
 
 $factory->define(App\Mustahiq::class, function (Faker $faker) {
 
@@ -16,7 +17,7 @@ $factory->define(App\Mustahiq::class, function (Faker $faker) {
         "phone" => $faker->phoneNumber,
         "gender" => $faker->randomElement(['l', 'p']),
         "occupation" => $faker->randomElement(['Buruh', 'Kuli', 'Pedagang', 'Rumah Tangga']),
-        "asnaf" => $faker->randomElement(['X', 'Y']),
+        "asnaf" => $faker->randomElement(Mustahiq::ASNAFS),
         "help_program" => $faker->randomElement(['U', 'V']),
         "age" => rand(14, 80),
         'latitude' => rand(-50, 50) / 1000 + -0.026330,

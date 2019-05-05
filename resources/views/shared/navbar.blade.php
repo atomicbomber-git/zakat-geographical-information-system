@@ -15,10 +15,10 @@
                         </a>
                     </li>
 
-                    <li class='nav-item {{ Route::is('receivement.*') ? 'active' : '' }}'>
-                        <a class='nav-link' href='{{ route('receivement.index') }}'>
-                            <i class='fa fa-arrow-down'></i>
-                            Penerimaan Zakat
+                    <li class='nav-item {{ Route::is('admin-report.*') ? 'active' : '' }}'>
+                        <a class='nav-link' href='{{ route('admin-report.index') }}'>
+                            <i class='fa fa-usd'></i>
+                            Laporan
                         </a>
                     </li>
 
@@ -36,6 +36,13 @@
                         <a class='nav-link' href='{{ route('collector.receivement.index') }}'>
                             <i class='fa fa-arrow-down'></i>
                             Penerimaan Zakat
+                        </a>
+                    </li>
+
+                    <li class='nav-item {{ Route::is('report.*') ? 'active' : '' }}'>
+                        <a class='nav-link' href='{{ route('report.index') }}'>
+                            <i class='fa fa-usd'></i>
+                            Laporan
                         </a>
                     </li>
 
