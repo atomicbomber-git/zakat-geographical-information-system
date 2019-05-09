@@ -14,4 +14,14 @@ class Formatter
     {
         return number_format($value, 0, ",", ".");
     }
+
+    public static function gender($value)
+    {
+        $genders = [
+            'l' => 'Laki-Laki',
+            'p' => 'Perempuan',
+        ];
+
+        return $genders[$value] ?? '-';
+    }
 }

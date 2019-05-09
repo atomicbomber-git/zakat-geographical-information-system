@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function() {
     Route::group(['prefix' => '/collector', 'as' => 'collector.'], function() {
         Route::middleware('can:act-as-administrator')->group(function() {
             Route::get('/index', 'CollectorController@index')->name('index');
+            Route::get('/show/{collector}', 'CollectorController@show')->name('show');
             Route::get('/create', 'CollectorController@create')->name('create');
             Route::post('/store', 'CollectorController@store')->name('store');
             Route::get('/edit/{collector}', 'CollectorController@edit')->name('edit');
@@ -92,7 +93,7 @@ Route::group(['prefix' => '/donation', 'as' => 'donation.'], function() {
     Route::get('/api/count/{collector}', 'DonationController@count')->name('api.count');
 });
 
-Route::get('/image/thumbnail/{collector}', 'CollectorController@thumbnail')->name('collector.thumbnail');
+Route::get('/collector/thumbnail/{collector}', 'CollectorController@thumbnail')->name('collector.thumbnail');
 
 Route::group(['prefix' => '/error', 'as' => 'error.'], function() {
     Route::view('/403', 'error.403')->name('403');

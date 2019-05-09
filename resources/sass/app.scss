@@ -22,6 +22,14 @@ $container-max-widths: (
   max-width: 440px
 }
 
+.width-xl {
+  max-width: 640px
+}
+
+.width-xxl {
+  max-width: 840px
+}
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 

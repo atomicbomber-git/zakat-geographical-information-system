@@ -6,29 +6,24 @@
 @section('title', 'Kelola Unit Pengumpulan Zakat')
 @section('content')
 <div class="container mt-5">
-    <h1>
+    <h1 class="mb-5">
         <i class="fa fa-building"></i>
-        Kelola Unit Pengumpulan Zakat
+        Unit Pengumpulan Zakat
     </h1>
 
-    <div class="row">
-        <div class="col text-left"></div>
-        <div class="col-2"></div>
-        <div class="col text-right">
-            <a href="{{ route('collector.create') }}" class="btn btn-dark btn-sm">
-                Tambah Unit Pengumpulan Zakat
-                <i class="fa fa-plus"></i>
-            </a>
-        </div>
-    </div>
-    
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> {{ config('app.short_name') }} </li>
+            <li class="breadcrumb-item active"> Unit Pengumpulan Zakat </li>
+        </ol>
+    </nav>
+
     @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
-    @include('shared.message', ['session_key' => 'message.danger', 'state' => 'danger'])
 
     <div class="card mt-5">
         <div class="card-header">
             <i class="fa fa-building"></i>
-            Kelola Unit Pengumpulan Zakat
+            Unit Pengumpulan Zakat
         </div>
         <div class="card-body">
             <table class="table table-sm table-striped">
@@ -51,8 +46,11 @@
                         <td> {{ $collector->name }} </td>
                         <td> {{ $collector->npwz }} </td>
                         <td>
+                            <a href="{{ route('collector.show', $collector) }}" class="btn btn-dark btn-sm">
+                                <i class="fa fa-list"></i>
+                            </a>
+
                             <a href="{{ route('collector.edit', $collector) }}" class="btn btn-dark btn-sm">
-                                Sunting Data
                                 <i class="fa fa-pencil"></i>
                             </a>
 
@@ -62,7 +60,6 @@
                                 method="POST">
                                 @csrf
                                 <button {{ Auth::user()->can("delete", $collector) ? '' : 'disabled' }} class="btn btn-danger btn-sm">
-                                    Hapus
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </form>

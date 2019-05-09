@@ -21,6 +21,12 @@ class CollectorController extends Controller
 
         return view('collector.index', compact('collectors'));
     }
+
+    public function show(Collector $collector)
+    {
+        $collector->load(["muzakkis", "mustahiqs"]);
+        return view("collector.show", compact("collector"));
+    }
     
     public function create()
     {
