@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\DB;
 class Collector extends Model implements HasMedia
 {
     use HasMediaTrait;
-
+    
     public $fillable = [
         'name', 'address', 'latitude', 'longitude', 'user_id', 'npwz', "kecamatan", "kelurahan"
     ];
+
+    const HAS_RELATIONS = ["receivements", "donations", "muzakkis", "mustahiqs", "reports"];
 
     public function registerMediaConversions(Media $media = null)
     {

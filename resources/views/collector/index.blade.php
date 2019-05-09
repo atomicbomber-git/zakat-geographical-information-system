@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Facades\DB;
+@endphp
+
 @extends('shared.layout')
 @section('title', 'Kelola Unit Pengumpulan Zakat')
 @section('content')
@@ -19,6 +23,7 @@
     </div>
     
     @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
+    @include('shared.message', ['session_key' => 'message.danger', 'state' => 'danger'])
 
     <div class="card mt-5">
         <div class="card-header">
@@ -51,9 +56,12 @@
                                 <i class="fa fa-pencil"></i>
                             </a>
 
-                            <form class="form-delete d-inline-block" action="{{ route('collector.delete', $collector) }}" method="POST">
+                            <form
+                                class="form-delete d-inline-block"
+                                action="{{ route('collector.delete', $collector) }}"
+                                method="POST">
                                 @csrf
-                                <button {{ ($collector->receivements_count + $collector->donations_count) != 0 ? 'disabled' : '' }}  class="btn btn-danger btn-sm">
+                                <button {{ Auth::user()->can("delete", $collector) ? '' : 'disabled' }} class="btn btn-danger btn-sm">
                                     Hapus
                                     <i class="fa fa-trash"></i>
                                 </button>

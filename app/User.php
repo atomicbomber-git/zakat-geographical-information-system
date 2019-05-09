@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const ADMINISTRATOR_TYPE = 'ADMINISTRATOR';
+    const COLLECTOR_TYPE = 'COLLECTOR';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,9 +44,9 @@ class User extends Authenticatable
     public function getDescriptionAttribute()
     {
         switch ($this->type) {
-            case 'ADMINISTRATOR':
+            case self::ADMINISTRATOR_TYPE:
                 return "Administrator Situs";
-            case 'COLLECTOR':
+            case self::COLLECTOR_TYPE:
                 return "Administrator UPZ " . $this->collector->name;
         }
     }

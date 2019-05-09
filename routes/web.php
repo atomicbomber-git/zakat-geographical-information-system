@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function() {
             Route::post('/store', 'CollectorController@store')->name('store');
             Route::get('/edit/{collector}', 'CollectorController@edit')->name('edit');
             Route::post('/update/{collector}', 'CollectorController@update')->name('update');
-            Route::post('/delete/{collector_id}', 'CollectorController@delete')->name('delete');
+            Route::post('/delete/{collector}', 'CollectorController@delete')->name('delete');
         });
 
         Route::middleware('can:act-as-collector')->group(function() {

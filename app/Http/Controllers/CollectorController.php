@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CollectorController extends Controller
 {
@@ -15,7 +16,7 @@ class CollectorController extends Controller
     {
         $collectors = Collector::select('name', 'user_id', 'npwz', 'id')
             ->with('user:id,name,username')
-            ->withCount('receivements', 'donations')
+            ->withCount(Collector::HAS_RELATIONS)
             ->get();
 
         return view('collector.index', compact('collectors'));
@@ -147,12 +148,16 @@ class CollectorController extends Controller
         ];
     }
 
-    public function delete($collector_id)
+    public function delete(Collector $collector)
     {
-        Collector::where('id', $collector_id)->delete();
+        if (! Auth::user()->can("delete", $collector)) {
+            return back()
+                ->with("message.danger", __('messages.delete.failure'));
+        }
 
-        return redirect()
-            ->back()
+        $collector->delete();
+
+        return back()
             ->with('message.success', __('messages.delete.success'));
     }
 
