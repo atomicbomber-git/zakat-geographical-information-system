@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Facades\Auth;
+@endphp
+
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light mb-3">
     <div class="container">
         <a class="navbar-brand" href="/"> Sistem Informasi Geografis Zakat </a>
@@ -32,25 +36,29 @@
                 @endcan
 
                 @can('act-as-collector')
-                    <li class='nav-item {{ Route::is('collector.receivement.*') ? 'active' : '' }}'>
-                        <a class='nav-link' href='{{ route('collector.receivement.index') }}'>
-                            <i class='fa fa-arrow-down'></i>
-                            Penerimaan Zakat
+                    
+                    <li class='nav-item dropdown {{ Route::is('collector.*') ? 'active' : '' }}'>
+                        <a
+                            class='nav-link dropdown-toggle' href='#' id='collector' role='button'
+                            data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                            Zakat
                         </a>
-                    </li>
+                        <div class='dropdown-menu' aria-labelledby='collector'>
+                            <a class='dropdown-item' href='{{ route('collector.donation.index') }}'>
+                                <i class='fa fa-arrow-up'></i>
+                                Pemberian Zakat
+                            </a>
+    
+                            <a class='dropdown-item' href='{{ route('collector.receivement.index') }}'>
+                                <i class='fa fa-arrow-down'></i>
+                                Penerimaan Zakat
+                            </a>
 
-                    <li class='nav-item {{ Route::is('report.*') ? 'active' : '' }}'>
-                        <a class='nav-link' href='{{ route('report.index') }}'>
-                            <i class='fa fa-usd'></i>
-                            Laporan
-                        </a>
-                    </li>
-
-                    <li class='nav-item {{ Route::is('collector.donation.*') ? 'active' : '' }}'>
-                        <a class='nav-link' href='{{ route('collector.donation.index') }}'>
-                            <i class='fa fa-arrow-up'></i>
-                            Pemberian Zakat
-                        </a>
+                            <a class='dropdown-item' href='{{ route('report.index') }}'>
+                                <i class='fa fa-usd'></i>
+                                Laporan
+                            </a>
+                        </div>
                     </li>
 
                     <li class='nav-item {{ Route::is('collector.mustahiq.*') ? 'active' : '' }}'>
@@ -81,7 +89,7 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-user"></i>
-                            User
+                            {{ Auth::user()->name }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
