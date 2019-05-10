@@ -56,6 +56,17 @@
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
+  'sentry/sentry-laravel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Sentry\\Laravel\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Sentry' => 'Sentry\\Laravel\\Facade',
+    ),
+  ),
   'spatie/laravel-blade-javascript' => 
   array (
     'providers' => 
