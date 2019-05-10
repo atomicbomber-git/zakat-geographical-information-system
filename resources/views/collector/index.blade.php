@@ -18,6 +18,12 @@
         </ol>
     </nav>
 
+    <div class="text-right">
+        <a href="{{ route('collector.create') }}" class="btn btn-dark btn-sm">
+            Tambah Unit Pengumpulan Zakat
+        </a>
+    </div>
+
     @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
 
     <div class="card mt-5">
