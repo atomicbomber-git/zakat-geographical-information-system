@@ -73,6 +73,14 @@ class ReportController extends Controller
             ->with('message-success', __('messages.update.success'));
     }
 
+    public function delete(Report $report)
+    {
+        $report->delete();
+
+        return back()
+            ->with('message-success', __('messages.delete.success'));
+    }
+
     private function getReportAvailableYears()
     {
         return Report::query()
