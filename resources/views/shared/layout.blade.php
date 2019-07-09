@@ -15,15 +15,12 @@
             @include('shared.navbar')
         @endunless
 
+        @if(! ($is_home_page ?? false ))
         <div class="container">
-            @auth
-            <div class="alert alert-primary">
-                Anda masuk sebagai <strong> {{ auth()->user()->name }} </strong>
-                ({{ auth()->user()->description }})
-            </div>
-            @endauth
+            @include("shared.auth-info")
         </div>
-    
+        @endif
+
         @yield('content')
     </div>
 

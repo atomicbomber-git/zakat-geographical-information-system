@@ -43,9 +43,11 @@ class GuestController extends Controller
             ->sortBy("kecamatan")
             ->values()
             ->groupBy("kecamatan");
-            
+
         return view('guest.map',
-            compact('collectors', "muzakkis_count", "mustahiqs_count", "kecamatans", "can_see_muzakkis")
+            array_merge(compact('collectors', "muzakkis_count", "mustahiqs_count", "kecamatans", "can_see_muzakkis"), [
+                "is_home_page" => true,
+            ])
         );
     }
 }

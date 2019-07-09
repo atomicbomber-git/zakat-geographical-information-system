@@ -1,7 +1,9 @@
 @extends('shared.layout')
 @section('title', 'Peta Persebaran UPZ')
 @section('content')
-<div class="container my-5" id="app">
+<div class="container-fluid my-5" id="app">
+    @include("shared.auth-info")
+
     <h1 class="mb-5">
         <i class="fa fa-map"></i>
         Peta Persebaran Unit Pengumpulan Zakat
@@ -19,7 +21,7 @@
 <div style="background: #b5ffb4">
     <div class="container py-3">
 
-        <h2 class="h2 text-dark text-center mb-4"> 
+        <h2 class="h2 text-dark text-center mb-4">
             Statistik Saat Ini
         </h2>
 
