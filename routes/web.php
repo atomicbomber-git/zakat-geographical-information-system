@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\InformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,4 +131,10 @@ Route::group(['prefix' => '/admin-report', 'as' => 'admin-report.'], function() 
     Route::get('/index', 'AdminReportController@index')->name('index');
     Route::get('/print-index', 'AdminReportController@printIndex')->name('print-index');
     Route::get('/detail/{collector}', 'AdminReportController@detail')->name('detail');
+});
+
+Route::group(['prefix' => '/information', 'as' => 'information.'], function() {
+    Route::get('/show/{information}', [InformationController::class, 'show'])->name('show');
+    Route::get('/edit/{information}', [InformationController::class, 'edit'])->name('edit');
+    Route::post('/update/{information}', [InformationController::class, 'update'])->name('update');
 });
