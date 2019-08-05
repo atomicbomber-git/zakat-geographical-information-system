@@ -30,7 +30,7 @@ class CollectorSeeder extends Seeder
                 $collector = factory(Collector::class)->create([
                     'user_id' => $user->id
                 ]);
-                
+
                 $collector->addMedia(__DIR__ . '/random.jpeg')
                     ->preservingOriginal()
                     ->toMediaCollection('images');

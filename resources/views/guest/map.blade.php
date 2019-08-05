@@ -25,7 +25,35 @@
             Statistik Saat Ini
         </h2>
 
-        <div class="row text-dark">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner text-center">
+                <div class="carousel-item active">
+                    <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/muzakki.jpeg") }}" alt="Gambar Muzakki">
+                    <h3> Muzakki </h3>
+                    <span> {{ $muzakkis_count }} </span>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/upz.jpeg") }}" alt="Gambar UPZ">
+                    <h3> UPZ </h3>
+                    <span> {{ $collectors->count() }} </span>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/mustahiq.jpeg") }}" alt="Gambar Mustahiq">
+                    <h3> Mustahiq </h3>
+                    <span> {{ $mustahiqs_count }} </span>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        {{-- <div class="row text-dark">
             <div class="col-md-4 text-center">
                 <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/muzakki.jpeg") }}" alt="Gambar Muzakki">
                 <h3> Muzakki </h3>
@@ -41,7 +69,7 @@
                 <h3> Mustahiq </h3>
                 <span> {{ $mustahiqs_count }} </span>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 @endsection
