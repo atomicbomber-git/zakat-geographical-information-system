@@ -3,7 +3,7 @@
 @endphp
 
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light mb-3">
-    <div class="container">
+    <div class="container-fluid">
         <a class="navbar-brand" href="/"> Sistem Informasi Geografis Zakat </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,10 +33,27 @@
                         </a>
                     </li>
 
+                    <li class='nav-item dropdown {{ Route::is('information.*') ? 'active' : '' }}'>
+                        <a
+                            class='nav-link dropdown-toggle' href='#' id='information' role='button'
+                            data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                            <i class='fa fa-home'></i>
+                            Informasi Situs
+                        </a>
+
+                        @foreach ($informations ?? [] as $information)
+                        <div class='dropdown-menu' aria-labelledby='information'>
+                            <a class='dropdown-item' href='{{ route('information.edit', $information) }}'>
+                                {{ $information->name }}
+                            </a>
+                        </div>
+                        @endforeach
+                    </li>
+
                 @endcan
 
                 @can('act-as-collector')
-                    
+
                     <li class='nav-item dropdown {{ Route::is('collector.*') ? 'active' : '' }}'>
                         <a
                             class='nav-link dropdown-toggle' href='#' id='collector' role='button'
@@ -48,7 +65,7 @@
                                 <i class='fa fa-arrow-up'></i>
                                 Pemberian Zakat
                             </a>
-    
+
                             <a class='dropdown-item' href='{{ route('collector.receivement.index') }}'>
                                 <i class='fa fa-arrow-down'></i>
                                 Penerimaan Zakat
@@ -96,7 +113,7 @@
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                Keluar
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -108,7 +125,7 @@
 
                 @guest
                     <a href="{{ route('login') }}" class="btn btn-info">
-                        Log In
+                        Masuk
                         <i class="fa fa-sign-in"></i>
                     </a>
                 @endguest

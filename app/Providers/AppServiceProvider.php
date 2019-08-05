@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Information;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::share('informations', $this->getInformations());
     }
 
     /**
@@ -25,5 +27,13 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Schema::defaultStringLength(191);
+    }
+
+    private function getInformations()
+    {
+        return Information::query()
+            ->select("id", "name")
+            ->orderBy("name")
+            ->get();
     }
 }

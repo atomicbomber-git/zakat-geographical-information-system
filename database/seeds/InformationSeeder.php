@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Information;
 
 class InformationSeeder extends Seeder
 {
@@ -11,6 +12,11 @@ class InformationSeeder extends Seeder
      */
     public function run()
     {
-        Information::create();
+        $faker = app(Faker\Generator::class);
+
+        Information::create([
+            "name" => "Penjelasan Situs",
+            "description" => $faker->realtext(5000),
+        ]);
     }
 }
