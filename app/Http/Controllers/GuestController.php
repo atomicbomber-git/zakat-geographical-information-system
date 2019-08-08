@@ -10,6 +10,7 @@ use App\Mustahiq;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Gate;
+use App\Information;
 
 class GuestController extends Controller
 {
@@ -44,8 +45,13 @@ class GuestController extends Controller
             ->values()
             ->groupBy("kecamatan");
 
+        $description_text = Information::query()
+            ->where("name", "Penjelasan Situs")
+            ->first()
+            ->description;
+
         return view('guest.map',
-            array_merge(compact('collectors', "muzakkis_count", "mustahiqs_count", "kecamatans", "can_see_muzakkis"), [
+            array_merge(compact('description_text', 'collectors', "muzakkis_count", "mustahiqs_count", "kecamatans", "can_see_muzakkis"), [
                 "is_home_page" => true,
             ])
         );

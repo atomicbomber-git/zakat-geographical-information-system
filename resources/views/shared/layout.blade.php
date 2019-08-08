@@ -31,15 +31,6 @@
                 <div class="row">
                     <div class="col-md-7">
                         <p>
-                            Sistem Informasi Geografis Zakat ini merupakan
-                            sebuah website yang menyajikan informasi
-                            tentang lokasi unit pengumpul zakat dan
-                            mustahiq. Website ini bertujuan untuk
-                            memberikan kemudahan kepada muzakki
-                            untuk memberi zakat kepada UPZ ataupun
-                            langsung kepada Mustahiq.
-                        </p>
-                        <p>
                             KANTOR BAZNAS KOTA PONTIANAK <br/>
                             Jl. Tabrani Ahmad (Komplek Kantor Camat Barat) Pontianak 78115 <br/>
                         </p>

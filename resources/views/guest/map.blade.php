@@ -1,12 +1,23 @@
 @extends('shared.layout')
 @section('title', 'Peta Persebaran UPZ')
 @section('content')
+
+<div class="d-flex justify-content-center my-4 front-secondary">
+    <img
+        class="img-fluid"
+        src="{{ asset('image/front.jpeg') }}"
+        alt="Front Image">
+</div>
+
 <div class="container-fluid my-5" id="app">
     @include("shared.auth-info")
 
-    <h1 class="mb-5">
-        <i class="fa fa-map"></i>
-        Peta Persebaran Unit Pengumpulan Zakat
+    <h1 class="h3 mx-5 my-5">
+        Assalammualaikum, Selamat Datang di "Sistem Informasi Zakat"
+
+        <p class="lead">
+            {{ $description_text }}
+        </p>
     </h1>
 
     <guest-map
@@ -18,7 +29,7 @@
 </div>
 
 @section('pre-footer')
-<div style="background: #b5ffb4">
+<div class="front-secondary">
     <div class="container py-3">
 
         <h2 class="h2 text-dark text-center mb-4">

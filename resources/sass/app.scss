@@ -5,6 +5,8 @@ $theme-colors: (
   "dark": #005426
 );
 
+
+
 $body-bg: #f2f2f2;
 $table-dark-color: #f2f2f2;
 $table-dark-bg: #005426;
@@ -28,6 +30,10 @@ $container-max-widths: (
 
 .width-xxl {
   max-width: 840px
+}
+
+.front-secondary {
+    background-color: rgba(230, 230, 230, 0.7)
 }
 
 // Bootstrap
