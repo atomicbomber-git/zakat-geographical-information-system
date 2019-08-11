@@ -2,7 +2,7 @@
 @section('title', 'Peta Persebaran UPZ')
 @section('content')
 
-<div class="d-flex justify-content-center my-4 front-secondary">
+<div class="d-flex justify-content-center mb-4 front-secondary">
     <img
         class="img-fluid"
         src="{{ asset('image/front.jpeg') }}"
@@ -19,13 +19,6 @@
             {{ $description_text }}
         </p>
     </h1>
-
-    <guest-map
-        :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
-        :collectors='{{ json_encode($collectors) }}'
-        :kecamatans='{{ json_encode($kecamatans) }}'
-        :can_see_muzakkis='{{ json_encode($can_see_muzakkis) }}'
-        />
 </div>
 
 @section('pre-footer')
@@ -46,7 +39,7 @@
                 <div class="carousel-item">
                     <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/upz.jpeg") }}" alt="Gambar UPZ">
                     <h3> UPZ </h3>
-                    <span> {{ $collectors->count() }} </span>
+                    <span> {{ $collectors_count }} </span>
                 </div>
                 <div class="carousel-item">
                     <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/mustahiq.jpeg") }}" alt="Gambar Mustahiq">

@@ -2,27 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Collector;
+use App\Muzakki;
+use App\Mustahiq;
+use App\Information;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function show()
     {
-        $this->middleware('auth');
-    }
+        $description_text = Information::query()
+            ->where("name", "Penjelasan Situs")
+            ->first()
+            ->description ?? '';
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('home');
+        $muzakkis_count = Muzakki::count();
+        $mustahiqs_count = Mustahiq::count();
+        $collectors_count = Collector::count();
+
+        return view('home.show', compact('description_text', 'muzakkis_count', 'mustahiqs_count', 'collectors_count'));
     }
 }

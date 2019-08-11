@@ -1,5 +1,7 @@
 <?php
 use App\Http\Controllers\InformationController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::view('/admin/dashboard', 'dashboard');
 
-Route::get('/guest/map', 'GuestController@map')->name('guest.map');
-Route::redirect('/', '/guest/map');
+Route::get('/', [HomeController::class, 'show'])->name('home.show');
+Route::get('/map', [MapController::class, 'show'])->name('map.show');
 
 Route::middleware('auth')->group(function() {
     Route::group(['prefix' => '/collector', 'as' => 'collector.'], function() {
