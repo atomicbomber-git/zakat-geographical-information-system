@@ -132,35 +132,35 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="username"> Username: </label>
+                            <label for="username"> Nama Pengguna: </label>
                             <input
                                 v-model="username"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.username[0]', false)}"
-                                type="text" id="username" placeholder="Username">
+                                type="text" id="username" placeholder="Nama Pengguna">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.username[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="password"> Password: </label>
+                            <label for="password"> Kata Sandi: </label>
                             <input
                                 v-model="password"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.password[0]', false)}"
-                                type="password" id="password" placeholder="Password">
+                                type="password" id="password" placeholder="Kata Sandi">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.password[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="password_confirmation"> Ulangi Password: </label>
+                            <label for="password_confirmation"> Ulangi Kata Sandi: </label>
                             <input
                                 v-model="password_confirmation"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.password_confirmation[0]', false)}"
-                                type="password" id="password_confirmation" placeholder="Ulangi Password">
+                                type="password" id="password_confirmation" placeholder="Ulangi Kata Sandi">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.password_confirmation[0]', false) }}</div>
                         </div>
-                        
+
                         <div class="text-right">
                             <button class="btn btn-primary">
                                 Tambahkan

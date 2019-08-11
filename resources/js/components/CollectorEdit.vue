@@ -133,35 +133,35 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="username"> Username: </label>
+                            <label for="username"> Nama Pengguna: </label>
                             <input
                                 v-model="username"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.username[0]', false)}"
-                                type="text" id="username" placeholder="Username">
+                                type="text" id="username" placeholder="Nama Pengguna">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.username[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="password"> Password: </label>
+                            <label for="password"> Kata Sandi: </label>
                             <input
                                 v-model="password"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.password[0]', false)}"
-                                type="password" id="password" placeholder="Password">
+                                type="password" id="password" placeholder="Kata Sandi">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.password[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
-                            <label for="password_confirmation"> Ulangi Password: </label>
+                            <label for="password_confirmation"> Ulangi Kata Sandi: </label>
                             <input
                                 v-model="password_confirmation"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.password_confirmation[0]', false)}"
-                                type="password" id="password_confirmation" placeholder="Ulangi Password">
+                                type="password" id="password_confirmation" placeholder="Ulangi Kata Sandi">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.password_confirmation[0]', false) }}</div>
                         </div>
-                        
+
                         <div class="text-right">
                             <button class="btn btn-primary">
                                 Perbarui Data
@@ -182,7 +182,7 @@
     export default {
         mounted() {
         },
-        
+
         data() {
             return {
                 icon_url: window.icon_url,
@@ -260,7 +260,7 @@
                 // Prepare data for submitting
                 let data = new FormData()
                 let form_data_keys = Object.keys(this.form_data)
-                
+
                 for (let i = 0; i < form_data_keys.length; ++i) {
                     data.append(form_data_keys[i], this.form_data[form_data_keys[i]])
                 }
@@ -268,7 +268,7 @@
                 if (this.$refs.picture.files.length > 0) {
                     data.append('picture', this.$refs.picture.files[0])
                 }
-                
+
                 // Submit data
                 axios.post(window.submit_url, data, {headers: { 'Content-Type': 'multipart/form-data' }})
                     .then(response => {
@@ -287,7 +287,7 @@
 
             deleteCollector: function(collector_id) {
                 axios.post(`/collector/delete/${collector_id}`)
-                    .then(response => { 
+                    .then(response => {
                         if (response.data.redirect) {
                             window.location.replace(response.data.redirect)
                         }
