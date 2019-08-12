@@ -105,7 +105,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'id_ID',
 
     /*
     |--------------------------------------------------------------------------
@@ -225,5 +225,15 @@ return [
 
     ],
 
-    'faker_locale' => 'id_ID'
+    /*
+        Path for image shown on the front page,
+        relative to the public path
+    */
+    'front_image' => 'image/front.jpeg',
+
+    /*
+        Path for image shown on the login page,
+        relative to the public path
+    */
+    'login_image' => 'image/login.jpg',
 ];

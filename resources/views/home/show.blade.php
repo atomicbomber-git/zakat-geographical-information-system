@@ -5,7 +5,7 @@
 <div class="d-flex justify-content-center mb-4 front-secondary">
     <img
         class="img-fluid"
-        src="{{ asset('image/front.jpeg') }}"
+        src="{{ asset(config('app.front_image')) }}"
         alt="Front Image">
 </div>
 

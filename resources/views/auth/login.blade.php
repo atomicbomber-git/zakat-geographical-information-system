@@ -2,7 +2,7 @@
 @section('title', 'Halaman Masuk')
 @section('content')
 
-<div class="d-flex align-items-center" style="height: 90vh; background-image: url({{ asset('image/front.jpeg') }}); background-size: cover">
+<div class="d-flex align-items-center" style="height: 90vh; background-image: url({{ asset(config('app.login_image')) }}); background-size: cover">
     <div class="container" style="max-width: 30rem">
         <div class="card">
             <div class="card-header">
