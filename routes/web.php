@@ -14,16 +14,7 @@ use App\Http\Controllers\MapController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-Route::view('/admin/dashboard', 'dashboard');
 
 Route::get('/', [HomeController::class, 'show'])->name('home.show');
 Route::get('/map', [MapController::class, 'show'])->name('map.show');
