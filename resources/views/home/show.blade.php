@@ -10,11 +10,8 @@
 </div>
 
 <div class="container-fluid my-5" id="app">
-    @include("shared.auth-info")
-
     <h1 class="h3 mx-5 my-5">
         Assalammualaikum, Selamat Datang di "Sistem Informasi Zakat"
-
         <p class="lead">
             {{ $description_text }}
         </p>
@@ -24,7 +21,6 @@
 @section('pre-footer')
 <div class="front-secondary">
     <div class="container py-3">
-
         <h2 class="h2 text-dark text-center mb-4">
             Statistik Saat Ini
         </h2>
@@ -59,5 +55,4 @@
     </div>
 </div>
 @endsection
-
 @endsection
