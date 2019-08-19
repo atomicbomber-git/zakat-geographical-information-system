@@ -2,7 +2,7 @@
 @section('title', 'Peta Persebaran UPZ')
 @section('content')
 
-<div class="container-fluid my-5" id="app">
+<div class="container-fluid mt-3" id="app">
     <guest-map
         :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
         :collectors='{{ json_encode($collectors) }}'

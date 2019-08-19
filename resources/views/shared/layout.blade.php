@@ -11,20 +11,22 @@
 </head>
 <body>
     <div style="min-height: 90vh">
-        @unless(isset($dont_show_navbar) && $dont_show_navbar)
+        @unless($dont_show_navbar ?? false)
             @include('shared.navbar')
         @endunless
 
-        @if(! ($is_home_page ?? false ))
-        <div class="container">
-            @include("shared.auth-info")
-        </div>
+        @if(!($dont_show_auth_info ?? false))
+            @auth
+                <div class="container my-3">
+                    @include("shared.auth-info")
+                </div>
+            @endauth
         @endif
 
         @yield('content')
     </div>
 
-    <div class="mt-3">
+    <div>
         @yield("pre-footer")
         <footer class="bg-dark text-light">
             <div class="container py-3">

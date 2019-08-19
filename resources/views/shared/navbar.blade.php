@@ -2,7 +2,7 @@
     use Illuminate\Support\Facades\Auth;
 @endphp
 
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light mb-3">
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"> Sistem Informasi Geografis Zakat </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

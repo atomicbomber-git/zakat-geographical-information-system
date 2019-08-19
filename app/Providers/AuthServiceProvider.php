@@ -11,6 +11,7 @@ use App\Collector;
 use App\Policies\MustahiqPolicy;
 use App\Policies\MuzakkiPolicy;
 use App\Policies\CollectorPolicy;
+use App\Policies\InformationPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         Mustahiq::class => MustahiqPolicy::class,
         Muzakki::class => MuzakkiPolicy::class,
         Collector::class => CollectorPolicy::class,
+        InformationPolicy::class => InformationPolicy::class,
     ];
 
     /**
