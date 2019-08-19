@@ -37,7 +37,7 @@ class LoginController extends Controller
 
     public function loggedOut()
     {
-        return redirect()->route('login');
+        return redirect()->route('home.show');
     }
 
     /**
