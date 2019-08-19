@@ -14,7 +14,7 @@ class MapController extends Controller
         $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude', 'kecamatan', 'kelurahan')
             ->with('mustahiqs')
             ->when(Gate::allows("see-muzakkis-on-map"),
-                function (Builder $query) {
+                function ($query) {
                     $query->with('muzakkis');
                 }
             )
