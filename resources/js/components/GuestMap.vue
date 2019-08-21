@@ -79,6 +79,29 @@
                 </div>
 
                 <div class="col-md-3 pl-0" style="max-height: 640px; overflow-y: scroll">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-info"></i>
+                            Legenda
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <img style="width: 30px; height:30px" :src="icons.mosque_black" alt="Mesjid">
+                                Unit Pengumpulan Zakat
+                            </div>
+                            <div>
+                                <img style="width: 30px; height:30px; padding: 5px" :src="icons.person_red" alt="Mesjid">
+                                Mustahiq
+                            </div>
+
+                            <div v-if="can_see_muzakkis">
+                                <img style="width: 30px; height:30px; padding: 5px" :src="icons.person_green" alt="Mesjid">
+                                Muzakki
+                            </div>
+                        </div>
+                    </div>
+
                     <button class="btn btn-default w-100 mb-3"
                         @click="is_filter_visible =! is_filter_visible"
                         >
@@ -318,7 +341,7 @@ export default {
             }
         }
     },
-    
+
     computed: {
         visible_kecamatan_names() {
             return this.administrative_divisions
@@ -412,7 +435,7 @@ export default {
                     this.pointer_address = results[0].formatted_address
                     return
                 }
-                
+
                 console.error({results, status})
             })
         },
