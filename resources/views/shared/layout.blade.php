@@ -24,26 +24,26 @@
         @endif
 
         @yield('content')
-    </div>
 
-    <div>
-        @yield("pre-footer")
-        <footer class="bg-dark text-light">
-            <div class="container py-3">
-                <div class="row">
-                    <div class="col-md-7">
-                        <p>
-                            KANTOR BAZNAS KOTA PONTIANAK <br/>
-                            Jl. Tabrani Ahmad (Komplek Kantor Camat Barat) Pontianak 78115 <br/>
-                        </p>
-                    </div>
-                    <div class="col-md-5">
-                        TEL: (0561) 812 8215 / 0812 5645 1201 <br/>
-                        FAX: (0561) 812 8215 <br/>
+        <div>
+            @yield("pre-footer")
+            <footer class="bg-dark text-light">
+                <div class="container py-3">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <p>
+                                KANTOR BAZNAS KOTA PONTIANAK <br/>
+                                Jl. Tabrani Ahmad (Komplek Kantor Camat Barat) Pontianak 78115 <br/>
+                            </p>
+                        </div>
+                        <div class="col-md-5">
+                            TEL: (0561) 812 8215 / 0812 5645 1201 <br/>
+                            FAX: (0561) 812 8215 <br/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
