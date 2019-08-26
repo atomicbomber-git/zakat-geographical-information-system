@@ -31,7 +31,7 @@ class ReportController extends Controller
 
     public function create()
     {
-        return view("report.create", compact("report.create"));
+        return view("report.create");
     }
 
     public function store()
@@ -46,7 +46,7 @@ class ReportController extends Controller
         Report::create(array_merge($data, [
             "collector_id" => Auth::user()->collector->id,
         ]));
-        
+
         return redirect()
             ->route('report.index')
             ->with('message-success', __('messages.create.success'));
@@ -67,7 +67,7 @@ class ReportController extends Controller
         ]);
 
         $report->update($data);
-        
+
         return redirect()
             ->route('report.index')
             ->with('message-success', __('messages.update.success'));
