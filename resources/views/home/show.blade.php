@@ -10,8 +10,10 @@
 </div>
 
 <div class="container-fluid my-5" id="app">
-    <h1 class="h3 mx-5 my-5">
-        Assalammualaikum, Selamat Datang di "Sistem Informasi Zakat"
+    <h1 class="h3 mx-5 my-5 text-center">
+        <span class="font-weight-bold">
+            Tentang
+        </span>
         <p class="lead">
             {{ $description_text }}
         </p>
