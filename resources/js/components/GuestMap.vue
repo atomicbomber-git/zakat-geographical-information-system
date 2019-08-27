@@ -424,8 +424,10 @@ export default {
 
         loadAndSetCurrentLocation() {
             navigator.geolocation.getCurrentPosition(position => {
-                this.pointer_marker.lat = position.coords.latitude
-                this.pointer_marker.lng = position.coords.longitude
+                this.pointer_marker = {
+                    lat: position.coords.latitude,
+                    lng:  position.coords.longitude,
+                }
             })
         },
 
