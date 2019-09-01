@@ -8,21 +8,23 @@
         <div class="card-body">
             <div class="my-4">
                 <div class="alert alert-primary">
-                    <h2 class="h3">Unit Pengumpulan Zakat Terdekat:</h2>
-                    {{ get(this.nearest_collector, 'name', '-') }}
-                    <br>
-                    {{ get(this.nearest_collector, 'address', '-') }}
+                    <h2 class="h3">
+                        Anda Sekarang berada di:
+                        <strong>{{ this.pointer_address }}</strong>
+                    </h2>
+
+                    <hr/>
+
+                    <h2 class="h3">
+                        Saat ini, unit pengumpulan zakat terdekat adalah <strong> {{ get(this.nearest_collector, 'name', '-') }} </strong>
+                        yang terletak di <span> {{ get(this.nearest_collector, 'address', '-') }} </span>
+                        dan Anda dapat menyalurkan zakat disana.
+                    </h2>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-3 pr-0" v-if="this.route_steps">
-                    <div class="alert alert-info">
-                        <i class="fa fa-info"></i>
-                        Anda sekarang berada di
-                        <strong>{{ this.pointer_address }}</strong>
-                    </div>
-
                     <h5>Petunjuk Jalan</h5>
 
                     <ol
@@ -50,7 +52,10 @@
                         <template v-for="collector in p_collectors">
                             <GmapMarker
                                 @click="onCollectorMarkerClick(collector)"
-                                :icon="icons.mosque_black"
+                                :icon="{
+                                    url: icons.mosque_black,
+                                    scaledSize: getCollectorIconScaledSize(collector)
+                                }"
                                 :position="{ lat: collector.latitude, lng: collector.longitude }"
                                 :key="collector.id"
                             />
@@ -390,6 +395,14 @@ export default {
 
     methods: {
         get,
+
+        getCollectorIconScaledSize(collector) {
+            if (this.nearest_collector && (this.nearest_collector.id === collector.id)) {
+                return { width: 80, height: 80, f: 'px', b: 'px' }
+            }
+
+            return {width: 40, height: 40, f: 'px', b: 'px'}
+        },
 
         onMapClick(e) {
             this.pointer_marker = {
