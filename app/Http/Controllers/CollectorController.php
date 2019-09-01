@@ -27,7 +27,7 @@ class CollectorController extends Controller
         $collector->load(["muzakkis", "mustahiqs"]);
         return view("collector.show", compact("collector"));
     }
-    
+
     public function create()
     {
         $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude')
@@ -59,7 +59,7 @@ class CollectorController extends Controller
                 'password' => bcrypt($data['password']),
                 'type' => 'COLLECTOR'
             ]);
-    
+
             $collector = Collector::create([
                 'user_id' => $user->id,
                 'latitude' => $data['latitude'],
@@ -91,7 +91,7 @@ class CollectorController extends Controller
                 $collector->image_url = route('collector.thumbnail', $collector) . "?" . rand();
                 return $collector;
             });
-        
+
         $collector->load('user');
 
         return view('collector.edit', compact('collector', 'collectors'));
