@@ -49,7 +49,7 @@
                         </option>
                         @endforeach
                     </select>
-    
+
                     <button class="btn btn-dark btn-sm"> Ubah Tahun </button>
                 </form>
             </div>
@@ -80,7 +80,7 @@
                                 <a href="{{ route('report.edit', $report) }}" class="btn btn-dark btn-sm">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                
+
                                 <form class="form-delete d-inline-block" action='{{ route('report.delete', $report) }}' method='POST'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>

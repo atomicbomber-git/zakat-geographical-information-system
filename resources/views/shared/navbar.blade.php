@@ -19,20 +19,6 @@
                         </a>
                     </li>
 
-                    <li class='nav-item {{ Route::is('admin-report.*') ? 'active' : '' }}'>
-                        <a class='nav-link' href='{{ route('admin-report.index') }}'>
-                            <i class='fa fa-usd'></i>
-                            Laporan
-                        </a>
-                    </li>
-
-                    <li class='nav-item {{ Route::is('donation.*') ? 'active' : '' }}'>
-                        <a class='nav-link' href='{{ route('donation.index') }}'>
-                            <i class='fa fa-arrow-up'></i>
-                            Pemberian Zakat
-                        </a>
-                    </li>
-
                     <li class='nav-item dropdown {{ Route::is('information.*') ? 'active' : '' }}'>
                         <a
                             class='nav-link dropdown-toggle' href='#' id='information' role='button'

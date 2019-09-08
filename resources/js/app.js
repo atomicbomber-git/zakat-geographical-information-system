@@ -40,6 +40,7 @@ Vue.component('guest-map', require('./components/GuestMap.vue'));
 Vue.component('guest-chart', require('./components/GuestChart.vue'));
 Vue.component('receivement-chart', require('./components/receivement/Chart.vue'));
 Vue.component('receivement-detail-chart', require('./components/receivement/DetailChart.vue'));
+Vue.component('collector-chart', require('./components/CollectorChart.vue'));
 Vue.component('donation-chart', require('./components/donation/Chart.vue'));
 Vue.component('donation-detail-chart', require('./components/donation/DetailChart.vue'));
 Vue.component('collector-create', require('./components/collector/Create.vue'));

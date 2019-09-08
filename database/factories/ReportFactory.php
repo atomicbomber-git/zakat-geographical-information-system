@@ -7,7 +7,7 @@ use App\Collector;
 
 $factory->define(Report::class, function (Faker $faker) {
     $collectors = Collector::select("id")->get();
-    
+
     return [
         'collector_id' => $collectors->random()->id,
         'transaction_date' => Carbon::now()->subYear(rand(0, 5))->subMonth(rand(0, 5))->subDays(rand(0, 30)),

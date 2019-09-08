@@ -36,7 +36,27 @@ class CollectorController extends Controller
             ->withCount(Collector::HAS_RELATIONS)
             ->get();
 
-        return view('collector.index', compact('collectors', 'year', 'available_years'));
+        $yearly_donations = Donation::query()
+            ->select(DB::raw('SUM(amount) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->groupBy("year")
+            ->get()
+            ->keyBy("year");
+
+        $yearly_reports = Report::query()
+            ->select(DB::raw('SUM(zakat + fitrah + infak) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->groupBy('year')
+            ->get()
+            ->keyBy('year');
+
+        $chart_data = $available_years->map(function ($year) use($yearly_donations, $yearly_reports) {
+            return [
+                "year" => $year,
+                "donation" => $yearly_donations[$year]->amount ?? 0,
+                "report" => $yearly_reports[$year]->amount ?? 0,
+            ];
+        });
+
+        return view('collector.index', compact('collectors', 'year', 'available_years', 'chart_data'));
     }
 
     public function show(Collector $collector)

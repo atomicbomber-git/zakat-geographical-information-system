@@ -26,6 +26,44 @@
 
     @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
 
+    <div class="my-3">
+        <div class="alert alert-info">
+            <form class="form-inline text-right" method="GET">
+                <label for="year" class="ml-auto mr-2"> Tahun Laporan: </label>
+                <select class="form-control form-control-sm mr-2" name="year" id="year">
+                    @foreach ($available_years as $av_year)
+                    <option value="{{ $av_year }}">
+                        {{ $av_year }}
+                    </option>
+                    @endforeach
+                </select>
+
+                <button formaction="{{ route('admin-report.print-index') }}" class="btn btn-dark btn-sm mr-2">
+                    Cetak Laporan Penerimaan
+                    <i class="fa fa-print"></i>
+                </button>
+
+                <button formaction="{{ route('donation.printIndex') }}" class="btn btn-dark btn-sm">
+                    Cetak Laporan Pemberian
+                    <i class="fa fa-print"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="app">
+        <div class="card">
+            <div class="card-body">
+                <collector-chart
+                    name="collector_chart"
+                    title="Perkembangan Jumlah Nominal Laporan Penerimaan dan Pemberian Zakat (Dalam Jutaan Rupiah)"
+                    :data='{{ json_encode($chart_data) }}'
+                >
+                </collector-chart>
+            </div>
+        </div>
+    </div>
+
     <div class="card mt-5">
         <div class="card-header">
             <i class="fa fa-building"></i>
@@ -59,7 +97,7 @@
                         <th class="text-right"> Total Penerimaan </th>
                         <th class="text-right"> Total Pemberian </th>
                         <th> NPWZ </th>
-                        <th> Aksi </th>
+                        <th class="text-center"> Aksi </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,7 +110,7 @@
                         <td class="text-right"> {{ number_format($collector->report_sum) }} </td>
                         <td class="text-right"> {{ number_format($collector->donation_sum) }} </td>
                         <td> {{ $collector->npwz }} </td>
-                        <td>
+                        <td class="text-center">
                             <div class="mb-2 d-flex justify-content-center"">
                                 <a href="{{ route('admin-report.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm mr-2">
                                     Penerimaan
