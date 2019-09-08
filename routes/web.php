@@ -131,3 +131,12 @@ Route::group(['prefix' => '/information', 'as' => 'information.'], function() {
     Route::get('/edit/{information}', [InformationController::class, 'edit'])->name('edit');
     Route::post('/update/{information}', [InformationController::class, 'update'])->name('update');
 });
+
+Route::group(['prefix' => '/item', 'as' => 'item.'], function() {
+    Route::get('/index', [ItemController::class, 'index'])->name('index');
+    Route::get('/create', [ItemController::class, 'create'])->name('create');
+    Route::post('/store', [ItemController::class, 'store'])->name('store');
+    Route::get('/edit/{item}', [ItemController::class, 'edit'])->name('edit');
+    Route::post('/update/{item}', [ItemController::class, 'update'])->name('update');
+    Route::post('/delete/{item}', [ItemController::class, 'delete'])->name('delete');
+});
