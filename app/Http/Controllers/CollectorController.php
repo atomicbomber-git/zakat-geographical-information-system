@@ -224,6 +224,6 @@ class CollectorController extends Controller
             ->groupBy('year')
             ->pluck('year');
 
-        return collect()->merge($report_years)->merge($donation_years);
+        return collect()->merge($report_years)->merge($donation_years)->unique();
     }
 }
