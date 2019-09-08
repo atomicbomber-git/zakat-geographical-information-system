@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Collector;
+use App\Donation;
+use App\Report;
 use App\User;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,12 +14,29 @@ class CollectorController extends Controller
 {
     public function index()
     {
+        $available_years = $this->getReportAndDonationAvailableYears();
+        $year = request('year') ?? ($available_years->first() ?? now()->format('Y'));
+
         $collectors = Collector::select('name', 'user_id', 'npwz', 'id')
             ->with('user:id,name,username')
+            ->selectSub(
+                Donation::query()
+                    ->select(DB::raw("SUM(amount) AS amount"))
+                    ->whereColumn("donations.collector_id", "collectors.id")
+                    ->whereYear("transaction_date", $year)
+                    ->limit(1)
+            , "donation_sum")
+            ->selectSub(
+                Report::query()
+                    ->select(DB::raw("SUM(zakat + fitrah + infak) AS amount"))
+                    ->whereColumn("reports.collector_id", "collectors.id")
+                    ->whereYear("transaction_date", $year)
+                    ->limit(1)
+            , "report_sum")
             ->withCount(Collector::HAS_RELATIONS)
             ->get();
 
-        return view('collector.index', compact('collectors'));
+        return view('collector.index', compact('collectors', 'year', 'available_years'));
     }
 
     public function show(Collector $collector)
@@ -170,5 +187,23 @@ class CollectorController extends Controller
     public function thumbnail(Collector $collector)
     {
         return response()->file($collector->getFirstMedia('images')->getPath());
+    }
+
+    private function getReportAndDonationAvailableYears()
+    {
+        $report_years = Report::query()
+            ->select(DB::raw('YEAR(transaction_date) AS year'))
+            ->orderByDesc('year')
+            ->groupBy('year')
+            ->get()
+            ->pluck('year');
+
+        $donation_years = Donation::query()
+            ->select(DB::raw('YEAR(transaction_date) AS year'))
+            ->orderByDesc('year')
+            ->groupBy('year')
+            ->pluck('year');
+
+        return collect()->merge($report_years)->merge($donation_years);
     }
 }

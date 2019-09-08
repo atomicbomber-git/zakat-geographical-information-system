@@ -8,14 +8,14 @@
         <div class="card-body">
             <div class="my-4">
                 <div class="alert alert-primary">
-                    <h2 class="h3">
+                    <h2 class="h5">
                         Anda Sekarang berada di:
                         <strong>{{ this.pointer_address }}</strong>
                     </h2>
 
                     <hr/>
 
-                    <h2 class="h3">
+                    <h2 class="h5">
                         Saat ini, unit pengumpulan zakat terdekat adalah <strong> {{ get(this.nearest_collector, 'name', '-') }} </strong>
                         yang terletak di <span> {{ get(this.nearest_collector, 'address', '-') }} </span>
                         dan Anda dapat menyalurkan zakat disana.

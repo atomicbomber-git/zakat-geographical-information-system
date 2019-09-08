@@ -12,8 +12,10 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item"> <a href="{{ route('donation.index', ['year' => $year]) }}"> Pemberian Zakat </a> </li>
-            <li class="breadcrumb-item"> Detail Pemberian Zakat </li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('collector.index', compact('year')) }}"> Pemberian Zakat </a>
+            </li>
+            <li class="breadcrumb-item active"> Detail Pemberian Zakat </li>
         </ol>
     </nav>
 

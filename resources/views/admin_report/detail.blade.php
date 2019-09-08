@@ -17,8 +17,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
             <li class="breadcrumb-item">
-                <a href="{{ route("admin-report.index") }}">
-                    Laporan Penerimaan Zakat
+                <a href="{{ route("collector.index", compact("year")) }}">
+                    Unit Pengumpulan Zakat
                 </a>
             </li>
             <li class="breadcrumb-item active">
