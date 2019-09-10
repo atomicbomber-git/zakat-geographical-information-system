@@ -441,7 +441,7 @@ export default {
                     lat: position.coords.latitude,
                     lng:  position.coords.longitude,
                 }
-            })
+            }, null, { enableHighAccuracy: true })
         },
 
         loadAndSetCurrentAddress(latitude, longitude) {
