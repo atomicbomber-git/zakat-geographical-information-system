@@ -441,12 +441,7 @@ export default {
                     lat: position.coords.latitude,
                     lng:  position.coords.longitude,
                 }
-            },
-            function (error) {
-                console.log(error)
-            },
-            { enableHighAccuracy: true }
-            )
+            }, null, { enableHighAccuracy: true })
         },
 
         loadAndSetCurrentAddress(latitude, longitude) {
