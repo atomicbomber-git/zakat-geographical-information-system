@@ -43,7 +43,17 @@
 
             <div class="row">
                 <div class="col-md-3 mb-2" v-if="this.route_steps">
-                    <h5>Petunjuk Jalan</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <h5 class="mb-0">
+                            Petunjuk Jalan
+                        </h5>
+
+                        <div class="text-right">
+                            <button @click="selected_collector = null; route_steps = null; directionsDisplay.set('directions', null)" class="btn btn-default p-0">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
 
                     <ol
                         class="list-group"
@@ -312,6 +322,9 @@ export default {
 
             // Load Places Service
             this.placesService = new google.maps.places.PlacesService(map);
+
+            // Distance Matrix Service
+            this.distanceMatrixService = new google.maps.DistanceMatrixService();
 
             this.services_loaded = true
             this.loadAndSetCurrentLocation()
@@ -587,6 +600,7 @@ export default {
         },
 
         printDistanceFromCollectors() {
+            console.clear()
             console.log(`Lokasi Anda sekarang adalah {lat: ${this.pointer_marker.lat}, lng: ${this.pointer_marker.lng}}`)
 
             console.table(
@@ -594,10 +608,28 @@ export default {
                     .map(collector => {
                         return {
                             nama: collector.name,
-                            jarak: collector.distance_from_pointer_marker,
+                            jarak_haversin: collector.distance_from_pointer_marker,
                         }
                     })
             )
+
+            let origins = [{ lat: this.pointer_marker.lat, lng: this.pointer_marker.lng }]
+            let destinations = this.nearest_collectors_with_distances.map(collector => ({ lat: collector.latitude, lng: collector.longitude }))
+
+            this.distanceMatrixService.getDistanceMatrix({
+                origins: origins,
+                destinations: destinations,
+                travelMode: 'DRIVING',
+            }, (response, status) => {
+                let gmap_distances = response.rows[0].elements.map((element, i) => {
+                    return {
+                        nama: this.nearest_collectors_with_distances[i].name,
+                        jarak_google_maps: element.distance.value / 1000,
+                    }
+                })
+
+                console.table(gmap_distances)
+            })
         },
 
         loadDonationCount(collector) {
