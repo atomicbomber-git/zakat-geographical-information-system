@@ -293,10 +293,11 @@
 <script>
 
 import { Multiselect } from "vue-multiselect"
-import { get, debounce } from 'lodash'
+import { get, debounce, chunk } from 'lodash'
 import icons from '../icons.js'
 import { getDistance, numberFormat } from '../helpers.js'
 import KecamatanToggle from './KecamatanToggle'
+import { Promise } from 'q';
 
 export default {
     props: [
@@ -614,22 +615,49 @@ export default {
             )
 
             let origins = [{ lat: this.pointer_marker.lat, lng: this.pointer_marker.lng }]
-            let destinations = this.nearest_collectors_with_distances.map(collector => ({ lat: collector.latitude, lng: collector.longitude }))
+            let destinations = this.nearest_collectors_with_distances
+                .map(collector => ({ lat: collector.latitude, lng: collector.longitude }))
 
-            this.distanceMatrixService.getDistanceMatrix({
-                origins: origins,
-                destinations: destinations,
-                travelMode: 'DRIVING',
-            }, (response, status) => {
-                let gmap_distances = response.rows[0].elements.map((element, i) => {
-                    return {
-                        nama: this.nearest_collectors_with_distances[i].name,
-                        jarak_google_maps: element.distance.value / 1000,
+            let promises = []
+            chunk(destinations, 25)
+                .forEach(chunk => {
+                    let distance_matrix_request = {
+                        origins: origins,
+                        destinations: chunk,
+                        travelMode: 'DRIVING',
                     }
+
+                    promises.push(new Promise((resolve, reject) => {
+                        this.distanceMatrixService
+                            .getDistanceMatrix(distance_matrix_request, (response, status) => {
+                                if (status == "OK") {
+                                    resolve(response)
+                                }
+                                else {
+                                    reject(status)
+                                }
+                            })
+                    }))
                 })
 
-                console.table(gmap_distances)
-            })
+            Promise.all(promises)
+                .then(results => {
+                    let distances = results.reduce((curr, next) => {
+                        return [...curr, ...next.rows[0].elements]
+                    }, [])
+                    .map((element, i) => {
+                        return {
+                            nama: this.nearest_collectors_with_distances[i]
+                                .name,
+                            jarak_google_maps: element.distance.value / 1000
+                        }
+                    })
+
+                    console.table(distances)
+                })
+                .catch(statuses => {
+                    console.log(statuses)
+                })
         },
 
         loadDonationCount(collector) {
