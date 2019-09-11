@@ -6442,7 +6442,7 @@ vue-loader@^13.7.1:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
-vue-multiselect@^2.1.4:
+vue-multiselect@^2.1.6:
   version "2.1.6"
   resolved "https://registry.npm.taobao.org/vue-multiselect/download/vue-multiselect-2.1.6.tgz#5be5d811a224804a15c43a4edbb7485028a89c7f"
   integrity sha1-W+XYEaIkgEoVxDpO27dIUCionH8=

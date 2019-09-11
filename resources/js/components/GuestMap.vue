@@ -23,8 +23,25 @@
                 </div>
             </div>
 
+            <div class="mb-2">
+                <multiselect
+                    placeholder="Pencarian Lokasi"
+                    selectLabel=""
+                    selectedLabel=""
+                    deselectLabel=""
+                    track-by="place_id"
+                    label="formatted_address"
+                    :options="places"
+                    v-model="place"
+                    :internal-search="false"
+                    :loading="is_searching_place"
+                    @search-change="onPlaceSearchChange"
+                    >
+                </multiselect>
+            </div>
+
             <div class="row">
-                <div class="col-md-3 pr-0" v-if="this.route_steps">
+                <div class="col-md-3 mb-2" v-if="this.route_steps">
                     <h5>Petunjuk Jalan</h5>
 
                     <ol
@@ -36,7 +53,8 @@
                         </li>
                     </ol>
                 </div>
-                <div class="col-md">
+
+                <div class="col-md mb-2">
                     <GmapMap
                         ref="mapRef"
                         @click="onMapClick"
@@ -44,46 +62,52 @@
                         :zoom="this.gmap_settings.zoom"
                         :map-type-id="this.gmap_settings.map_type_id"
                         :style="this.gmap_settings.style"
-                    >
-                        <!-- Pointer Marker -->
-                        <GmapMarker :position="pointer_marker"/>
+                        >
 
-                        <!-- Collector Markers and Info Windows -->
-                        <template v-for="collector in p_collectors">
-                            <GmapMarker
-                                @click="onCollectorMarkerClick(collector)"
-                                :icon="{
-                                    url: icons.mosque_black,
-                                    scaledSize: getCollectorIconScaledSize(collector)
-                                }"
-                                :position="{ lat: collector.latitude, lng: collector.longitude }"
-                                :key="collector.id"
-                            />
+                        <template v-if="services_loaded">
+                            <!-- Pointer Marker -->
+                            <GmapMarker :position="pointer_marker"/>
 
-                            <!-- Mustahiq Markers -->
-                            <template v-for="mustahiq in collector.mustahiqs">
+                            <!-- Collector Markers and Info Windows -->
+                            <template v-for="collector in p_collectors">
                                 <GmapMarker
-                                    @click="onMustahiqMarkerClick(mustahiq)"
-                                    :icon="icons.person_red"
-                                    :position="{ lat: mustahiq.latitude, lng: mustahiq.longitude }"
-                                    :key="`mustahiq_${mustahiq.id}`"
+                                    @click="onCollectorMarkerClick(collector)"
+                                    :icon="{
+                                        url: icons.mosque_black,
+                                        scaledSize: getCollectorIconScaledSize(collector)
+                                    }"
+                                    :position="{ lat: collector.latitude, lng: collector.longitude }"
+                                    :key="collector.id"
                                 />
-                            </template>
 
-                            <!-- Muzakki Markers -->
-                            <template v-for="muzakki in collector.muzakkis">
-                                <GmapMarker
-                                    @click="onMuzakkiMarkerClick(muzakki)"
-                                    :icon="icons.person_green"
-                                    :position="{ lat: muzakki.latitude, lng: muzakki.longitude }"
-                                    :key="`muzakki_${muzakki.id}`"
-                                />
+                                <!-- Mustahiq Markers -->
+                                <template v-for="mustahiq in collector.mustahiqs">
+                                    <GmapMarker
+                                        @click="onMustahiqMarkerClick(mustahiq)"
+                                        :icon="icons.person_red"
+                                        :position="{ lat: mustahiq.latitude, lng: mustahiq.longitude }"
+                                        :key="`mustahiq_${mustahiq.id}`"
+                                    />
+                                </template>
+
+                                <!-- Muzakki Markers -->
+                                <template v-for="muzakki in collector.muzakkis">
+                                    <GmapMarker
+                                        @click="onMuzakkiMarkerClick(muzakki)"
+                                        :icon="icons.person_green"
+                                        :position="{ lat: muzakki.latitude, lng: muzakki.longitude }"
+                                        :key="`muzakki_${muzakki.id}`"
+                                    />
+                                </template>
                             </template>
                         </template>
                     </GmapMap>
                 </div>
 
-                <div class="col-md-3 pl-0" style="max-height: 640px; overflow-y: scroll">
+                <div
+                    class="col-md-3 mb-2"
+                    style="max-height: 640px; overflow-y: scroll"
+                    >
 
                     <div class="card">
                         <div class="card-header">
@@ -107,7 +131,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-default w-100 mb-3"
+                    <button class="btn btn-light w-100 my-2"
                         @click="is_filter_visible =! is_filter_visible"
                         >
                         Filter
@@ -257,7 +281,8 @@
 
 <script>
 
-import { get } from 'lodash'
+import { Multiselect } from "vue-multiselect"
+import { get, debounce } from 'lodash'
 import icons from '../icons.js'
 import { getDistance } from '../helpers.js'
 import KecamatanToggle from './KecamatanToggle'
@@ -270,7 +295,7 @@ export default {
         "can_see_muzakkis",
     ],
 
-    components: { KecamatanToggle },
+    components: { KecamatanToggle, Multiselect },
 
     mounted() {
         this.$refs.mapRef.$mapPromise.then(map => {
@@ -284,10 +309,12 @@ export default {
             this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true, preserveViewport: true})
             this.directionsDisplay.setMap(map);
 
-            this.loadAndSetCurrentAddress(this.pointer_marker.lat, this.pointer_marker.lng)
-        })
+            // Load Places Service
+            this.placesService = new google.maps.places.PlacesService(map);
 
-        this.loadAndSetCurrentLocation()
+            this.services_loaded = true
+            this.loadAndSetCurrentLocation()
+        })
     },
 
     data() {
@@ -295,6 +322,7 @@ export default {
         let default_center = this.gmap_settings.center
 
         return {
+            services_loaded: false,
             icons,
             pointer_marker: default_center,
             pointer_address: null,
@@ -319,6 +347,10 @@ export default {
             selected_mustahiq: null,
             selected_muzakki: null,
             is_muzakkis_visible: this.can_see_muzakkis,
+
+            place: null,
+            places: [],
+            is_searching_place: false,
         }
     },
 
@@ -344,6 +376,17 @@ export default {
                     lng: this.selected_collector.longitude
                 })
             }
+        },
+
+        place(place) {
+            if (place === null) {
+                return
+            }
+
+            this.setPointerMarkerAndMapCenter({
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+            })
         }
     },
 
@@ -404,11 +447,38 @@ export default {
             return {width: 40, height: 40, f: 'px', b: 'px'}
         },
 
+        onPlaceSearchChange: debounce(function (search_query) {
+            if (search_query == "") {
+                return
+            }
+
+            this.is_searching_place = true
+            this.geocoder.geocode( { 'address': search_query }, (results, status) => {
+                if (status == 'OK') {
+                    this.places = results
+                }
+
+                this.is_searching_place = false
+            });
+        }, 200),
+
         onMapClick(e) {
             this.pointer_marker = {
                 lat: e.latLng.lat(),
                 lng: e.latLng.lng(),
             }
+        },
+
+        setPointerMarkerAndMapCenter(location) {
+            this.pointer_marker = {
+                lat: location.lat,
+                lng: location.lng,
+            }
+
+            this.map.setCenter({
+                lat: location.lat,
+                lng: location.lng,
+            })
         },
 
         onMustahiqMarkerClick(mustahiq) {

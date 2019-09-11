@@ -5,8 +5,6 @@ $theme-colors: (
   "dark": #005426
 );
 
-
-
 $body-bg: #f2f2f2;
 $table-dark-color: #f2f2f2;
 $table-dark-bg: #005426;
@@ -15,7 +13,6 @@ $navbar-dark-color: #d4c8c8;
 $navbar-dark-active-color: #f2f2f2;
 
 $container-max-widths: (
-  // sm: 1500px,
   md: 700px,
   lg: 1100px
 );
@@ -44,3 +41,5 @@ $container-max-widths: (
 
 // Font Awesome
 @import '~font-awesome/css/font-awesome.css';
+
+@import '~vue-multiselect/dist/vue-multiselect.min.css';
