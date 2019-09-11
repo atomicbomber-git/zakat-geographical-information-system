@@ -16,7 +16,7 @@
                     <hr/>
 
                     <h2 class="h5">
-                        Saat ini, unit pengumpulan zakat terdekat adalah <strong> {{ get(this.nearest_collector, 'name', '-') }} </strong>
+                        Saat ini, unit pengumpulan zakat terdekat adalah <strong> {{ get(this.nearest_collector_with_distance, 'name', '-') }} </strong>
                         yang terletak di <span> {{ get(this.nearest_collector_with_distance, 'address', '-') }} </span> dengan jarak
                         <strong> {{ this.nearest_collector_with_distance ? numberFormat(this.nearest_collector_with_distance.distance_from_pointer_marker) : "-" }} </strong> KM
                         dan Anda dapat menyalurkan zakat disana.
@@ -336,12 +336,6 @@ export default {
                 }
             })),
 
-            nearest_collector: this.collectors.length === 0 ? null :
-                this.collectors.reduce((acc, cur) => {
-                    return getDistance(acc.latitude, acc.longitude, default_center.lat, default_center.lng) <=
-                           getDistance(cur.latitude, cur.longitude, default_center.lat, default_center.lng) ? acc : cur
-            }),
-
             is_filter_visible: false,
             route_steps: null,
             selected_collector: null,
@@ -357,12 +351,7 @@ export default {
 
     watch: {
         pointer_marker(pointer_marker) {
-            // Determine the nearest collector
-            this.nearest_collector = this.p_collectors.length === 0 ? null :
-                this.p_collectors.reduce((acc, cur) => {
-                    return getDistance(acc.latitude, acc.longitude, pointer_marker.lat, pointer_marker.lng) <=
-                        getDistance(cur.latitude, cur.longitude, pointer_marker.lat, pointer_marker.lng) ? acc : cur
-                })
+            this.printDistanceFromCollectors()
 
             // Reverse geocode current pointer's location to determine its real world address
             this.loadAndSetCurrentAddress(
@@ -415,8 +404,8 @@ export default {
             })
         },
 
-        nearest_collector_with_distance() {
-            let collectors = this.collectors.map(collector => {
+        nearest_collectors_with_distances() {
+            return this.p_collectors.map(collector => {
                 return {
                     ...collector,
                     distance_from_pointer_marker: getDistance(
@@ -429,9 +418,11 @@ export default {
                 return collector_a.distance_from_pointer_marker -
                     collector_b.distance_from_pointer_marker
             })
+        },
 
-            return collectors.length > 0 ?
-                collectors[0] : null
+        nearest_collector_with_distance() {
+            return this.nearest_collectors_with_distances.length > 0 ?
+                this.nearest_collectors_with_distances[0] : null
         },
 
         visible_kecamatan_names() {
@@ -484,7 +475,7 @@ export default {
         numberFormat,
 
         getCollectorIconScaledSize(collector) {
-            if (this.nearest_collector && (this.nearest_collector.id === collector.id)) {
+            if (this.nearest_collector_with_distance && (this.nearest_collector_with_distance.id === collector.id)) {
                 return { width: 80, height: 80, f: 'px', b: 'px' }
             }
 
@@ -593,6 +584,20 @@ export default {
 
                 console.error({ result, status })
             });
+        },
+
+        printDistanceFromCollectors() {
+            console.log(`Lokasi Anda sekarang adalah {lat: ${this.pointer_marker.lat}, lng: ${this.pointer_marker.lng}}`)
+
+            console.table(
+                this.nearest_collectors_with_distances
+                    .map(collector => {
+                        return {
+                            nama: collector.name,
+                            jarak: collector.distance_from_pointer_marker,
+                        }
+                    })
+            )
         },
 
         loadDonationCount(collector) {
