@@ -80,7 +80,7 @@
                             <GmapMarker :position="pointer_marker"/>
 
                             <!-- Collector Markers and Info Windows -->
-                            <template v-for="collector in p_collectors">
+                            <template v-for="collector in filtered_collectors_with_distance">
                                 <GmapMarker
                                     @click="onCollectorMarkerClick(collector)"
                                     :icon="{
@@ -119,6 +119,20 @@
                     class="col-md-3 mb-2"
                     style="max-height: 640px; overflow-y: scroll"
                     >
+
+                    <div class="form-group">
+                        <label for="distance_filter">
+                            Filter Jarak (dalam KM):
+                        </label>
+                        <input
+                            class="form-control"
+                            id="distance_filter"
+                            placeholder="Filter jarak"
+                            type="number"
+                            step="any"
+                            v-model="distance_filter"
+                            >
+                    </div>
 
                     <div class="card">
                         <div class="card-header">
@@ -360,6 +374,7 @@ export default {
             place: null,
             places: [],
             is_searching_place: false,
+            distance_filter: null,
         }
     },
 
@@ -432,6 +447,18 @@ export default {
                 return collector_a.distance_from_pointer_marker -
                     collector_b.distance_from_pointer_marker
             })
+        },
+
+        filtered_collectors_with_distance() {
+            return this.nearest_collectors_with_distances
+                .filter(collector => {
+                    if (this.distance_filter == null || this.distance_filter == "") {
+                        return true
+                    }
+                    else {
+                        return collector.distance_from_pointer_marker <= this.distance_filter
+                    }
+                })
         },
 
         nearest_collector_with_distance() {
