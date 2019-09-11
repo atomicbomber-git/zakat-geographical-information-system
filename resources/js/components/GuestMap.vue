@@ -17,7 +17,8 @@
 
                     <h2 class="h5">
                         Saat ini, unit pengumpulan zakat terdekat adalah <strong> {{ get(this.nearest_collector, 'name', '-') }} </strong>
-                        yang terletak di <span> {{ get(this.nearest_collector, 'address', '-') }} </span>
+                        yang terletak di <span> {{ get(this.nearest_collector_with_distance, 'address', '-') }} </span> dengan jarak
+                        <strong> {{ this.nearest_collector_with_distance ? numberFormat(this.nearest_collector_with_distance.distance_from_pointer_marker) : "-" }} </strong> KM
                         dan Anda dapat menyalurkan zakat disana.
                     </h2>
                 </div>
@@ -284,7 +285,7 @@
 import { Multiselect } from "vue-multiselect"
 import { get, debounce } from 'lodash'
 import icons from '../icons.js'
-import { getDistance } from '../helpers.js'
+import { getDistance, numberFormat } from '../helpers.js'
 import KecamatanToggle from './KecamatanToggle'
 
 export default {
@@ -359,9 +360,9 @@ export default {
             // Determine the nearest collector
             this.nearest_collector = this.p_collectors.length === 0 ? null :
                 this.p_collectors.reduce((acc, cur) => {
-                return getDistance(acc.latitude, acc.longitude, pointer_marker.lat, pointer_marker.lng) <=
-                       getDistance(cur.latitude, cur.longitude, pointer_marker.lat, pointer_marker.lng) ? acc : cur
-            })
+                    return getDistance(acc.latitude, acc.longitude, pointer_marker.lat, pointer_marker.lng) <=
+                        getDistance(cur.latitude, cur.longitude, pointer_marker.lat, pointer_marker.lng) ? acc : cur
+                })
 
             // Reverse geocode current pointer's location to determine its real world address
             this.loadAndSetCurrentAddress(
@@ -391,6 +392,48 @@ export default {
     },
 
     computed: {
+        mustahiqs() {
+            return this.p_collectors.reduce((curr, next) => {
+                return [...curr, ...next.mustahiqs]
+            }, [])
+        },
+
+        nearest_mustahiqs_with_distances() {
+            return this.mustahiqs.map(mustahiq => {
+                return {
+                    ...mustahiq,
+                    distance_from_pointer_marker: getDistance(
+                        mustahiq.latitude, mustahiq.longitude,
+                        this.pointer_marker.lat, this.pointer_marker.lng,
+                    ),
+                }
+            })
+            .filter(mustahiq => mustahiq.distance_from_pointer_marker <= 3.00)
+            .sort((mustahiq_a, mustahiq_b) => {
+                return mustahiq_a.distance_from_pointer_marker -
+                    mustahiq_b.distance_from_pointer_marker
+            })
+        },
+
+        nearest_collector_with_distance() {
+            let collectors = this.collectors.map(collector => {
+                return {
+                    ...collector,
+                    distance_from_pointer_marker: getDistance(
+                        collector.latitude, collector.longitude,
+                        this.pointer_marker.lat, this.pointer_marker.lng,
+                    )
+                }
+            })
+            .sort((collector_a, collector_b) => {
+                return collector_a.distance_from_pointer_marker -
+                    collector_b.distance_from_pointer_marker
+            })
+
+            return collectors.length > 0 ?
+                collectors[0] : null
+        },
+
         visible_kecamatan_names() {
             return this.administrative_divisions
                 .filter(administrative_division => administrative_division.kecamatan.is_visible)
@@ -438,6 +481,7 @@ export default {
 
     methods: {
         get,
+        numberFormat,
 
         getCollectorIconScaledSize(collector) {
             if (this.nearest_collector && (this.nearest_collector.id === collector.id)) {
@@ -452,12 +496,20 @@ export default {
                 return
             }
 
+            let geocodingRequest = {
+                address: search_query,
+                componentRestrictions: {
+                    country: 'Indonesia',
+                    administrativeArea: 'Kota Pontianak',
+                    locality: 'Kota Pontianak',
+                },
+            }
+
             this.is_searching_place = true
-            this.geocoder.geocode( { 'address': search_query }, (results, status) => {
+            this.geocoder.geocode(geocodingRequest, (results, status) => {
                 if (status == 'OK') {
                     this.places = results
                 }
-
                 this.is_searching_place = false
             });
         }, 200),

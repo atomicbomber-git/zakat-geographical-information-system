@@ -38065,9 +38065,17 @@ exports.default = function (input) {
 
 /***/ }),
 /* 30 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* unused harmony export deg2rad */
+/* harmony export (immutable) */ __webpack_exports__["a"] = getDistance;
+/* harmony export (immutable) */ __webpack_exports__["b"] = numberFormat;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_numeral__);
 // Helper functions
+
+
 
 // Convert degree to radian
 function deg2rad(deg) {
@@ -38085,7 +38093,11 @@ function getDistance(lat1, lon1, lat2, lon2) {
     return d;
 }
 
-module.exports = { getDistance: getDistance, deg2rad: deg2rad };
+function numberFormat(value) {
+    return __WEBPACK_IMPORTED_MODULE_0_numeral___default()(value).format("0,0[.000]");
+}
+
+/* unused harmony default export */ var _unused_webpack_default_export = ({ getDistance: getDistance, deg2rad: deg2rad, numberFormat: numberFormat });
 
 /***/ }),
 /* 31 */
@@ -50316,7 +50328,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__numeral_js__ = __webpack_require__(309);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_js__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__helpers_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__helpers_js__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -50382,7 +50393,7 @@ var app = new Vue({
 window.numeral = __WEBPACK_IMPORTED_MODULE_5__numeral_js__["a" /* default */];
 
 
-window.example = __WEBPACK_IMPORTED_MODULE_6__helpers_js__["getDistance"];
+window.example = __WEBPACK_IMPORTED_MODULE_6__helpers_js__["a" /* getDistance */];
 
 /***/ }),
 /* 161 */
@@ -88040,11 +88051,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons_js__ = __webpack_require__(243);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__icons_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__icons_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_js__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__helpers_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__KecamatanToggle__ = __webpack_require__(244);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__KecamatanToggle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__KecamatanToggle__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
 //
 //
 //
@@ -88385,7 +88398,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }),
 
             nearest_collector: this.collectors.length === 0 ? null : this.collectors.reduce(function (acc, cur) {
-                return Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["getDistance"])(acc.latitude, acc.longitude, default_center.lat, default_center.lng) <= Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["getDistance"])(cur.latitude, cur.longitude, default_center.lat, default_center.lng) ? acc : cur;
+                return Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["a" /* getDistance */])(acc.latitude, acc.longitude, default_center.lat, default_center.lng) <= Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["a" /* getDistance */])(cur.latitude, cur.longitude, default_center.lat, default_center.lng) ? acc : cur;
             }),
 
             is_filter_visible: false,
@@ -88406,7 +88419,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         pointer_marker: function pointer_marker(_pointer_marker) {
             // Determine the nearest collector
             this.nearest_collector = this.p_collectors.length === 0 ? null : this.p_collectors.reduce(function (acc, cur) {
-                return Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["getDistance"])(acc.latitude, acc.longitude, _pointer_marker.lat, _pointer_marker.lng) <= Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["getDistance"])(cur.latitude, cur.longitude, _pointer_marker.lat, _pointer_marker.lng) ? acc : cur;
+                return Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["a" /* getDistance */])(acc.latitude, acc.longitude, _pointer_marker.lat, _pointer_marker.lng) <= Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["a" /* getDistance */])(cur.latitude, cur.longitude, _pointer_marker.lat, _pointer_marker.lng) ? acc : cur;
             });
 
             // Reverse geocode current pointer's location to determine its real world address
@@ -88433,6 +88446,37 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     computed: {
+        mustahiqs: function mustahiqs() {
+            return this.p_collectors.reduce(function (curr, next) {
+                return [].concat(_toConsumableArray(curr), _toConsumableArray(next.mustahiqs));
+            }, []);
+        },
+        nearest_mustahiqs_with_distances: function nearest_mustahiqs_with_distances() {
+            var _this3 = this;
+
+            return this.mustahiqs.map(function (mustahiq) {
+                return _extends({}, mustahiq, {
+                    distance_from_pointer_marker: Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["a" /* getDistance */])(mustahiq.latitude, mustahiq.longitude, _this3.pointer_marker.lat, _this3.pointer_marker.lng)
+                });
+            }).filter(function (mustahiq) {
+                return mustahiq.distance_from_pointer_marker <= 3.00;
+            }).sort(function (mustahiq_a, mustahiq_b) {
+                return mustahiq_a.distance_from_pointer_marker - mustahiq_b.distance_from_pointer_marker;
+            });
+        },
+        nearest_collector_with_distance: function nearest_collector_with_distance() {
+            var _this4 = this;
+
+            var collectors = this.collectors.map(function (collector) {
+                return _extends({}, collector, {
+                    distance_from_pointer_marker: Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["a" /* getDistance */])(collector.latitude, collector.longitude, _this4.pointer_marker.lat, _this4.pointer_marker.lng)
+                });
+            }).sort(function (collector_a, collector_b) {
+                return collector_a.distance_from_pointer_marker - collector_b.distance_from_pointer_marker;
+            });
+
+            return collectors.length > 0 ? collectors[0] : null;
+        },
         visible_kecamatan_names: function visible_kecamatan_names() {
             return this.administrative_divisions.filter(function (administrative_division) {
                 return administrative_division.kecamatan.is_visible;
@@ -88457,22 +88501,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return kelurahan_names;
         },
         p_collectors: function p_collectors() {
-            var _this3 = this;
+            var _this5 = this;
 
             return this.collectors.filter(function (_ref3) {
                 var kelurahan = _ref3.kelurahan;
-                return _this3.visible_kelurahan_names.includes(kelurahan);
+                return _this5.visible_kelurahan_names.includes(kelurahan);
             }).map(function (collector) {
                 var prepared_mustahiqs = collector.mustahiqs.map(function (mustahiq) {
                     return _extends({}, mustahiq, {
-                        distance_from_collector: Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["getDistance"])(mustahiq.latitude, mustahiq.longitude, collector.latitude, collector.longitude)
+                        distance_from_collector: Object(__WEBPACK_IMPORTED_MODULE_3__helpers_js__["a" /* getDistance */])(mustahiq.latitude, mustahiq.longitude, collector.latitude, collector.longitude)
                     });
                 });
 
                 return _extends({}, collector, {
                     donation_counts: [],
                     muzakkis: collector.muzakkis !== undefined ? collector.muzakkis.filter(function (muzakki) {
-                        return _this3.is_muzakkis_visible;
+                        return _this5.is_muzakkis_visible;
                     }) : [],
                     mustahiqs: prepared_mustahiqs,
                     nearest_mustahiq: prepared_mustahiqs.length === 0 ? null : prepared_mustahiqs.reduce(function (acc, cur) {
@@ -88485,6 +88529,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     methods: {
         get: __WEBPACK_IMPORTED_MODULE_1_lodash__["get"],
+        numberFormat: __WEBPACK_IMPORTED_MODULE_3__helpers_js__["b" /* numberFormat */],
 
         getCollectorIconScaledSize: function getCollectorIconScaledSize(collector) {
             if (this.nearest_collector && this.nearest_collector.id === collector.id) {
@@ -88496,19 +88541,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
         onPlaceSearchChange: Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["debounce"])(function (search_query) {
-            var _this4 = this;
+            var _this6 = this;
 
             if (search_query == "") {
                 return;
             }
 
-            this.is_searching_place = true;
-            this.geocoder.geocode({ 'address': search_query }, function (results, status) {
-                if (status == 'OK') {
-                    _this4.places = results;
+            var geocodingRequest = {
+                address: search_query,
+                componentRestrictions: {
+                    country: 'Indonesia',
+                    administrativeArea: 'Kota Pontianak',
+                    locality: 'Kota Pontianak'
                 }
+            };
 
-                _this4.is_searching_place = false;
+            this.is_searching_place = true;
+            this.geocoder.geocode(geocodingRequest, function (results, status) {
+                if (status == 'OK') {
+                    _this6.places = results;
+                }
+                _this6.is_searching_place = false;
             });
         }, 200),
 
@@ -88550,21 +88603,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$modal.hide('collector-info');
         },
         loadAndSetCurrentLocation: function loadAndSetCurrentLocation() {
-            var _this5 = this;
+            var _this7 = this;
 
             navigator.geolocation.getCurrentPosition(function (position) {
-                _this5.pointer_marker = {
+                _this7.pointer_marker = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
             }, null, { enableHighAccuracy: true });
         },
         loadAndSetCurrentAddress: function loadAndSetCurrentAddress(latitude, longitude) {
-            var _this6 = this;
+            var _this8 = this;
 
             this.geocoder.geocode({ location: { lat: latitude, lng: longitude } }, function (results, status) {
                 if (status == "OK") {
-                    _this6.pointer_address = results[0].formatted_address;
+                    _this8.pointer_address = results[0].formatted_address;
                     return;
                 }
 
@@ -88572,7 +88625,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             });
         },
         loadAndDisplayRouteOnMap: function loadAndDisplayRouteOnMap(origin, destination) {
-            var _this7 = this;
+            var _this9 = this;
 
             var travel_mode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'DRIVING';
 
@@ -88584,8 +88637,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             this.directionsService.route(direction_request, function (result, status) {
                 if (status == 'OK') {
-                    _this7.directionsDisplay.setDirections(result);
-                    _this7.route_steps = result.routes[0].legs[0].steps;
+                    _this9.directionsDisplay.setDirections(result);
+                    _this9.route_steps = result.routes[0].legs[0].steps;
                     return;
                 }
 
@@ -88927,12 +88980,33 @@ var render = function() {
               _c("span", [
                 _vm._v(
                   " " +
-                    _vm._s(_vm.get(this.nearest_collector, "address", "-")) +
+                    _vm._s(
+                      _vm.get(
+                        this.nearest_collector_with_distance,
+                        "address",
+                        "-"
+                      )
+                    ) +
+                    " "
+                )
+              ]),
+              _vm._v(" dengan jarak\n                    "),
+              _c("strong", [
+                _vm._v(
+                  " " +
+                    _vm._s(
+                      this.nearest_collector_with_distance
+                        ? _vm.numberFormat(
+                            this.nearest_collector_with_distance
+                              .distance_from_pointer_marker
+                          )
+                        : "-"
+                    ) +
                     " "
                 )
               ]),
               _vm._v(
-                "\n                    dan Anda dapat menyalurkan zakat disana.\n                "
+                " KM\n                    dan Anda dapat menyalurkan zakat disana.\n                "
               )
             ])
           ])

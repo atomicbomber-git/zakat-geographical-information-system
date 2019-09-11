@@ -1,12 +1,14 @@
 // Helper functions
 
+import numeral from 'numeral'
+
 // Convert degree to radian
-function deg2rad(deg) {
+export function deg2rad(deg) {
     return deg * (Math.PI/180)
 }
 
 // Returns distance in kilometers
-function getDistance(lat1, lon1, lat2, lon2) {
+export function getDistance(lat1, lon1, lat2, lon2) {
     let R = 6371 // Radius of the earth in km
     let dLat = deg2rad(lat2-lat1)  // deg2rad below
     let dLon = deg2rad(lon2-lon1)
@@ -19,4 +21,8 @@ function getDistance(lat1, lon1, lat2, lon2) {
     return d;
 }
 
-module.exports = { getDistance, deg2rad }
+export function numberFormat(value) {
+    return numeral(value).format("0,0[.000]")
+}
+
+export default { getDistance, deg2rad, numberFormat }
