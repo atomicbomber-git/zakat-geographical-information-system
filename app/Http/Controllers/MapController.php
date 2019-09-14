@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Collector;
 use App\Muzakki;
 use App\Mustahiq;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class MapController extends Controller
@@ -37,8 +38,11 @@ class MapController extends Controller
             ->values()
             ->groupBy("kecamatan");
 
+        $collector = Auth::user()
+            ->collector;
+
         return view('map.show',
-            compact('collectors', "kecamatans", "can_see_muzakkis")
+            compact('collector', 'collectors', "kecamatans", "can_see_muzakkis")
         );
     }
 }

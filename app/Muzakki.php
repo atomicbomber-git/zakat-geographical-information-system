@@ -14,7 +14,7 @@ class Muzakki extends Model
     public $fillable = [
         "name", "nik", "address", "kecamatan", "kelurahan",
         "phone", "gender", "npwz", "infak", "latitude",
-        "longitude", "collector_id"
+        "longitude", "collector_id", "occupation",
     ];
 
     public function collector()

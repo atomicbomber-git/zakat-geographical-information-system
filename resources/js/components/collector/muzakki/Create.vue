@@ -27,7 +27,7 @@
 
                         <GmapMarker
                             @click="collector.infoWindowOpened=true"
-                            icon="/png/mosque.png" 
+                            icon="/png/mosque.png"
                             :position="{
                                 lat: this.collector.latitude,
                                 lng: this.collector.longitude
@@ -52,7 +52,7 @@
                                 :opened="muzakki.infoWindowOpened"
                                 @closeclick="muzakki.infoWindowOpened=false"
                                 >
-                                
+
                                 <div>
                                     <p> {{ muzakki.name }} </p>
                                     <p> {{ muzakki.address }} </p>
@@ -104,6 +104,20 @@
                                 :class="{'is-invalid': get(this.error_data, 'errors.name[0]', false)}"
                                 type='text' id='name' placeholder='Nama'>
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.name[0]', false) }}</div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='occupation'> Pekerjaan: </label>
+                            <input
+                                v-model='occupation'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.occupation[0]', false)}"
+                                type='text'
+                                id='occupation'
+                                placeholder='Pekerjaan'>
+                            <div class='invalid-feedback'>
+                                {{ get(this.error_data, 'errors.occupation[0]', false) }}
+                            </div>
                         </div>
 
                         <div class='form-group'>
@@ -223,6 +237,7 @@ export default {
             kelurahan: null,
             phone: null,
             npwz: null,
+            occupation: null,
         }
     },
 
@@ -239,6 +254,7 @@ export default {
                 kelurahan: this.kelurahan,
                 phone: this.phone,
                 npwz: this.npwz,
+                occupation: this.occupation,
             }
         }
     },

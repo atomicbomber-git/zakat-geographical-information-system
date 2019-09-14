@@ -104,7 +104,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="picture"> Gambar Lokasi: </label>
+                            <label for="picture"> Foto UPZ: </label>
                             <div class="custom-file">
                                 <input
                                     ref="picture"

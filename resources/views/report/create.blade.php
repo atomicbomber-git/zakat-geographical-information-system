@@ -19,7 +19,7 @@
 
     <div class="card width-md mb-5">
         <div class="card-header">
-            <i class="fa fa-usd"></i>
+            <i class="fa fa-money"></i>
             Tambah Laporan Penerimaan Zakat
         </div>
         <div class="card-body">

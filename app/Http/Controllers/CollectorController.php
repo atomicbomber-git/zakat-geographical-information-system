@@ -33,6 +33,8 @@ class CollectorController extends Controller
                     ->whereYear("transaction_date", $year)
                     ->limit(1)
             , "report_sum")
+            ->orderByDesc("updated_at")
+            ->orderByDesc("created_at")
             ->withCount(Collector::HAS_RELATIONS)
             ->get();
 
@@ -83,15 +85,15 @@ class CollectorController extends Controller
             'kelurahan' => 'required|string',
             'collector_name' => 'required|string',
             'npwz' => 'required|string|unique:collectors',
-            'user_name' => 'required|string', // User real name
-            'username' => 'required|string|unique:users', // User login name
+            'admin_name' => 'required|string', // User real name
+            'username' => 'required|string|alpha_dash|unique:users', // User login name
             'password' => 'required|string|min:8|confirmed',
             'picture' => 'required|file|mimes:jpg,jpeg,png'
         ]);
 
         DB::transaction(function() use($data) {
             $user = User::create([
-                'name' => $data['user_name'],
+                'name' => $data['admin_name'],
                 'username' => $data['username'],
                 'password' => bcrypt($data['password']),
                 'type' => 'COLLECTOR'
@@ -144,14 +146,14 @@ class CollectorController extends Controller
             'kelurahan' => 'required|string',
             'collector_name' => 'required|string',
             'npwz' => ['required', 'string', Rule::unique('collectors')->ignore($collector->id)],
-            'user_name' => 'required|string', // User real name
+            'admin_name' => 'required|string', // User real name
             'username' => ['required', 'string', Rule::unique('users')->ignore($collector->user->id)], // User login name
             'password' => 'sometimes|nullable|string|min:8|confirmed',
             'picture' => 'sometimes|nullable|file|mimes:jpg,jpeg,png'
         ]);
 
         $user_data = [
-            'name' => $data['user_name'],
+            'name' => $data['admin_name'],
             'username' => $data['username'],
             'type' => 'COLLECTOR'
         ];

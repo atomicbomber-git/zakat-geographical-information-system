@@ -23,11 +23,13 @@ class MustahiqController extends Controller
             })
             ->orderBy("name")
             ->withCount("donations")
+            ->orderByDesc("updated_at")
+            ->orderByDesc("created_at")
             ->get();
-        
+
         return view("mustahiq.index", compact("mustahiqs"));
     }
-    
+
     public function create()
     {
         $mustahiqs = Mustahiq::query()
@@ -41,7 +43,7 @@ class MustahiqController extends Controller
         $collector = Auth::user()->collector;
         return view("mustahiq.create", compact("mustahiqs", "collector"));
     }
-    
+
     public function store()
     {
         $data = $this->validate(request(), [
@@ -66,7 +68,7 @@ class MustahiqController extends Controller
 
         session()->flash('message-success', __('messages.create.success'));
     }
-    
+
     public function edit(Mustahiq $mustahiq)
     {
         $this->authorize("update", $mustahiq);
@@ -82,7 +84,7 @@ class MustahiqController extends Controller
         $collector = Auth::user()->collector;
         return view("mustahiq.edit", compact("mustahiq", "collector", "mustahiqs"));
     }
-    
+
     public function update(Mustahiq $mustahiq)
     {
         $this->authorize("update", $mustahiq);
@@ -106,14 +108,14 @@ class MustahiqController extends Controller
         $mustahiq->update($data);
         session()->flash('message-success', __('messages.update.success'));
     }
-    
+
     public function delete(Mustahiq $mustahiq)
     {
         $mustahiq->donations_count = $mustahiq->donations()->count();
         $this->authorize("delete", $mustahiq);
 
         $mustahiq->delete();
-        
+
         return back()
             ->with("message-success", __("messages.delete.success"));
     }

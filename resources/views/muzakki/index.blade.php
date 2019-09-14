@@ -36,6 +36,7 @@
                             <th> Nama </th>
                             <th> NIK </th>
                             <th> Alamat </th>
+                            <th> Pekerjaan </th>
                             <th> Telepon </th>
                             <th> J. Kelamin </th>
                             <th> NPWZ </th>
@@ -52,6 +53,7 @@
                                 {{ $muzakki->kecamatan }}, <br/>
                                 {{ $muzakki->kelurahan }}  <br/>
                             </td>
+                            <td> {{ $muzakki->occupation }} </td>
                             <td> {{ $muzakki->phone }} </td>
                             <td> {{ App\Muzakki::GENDERS[$muzakki->gender] ?? '-' }} </td>
                             <td> {{ $muzakki->npwz }} </td>

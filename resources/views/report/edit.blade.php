@@ -3,13 +3,13 @@
 @section('content')
 <div class="container my-5">
     <h1 class='mb-5'>
-        <i class='fa fa-usd'></i>
+        <i class='fa fa-money'></i>
         Sunting Laporan Penerimaan Zakat
     </h1>
 
     <div class="card width-md">
         <div class="card-header">
-            <i class="fa fa-usd"></i>
+            <i class="fa fa-money"></i>
             Sunting Laporan Penerimaan Zakat
         </div>
         <div class="card-body">

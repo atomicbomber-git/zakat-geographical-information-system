@@ -58,7 +58,7 @@
                             </a>
 
                             <a class='dropdown-item' href='{{ route('report.index') }}'>
-                                <i class='fa fa-usd'></i>
+                                <i class='fa fa-money'></i>
                                 Laporan
                             </a>
                         </div>

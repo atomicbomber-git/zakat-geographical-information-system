@@ -315,6 +315,7 @@ import { Promise } from 'q';
 
 export default {
     props: [
+        "collector",
         "collectors",
         "gmap_settings",
         "kecamatans",
@@ -489,6 +490,10 @@ export default {
 
         p_collectors() {
             return this.collectors
+                .filter(collector => {
+                    return this.collector ?
+                        this.collector.id == collector.id : true
+                })
                 .filter(({ kelurahan }) => this.visible_kelurahan_names.includes(kelurahan))
                 .map(collector => {
                     let prepared_mustahiqs = collector.mustahiqs

@@ -93,7 +93,7 @@
                         <th> # </th>
                         <th> Nama Administrator </th>
                         <th> Nama Pengguna </th>
-                        <th> UPZ </th>
+                        <th class="text-center"> UPZ </th>
                         <th class="text-right"> Total Penerimaan </th>
                         <th class="text-right"> Total Pemberian </th>
                         <th> NPWZ </th>
@@ -106,7 +106,15 @@
                         <td> {{ $loop->iteration }}. </td>
                         <td> {{ $collector->user->name }} </td>
                         <td> {{ $collector->user->username }} </td>
-                        <td> {{ $collector->name }} </td>
+                        <td class="text-center">
+                            <div>
+                                {{ $collector->name }}
+                            </div>
+                            <div>
+                                <span class="badge badge-primary"> Muzakki: {{ $collector->muzakkis_count }} </span>
+                                <span class="badge badge-primary"> Mustahiq: {{ $collector->mustahiqs_count }} </span>
+                            </div>
+                        </td>
                         <td class="text-right"> {{ number_format($collector->report_sum) }} </td>
                         <td class="text-right"> {{ number_format($collector->donation_sum) }} </td>
                         <td> {{ $collector->npwz }} </td>

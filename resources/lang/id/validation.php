@@ -145,7 +145,18 @@ return [
 
     'attributes' => [
         'username' => 'nama pengguna',
+        'admin_name' => 'nama administrator',
         'password' => 'kata sandi',
         'password_confirmation' => 'pengulangan kata sandi',
+        'npwz' => 'NPWZ',
+        'collector_name' => 'nama UPZ',
+        'address' => 'alamat',
+        'picture' => 'foto',
+        'occupation' => 'pekerjaan',
+        'help_program' => 'program bantuan',
+        'nik' => 'NIK',
+        'age' => 'usia',
+        'name' => 'nama',
+        'phone' => 'nomor telefon',
     ],
 ];

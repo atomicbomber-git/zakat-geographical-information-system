@@ -17,6 +17,7 @@ $factory->define(App\Muzakki::class, function (Faker $faker) {
         'gender' => $faker->randomElement(['l', 'p']),
         'npwz' => $faker->randomNumber(6),
         'latitude' => rand(-50, 50) / 1000 + -0.026330,
-        'longitude' => rand(-50, 50) / 1000 + 109.342504
+        'longitude' => rand(-50, 50) / 1000 + 109.342504,
+        "occupation" => $faker->randomElement(['Pekerja 1', 'Pekerja 2', 'Pekerja 3']),
     ];
 });

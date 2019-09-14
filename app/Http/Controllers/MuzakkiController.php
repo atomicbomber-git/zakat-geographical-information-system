@@ -15,17 +15,19 @@ class MuzakkiController extends Controller
         $muzakkis = Muzakki::query()
             ->select(
                 "id", "name", "NIK", "address", "kecamatan", "kelurahan",
-                "phone", "gender", "npwz", "collector_id"
+                "phone", "gender", "npwz", "collector_id", "occupation",
             )
             ->withCount("receivements")
             ->whereHas("collector", function (Builder $query) {
                 $query->where("id", Auth::user()->collector->id);
             })
+            ->orderByDesc("updated_at")
+            ->orderByDesc("created_at")
             ->get();
 
         return view("muzakki.index", compact("muzakkis"));
     }
-    
+
     public function create()
     {
         $muzakkis = Muzakki::query()
@@ -43,7 +45,7 @@ class MuzakkiController extends Controller
 
         return view("muzakki.create", compact("muzakkis", "collector"));
     }
-    
+
     public function store()
     {
         $data = $this->validate(request(), [
@@ -57,6 +59,7 @@ class MuzakkiController extends Controller
             'phone' => 'required|string',
             'gender' => ['required', Rule::in('l', 'p')],
             'npwz' => 'required|string|unique:muzakkis',
+            'occupation' => 'required|string',
         ]);
 
         Muzakki::create(array_merge($data, [
@@ -65,13 +68,14 @@ class MuzakkiController extends Controller
 
         session()->flash('message-success', __('messages.create.success'));
     }
-    
+
     public function edit(Muzakki $muzakki)
     {
         $muzakkis = Muzakki::query()
             ->select(
                 "id", "name", "NIK", "address", "kecamatan", "kelurahan",
-                "phone", "gender", "npwz", "collector_id", "latitude", "longitude"
+                "phone", "gender", "npwz", "collector_id", "latitude", "longitude",
+                "occupation",
             )
             ->withCount("receivements")
             ->whereHas("collector", function (Builder $query) {
@@ -95,6 +99,7 @@ class MuzakkiController extends Controller
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
             'phone' => 'required|string',
+            'occupation' => 'required|string',
             'gender' => ['required', Rule::in('l', 'p')],
             'npwz' => ['required', 'string', Rule::unique('muzakkis')->ignore($muzakki->id)],
         ]);
@@ -102,7 +107,7 @@ class MuzakkiController extends Controller
         $muzakki->update($data);
         session()->flash('message-success', __('messages.update.success'));
     }
-    
+
     public function delete(Muzakki $muzakki)
     {
         $muzakki->receivements_count = $muzakki->receivements()->count();

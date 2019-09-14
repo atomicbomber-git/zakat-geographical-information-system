@@ -42,9 +42,7 @@
                                         </div>
                                     </div>
                                 </GmapInfoWindow>
-
                             </span>
-
                         </GmapMap>
                     </div>
                 </div>
@@ -90,7 +88,7 @@
                                 v-model="npwz"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.npwz[0]', false)}"
-                                type="text" id="npwz" placeholder="Nama lokasi">
+                                type="text" id="npwz" placeholder="NPWZ">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.npwz[0]', false) }}</div>
                         </div>
 
@@ -125,7 +123,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="picture"> Gambar Lokasi: </label>
+                            <label for="picture"> Foto UPZ: </label>
                             <div class="custom-file">
                                 <input
                                     ref="picture"
@@ -143,13 +141,13 @@
                         <hr>
 
                         <div class="form-group">
-                            <label for="user_name"> Nama Administrator: </label>
+                            <label for="admin_name"> Nama Administrator: </label>
                             <input
-                                v-model="user_name"
+                                v-model="admin_name"
                                 class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.user_name[0]', false)}"
-                                type="text" id="user_name" placeholder="Nama Administrator">
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.user_name[0]', false) }}</div>
+                                :class="{'is-invalid': get(this.error_data, 'errors.admin_name[0]', false)}"
+                                type="text" id="admin_name" placeholder="Nama Administrator">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.admin_name[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -222,7 +220,7 @@
                 kelurahan: "",
                 kecamatan: "",
 
-                user_name: "",
+                admin_name: "",
                 username: "",
                 password: "",
                 password_confirmation: "",
@@ -249,7 +247,7 @@
                     address: this.address,
                     kecamatan: this.kecamatan,
                     kelurahan: this.kelurahan,
-                    user_name: this.user_name,
+                    admin_name: this.admin_name,
                     username: this.username,
                     password: this.password,
                     password_confirmation: this.password_confirmation

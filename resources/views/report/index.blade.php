@@ -3,7 +3,7 @@
 @section('content')
 <div class="container my-5">
     <h1 class='mb-5'>
-        <i class='fa fa-usd'></i>
+        <i class='fa fa-money'></i>
         Laporan Penerimaan Zakat
     </h1>
 
@@ -33,7 +33,7 @@
 
     <div class="card">
         <div class="card-header">
-            <i class="fa fa-usd"></i>
+            <i class="fa fa-money"></i>
             Laporan Penerimaan Zakat
         </div>
         <div class="card-body">
