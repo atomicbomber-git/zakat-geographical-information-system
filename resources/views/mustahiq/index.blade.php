@@ -41,6 +41,7 @@
                             <th> J. Kelamin </th>
                             <th> Pekerjaan </th>
                             <th> Asnaf </th>
+                            <th> Deskripsi Kondisi </th>
                             <th> P. Bantuan </th>
                             <th class="text-center"> Aksi </th>
                         </tr>
@@ -60,6 +61,7 @@
                             <td> {{ \App\Mustahiq::GENDERS[$mustahiq->gender] ?? '-' }} </td>
                             <td> {{ $mustahiq->occupation }} </td>
                             <td> {{ $mustahiq->asnaf }} </td>
+                            <td> {{ $mustahiq->description }} </td>
                             <td> {{ $mustahiq->help_program }} </td>
                             <td class="text-center">
                                 @can("update", $mustahiq)

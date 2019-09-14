@@ -16,7 +16,7 @@ class MustahiqController extends Controller
                 "id", "name", "nik", "address",
                 "kecamatan", "kelurahan", "phone", "gender",
                 "occupation", "asnaf", "help_program" ,
-                "collector_id", "age"
+                "collector_id", "age", "description"
             )
             ->whereHas("collector", function (Builder $query) {
                 $query->where("id", Auth::user()->collector->id);
@@ -60,6 +60,7 @@ class MustahiqController extends Controller
             'occupation' => 'required|string',
             'asnaf' => 'required|string',
             'help_program' => 'required|string',
+            'description' => 'required|string',
         ]);
 
         Mustahiq::create(array_merge($data, [
@@ -103,6 +104,7 @@ class MustahiqController extends Controller
             'occupation' => 'required|string',
             'asnaf' => 'required|string',
             'help_program' => 'required|string',
+            'description' => 'required|string',
         ]);
 
         $mustahiq->update($data);

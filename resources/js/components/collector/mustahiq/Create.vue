@@ -27,7 +27,7 @@
 
                         <GmapMarker
                             @click="collector.infoWindowOpened=true"
-                            icon="/png/mosque.png" 
+                            icon="/png/mosque.png"
                             :position="{
                                 lat: this.collector.latitude,
                                 lng: this.collector.longitude
@@ -52,7 +52,7 @@
                                 :opened="mustahiq.infoWindowOpened"
                                 @closeclick="mustahiq.infoWindowOpened=false"
                                 >
-                                
+
                                 <div>
                                     <p> {{ mustahiq.name }} </p>
                                     <p> {{ mustahiq.address }} </p>
@@ -193,7 +193,7 @@
                                 v-model="asnaf"
                                 selectLabel=""
                                 selectedLabel=""
-                                deselectLabel=""	
+                                deselectLabel=""
                                 :preselect-first="true"
                                 />
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.asnaf[0]', false) }}</div>
@@ -207,6 +207,16 @@
                                 :class="{'is-invalid': get(this.error_data, 'errors.help_program[0]', false)}"
                                 type='text' id='help_program' placeholder='Program Bantuan'>
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.help_program[0]', false) }}</div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='description'> Deskripsi Kondisi: </label>
+                            <textarea
+                                v-model='description'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.description[0]', false)}"
+                                type='text' id='description' placeholder='Deskripsi Kondisi'></textarea>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.description[0]', false) }}</div>
                         </div>
 
                         <div class="text-right">
@@ -263,6 +273,7 @@ export default {
             occupation: null,
             asnaf: null,
             help_program: null,
+            description: null,
         }
     },
 
@@ -285,7 +296,9 @@ export default {
                 phone: this.phone,
                 occupation: this.occupation,
                 asnaf: this.asnaf,
+                asnaf: this.asnaf,
                 help_program: this.help_program,
+                description: this.description,
             }
         }
     },

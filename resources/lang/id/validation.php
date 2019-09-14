@@ -158,5 +158,6 @@ return [
         'age' => 'usia',
         'name' => 'nama',
         'phone' => 'nomor telefon',
+        'description' => 'deskripsi kondisi',
     ],
 ];

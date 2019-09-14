@@ -37,6 +37,7 @@ class Mustahiq extends Model
         "asnaf",
         "help_program",
         "collector_id",
+        "description",
     ];
 
     public function collector()
