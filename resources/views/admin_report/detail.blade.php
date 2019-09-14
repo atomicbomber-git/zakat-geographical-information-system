@@ -9,6 +9,9 @@
     <h1 class='mb-5'>
         <i class='fa fa-money'></i>
         Detail Laporan Penerimaan Zakat
+        <p class="lead">
+            {{ $collector->name }}
+        </p>
     </h1>
 
     @include('shared.alert.success')

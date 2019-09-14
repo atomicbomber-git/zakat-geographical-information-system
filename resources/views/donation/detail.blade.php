@@ -4,7 +4,10 @@
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-list'></i>
-        Detail Pemberian Zakat '{{ $collector->name }}''
+        Detail Pemberian Zakat
+        <p class="lead">
+            {{ $collector->name }}
+        </p>
     </h1>
 
     @include('shared.alert.success')

@@ -15,8 +15,8 @@ class MustahiqController extends Controller
             ->select(
                 "id", "name", "nik", "address",
                 "kecamatan", "kelurahan", "phone", "gender",
-                "occupation", "asnaf", "help_program" ,
-                "collector_id", "age", "description"
+                "occupation", "asnaf", "help_program",
+                "collector_id", "age", "description",
             )
             ->whereHas("collector", function (Builder $query) {
                 $query->where("id", Auth::user()->collector->id);
