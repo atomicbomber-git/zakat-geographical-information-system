@@ -58,7 +58,7 @@ class MuzakkiController extends Controller
             'kelurahan' => 'required|string',
             'phone' => 'required|string',
             'gender' => ['required', Rule::in('l', 'p')],
-            'npwz' => 'required|string|unique:muzakkis',
+            'npwz' => 'nullable|string',
             'occupation' => 'required|string',
         ]);
 
@@ -101,7 +101,7 @@ class MuzakkiController extends Controller
             'phone' => 'required|string',
             'occupation' => 'required|string',
             'gender' => ['required', Rule::in('l', 'p')],
-            'npwz' => ['required', 'string', Rule::unique('muzakkis')->ignore($muzakki->id)],
+            'npwz' => ['nullable', 'string'],
         ]);
 
         $muzakki->update($data);
