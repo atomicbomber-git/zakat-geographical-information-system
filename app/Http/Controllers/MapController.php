@@ -38,8 +38,7 @@ class MapController extends Controller
             ->values()
             ->groupBy("kecamatan");
 
-        $collector = Auth::user()
-            ->collector;
+        $collector = Auth::user()->collector ?? null;
 
         return view('map.show',
             compact('collector', 'collectors', "kecamatans", "can_see_muzakkis")
