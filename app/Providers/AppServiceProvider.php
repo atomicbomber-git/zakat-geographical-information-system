@@ -31,9 +31,16 @@ class AppServiceProvider extends ServiceProvider
 
     private function getInformations()
     {
-        return Information::query()
-            ->select("id", "name")
-            ->orderBy("name")
-            ->get();
+        try {
+            $infomation = Information::query()
+                ->select("id", "name")
+                ->orderBy("name")
+                ->get();
+
+            return $infomation;
+        }
+        catch (\Exception $exception) {
+            return null;
+        }
     }
 }

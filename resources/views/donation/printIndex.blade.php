@@ -30,7 +30,7 @@
                     <th> # </th>
                     <th> UPZ</th>
                     <th> NPWZ </th>
-                    <th> Pemberian </th>
+                    <th> Pendistribusian </th>
                 </tr>
             </thead>
             <tbody>

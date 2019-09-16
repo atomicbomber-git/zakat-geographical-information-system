@@ -13,7 +13,7 @@
                     values: data.map(record => parseFloat(record.donation / 1000000) )
                 },
                 {
-                    name: 'Pemberian',
+                    name: 'Pendistribusian',
                     values: data.map(record => parseFloat(record.report / 1000000) )
                 },
             ]"

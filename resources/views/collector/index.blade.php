@@ -44,7 +44,7 @@
                 </button>
 
                 <button formaction="{{ route('donation.printIndex') }}" class="btn btn-dark btn-sm">
-                    Cetak Laporan Pemberian
+                    Cetak Laporan Pendistribusian
                     <i class="fa fa-print"></i>
                 </button>
             </form>
@@ -71,7 +71,7 @@
         </div>
         <div class="card-body">
             <div class="alert alert-info">
-                <strong> Menampilkan laporan pemberian dan penerimaan zakat untuk tahun {{ $year }} </strong>
+                <strong> Menampilkan laporan Pendistribusian dan penerimaan zakat untuk tahun {{ $year }} </strong>
 
                 <form class="form-inline mt-2 mb-4" method="GET">
                     <label for="year" class="mr-2"> Ubah ke Tahun Lain: </label>
@@ -95,7 +95,7 @@
                         <th> Nama Pengguna </th>
                         <th class="text-center"> UPZ </th>
                         <th class="text-right"> Total Penerimaan </th>
-                        <th class="text-right"> Total Pemberian </th>
+                        <th class="text-right"> Total Pendistribusian </th>
                         <th> NPWZ </th>
                         <th class="text-center"> Aksi </th>
                     </tr>
@@ -125,7 +125,7 @@
                                 </a>
 
                                 <a href="{{ route('donation.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm">
-                                    Pemberian
+                                    Pendistribusian
                                 </a>
                             </div>
 
