@@ -127,6 +127,20 @@
                         </div>
 
                         <div class='form-group'>
+                            <label for='nomor_kk'> Nomor KK: </label>
+                            <input
+                                v-model='nomor_kk'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.nomor_kk[0]', false)}"
+                                type='text'
+                                id='nomor_kk'
+                                placeholder='Nomor KK'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.nomor_kk[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
                             <label for='age'> Usia: </label>
                             <input
                                 v-model.number='age'
@@ -200,16 +214,6 @@
                         </div>
 
                         <div class='form-group'>
-                            <label for='help_program'> Program Bantuan: </label>
-                            <input
-                                v-model='help_program'
-                                class='form-control'
-                                :class="{'is-invalid': get(this.error_data, 'errors.help_program[0]', false)}"
-                                type='text' id='help_program' placeholder='Program Bantuan'>
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.help_program[0]', false) }}</div>
-                        </div>
-
-                        <div class='form-group'>
                             <label for='description'> Deskripsi Kondisi: </label>
                             <textarea
                                 v-model='description'
@@ -272,7 +276,7 @@ export default {
             phone: null,
             occupation: null,
             asnaf: null,
-            help_program: null,
+            nomor_kk: null,
             description: null,
         }
     },
@@ -297,7 +301,7 @@ export default {
                 occupation: this.occupation,
                 asnaf: this.asnaf,
                 asnaf: this.asnaf,
-                help_program: this.help_program,
+                nomor_kk: this.nomor_kk,
                 description: this.description,
             }
         }

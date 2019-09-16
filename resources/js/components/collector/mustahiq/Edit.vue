@@ -145,6 +145,20 @@
                             >{{ get(this.error_data, 'errors.nik[0]', false) }}</div>
                         </div>
 
+                        <div class='form-group'>
+                            <label for='nomor_kk'> Nomor KK: </label>
+                            <input
+                                v-model='nomor_kk'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.nomor_kk[0]', false)}"
+                                type='text'
+                                id='nomor_kk'
+                                placeholder='Nomor KK'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.nomor_kk[0]', false) }}
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="age">Usia:</label>
                             <input
@@ -248,21 +262,6 @@
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.asnaf[0]', false) }}</div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="help_program">Program Bantuan:</label>
-                            <input
-                                v-model="help_program"
-                                class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.help_program[0]', false)}"
-                                type="text"
-                                id="help_program"
-                                placeholder="Program Bantuan"
-                            >
-                            <div
-                                class="invalid-feedback"
-                            >{{ get(this.error_data, 'errors.help_program[0]', false) }}</div>
-                        </div>
-
                         <div class='form-group'>
                             <label for='description'> Deskripsi Kondisi: </label>
                             <textarea
@@ -328,7 +327,7 @@ export default {
             phone: this.mustahiq.phone,
             occupation: this.mustahiq.occupation,
             asnaf: this.mustahiq.asnaf,
-            help_program: this.mustahiq.help_program,
+            nomor_kk: this.mustahiq.nomor_kk,
             description: this.mustahiq.description,
         };
     },
@@ -352,7 +351,7 @@ export default {
                 phone: this.phone,
                 occupation: this.occupation,
                 asnaf: this.asnaf,
-                help_program: this.help_program,
+                nomor_kk: this.nomor_kk,
                 description: this.description,
             };
         }

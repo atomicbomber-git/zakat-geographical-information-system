@@ -153,7 +153,7 @@ return [
         'address' => 'alamat',
         'picture' => 'foto',
         'occupation' => 'pekerjaan',
-        'help_program' => 'program bantuan',
+        'nomor_kk' => 'nomor kk',
         'nik' => 'NIK',
         'age' => 'usia',
         'name' => 'nama',

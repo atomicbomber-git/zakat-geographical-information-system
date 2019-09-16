@@ -35,6 +35,7 @@
                         <tr>
                             <th> Nama </th>
                             <th> NIK </th>
+                            <th> Nomor KK </th>
                             <th> Usia </th>
                             <th> Alamat </th>
                             <th> Telepon </th>
@@ -42,7 +43,6 @@
                             <th> Pekerjaan </th>
                             <th> Asnaf </th>
                             <th> Deskripsi Kondisi </th>
-                            <th> P. Bantuan </th>
                             <th class="text-center"> Aksi </th>
                         </tr>
                     </thead>
@@ -51,6 +51,7 @@
                         <tr>
                             <td> {{ $mustahiq->name }} </td>
                             <td> {{ $mustahiq->nik }} </td>
+                            <td> {{ $mustahiq->nomor_kk }} </td>
                             <td> {{ $mustahiq->age }} </td>
                             <td>
                                 {{ $mustahiq->address }},
@@ -62,7 +63,6 @@
                             <td> {{ $mustahiq->occupation }} </td>
                             <td> {{ $mustahiq->asnaf }} </td>
                             <td> {{ $mustahiq->description }} </td>
-                            <td> {{ $mustahiq->help_program }} </td>
                             <td class="text-center">
                                 @can("update", $mustahiq)
                                 <a href="{{ route("collector.mustahiq.edit", $mustahiq) }}" class="btn btn-dark btn-sm">

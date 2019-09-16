@@ -35,7 +35,7 @@ class Mustahiq extends Model
         "gender",
         "occupation",
         "asnaf",
-        "help_program",
+        "nomor_kk",
         "collector_id",
         "description",
     ];
