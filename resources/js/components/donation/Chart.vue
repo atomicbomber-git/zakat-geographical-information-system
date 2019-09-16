@@ -3,7 +3,7 @@
         <div class="card-body">
             <donation-base-chart
                 name='chart'
-                title='Perkembangan Jumlah Nominal Pemberian Zakat (Dalam Jutaan Rupiah)'
+                title='Perkembangan Jumlah Nominal Pendistribusian Zakat (Dalam Jutaan Rupiah)'
                 :data="donations"/>
         </div>
     </div>

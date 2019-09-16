@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             <i class="fa fa-plus"></i>
-            Tambah Pemberian Zakat
+            Tambah Pendistribusian Zakat
         </div>
 
         <div class="card-body">
@@ -39,7 +39,7 @@
 
                 <div class="text-right">
                     <button class="btn btn-primary">
-                        Tambah Pemberian Zakat
+                        Tambah Pendistribusian Zakat
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>

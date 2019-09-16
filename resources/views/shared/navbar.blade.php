@@ -49,7 +49,7 @@
                         <div class='dropdown-menu' aria-labelledby='collector'>
                             <a class='dropdown-item' href='{{ route('collector.donation.index') }}'>
                                 <i class='fa fa-arrow-up'></i>
-                                Pemberian Zakat
+                                Pendistribusian Zakat
                             </a>
 
                             <a class='dropdown-item' href='{{ route('collector.receivement.index') }}'>

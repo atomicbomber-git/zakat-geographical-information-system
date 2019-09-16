@@ -1,10 +1,10 @@
 @extends('shared.layout')
-@section('title', 'Sunting Pemberian Zakat')
+@section('title', 'Sunting Pendistribusian Zakat')
 @section('content')
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-pencil'></i>
-        Sunting Pemberian Zakat
+        Sunting Pendistribusian Zakat
     </h1>
 
     @include('shared.alert.success')
@@ -12,8 +12,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item active"> <a href="{{ route('collector.donation.index') }}"> Pemberian Zakat </a> </li>
-            <li class="breadcrumb-item active"> Sunting Pemberian Zakat </li>
+            <li class="breadcrumb-item active"> <a href="{{ route('collector.donation.index') }}"> Pendistribusian Zakat </a> </li>
+            <li class="breadcrumb-item active"> Sunting Pendistribusian Zakat </li>
         </ol>
     </nav>
 

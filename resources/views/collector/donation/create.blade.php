@@ -1,10 +1,10 @@
 @extends('shared.layout')
-@section('title', 'Tambah Pemberian Zakat')
+@section('title', 'Tambah Pendistribusian Zakat')
 @section('content')
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-plus'></i>
-        Tambah Pemberian Zakat
+        Tambah Pendistribusian Zakat
     </h1>
 
     @include('shared.alert.success')
@@ -12,8 +12,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item active"> <a href="{{ route('collector.donation.index') }}"> Pemberian Zakat </a> </li>
-            <li class="breadcrumb-item active"> Tambah Pemberian Zakat </li>
+            <li class="breadcrumb-item active"> <a href="{{ route('collector.donation.index') }}"> Pendistribusian Zakat </a> </li>
+            <li class="breadcrumb-item active"> Tambah Pendistribusian Zakat </li>
         </ol>
     </nav>
 

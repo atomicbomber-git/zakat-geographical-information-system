@@ -1,10 +1,10 @@
 @extends('shared.layout')
-@section('title', 'Pemberian Zakat')
+@section('title', 'Pendistribusian Zakat')
 @section('content')
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-arrow-up'></i>
-        Pemberian Zakat
+        Pendistribusian Zakat
     </h1>
 
     @include('shared.alert.success')
@@ -12,7 +12,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item active"> Pemberian Zakat </li>
+            <li class="breadcrumb-item active"> Pendistribusian Zakat </li>
         </ol>
     </nav>
 
@@ -41,12 +41,12 @@
     <div class="card">
         <div class="card-header">
             <i class="fa fa-arrow-up"></i>
-            Pemberian Zakat
+            Pendistribusian Zakat
         </div>
         <div class="card-body">
 
             <div class="alert alert-info">
-                <strong> Menampilkan laporan pemberian zakat untuk tahun {{ $year }} </strong>
+                <strong> Menampilkan laporan pendistribusian zakat untuk tahun {{ $year }} </strong>
 
                 <form class="form-inline mt-2 mb-4" method="GET">
                     <label for="year" class="mr-2"> Ubah ke Tahun Lain: </label>

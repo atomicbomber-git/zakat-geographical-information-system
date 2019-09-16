@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> Laporan Pemberian Zakat Tahun {{ $year }} </title>
+    <title> Laporan Pendistribusian Zakat Tahun {{ $year }} </title>
     <link rel="stylesheet" href="{{ asset('css/paper.css') }}">
     <style>@page { size: A4 }</style>
     <style>
@@ -22,8 +22,8 @@
 </head>
 <body class="A4">
     <section class="sheet padding-10mm">
-        <h1 style="text-align: center"> LAPORAN PEMBERIAN ZAKAT TAHUN {{ $year }} </h1>
-        
+        <h1 style="text-align: center"> LAPORAN PENDISTRIBUSIAN ZAKAT TAHUN {{ $year }} </h1>
+
         <table>
             <thead>
                 <tr>
@@ -50,7 +50,7 @@
                 </tr>
             </tbody>
         </table>
-    
+
     </section>
 </body>
 </html>

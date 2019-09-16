@@ -1,10 +1,10 @@
 @extends('shared.layout')
-@section('title', "Detail Pemberian Zakat UPZ '$collector->name'")
+@section('title', "Detail Pendistribusian Zakat UPZ '$collector->name'")
 @section('content')
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-list'></i>
-        Detail Pemberian Zakat
+        Detail Pendistribusian Zakat
         <p class="lead">
             {{ $collector->name }}
         </p>
@@ -16,9 +16,9 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('collector.index', compact('year')) }}"> Pemberian Zakat </a>
+                <a href="{{ route('collector.index', compact('year')) }}"> Pendistribusian Zakat </a>
             </li>
-            <li class="breadcrumb-item active"> Detail Pemberian Zakat </li>
+            <li class="breadcrumb-item active"> Detail Pendistribusian Zakat </li>
         </ol>
     </nav>
 
@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-header">
             <i class="fa fa-list"></i>
-            Detail Pemberian Zakat
+            Detail Pendistribusian Zakat
         </div>
 
         <div class="card-body">

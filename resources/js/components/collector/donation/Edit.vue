@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             <i class="fa fa-pencil"></i>
-            Sunting Pemberian Zakat
+            Sunting Pendistribusian Zakat
         </div>
 
         <div class="card-body">

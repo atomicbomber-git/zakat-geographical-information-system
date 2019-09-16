@@ -56,7 +56,7 @@
             <div class="card-body">
                 <collector-chart
                     name="collector_chart"
-                    title="Perkembangan Jumlah Nominal Laporan Penerimaan dan Pemberian Zakat (Dalam Jutaan Rupiah)"
+                    title="Perkembangan Jumlah Nominal Laporan Penerimaan dan Pendistribusian Zakat (Dalam Jutaan Rupiah)"
                     :data='{{ json_encode($chart_data) }}'
                 >
                 </collector-chart>
