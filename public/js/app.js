@@ -101067,6 +101067,91 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -101090,6 +101175,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             address: "",
             kelurahan: "",
             kecamatan: "",
+
+            penasehat: "",
+            ketua: "",
+            sekretaris: "",
+            bendahara: "",
+            anggota_1: "",
+            anggota_2: "",
+
             admin_name: "",
             username: "",
             password: "",
@@ -101115,6 +101208,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 address: this.address,
                 kecamatan: this.kecamatan,
                 kelurahan: this.kelurahan,
+                penasehat: this.penasehat,
+                ketua: this.ketua,
+                sekretaris: this.sekretaris,
+                bendahara: this.bendahara,
+                anggota_1: this.anggota_1,
+                anggota_2: this.anggota_2,
                 admin_name: this.admin_name,
                 username: this.username,
                 password: this.password,
@@ -101206,7 +101305,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col" }, [
+    _c("div", { staticClass: "col-md-7" }, [
       _c("div", { staticClass: "card" }, [
         _vm._m(0),
         _vm._v(" "),
@@ -101311,7 +101410,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "col-5" }, [
+    _c("div", { staticClass: "col-md-5 mb-3" }, [
       _c("div", { staticClass: "card" }, [
         _vm._m(1),
         _vm._v(" "),
@@ -101687,6 +101786,294 @@ var render = function() {
                       attrs: { for: "picture" }
                     },
                     [_vm._v(" " + _vm._s(this.picture) + " ")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "penasehat" } }, [
+                  _vm._v(" Penasehat: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.penasehat,
+                      expression: "penasehat"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.penasehat[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "penasehat",
+                    placeholder: "Penasehat"
+                  },
+                  domProps: { value: _vm.penasehat },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.penasehat = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    "\n                             " +
+                      _vm._s(
+                        _vm.get(this.error_data, "errors.penasehat[0]", false)
+                      ) +
+                      "\n                        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "ketua" } }, [_vm._v(" Ketua: ")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.ketua,
+                      expression: "ketua"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.ketua[0]",
+                      false
+                    )
+                  },
+                  attrs: { type: "text", id: "ketua", placeholder: "Ketua" },
+                  domProps: { value: _vm.ketua },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.ketua = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    "\n                             " +
+                      _vm._s(
+                        _vm.get(this.error_data, "errors.ketua[0]", false)
+                      ) +
+                      "\n                        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "sekretaris" } }, [
+                  _vm._v(" Sekretaris: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sekretaris,
+                      expression: "sekretaris"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.sekretaris[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "sekretaris",
+                    placeholder: "Sekretaris"
+                  },
+                  domProps: { value: _vm.sekretaris },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.sekretaris = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    "\n                             " +
+                      _vm._s(
+                        _vm.get(this.error_data, "errors.sekretaris[0]", false)
+                      ) +
+                      "\n                        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "bendahara" } }, [
+                  _vm._v(" Bendahara: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.bendahara,
+                      expression: "bendahara"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.bendahara[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "bendahara",
+                    placeholder: "Bendahara"
+                  },
+                  domProps: { value: _vm.bendahara },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.bendahara = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    "\n                             " +
+                      _vm._s(
+                        _vm.get(this.error_data, "errors.bendahara[0]", false)
+                      ) +
+                      "\n                        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "anggota_1" } }, [
+                  _vm._v(" Anggota: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.anggota_1,
+                      expression: "anggota_1"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.anggota_1[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "anggota_1",
+                    placeholder: "Anggota"
+                  },
+                  domProps: { value: _vm.anggota_1 },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.anggota_1 = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    "\n                             " +
+                      _vm._s(
+                        _vm.get(this.error_data, "errors.anggota_1[0]", false)
+                      ) +
+                      "\n                        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "anggota_2" } }, [
+                  _vm._v(" Anggota: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.anggota_2,
+                      expression: "anggota_2"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.anggota_2[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "anggota_2",
+                    placeholder: "Anggota"
+                  },
+                  domProps: { value: _vm.anggota_2 },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.anggota_2 = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    "\n                             " +
+                      _vm._s(
+                        _vm.get(this.error_data, "errors.anggota_2[0]", false)
+                      ) +
+                      "\n                        "
                   )
                 ])
               ]),

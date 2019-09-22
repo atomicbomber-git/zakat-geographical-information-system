@@ -83,6 +83,12 @@ class CollectorController extends Controller
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
+            'penasehat' => 'required|string',
+            'ketua' => 'required|string',
+            'sekretaris' => 'required|string',
+            'bendahara' => 'required|string',
+            'anggota_1' => 'nullable|string',
+            'anggota_2' => 'nullable|string',
             'collector_name' => 'required|string',
             'reg_number' => 'required|string|unique:collectors',
             'admin_name' => 'required|string', // User real name
@@ -109,6 +115,26 @@ class CollectorController extends Controller
                 'name' => $data['collector_name'],
                 'reg_number' => $data['reg_number'],
             ]);
+
+            collect([
+                "penasehat",
+                "ketua",
+                "sekretaris",
+                "bendahara",
+                "anggota_1",
+                "anggota_2",
+            ])
+            ->each(function ($field) use($data, $collector) {
+                if (empty($data[$field])) {
+                    return;
+                }
+
+                $collector->members()
+                    ->create([
+                        "position" => $field,
+                        "name" => $data[$field],
+                    ]);
+            });
 
             $collector->addMediaFromRequest('picture')->toMediaCollection('images');
         });
@@ -144,6 +170,12 @@ class CollectorController extends Controller
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
+            'penasehat' => 'required|string',
+            'ketua' => 'required|string',
+            'sekretaris' => 'required|string',
+            'bendahara' => 'required|string',
+            'anggota_1' => 'nullable|string',
+            'anggota_2' => 'nullable|string',
             'collector_name' => 'required|string',
             'reg_number' => ['required', 'string', Rule::unique('collectors')->ignore($collector->id)],
             'admin_name' => 'required|string', // User real name
@@ -173,6 +205,12 @@ class CollectorController extends Controller
                 'address' => $data['address'],
                 'name' => $data['collector_name'],
                 'reg_number' => $data['reg_number'],
+                'penasehat' => $data['penasehat'],
+                'ketua' => $data['ketua'],
+                'sekretaris' => $data['sekretaris'],
+                'bendahara' => $data['bendahara'],
+                'anggota_1' => $data['anggota_1'],
+                'anggota_2' => $data['anggota_2'],
             ]);
 
             // A picture replacement was uploaded

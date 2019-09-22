@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col">
+        <div class="col-md-7">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-map"></i>
@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <div class="col-5">
+        <div class="col-md-5 mb-3">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-plus"></i>
@@ -137,6 +137,91 @@
                             </div>
                         </div>
 
+                        <div class='form-group'>
+                            <label for='penasehat'> Penasehat: </label>
+                            <input
+                                v-model='penasehat'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.penasehat[0]', false)}"
+                                type='text'
+                                id='penasehat'
+                                placeholder='Penasehat'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.penasehat[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='ketua'> Ketua: </label>
+                            <input
+                                v-model='ketua'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.ketua[0]', false)}"
+                                type='text'
+                                id='ketua'
+                                placeholder='Ketua'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.ketua[0]', false) }}
+                            </div>
+                        </div>
+
+                        <!-- Sekretaris -->
+                        <div class='form-group'>
+                            <label for='sekretaris'> Sekretaris: </label>
+                            <input
+                                v-model='sekretaris'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.sekretaris[0]', false)}"
+                                type='text'
+                                id='sekretaris'
+                                placeholder='Sekretaris'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.sekretaris[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='bendahara'> Bendahara: </label>
+                            <input
+                                v-model='bendahara'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.bendahara[0]', false)}"
+                                type='text'
+                                id='bendahara'
+                                placeholder='Bendahara'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.bendahara[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='anggota_1'> Anggota: </label>
+                            <input
+                                v-model='anggota_1'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.anggota_1[0]', false)}"
+                                type='text'
+                                id='anggota_1'
+                                placeholder='Anggota'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.anggota_1[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='anggota_2'> Anggota: </label>
+                            <input
+                                v-model='anggota_2'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.anggota_2[0]', false)}"
+                                type='text'
+                                id='anggota_2'
+                                placeholder='Anggota'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.anggota_2[0]', false) }}
+                            </div>
+                        </div>
+
                         <h3 class="mt-4"> Data Akun Administrator </h3>
                         <hr>
 
@@ -220,6 +305,14 @@
                 address: "",
                 kelurahan: "",
                 kecamatan: "",
+
+                penasehat: "",
+                ketua: "",
+                sekretaris: "",
+                bendahara: "",
+                anggota_1: "",
+                anggota_2: "",
+
                 admin_name: "",
                 username: "",
                 password: "",
@@ -244,6 +337,12 @@
                     address: this.address,
                     kecamatan: this.kecamatan,
                     kelurahan: this.kelurahan,
+                    penasehat: this.penasehat,
+                    ketua: this.ketua,
+                    sekretaris: this.sekretaris,
+                    bendahara: this.bendahara,
+                    anggota_1: this.anggota_1,
+                    anggota_2: this.anggota_2,
                     admin_name: this.admin_name,
                     username: this.username,
                     password: this.password,
