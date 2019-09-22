@@ -17,7 +17,7 @@ class CollectorController extends Controller
         $available_years = $this->getReportAndDonationAvailableYears();
         $year = request('year') ?? ($available_years->first() ?? now()->format('Y'));
 
-        $collectors = Collector::select('name', 'user_id', 'npwz', 'id')
+        $collectors = Collector::select('name', 'user_id', 'reg_number', 'id')
             ->with('user:id,name,username')
             ->selectSub(
                 Donation::query()
@@ -84,7 +84,7 @@ class CollectorController extends Controller
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
             'collector_name' => 'required|string',
-            'npwz' => 'required|string|unique:collectors',
+            'reg_number' => 'required|string|unique:collectors',
             'admin_name' => 'required|string', // User real name
             'username' => 'required|string|alpha_dash|unique:users', // User login name
             'password' => 'required|string|min:8|confirmed',
@@ -107,7 +107,7 @@ class CollectorController extends Controller
                 'kelurahan' => $data['kelurahan'],
                 'address' => $data['address'],
                 'name' => $data['collector_name'],
-                'npwz' => $data['npwz'],
+                'reg_number' => $data['reg_number'],
             ]);
 
             $collector->addMediaFromRequest('picture')->toMediaCollection('images');
@@ -145,7 +145,7 @@ class CollectorController extends Controller
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
             'collector_name' => 'required|string',
-            'npwz' => ['required', 'string', Rule::unique('collectors')->ignore($collector->id)],
+            'reg_number' => ['required', 'string', Rule::unique('collectors')->ignore($collector->id)],
             'admin_name' => 'required|string', // User real name
             'username' => ['required', 'string', Rule::unique('users')->ignore($collector->user->id)], // User login name
             'password' => 'sometimes|nullable|string|min:8|confirmed',
@@ -172,7 +172,7 @@ class CollectorController extends Controller
                 'kelurahan' => $data['kelurahan'],
                 'address' => $data['address'],
                 'name' => $data['collector_name'],
-                'npwz' => $data['npwz'],
+                'reg_number' => $data['reg_number'],
             ]);
 
             // A picture replacement was uploaded

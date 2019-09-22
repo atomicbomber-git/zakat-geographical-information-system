@@ -44,16 +44,16 @@
                     <dl>
                         <dt> Nama UPZ </dt>
                         <dd> {{ $collector->name }} </dd>
-    
-                        <dt> NPWZ </dt>
-                        <dd> {{ $collector->npwz }} </dd>
-    
+
+                        <dt> Nomor Registrasi </dt>
+                        <dd> {{ $collector->reg_number }} </dd>
+
                         <dt> Alamat </dt>
                         <dd> {{ $collector->address }} </dd>
-    
+
                         <dt> Kecamatan </dt>
                         <dd> {{ $collector->kecamatan }} </dd>
-    
+
                         <dt> Kelurahan </dt>
                         <dd> {{ $collector->kelurahan }} </dd>
 
@@ -123,7 +123,7 @@
                             <th> Alamat </th>
                             <th> Telepon </th>
                             <th> J. Kelamin </th>
-                            <th> NPWZ </th>
+                            <th> Nomor Registrasi </th>
                         </tr>
                    </thead>
                    <tbody>
@@ -134,7 +134,7 @@
                             <td> {{ $muzakki->address }} </td>
                             <td> {{ $muzakki->phone }} </td>
                             <td> {{ Formatter::gender($muzakki->gender) }} </td>
-                            <td> {{ $muzakki->npwz }} </td>
+                            <td> {{ $muzakki->reg_number }} </td>
                         </tr>
                        @endforeach
                    </tbody>

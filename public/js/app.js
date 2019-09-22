@@ -50360,8 +50360,8 @@ Vue.component('receivement-detail-chart', __webpack_require__(258));
 Vue.component('collector-chart', __webpack_require__(263));
 Vue.component('donation-chart', __webpack_require__(266));
 Vue.component('donation-detail-chart', __webpack_require__(269));
-Vue.component('collector-create', __webpack_require__(274));
-Vue.component('collector-edit', __webpack_require__(277));
+Vue.component('collector-create', __webpack_require__(322));
+Vue.component('collector-edit', __webpack_require__(325));
 Vue.component('collector-donation-create', __webpack_require__(280));
 Vue.component('collector-donation-edit', __webpack_require__(284));
 Vue.component('collector-receivement-create', __webpack_require__(287));
@@ -92667,2247 +92667,12 @@ if (false) {
 }
 
 /***/ }),
-/* 274 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(275)
-/* template */
-var __vue_template__ = __webpack_require__(276)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/collector/Create.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0f90cfae", Component.options)
-  } else {
-    hotAPI.reload("data-v-0f90cfae", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 275 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["submit_url", "redirect_url", "collectors", "config"],
-
-    mounted: function mounted() {
-        var _this = this;
-
-        this.$refs.mapRef.$mapPromise.then(function (map) {
-            _this.geocoder = new google.maps.Geocoder();
-        });
-    },
-    data: function data() {
-        return {
-            icon_url: window.icon_url,
-            pointer_marker: this.config.center,
-            collector_name: "",
-            npwz: "",
-            address: "",
-            kelurahan: "",
-            kecamatan: "",
-            admin_name: "",
-            username: "",
-            password: "",
-            password_confirmation: "",
-            picture: "",
-            error_data: null,
-            m_collectors: this.collectors.map(function (collector) {
-                return _extends({}, collector, {
-                    isInfoWindowOpen: false
-                });
-            })
-        };
-    },
-
-
-    computed: {
-        form_data: function form_data() {
-            return {
-                latitude: this.pointer_marker.lat,
-                longitude: this.pointer_marker.lng,
-                collector_name: this.collector_name,
-                npwz: this.npwz,
-                address: this.address,
-                kecamatan: this.kecamatan,
-                kelurahan: this.kelurahan,
-                admin_name: this.admin_name,
-                username: this.username,
-                password: this.password,
-                password_confirmation: this.password_confirmation
-            };
-        }
-    },
-
-    methods: {
-        get: __WEBPACK_IMPORTED_MODULE_1_lodash__["get"],
-
-        moveMarker: function moveMarker(e) {
-            this.pointer_marker = {
-                lat: e.latLng.lat(),
-                lng: e.latLng.lng()
-            };
-        },
-
-        changeFile: function changeFile(event) {
-            this.picture = event.target.value;
-        },
-        onMarkerClick: function onMarkerClick(collector) {
-            this.m_collectors = this.m_collectors.map(function (c) {
-                if (c.id == collector.id) {
-                    return _extends({}, c, { isInfoWindowOpen: true });
-                }
-
-                return _extends({}, c, { isInfoWindowOpen: false });
-            });
-        },
-        onFormSubmit: function onFormSubmit() {
-            var _this2 = this;
-
-            var data = new FormData();
-
-            var keys = Object.keys(this.form_data);
-            for (var i = 0; i < keys.length; ++i) {
-                data.append(keys[i], this.form_data[keys[i]]);
-            }
-
-            data.append('picture', this.$refs.picture.files[0]);
-
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(this.submit_url, data, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            }).then(function (response) {
-                window.location.replace(_this2.redirect_url);
-            }).catch(function (error) {
-                _this2.error_data = error.response.data;
-            });
-        }
-    },
-
-    watch: {
-        pointer_marker: function pointer_marker() {
-            var _this3 = this;
-
-            this.geocoder.geocode({ location: this.pointer_marker }, function (results, status) {
-                if (status == "OK") {
-                    var first_result = results[0];
-
-                    _this3.address = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(first_result, "formatted_address", "-");
-
-                    if (first_result.address_components !== null) {
-                        var kelurahan_component = first_result.address_components.find(function (component) {
-                            return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
-                        });
-                        _this3.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kelurahan_component, "long_name", "-");
-
-                        var kecamatan_component = first_result.address_components.find(function (component) {
-                            return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
-                        });
-                        _this3.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kecamatan_component, "long_name", "-");
-                    }
-                    return;
-                }
-
-                console.error({ results: results, status: status });
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 276 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "card" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c(
-            "div",
-            { attrs: { id: "app" } },
-            [
-              _c(
-                "GmapMap",
-                {
-                  ref: "mapRef",
-                  staticStyle: { width: "100%", height: "640px" },
-                  attrs: {
-                    center: { lat: -0.02633, lng: 109.342504 },
-                    zoom: 14,
-                    "map-type-id": "terrain"
-                  },
-                  on: { click: _vm.moveMarker }
-                },
-                [
-                  _vm.pointer_marker
-                    ? _c("GmapMarker", {
-                        attrs: { position: _vm.pointer_marker, clickable: true }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm._l(_vm.m_collectors, function(collector) {
-                    return _c(
-                      "span",
-                      { key: collector.id },
-                      [
-                        _c("GmapMarker", {
-                          attrs: {
-                            position: {
-                              lat: collector.latitude,
-                              lng: collector.longitude
-                            },
-                            icon: "/png/mosque.png"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.onMarkerClick(collector)
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "GmapInfoWindow",
-                          {
-                            attrs: {
-                              position: {
-                                lat: collector.latitude,
-                                lng: collector.longitude
-                              },
-                              opened: collector.isInfoWindowOpen
-                            },
-                            on: {
-                              closeclick: function($event) {
-                                collector.isInfoWindowOpen = false
-                              }
-                            }
-                          },
-                          [
-                            _c("div", { staticClass: "card" }, [
-                              _c("img", {
-                                staticClass: "card-img-top",
-                                staticStyle: {
-                                  width: "14rem",
-                                  height: "14rem",
-                                  "object-fit": "cover"
-                                },
-                                attrs: {
-                                  src: collector.imageUrl,
-                                  alt: "Card image cap"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-body" }, [
-                                _c("h5", { staticClass: "card-title" }, [
-                                  _vm._v(" " + _vm._s(collector.name) + " ")
-                                ]),
-                                _vm._v(" "),
-                                _c("p", { staticClass: "card-text" }, [
-                                  _vm._v(" " + _vm._s(collector.address) + " ")
-                                ])
-                              ])
-                            ])
-                          ]
-                        )
-                      ],
-                      1
-                    )
-                  })
-                ],
-                2
-              )
-            ],
-            1
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-5" }, [
-      _c("div", { staticClass: "card" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.onFormSubmit($event)
-                }
-              }
-            },
-            [
-              _c("h3", [_vm._v(" Data Unit Pengumpulan Zakat ")]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-row" }, [
-                _c("div", { staticClass: "form-group col-md-6" }, [
-                  _c("label", { attrs: { for: "latitude" } }, [
-                    _vm._v(" Latitude: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model.number",
-                        value: _vm.pointer_marker.lat,
-                        expression: "pointer_marker.lat",
-                        modifiers: { number: true }
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      step: "any",
-                      type: "number",
-                      id: "latitude",
-                      placeholder: "Latitude"
-                    },
-                    domProps: { value: _vm.pointer_marker.lat },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.pointer_marker,
-                          "lat",
-                          _vm._n($event.target.value)
-                        )
-                      },
-                      blur: function($event) {
-                        return _vm.$forceUpdate()
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group col-md-6" }, [
-                  _c("label", { attrs: { for: "longitude" } }, [
-                    _vm._v(" Longitude: ")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model.number",
-                        value: _vm.pointer_marker.lng,
-                        expression: "pointer_marker.lng",
-                        modifiers: { number: true }
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      step: "any",
-                      type: "number",
-                      id: "longitude",
-                      placeholder: "Longitude"
-                    },
-                    domProps: { value: _vm.pointer_marker.lng },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.pointer_marker,
-                          "lng",
-                          _vm._n($event.target.value)
-                        )
-                      },
-                      blur: function($event) {
-                        return _vm.$forceUpdate()
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "collector_name" } }, [
-                  _vm._v(" Nama Lokasi: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.collector_name,
-                      expression: "collector_name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.collector_name[0]",
-                      false
-                    )
-                  },
-                  attrs: {
-                    type: "text",
-                    id: "collector_name",
-                    placeholder: "Nama lokasi"
-                  },
-                  domProps: { value: _vm.collector_name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.collector_name = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.get(
-                        this.error_data,
-                        "errors.collector_name[0]",
-                        false
-                      )
-                    )
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "npwz" } }, [_vm._v(" NPWZ: ")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.npwz,
-                      expression: "npwz"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.npwz[0]",
-                      false
-                    )
-                  },
-                  attrs: { type: "text", id: "npwz", placeholder: "NPWZ" },
-                  domProps: { value: _vm.npwz },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.npwz = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(_vm.get(this.error_data, "errors.npwz[0]", false))
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "address" } }, [
-                  _vm._v(" Alamat: ")
-                ]),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.address,
-                      expression: "address"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.address[0]",
-                      false
-                    )
-                  },
-                  attrs: {
-                    type: "text",
-                    id: "address",
-                    placeholder: "Alamat lokasi"
-                  },
-                  domProps: { value: _vm.address },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.address = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(_vm.get(this.error_data, "errors.address[0]", false))
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "kecamatan" } }, [
-                  _vm._v(" Kecamatan: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.kecamatan,
-                      expression: "kecamatan"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.kecamatan[0]",
-                      false
-                    )
-                  },
-                  attrs: {
-                    type: "text",
-                    id: "kecamatan",
-                    placeholder: "Kecamatan"
-                  },
-                  domProps: { value: _vm.kecamatan },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.kecamatan = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.get(this.error_data, "errors.kecamatan[0]", false)
-                    )
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "kelurahan" } }, [
-                  _vm._v(" Kelurahan: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.kelurahan,
-                      expression: "kelurahan"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.kelurahan[0]",
-                      false
-                    )
-                  },
-                  attrs: {
-                    type: "text",
-                    id: "kelurahan",
-                    placeholder: "Kelurahan"
-                  },
-                  domProps: { value: _vm.kelurahan },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.kelurahan = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.get(this.error_data, "errors.kelurahan[0]", false)
-                    )
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "picture" } }, [
-                  _vm._v(" Foto UPZ: ")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-file" }, [
-                  _c("input", {
-                    ref: "picture",
-                    staticClass: "custom-file-input",
-                    class: {
-                      "is-invalid": _vm.get(
-                        this.error_data,
-                        "errors.picture[0]",
-                        false
-                      )
-                    },
-                    attrs: { type: "file", id: "picture" },
-                    on: { change: _vm.changeFile }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "invalid-feedback" }, [
-                    _vm._v(
-                      _vm._s(
-                        _vm.get(this.error_data, "errors.picture[0]", false)
-                      )
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-file-label",
-                      attrs: { for: "picture" }
-                    },
-                    [_vm._v(" " + _vm._s(this.picture) + " ")]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("h3", { staticClass: "mt-4" }, [
-                _vm._v(" Data Akun Administrator ")
-              ]),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "admin_name" } }, [
-                  _vm._v(" Nama Administrator: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.admin_name,
-                      expression: "admin_name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.admin_name[0]",
-                      false
-                    )
-                  },
-                  attrs: {
-                    type: "text",
-                    id: "admin_name",
-                    placeholder: "Nama Administrator"
-                  },
-                  domProps: { value: _vm.admin_name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.admin_name = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.get(this.error_data, "errors.admin_name[0]", false)
-                    )
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "username" } }, [
-                  _vm._v(" Nama Pengguna: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.username,
-                      expression: "username"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.username[0]",
-                      false
-                    )
-                  },
-                  attrs: {
-                    type: "text",
-                    id: "username",
-                    placeholder: "Nama Pengguna"
-                  },
-                  domProps: { value: _vm.username },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.username = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.get(this.error_data, "errors.username[0]", false)
-                    )
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "password" } }, [
-                  _vm._v(" Kata Sandi: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.password,
-                      expression: "password"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.password[0]",
-                      false
-                    )
-                  },
-                  attrs: {
-                    type: "password",
-                    id: "password",
-                    placeholder: "Kata Sandi"
-                  },
-                  domProps: { value: _vm.password },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.password = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.get(this.error_data, "errors.password[0]", false)
-                    )
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "password_confirmation" } }, [
-                  _vm._v(" Ulangi Kata Sandi: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.password_confirmation,
-                      expression: "password_confirmation"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.password_confirmation[0]",
-                      false
-                    )
-                  },
-                  attrs: {
-                    type: "password",
-                    id: "password_confirmation",
-                    placeholder: "Ulangi Kata Sandi"
-                  },
-                  domProps: { value: _vm.password_confirmation },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.password_confirmation = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.get(
-                        this.error_data,
-                        "errors.password_confirmation[0]",
-                        false
-                      )
-                    )
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(2)
-            ]
-          )
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("i", { staticClass: "fa fa-map" }),
-      _vm._v(
-        "\n                Peta Lokasi Unit Pengumpulan Zakat\n            "
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("i", { staticClass: "fa fa-plus" }),
-      _vm._v("\n                Tambahkan Unit Pengumpulan Zakat\n            ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-right" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v(
-          "\n                            Tambahkan\n                            "
-        ),
-        _c("i", { staticClass: "fa fa-plus" })
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-0f90cfae", module.exports)
-  }
-}
-
-/***/ }),
-/* 277 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(278)
-/* template */
-var __vue_template__ = __webpack_require__(279)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/collector/Edit.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-db0c6112", Component.options)
-  } else {
-    hotAPI.reload("data-v-db0c6112", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 278 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        var _this = this;
-
-        this.$refs.mapRef.$mapPromise.then(function (map) {
-            // Load Geocoder Service
-            _this.geocoder = new google.maps.Geocoder();
-        });
-    },
-    data: function data() {
-        return {
-            icon_url: window.icon_url,
-
-            map: {
-                center_lat: window.collector.latitude,
-                center_lng: window.collector.longitude
-            },
-
-            pointer_marker: {
-                lat: window.collector.latitude,
-                lng: window.collector.longitude
-            },
-
-            collector_name: window.collector.name,
-            npwz: window.collector.npwz,
-            address: window.collector.address,
-            kecamatan: window.collector.kecamatan,
-            kelurahan: window.collector.kelurahan,
-
-            user_name: window.collector.user.name,
-            username: window.collector.user.username,
-            password: "",
-            password_confirmation: "",
-            picture: "",
-
-            error_data: null,
-
-            collectors: window.collectors.map(function (collector) {
-                return _extends({}, collector, {
-                    isInfoWindowOpen: false
-                });
-            })
-        };
-    },
-
-
-    computed: {
-        form_data: function form_data() {
-            return {
-                latitude: this.pointer_marker.lat,
-                longitude: this.pointer_marker.lng,
-                collector_name: this.collector_name,
-                npwz: this.npwz,
-                address: this.address,
-                kecamatan: this.kecamatan,
-                kelurahan: this.kelurahan,
-                user_name: this.user_name,
-                username: this.username,
-                password: this.password,
-                password_confirmation: this.password_confirmation
-            };
-        }
-    },
-
-    watch: {
-        pointer_marker: function pointer_marker() {
-            var _this2 = this;
-
-            this.geocoder.geocode({ location: this.pointer_marker }, function (results, status) {
-                if (status == "OK") {
-                    var first_result = results[0];
-
-                    _this2.address = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(first_result, "formatted_address", "-");
-
-                    if (first_result.address_components !== null) {
-                        var kelurahan_component = first_result.address_components.find(function (component) {
-                            return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
-                        });
-                        _this2.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kelurahan_component, "long_name", "-");
-
-                        var kecamatan_component = first_result.address_components.find(function (component) {
-                            return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
-                        });
-                        _this2.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kecamatan_component, "long_name", "-");
-                    }
-                    return;
-                }
-
-                console.error({ results: results, status: status });
-            });
-        }
-    },
-
-    methods: {
-        get: __WEBPACK_IMPORTED_MODULE_1_lodash__["get"],
-
-        moveMarker: function moveMarker(e) {
-            this.pointer_marker = {
-                lat: e.latLng.lat(),
-                lng: e.latLng.lng()
-            };
-        },
-
-        onMarkerClick: function onMarkerClick(collector) {
-            this.collectors = this.collectors.map(function (c) {
-                if (c.id == collector.id) {
-                    return _extends({}, c, { isInfoWindowOpen: true });
-                }
-
-                return _extends({}, c, { isInfoWindowOpen: false });
-            });
-        },
-
-
-        submitForm: function submitForm(e) {
-            var _this3 = this;
-
-            e.preventDefault();
-
-            // Prepare data for submitting
-            var data = new FormData();
-            var form_data_keys = Object.keys(this.form_data);
-
-            for (var i = 0; i < form_data_keys.length; ++i) {
-                data.append(form_data_keys[i], this.form_data[form_data_keys[i]]);
-            }
-
-            if (this.$refs.picture.files.length > 0) {
-                data.append('picture', this.$refs.picture.files[0]);
-            }
-
-            // Submit data
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(window.submit_url, data, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
-                if (response.data.redirect) {
-                    window.location.replace(response.data.redirect);
-                }
-            }).catch(function (error) {
-                _this3.error_data = error.response.data;
-            });
-        },
-
-        changeFile: function changeFile(e) {
-            this.picture = e.target.value;
-        }
-    }
-});
-
-/***/ }),
-/* 279 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "card" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "card-body p-0" },
-          [
-            _c(
-              "GmapMap",
-              {
-                ref: "mapRef",
-                staticStyle: { width: "100%", height: "640px" },
-                attrs: {
-                  center: {
-                    lat: this.map.center_lat,
-                    lng: this.map.center_lng
-                  },
-                  zoom: 14,
-                  "map-type-id": "terrain"
-                },
-                on: { click: _vm.moveMarker }
-              },
-              [
-                _vm.pointer_marker
-                  ? _c("GmapMarker", {
-                      attrs: { position: _vm.pointer_marker, clickable: true }
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm._l(_vm.collectors, function(collector) {
-                  return _c(
-                    "span",
-                    { key: collector.id },
-                    [
-                      _c("GmapMarker", {
-                        attrs: {
-                          position: {
-                            lat: collector.latitude,
-                            lng: collector.longitude
-                          },
-                          icon:
-                            collector.id == this.collector.id
-                              ? "/png/mosque_red.png"
-                              : "/png/mosque.png"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.onMarkerClick(collector)
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "GmapInfoWindow",
-                        {
-                          attrs: {
-                            position: {
-                              lat: collector.latitude,
-                              lng: collector.longitude
-                            },
-                            opened: collector.isInfoWindowOpen
-                          },
-                          on: {
-                            closeclick: function($event) {
-                              collector.isInfoWindowOpen = false
-                            }
-                          }
-                        },
-                        [
-                          _c("div", [
-                            _c("div", { staticClass: "card" }, [
-                              _c("img", {
-                                staticClass: "card-img-top",
-                                staticStyle: {
-                                  width: "14rem",
-                                  height: "14rem",
-                                  "object-fit": "cover"
-                                },
-                                attrs: {
-                                  src: collector.image_url,
-                                  alt: "Card image cap"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-body" }, [
-                                _c("h5", { staticClass: "card-title" }, [
-                                  _vm._v(" " + _vm._s(collector.name) + " ")
-                                ]),
-                                _vm._v(" "),
-                                _c("p", { staticClass: "card-text" }, [
-                                  _vm._v(" " + _vm._s(collector.address) + " ")
-                                ])
-                              ])
-                            ])
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                })
-              ],
-              2
-            )
-          ],
-          1
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-5" }, [
-      _c("div", { staticClass: "card" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("form", { on: { submit: _vm.submitForm } }, [
-            _c("h3", [_vm._v(" Data Unit Pengumpulan Zakat ")]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-6" }, [
-                _c("label", { attrs: { for: "latitude" } }, [
-                  _vm._v(" Latitude: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.pointer_marker.lat,
-                      expression: "pointer_marker.lat",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    step: "any",
-                    type: "number",
-                    id: "latitude",
-                    placeholder: "Latitude"
-                  },
-                  domProps: { value: _vm.pointer_marker.lat },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.pointer_marker,
-                        "lat",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-6" }, [
-                _c("label", { attrs: { for: "longitude" } }, [
-                  _vm._v(" Longitude: ")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.pointer_marker.lng,
-                      expression: "pointer_marker.lng",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    step: "any",
-                    type: "number",
-                    id: "longitude",
-                    placeholder: "Longitude"
-                  },
-                  domProps: { value: _vm.pointer_marker.lng },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.pointer_marker,
-                        "lng",
-                        _vm._n($event.target.value)
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "collector_name" } }, [
-                _vm._v(" Nama Lokasi: ")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.collector_name,
-                    expression: "collector_name"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.collector_name[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  type: "text",
-                  id: "collector_name",
-                  placeholder: "Nama lokasi"
-                },
-                domProps: { value: _vm.collector_name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.collector_name = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(
-                    _vm.get(this.error_data, "errors.collector_name[0]", false)
-                  )
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "npwz" } }, [_vm._v(" NPWZ: ")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.npwz,
-                    expression: "npwz"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.npwz[0]",
-                    false
-                  )
-                },
-                attrs: { type: "text", id: "npwz", placeholder: "Nama lokasi" },
-                domProps: { value: _vm.npwz },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.npwz = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.npwz[0]", false))
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "address" } }, [_vm._v(" Alamat: ")]),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.address,
-                    expression: "address"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.address[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  type: "text",
-                  id: "address",
-                  placeholder: "Alamat lokasi"
-                },
-                domProps: { value: _vm.address },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.address = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.address[0]", false))
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "kecamatan" } }, [
-                _vm._v(" Kecamatan: ")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.kecamatan,
-                    expression: "kecamatan"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.kecamatan[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  type: "text",
-                  id: "kecamatan",
-                  placeholder: "Kecamatan"
-                },
-                domProps: { value: _vm.kecamatan },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.kecamatan = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.kecamatan[0]", false))
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "kelurahan" } }, [
-                _vm._v(" Kelurahan: ")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.kelurahan,
-                    expression: "kelurahan"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.kelurahan[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  type: "text",
-                  id: "kelurahan",
-                  placeholder: "Kelurahan"
-                },
-                domProps: { value: _vm.kelurahan },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.kelurahan = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.kelurahan[0]", false))
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "picture" } }, [
-                _vm._v(" Foto UPZ: ")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "custom-file" }, [
-                _c("input", {
-                  ref: "picture",
-                  staticClass: "custom-file-input",
-                  class: {
-                    "is-invalid": _vm.get(
-                      this.error_data,
-                      "errors.picture[0]",
-                      false
-                    )
-                  },
-                  attrs: { type: "file", id: "picture" },
-                  on: { change: _vm.changeFile }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "invalid-feedback" }, [
-                  _vm._v(
-                    _vm._s(_vm.get(this.error_data, "errors.picture[0]", false))
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "custom-file-label",
-                    attrs: { for: "picture" }
-                  },
-                  [_vm._v(" " + _vm._s(this.picture) + " ")]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("h3", { staticClass: "mt-4" }, [
-              _vm._v(" Data Akun Administrator ")
-            ]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "user_name" } }, [
-                _vm._v(" Nama Administrator: ")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.user_name,
-                    expression: "user_name"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.user_name[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  type: "text",
-                  id: "user_name",
-                  placeholder: "Nama Administrator"
-                },
-                domProps: { value: _vm.user_name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.user_name = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.user_name[0]", false))
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "username" } }, [
-                _vm._v(" Nama Pengguna: ")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.username,
-                    expression: "username"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.username[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  type: "text",
-                  id: "username",
-                  placeholder: "Nama Pengguna"
-                },
-                domProps: { value: _vm.username },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.username = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.username[0]", false))
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "password" } }, [
-                _vm._v(" Kata Sandi: ")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.password,
-                    expression: "password"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.password[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  type: "password",
-                  id: "password",
-                  placeholder: "Kata Sandi"
-                },
-                domProps: { value: _vm.password },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.password = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.password[0]", false))
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "password_confirmation" } }, [
-                _vm._v(" Ulangi Kata Sandi: ")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.password_confirmation,
-                    expression: "password_confirmation"
-                  }
-                ],
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.password_confirmation[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  type: "password",
-                  id: "password_confirmation",
-                  placeholder: "Ulangi Kata Sandi"
-                },
-                domProps: { value: _vm.password_confirmation },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.password_confirmation = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(
-                    _vm.get(
-                      this.error_data,
-                      "errors.password_confirmation[0]",
-                      false
-                    )
-                  )
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _vm._m(2)
-          ])
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("i", { staticClass: "fa fa-map" }),
-      _vm._v(
-        "\n                Peta Lokasi Unit Pengumpulan Zakat\n            "
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("i", { staticClass: "fa fa-pencil" }),
-      _vm._v(
-        "\n                Sunting Data Unit Pengumpulan Zakat\n            "
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-right" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v(
-          "\n                            Perbarui Data\n                            "
-        ),
-        _c("i", { staticClass: "fa fa-check" })
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-db0c6112", module.exports)
-  }
-}
-
-/***/ }),
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
 /* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -103036,6 +100801,2138 @@ __WEBPACK_IMPORTED_MODULE_0_numeral___default.a.locale('id');
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(323)
+/* template */
+var __vue_template__ = __webpack_require__(324)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/CollectorCreate.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1e642864", Component.options)
+  } else {
+    hotAPI.reload("data-v-1e642864", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 323 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ["submit_url", "redirect_url", "collectors", "config"],
+
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$refs.mapRef.$mapPromise.then(function (map) {
+            _this.geocoder = new google.maps.Geocoder();
+        });
+    },
+    data: function data() {
+        return {
+            icon_url: window.icon_url,
+            pointer_marker: this.config.center,
+            collector_name: "",
+            reg_number: "",
+            address: "",
+            kelurahan: "",
+            kecamatan: "",
+            admin_name: "",
+            username: "",
+            password: "",
+            password_confirmation: "",
+            picture: "",
+            error_data: null,
+            m_collectors: this.collectors.map(function (collector) {
+                return _extends({}, collector, {
+                    isInfoWindowOpen: false
+                });
+            })
+        };
+    },
+
+
+    computed: {
+        form_data: function form_data() {
+            return {
+                latitude: this.pointer_marker.lat,
+                longitude: this.pointer_marker.lng,
+                collector_name: this.collector_name,
+                reg_number: this.reg_number,
+                address: this.address,
+                kecamatan: this.kecamatan,
+                kelurahan: this.kelurahan,
+                admin_name: this.admin_name,
+                username: this.username,
+                password: this.password,
+                password_confirmation: this.password_confirmation
+            };
+        }
+    },
+
+    methods: {
+        get: __WEBPACK_IMPORTED_MODULE_1_lodash__["get"],
+
+        moveMarker: function moveMarker(e) {
+            this.pointer_marker = {
+                lat: e.latLng.lat(),
+                lng: e.latLng.lng()
+            };
+        },
+
+        changeFile: function changeFile(event) {
+            this.picture = event.target.value;
+        },
+        onMarkerClick: function onMarkerClick(collector) {
+            this.m_collectors = this.m_collectors.map(function (c) {
+                if (c.id == collector.id) {
+                    return _extends({}, c, { isInfoWindowOpen: true });
+                }
+
+                return _extends({}, c, { isInfoWindowOpen: false });
+            });
+        },
+        onFormSubmit: function onFormSubmit() {
+            var _this2 = this;
+
+            var data = new FormData();
+
+            var keys = Object.keys(this.form_data);
+            for (var i = 0; i < keys.length; ++i) {
+                data.append(keys[i], this.form_data[keys[i]]);
+            }
+
+            data.append('picture', this.$refs.picture.files[0]);
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(this.submit_url, data, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            }).then(function (response) {
+                window.location.replace(_this2.redirect_url);
+            }).catch(function (error) {
+                _this2.error_data = error.response.data;
+            });
+        }
+    },
+
+    watch: {
+        pointer_marker: function pointer_marker() {
+            var _this3 = this;
+
+            this.geocoder.geocode({ location: this.pointer_marker }, function (results, status) {
+                if (status == "OK") {
+                    var first_result = results[0];
+
+                    _this3.address = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(first_result, "formatted_address", "-");
+
+                    if (first_result.address_components !== null) {
+                        var kelurahan_component = first_result.address_components.find(function (component) {
+                            return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
+                        });
+                        _this3.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kelurahan_component, "long_name", "-");
+
+                        var kecamatan_component = first_result.address_components.find(function (component) {
+                            return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
+                        });
+                        _this3.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kecamatan_component, "long_name", "-");
+                    }
+                    return;
+                }
+
+                console.error({ results: results, status: status });
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 324 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col" }, [
+      _c("div", { staticClass: "card" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "div",
+            { attrs: { id: "app" } },
+            [
+              _c(
+                "GmapMap",
+                {
+                  ref: "mapRef",
+                  staticStyle: { width: "100%", height: "640px" },
+                  attrs: {
+                    center: { lat: -0.02633, lng: 109.342504 },
+                    zoom: 14,
+                    "map-type-id": "terrain"
+                  },
+                  on: { click: _vm.moveMarker }
+                },
+                [
+                  _vm.pointer_marker
+                    ? _c("GmapMarker", {
+                        attrs: { position: _vm.pointer_marker, clickable: true }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.m_collectors, function(collector) {
+                    return _c(
+                      "span",
+                      { key: collector.id },
+                      [
+                        _c("GmapMarker", {
+                          attrs: {
+                            position: {
+                              lat: collector.latitude,
+                              lng: collector.longitude
+                            },
+                            icon: "/png/mosque.png"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.onMarkerClick(collector)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "GmapInfoWindow",
+                          {
+                            attrs: {
+                              position: {
+                                lat: collector.latitude,
+                                lng: collector.longitude
+                              },
+                              opened: collector.isInfoWindowOpen
+                            },
+                            on: {
+                              closeclick: function($event) {
+                                collector.isInfoWindowOpen = false
+                              }
+                            }
+                          },
+                          [
+                            _c("div", { staticClass: "card" }, [
+                              _c("img", {
+                                staticClass: "card-img-top",
+                                staticStyle: {
+                                  width: "14rem",
+                                  height: "14rem",
+                                  "object-fit": "cover"
+                                },
+                                attrs: {
+                                  src: collector.imageUrl,
+                                  alt: "Card image cap"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "card-body" }, [
+                                _c("h5", { staticClass: "card-title" }, [
+                                  _vm._v(" " + _vm._s(collector.name) + " ")
+                                ]),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "card-text" }, [
+                                  _vm._v(" " + _vm._s(collector.address) + " ")
+                                ])
+                              ])
+                            ])
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  })
+                ],
+                2
+              )
+            ],
+            1
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-5" }, [
+      _c("div", { staticClass: "card" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.onFormSubmit($event)
+                }
+              }
+            },
+            [
+              _c("h3", [_vm._v(" Data Unit Pengumpulan Zakat ")]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-row" }, [
+                _c("div", { staticClass: "form-group col-md-6" }, [
+                  _c("label", { attrs: { for: "latitude" } }, [
+                    _vm._v(" Latitude: ")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model.number",
+                        value: _vm.pointer_marker.lat,
+                        expression: "pointer_marker.lat",
+                        modifiers: { number: true }
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      step: "any",
+                      type: "number",
+                      id: "latitude",
+                      placeholder: "Latitude"
+                    },
+                    domProps: { value: _vm.pointer_marker.lat },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.pointer_marker,
+                          "lat",
+                          _vm._n($event.target.value)
+                        )
+                      },
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-6" }, [
+                  _c("label", { attrs: { for: "longitude" } }, [
+                    _vm._v(" Longitude: ")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model.number",
+                        value: _vm.pointer_marker.lng,
+                        expression: "pointer_marker.lng",
+                        modifiers: { number: true }
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      step: "any",
+                      type: "number",
+                      id: "longitude",
+                      placeholder: "Longitude"
+                    },
+                    domProps: { value: _vm.pointer_marker.lng },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.pointer_marker,
+                          "lng",
+                          _vm._n($event.target.value)
+                        )
+                      },
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "reg_number" } }, [
+                  _vm._v(" Nomor Registrasi: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.reg_number,
+                      expression: "reg_number"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.reg_number[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "reg_number",
+                    placeholder: "Nomor Registrasi"
+                  },
+                  domProps: { value: _vm.reg_number },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.reg_number = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.get(this.error_data, "errors.reg_number[0]", false)
+                    )
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "collector_name" } }, [
+                  _vm._v(" Nama Lokasi: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.collector_name,
+                      expression: "collector_name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.collector_name[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "collector_name",
+                    placeholder: "Nama lokasi"
+                  },
+                  domProps: { value: _vm.collector_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.collector_name = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.get(
+                        this.error_data,
+                        "errors.collector_name[0]",
+                        false
+                      )
+                    )
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "address" } }, [
+                  _vm._v(" Alamat: ")
+                ]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.address,
+                      expression: "address"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.address[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "address",
+                    placeholder: "Alamat lokasi"
+                  },
+                  domProps: { value: _vm.address },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.address = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(_vm.get(this.error_data, "errors.address[0]", false))
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "kecamatan" } }, [
+                  _vm._v(" Kecamatan: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.kecamatan,
+                      expression: "kecamatan"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.kecamatan[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "kecamatan",
+                    placeholder: "Kecamatan"
+                  },
+                  domProps: { value: _vm.kecamatan },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.kecamatan = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.get(this.error_data, "errors.kecamatan[0]", false)
+                    )
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "kelurahan" } }, [
+                  _vm._v(" Kelurahan: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.kelurahan,
+                      expression: "kelurahan"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.kelurahan[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "kelurahan",
+                    placeholder: "Kelurahan"
+                  },
+                  domProps: { value: _vm.kelurahan },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.kelurahan = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.get(this.error_data, "errors.kelurahan[0]", false)
+                    )
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "picture" } }, [
+                  _vm._v(" Foto UPZ: ")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-file" }, [
+                  _c("input", {
+                    ref: "picture",
+                    staticClass: "custom-file-input",
+                    class: {
+                      "is-invalid": _vm.get(
+                        this.error_data,
+                        "errors.picture[0]",
+                        false
+                      )
+                    },
+                    attrs: { type: "file", id: "picture" },
+                    on: { change: _vm.changeFile }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(
+                      _vm._s(
+                        _vm.get(this.error_data, "errors.picture[0]", false)
+                      )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-file-label",
+                      attrs: { for: "picture" }
+                    },
+                    [_vm._v(" " + _vm._s(this.picture) + " ")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("h3", { staticClass: "mt-4" }, [
+                _vm._v(" Data Akun Administrator ")
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "admin_name" } }, [
+                  _vm._v(" Nama Administrator: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.admin_name,
+                      expression: "admin_name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.admin_name[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "admin_name",
+                    placeholder: "Nama Administrator"
+                  },
+                  domProps: { value: _vm.admin_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.admin_name = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.get(this.error_data, "errors.admin_name[0]", false)
+                    )
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "username" } }, [
+                  _vm._v(" Nama Pengguna: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.username,
+                      expression: "username"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.username[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "text",
+                    id: "username",
+                    placeholder: "Nama Pengguna"
+                  },
+                  domProps: { value: _vm.username },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.username = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.get(this.error_data, "errors.username[0]", false)
+                    )
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "password" } }, [
+                  _vm._v(" Kata Sandi: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.password,
+                      expression: "password"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.password[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "password",
+                    id: "password",
+                    placeholder: "Kata Sandi"
+                  },
+                  domProps: { value: _vm.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.password = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.get(this.error_data, "errors.password[0]", false)
+                    )
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "password_confirmation" } }, [
+                  _vm._v(" Ulangi Kata Sandi: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.password_confirmation,
+                      expression: "password_confirmation"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.password_confirmation[0]",
+                      false
+                    )
+                  },
+                  attrs: {
+                    type: "password",
+                    id: "password_confirmation",
+                    placeholder: "Ulangi Kata Sandi"
+                  },
+                  domProps: { value: _vm.password_confirmation },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.password_confirmation = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.get(
+                        this.error_data,
+                        "errors.password_confirmation[0]",
+                        false
+                      )
+                    )
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(2)
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fa fa-map" }),
+      _vm._v(
+        "\n                Peta Lokasi Unit Pengumpulan Zakat\n            "
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fa fa-plus" }),
+      _vm._v("\n                Tambahkan Unit Pengumpulan Zakat\n            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-right" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v(
+          "\n                            Tambahkan\n                            "
+        ),
+        _c("i", { staticClass: "fa fa-plus" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1e642864", module.exports)
+  }
+}
+
+/***/ }),
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(326)
+/* template */
+var __vue_template__ = __webpack_require__(327)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/CollectorEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-036ac85c", Component.options)
+  } else {
+    hotAPI.reload("data-v-036ac85c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 326 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {},
+    data: function data() {
+        return {
+            icon_url: window.icon_url,
+
+            map: {
+                center_lat: window.collector.latitude,
+                center_lng: window.collector.longitude
+            },
+
+            pointer_marker: {
+                lat: window.collector.latitude,
+                lng: window.collector.longitude
+            },
+
+            collector_name: window.collector.name,
+            reg_number: window.collector.reg_number,
+            address: window.collector.address,
+
+            user_name: window.collector.user.name,
+            username: window.collector.user.username,
+            password: "",
+            password_confirmation: "",
+            picture: "",
+
+            error_data: null,
+
+            collectors: window.collectors.map(function (collector) {
+                return _extends({}, collector, {
+                    isInfoWindowOpen: false
+                });
+            })
+        };
+    },
+
+
+    computed: {
+        form_data: function form_data() {
+            return {
+                latitude: this.pointer_marker.lat,
+                longitude: this.pointer_marker.lng,
+                collector_name: this.collector_name,
+                reg_number: this.reg_number,
+                address: this.address,
+                user_name: this.user_name,
+                username: this.username,
+                password: this.password,
+                password_confirmation: this.password_confirmation
+            };
+        }
+    },
+
+    methods: {
+        get: __WEBPACK_IMPORTED_MODULE_1_lodash__["get"],
+
+        moveMarker: function moveMarker(e) {
+            this.pointer_marker = {
+                lat: e.latLng.lat(),
+                lng: e.latLng.lng()
+            };
+        },
+
+        onMarkerClick: function onMarkerClick(collector) {
+            this.collectors = this.collectors.map(function (c) {
+                if (c.id == collector.id) {
+                    return _extends({}, c, { isInfoWindowOpen: true });
+                }
+
+                return _extends({}, c, { isInfoWindowOpen: false });
+            });
+        },
+
+
+        submitForm: function submitForm(e) {
+            var _this = this;
+
+            e.preventDefault();
+
+            // Prepare data for submitting
+            var data = new FormData();
+            var form_data_keys = Object.keys(this.form_data);
+
+            for (var i = 0; i < form_data_keys.length; ++i) {
+                data.append(form_data_keys[i], this.form_data[form_data_keys[i]]);
+            }
+
+            if (this.$refs.picture.files.length > 0) {
+                data.append('picture', this.$refs.picture.files[0]);
+            }
+
+            // Submit data
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(window.submit_url, data, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
+                if (response.data.redirect) {
+                    window.location.replace(response.data.redirect);
+                }
+            }).catch(function (error) {
+                _this.error_data = error.response.data;
+            });
+        },
+
+        changeFile: function changeFile(e) {
+            this.picture = e.target.value;
+        },
+
+
+        deleteCollector: function deleteCollector(collector_id) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/collector/delete/' + collector_id).then(function (response) {
+                if (response.data.redirect) {
+                    window.location.replace(response.data.redirect);
+                }
+            }).catch(function (error) {
+                alert("Something wrong happened.");
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col" }, [
+      _c("div", { staticClass: "card" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "div",
+            { attrs: { id: "app" } },
+            [
+              _c(
+                "GmapMap",
+                {
+                  staticStyle: { width: "100%", height: "640px" },
+                  attrs: {
+                    center: {
+                      lat: this.map.center_lat,
+                      lng: this.map.center_lng
+                    },
+                    zoom: 14,
+                    "map-type-id": "terrain"
+                  },
+                  on: { click: _vm.moveMarker }
+                },
+                [
+                  _vm.pointer_marker
+                    ? _c("GmapMarker", {
+                        attrs: { position: _vm.pointer_marker, clickable: true }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.collectors, function(collector) {
+                    return _c(
+                      "span",
+                      { key: collector.id },
+                      [
+                        _c("GmapMarker", {
+                          attrs: {
+                            position: {
+                              lat: collector.latitude,
+                              lng: collector.longitude
+                            },
+                            icon: "/png/location.png"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.onMarkerClick(collector)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "GmapInfoWindow",
+                          {
+                            attrs: {
+                              position: {
+                                lat: collector.latitude,
+                                lng: collector.longitude
+                              },
+                              opened: collector.isInfoWindowOpen
+                            },
+                            on: {
+                              closeclick: function($event) {
+                                collector.isInfoWindowOpen = false
+                              }
+                            }
+                          },
+                          [
+                            _c("div", [
+                              _c("div", { staticClass: "card" }, [
+                                _c("img", {
+                                  staticClass: "card-img-top",
+                                  staticStyle: {
+                                    width: "14rem",
+                                    height: "14rem",
+                                    "object-fit": "cover"
+                                  },
+                                  attrs: {
+                                    src: collector.imageUrl,
+                                    alt: "Card image cap"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "card-body" }, [
+                                  _c("h5", { staticClass: "card-title" }, [
+                                    _vm._v(" " + _vm._s(collector.name) + " ")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "card-text" }, [
+                                    _vm._v(
+                                      " " + _vm._s(collector.address) + " "
+                                    )
+                                  ])
+                                ])
+                              ])
+                            ])
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  })
+                ],
+                2
+              )
+            ],
+            1
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-5" }, [
+      _c("div", { staticClass: "card" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("form", { on: { submit: _vm.submitForm } }, [
+            _c("h3", [_vm._v(" Data Unit Pengumpulan Zakat ")]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "latitude" } }, [
+                  _vm._v(" Latitude: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.number",
+                      value: _vm.pointer_marker.lat,
+                      expression: "pointer_marker.lat",
+                      modifiers: { number: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    step: "any",
+                    type: "number",
+                    id: "latitude",
+                    placeholder: "Latitude"
+                  },
+                  domProps: { value: _vm.pointer_marker.lat },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.pointer_marker,
+                        "lat",
+                        _vm._n($event.target.value)
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { attrs: { for: "longitude" } }, [
+                  _vm._v(" Longitude: ")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.number",
+                      value: _vm.pointer_marker.lng,
+                      expression: "pointer_marker.lng",
+                      modifiers: { number: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    step: "any",
+                    type: "number",
+                    id: "longitude",
+                    placeholder: "Longitude"
+                  },
+                  domProps: { value: _vm.pointer_marker.lng },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.pointer_marker,
+                        "lng",
+                        _vm._n($event.target.value)
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "reg_number" } }, [
+                _vm._v(" Nomor Registrasi: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.reg_number,
+                    expression: "reg_number"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.reg_number[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "reg_number",
+                  placeholder: "Nama lokasi"
+                },
+                domProps: { value: _vm.reg_number },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.reg_number = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.get(this.error_data, "errors.reg_number[0]", false)
+                  )
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "collector_name" } }, [
+                _vm._v(" Nama Lokasi: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.collector_name,
+                    expression: "collector_name"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.collector_name[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "collector_name",
+                  placeholder: "Nama lokasi"
+                },
+                domProps: { value: _vm.collector_name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.collector_name = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.get(this.error_data, "errors.collector_name[0]", false)
+                  )
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "address" } }, [
+                _vm._v(" Alamat Lokasi: ")
+              ]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.address,
+                    expression: "address"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.address[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "address",
+                  placeholder: "Alamat lokasi"
+                },
+                domProps: { value: _vm.address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.address = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.address[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "picture" } }, [
+                _vm._v(" Foto UPZ: ")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "custom-file" }, [
+                _c("input", {
+                  ref: "picture",
+                  staticClass: "custom-file-input",
+                  class: {
+                    "is-invalid": _vm.get(
+                      this.error_data,
+                      "errors.picture[0]",
+                      false
+                    )
+                  },
+                  attrs: { type: "file", id: "picture" },
+                  on: { change: _vm.changeFile }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "invalid-feedback" }, [
+                  _vm._v(
+                    _vm._s(_vm.get(this.error_data, "errors.picture[0]", false))
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "custom-file-label",
+                    attrs: { for: "picture" }
+                  },
+                  [_vm._v(" " + _vm._s(this.picture) + " ")]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("h3", { staticClass: "mt-4" }, [
+              _vm._v(" Data Akun Administrator ")
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "user_name" } }, [
+                _vm._v(" Nama Administrator: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.user_name,
+                    expression: "user_name"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.user_name[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "user_name",
+                  placeholder: "Nama Administrator"
+                },
+                domProps: { value: _vm.user_name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.user_name = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.user_name[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "username" } }, [
+                _vm._v(" Nama Pengguna: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.username,
+                    expression: "username"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.username[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "text",
+                  id: "username",
+                  placeholder: "Nama Pengguna"
+                },
+                domProps: { value: _vm.username },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.username = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.username[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "password" } }, [
+                _vm._v(" Kata Sandi: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password,
+                    expression: "password"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.password[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "password",
+                  id: "password",
+                  placeholder: "Kata Sandi"
+                },
+                domProps: { value: _vm.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(_vm.get(this.error_data, "errors.password[0]", false))
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "password_confirmation" } }, [
+                _vm._v(" Ulangi Kata Sandi: ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password_confirmation,
+                    expression: "password_confirmation"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.get(
+                    this.error_data,
+                    "errors.password_confirmation[0]",
+                    false
+                  )
+                },
+                attrs: {
+                  type: "password",
+                  id: "password_confirmation",
+                  placeholder: "Ulangi Kata Sandi"
+                },
+                domProps: { value: _vm.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.password_confirmation = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.get(
+                      this.error_data,
+                      "errors.password_confirmation[0]",
+                      false
+                    )
+                  )
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(2)
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fa fa-map" }),
+      _vm._v(
+        "\n                Peta Lokasi Unit Pengumpulan Zakat\n            "
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fa fa-pencil" }),
+      _vm._v(
+        "\n                Sunting Data Unit Pengumpulan Zakat\n            "
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-right" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v(
+          "\n                            Perbarui Data\n                            "
+        ),
+        _c("i", { staticClass: "fa fa-check" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-036ac85c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

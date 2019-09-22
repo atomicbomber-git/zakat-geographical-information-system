@@ -6,46 +6,45 @@
                     <i class="fa fa-map"></i>
                     Peta Lokasi Unit Pengumpulan Zakat
                 </div>
-                <div class="card-body p-0">
-                    <GmapMap
-                        ref="mapRef"
-                        :center="{lat: this.map.center_lat, lng: this.map.center_lng}"
-                        :zoom="14"
-                        @click="moveMarker"
-                        map-type-id="terrain"
-                        style="width: 100%; height: 640px">
-
-                        <GmapMarker
-                            v-if="pointer_marker"
-                            :position="pointer_marker"
-                            :clickable="true"/>
-
-                        <span v-for="collector in collectors" :key="collector.id">
+                <div class="card-body">
+                    <div id="app">
+                        <GmapMap
+                            ref="mapRef"
+                            :center="{lat:-0.026330, lng:109.342504}"
+                            :zoom="14"
+                            @click="moveMarker"
+                            map-type-id="terrain"
+                            style="width: 100%; height: 640px">
 
                             <GmapMarker
-                                :position="{lat: collector.latitude, lng: collector.longitude}"
-                                :icon="collector.id == this.collector.id ? '/png/mosque_red.png' : '/png/mosque.png'"
-                                @click="onMarkerClick(collector)">
-                            </GmapMarker>
+                                v-if="pointer_marker"
+                                :position="pointer_marker"
+                                :clickable="true"
+                            />
 
-                            <GmapInfoWindow
-                                :position="{lat: collector.latitude, lng: collector.longitude}"
-                                :opened="collector.isInfoWindowOpen"
-                                @closeclick="collector.isInfoWindowOpen=false">
-                                <div>
+                            <span v-for="collector in m_collectors" :key="collector.id">
+
+                                <GmapMarker
+                                    :position="{lat: collector.latitude, lng: collector.longitude}"
+                                    icon="/png/mosque.png"
+                                    @click="onMarkerClick(collector)">
+                                </GmapMarker>
+
+                                <GmapInfoWindow
+                                    :position="{lat: collector.latitude, lng: collector.longitude}"
+                                    :opened="collector.isInfoWindowOpen"
+                                    @closeclick="collector.isInfoWindowOpen=false">
                                     <div class="card">
-                                        <img class="card-img-top" style="width: 14rem; height: 14rem; object-fit: cover" :src="collector.image_url" alt="Card image cap">
+                                        <img class="card-img-top" style="width: 14rem; height: 14rem; object-fit: cover" :src="collector.imageUrl" alt="Card image cap">
                                         <div class="card-body">
                                             <h5 class="card-title"> {{ collector.name }} </h5>
                                             <p class="card-text"> {{ collector.address }} </p>
                                         </div>
                                     </div>
-                                </div>
-                            </GmapInfoWindow>
-
-                        </span>
-
-                    </GmapMap>
+                                </GmapInfoWindow>
+                            </span>
+                        </GmapMap>
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,11 +52,11 @@
         <div class="col-5">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-pencil"></i>
-                    Sunting Data Unit Pengumpulan Zakat
+                    <i class="fa fa-plus"></i>
+                    Tambahkan Unit Pengumpulan Zakat
                 </div>
                 <div class="card-body">
-                    <form @submit="submitForm">
+                    <form @submit.prevent="onFormSubmit">
 
                         <h3> Data Unit Pengumpulan Zakat </h3>
                         <hr>
@@ -74,6 +73,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="reg_number"> Nomor Registrasi: </label>
+                            <input
+                                v-model="reg_number"
+                                class="form-control"
+                                :class="{'is-invalid': get(this.error_data, 'errors.reg_number[0]', false)}"
+                                type="text" id="reg_number" placeholder="Nomor Registrasi">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.reg_number[0]', false) }}</div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="collector_name"> Nama Lokasi: </label>
                             <input
                                 v-model="collector_name"
@@ -81,16 +90,6 @@
                                 :class="{'is-invalid': get(this.error_data, 'errors.collector_name[0]', false)}"
                                 type="text" id="collector_name" placeholder="Nama lokasi">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.collector_name[0]', false) }}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="npwz"> NPWZ: </label>
-                            <input
-                                v-model="npwz"
-                                class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.npwz[0]', false)}"
-                                type="text" id="npwz" placeholder="Nama lokasi">
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.npwz[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -142,13 +141,13 @@
                         <hr>
 
                         <div class="form-group">
-                            <label for="user_name"> Nama Administrator: </label>
+                            <label for="admin_name"> Nama Administrator: </label>
                             <input
-                                v-model="user_name"
+                                v-model="admin_name"
                                 class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.user_name[0]', false)}"
-                                type="text" id="user_name" placeholder="Nama Administrator">
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.user_name[0]', false) }}</div>
+                                :class="{'is-invalid': get(this.error_data, 'errors.admin_name[0]', false)}"
+                                type="text" id="admin_name" placeholder="Nama Administrator">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.admin_name[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -183,8 +182,8 @@
 
                         <div class="text-right">
                             <button class="btn btn-primary">
-                                Perbarui Data
-                                <i class="fa fa-check"></i>
+                                Tambahkan
+                                <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </form>
@@ -199,9 +198,15 @@
     import {get} from 'lodash'
 
     export default {
+        props: [
+            "submit_url",
+            "redirect_url",
+            "collectors",
+            "config",
+        ],
+
         mounted() {
             this.$refs.mapRef.$mapPromise.then(map => {
-                // Load Geocoder Service
                 this.geocoder = new google.maps.Geocoder;
             })
         },
@@ -209,37 +214,23 @@
         data() {
             return {
                 icon_url: window.icon_url,
-
-                map: {
-                    center_lat: window.collector.latitude,
-                    center_lng: window.collector.longitude,
-                },
-
-                pointer_marker: {
-                    lat: window.collector.latitude,
-                    lng: window.collector.longitude,
-                },
-
-                collector_name: window.collector.name,
-                npwz: window.collector.npwz,
-                address: window.collector.address,
-                kecamatan: window.collector.kecamatan,
-                kelurahan: window.collector.kelurahan,
-
-                user_name: window.collector.user.name,
-                username: window.collector.user.username,
+                pointer_marker: this.config.center,
+                collector_name: "",
+                reg_number: "",
+                address: "",
+                kelurahan: "",
+                kecamatan: "",
+                admin_name: "",
+                username: "",
                 password: "",
                 password_confirmation: "",
                 picture: "",
-
                 error_data: null,
-
-                collectors: window.collectors.map(collector => {
-                    return {
+                m_collectors: this.collectors
+                    .map(collector => ({
                         ...collector,
-                        isInfoWindowOpen: false
-                    }
-                })
+                        isInfoWindowOpen: false,
+                    }))
             }
         },
 
@@ -249,16 +240,62 @@
                     latitude: this.pointer_marker.lat,
                     longitude: this.pointer_marker.lng,
                     collector_name: this.collector_name,
-                    npwz: this.npwz,
+                    reg_number: this.reg_number,
                     address: this.address,
                     kecamatan: this.kecamatan,
                     kelurahan: this.kelurahan,
-                    user_name: this.user_name,
+                    admin_name: this.admin_name,
                     username: this.username,
                     password: this.password,
                     password_confirmation: this.password_confirmation
                 }
             }
+        },
+
+        methods: {
+            get: get,
+
+            moveMarker: function (e) {
+                this.pointer_marker = {
+                    lat: e.latLng.lat(),
+                    lng: e.latLng.lng(),
+                }
+            },
+
+            changeFile(event) {
+                this.picture = event.target.value
+            },
+
+            onMarkerClick(collector) {
+                this.m_collectors = this.m_collectors.map(c => {
+                    if (c.id == collector.id) {
+                        return {...c, isInfoWindowOpen: true}
+                    }
+
+                    return {...c, isInfoWindowOpen: false}
+                })
+            },
+
+            onFormSubmit() {
+                let data = new FormData()
+
+                let keys = Object.keys(this.form_data)
+                for (let i = 0; i < keys.length; ++i) {
+                    data.append(keys[i], this.form_data[keys[i]])
+                }
+
+                data.append('picture', this.$refs.picture.files[0])
+
+                axios.post(this.submit_url, data, {
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                    })
+                    .then(response => {
+                        window.location.replace(this.redirect_url)
+                    })
+                    .catch(error => {
+                        this.error_data = error.response.data
+                    })
+            },
         },
 
         watch: {
@@ -287,58 +324,6 @@
 
                     console.error({results, status})
                 })
-            }
-        },
-
-        methods: {
-            get: get,
-
-            moveMarker: function (e) {
-                this.pointer_marker = {
-                    lat: e.latLng.lat(),
-                    lng: e.latLng.lng()
-                }
-            },
-
-            onMarkerClick(collector) {
-                this.collectors = this.collectors.map(c => {
-                    if (c.id == collector.id) {
-                        return {...c, isInfoWindowOpen: true}
-                    }
-
-                    return {...c, isInfoWindowOpen: false}
-                })
-            },
-
-            submitForm: function (e) {
-                e.preventDefault()
-
-                // Prepare data for submitting
-                let data = new FormData()
-                let form_data_keys = Object.keys(this.form_data)
-
-                for (let i = 0; i < form_data_keys.length; ++i) {
-                    data.append(form_data_keys[i], this.form_data[form_data_keys[i]])
-                }
-
-                if (this.$refs.picture.files.length > 0) {
-                    data.append('picture', this.$refs.picture.files[0])
-                }
-
-                // Submit data
-                axios.post(window.submit_url, data, {headers: { 'Content-Type': 'multipart/form-data' }})
-                    .then(response => {
-                        if (response.data.redirect) {
-                            window.location.replace(response.data.redirect)
-                        }
-                    })
-                    .catch(error => {
-                        this.error_data = error.response.data
-                    })
-            },
-
-            changeFile(e) {
-                this.picture = e.target.value
             }
         }
     }

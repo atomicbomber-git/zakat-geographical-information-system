@@ -96,7 +96,7 @@
                         <th class="text-center"> UPZ </th>
                         <th class="text-right"> Total Penerimaan </th>
                         <th class="text-right"> Total Pemberian </th>
-                        <th> NPWZ </th>
+                        <th> Nomor Registrasi </th>
                         <th class="text-center"> Aksi </th>
                     </tr>
                 </thead>
@@ -117,7 +117,7 @@
                         </td>
                         <td class="text-right"> {{ number_format($collector->report_sum) }} </td>
                         <td class="text-right"> {{ number_format($collector->donation_sum) }} </td>
-                        <td> {{ $collector->npwz }} </td>
+                        <td> {{ $collector->reg_number }} </td>
                         <td class="text-center">
                             <div class="mb-2 d-flex justify-content-center"">
                                 <a href="{{ route('admin-report.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm mr-2">

@@ -37,18 +37,18 @@ class ReceivementController extends Controller
                 return $collector;
             });
 
-        
+
         $receivements = Receivement::query()
             ->select(
                 DB::raw('SUM(zakat) AS zakat'), DB::raw('SUM(fitrah) AS fitrah'), DB::raw('SUM(infak) AS infak'),
-                DB::raw('(SUM(zakat) + SUM(fitrah) + SUM(infak)) AS total'), 
+                DB::raw('(SUM(zakat) + SUM(fitrah) + SUM(infak)) AS total'),
                 DB::raw('YEAR(transaction_date) AS year'))
             ->groupBy('year')
             ->get();
 
         return view('receivement.index', compact('year', 'available_years', 'collectors', 'receivements'));
     }
-    
+
     public function detail(Collector $collector)
     {
         $year = request('year');
@@ -66,7 +66,7 @@ class ReceivementController extends Controller
         $yearly_receivements = Receivement::query()
             ->select(
                 DB::raw('SUM(zakat) AS zakat'), DB::raw('SUM(fitrah) AS fitrah'), DB::raw('SUM(infak) AS infak'),
-                DB::raw('(SUM(zakat) + SUM(fitrah) + SUM(infak)) AS total'), 
+                DB::raw('(SUM(zakat) + SUM(fitrah) + SUM(infak)) AS total'),
                 DB::raw('YEAR(transaction_date) AS year'))
             ->where('collector_id', $collector->id)
             ->groupBy('year')
@@ -79,7 +79,7 @@ class ReceivementController extends Controller
     {
         $year = request('year') ?? today()->format('Y');
 
-        $collectors = Collector::select('id', 'name', 'npwz')
+        $collectors = Collector::select('id', 'name', 'reg_number')
             ->with([
                 'receivements' => function ($query) use($year) {
                     $query->select(

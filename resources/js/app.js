@@ -43,8 +43,8 @@ Vue.component('receivement-detail-chart', require('./components/receivement/Deta
 Vue.component('collector-chart', require('./components/CollectorChart.vue'));
 Vue.component('donation-chart', require('./components/donation/Chart.vue'));
 Vue.component('donation-detail-chart', require('./components/donation/DetailChart.vue'));
-Vue.component('collector-create', require('./components/collector/Create.vue'));
-Vue.component('collector-edit', require('./components/collector/Edit.vue'));
+Vue.component('collector-create', require('./components/CollectorCreate.vue'));
+Vue.component('collector-edit', require('./components/CollectorEdit.vue'));
 Vue.component('collector-donation-create', require('./components/collector/donation/Create.vue'));
 Vue.component('collector-donation-edit', require('./components/collector/donation/Edit.vue'));
 Vue.component('collector-receivement-create', require('./components/collector/receivement/Create.vue'));

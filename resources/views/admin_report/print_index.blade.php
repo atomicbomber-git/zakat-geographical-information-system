@@ -33,7 +33,7 @@
                 <tr>
                     <th> # </th>
                     <th> UPZ</th>
-                    <th> NPWZ </th>
+                    <th> Nomor Registrasi </th>
                     <th style="text-align: right"> Penerimaan (Rp.) </th>
                 </tr>
             </thead>
@@ -42,7 +42,7 @@
                 <tr>
                     <td> {{ $loop->iteration }}. </td>
                     <td> {{ $collector->name }} </td>
-                    <td> {{ $collector->npwz }} </td>
+                    <td> {{ $collector->reg_number }} </td>
                     <td style="text-align:right"> {{ Formatter::currency($collector->report_total_amount["value"] ?? 0) }} </td>
                 </tr>
                 @endforeach

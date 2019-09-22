@@ -148,7 +148,7 @@ return [
         'admin_name' => 'nama administrator',
         'password' => 'kata sandi',
         'password_confirmation' => 'pengulangan kata sandi',
-        'npwz' => 'NPWZ',
+        'reg_number' => 'nomor registrasi',
         'collector_name' => 'nama UPZ',
         'address' => 'alamat',
         'picture' => 'foto',

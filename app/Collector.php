@@ -13,7 +13,14 @@ class Collector extends Model implements HasMedia
     use HasMediaTrait;
 
     public $fillable = [
-        'name', 'address', 'latitude', 'longitude', 'user_id', 'npwz', "kecamatan", "kelurahan"
+        "name",
+        "address",
+        "latitude",
+        "longitude",
+        "user_id",
+        "reg_number",
+        "kecamatan",
+        "kelurahan",
     ];
 
     const HAS_RELATIONS = ["receivements", "donations", "muzakkis", "mustahiqs", "reports"];
@@ -54,6 +61,11 @@ class Collector extends Model implements HasMedia
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function members()
+    {
+        return $this->hasMany(CollectorMember::class);
     }
 
     public function report_total_amount()

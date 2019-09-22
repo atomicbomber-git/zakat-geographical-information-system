@@ -75,6 +75,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="reg_number"> Nomor Registrasi: </label>
+                            <input
+                                v-model="reg_number"
+                                class="form-control"
+                                :class="{'is-invalid': get(this.error_data, 'errors.reg_number[0]', false)}"
+                                type="text" id="reg_number" placeholder="Nama lokasi">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.reg_number[0]', false) }}</div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="collector_name"> Nama Lokasi: </label>
                             <input
                                 v-model="collector_name"
@@ -82,16 +92,6 @@
                                 :class="{'is-invalid': get(this.error_data, 'errors.collector_name[0]', false)}"
                                 type="text" id="collector_name" placeholder="Nama lokasi">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.collector_name[0]', false) }}</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="npwz"> NPWZ: </label>
-                            <input
-                                v-model="npwz"
-                                class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.npwz[0]', false)}"
-                                type="text" id="npwz" placeholder="Nama lokasi">
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.npwz[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -198,7 +198,7 @@
                 },
 
                 collector_name: window.collector.name,
-                npwz: window.collector.npwz,
+                reg_number: window.collector.reg_number,
                 address: window.collector.address,
 
                 user_name: window.collector.user.name,
@@ -224,7 +224,7 @@
                     latitude: this.pointer_marker.lat,
                     longitude: this.pointer_marker.lng,
                     collector_name: this.collector_name,
-                    npwz: this.npwz,
+                    reg_number: this.reg_number,
                     address: this.address,
                     user_name: this.user_name,
                     username: this.username,

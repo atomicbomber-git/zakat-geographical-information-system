@@ -13,7 +13,7 @@ $factory->define(App\Collector::class, function (Faker $faker) {
         "kecamatan" => $kecamatan,
         "kelurahan" => $kelurahan,
         'name' => ucwords($faker->company),
-        'npwz' => $faker->unique->randomNumber(6),
+        'reg_number' => $faker->unique->randomNumber(6),
         'address' => $faker->streetAddress
     ];
 });

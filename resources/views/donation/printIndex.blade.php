@@ -29,7 +29,7 @@
                 <tr>
                     <th> # </th>
                     <th> UPZ</th>
-                    <th> NPWZ </th>
+                    <th> Nomor Registrasi </th>
                     <th> Pemberian </th>
                 </tr>
             </thead>
