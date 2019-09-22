@@ -165,7 +165,6 @@
                             </div>
                         </div>
 
-                        <!-- Sekretaris -->
                         <div class='form-group'>
                             <label for='sekretaris'> Sekretaris: </label>
                             <input

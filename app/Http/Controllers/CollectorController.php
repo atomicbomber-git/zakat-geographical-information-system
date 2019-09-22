@@ -157,7 +157,14 @@ class CollectorController extends Controller
                 return $collector;
             });
 
-        $collector->load('user');
+        $collector->load([
+            "user",
+        ]);
+
+        $collector->members =
+            $collector->members()
+                ->get()
+                ->keyBy("position");
 
         return view('collector.edit', compact('collector', 'collectors'));
     }
@@ -205,13 +212,29 @@ class CollectorController extends Controller
                 'address' => $data['address'],
                 'name' => $data['collector_name'],
                 'reg_number' => $data['reg_number'],
-                'penasehat' => $data['penasehat'],
-                'ketua' => $data['ketua'],
-                'sekretaris' => $data['sekretaris'],
-                'bendahara' => $data['bendahara'],
-                'anggota_1' => $data['anggota_1'],
-                'anggota_2' => $data['anggota_2'],
             ]);
+
+            $collector->members()->delete();
+
+            collect([
+                "penasehat",
+                "ketua",
+                "sekretaris",
+                "bendahara",
+                "anggota_1",
+                "anggota_2",
+            ])
+            ->each(function ($field) use($data, $collector) {
+                if (empty($data[$field])) {
+                    return;
+                }
+
+                $collector->members()
+                    ->create([
+                        "position" => $field,
+                        "name" => $data[$field],
+                    ]);
+            });
 
             // A picture replacement was uploaded
             if(!empty($data['picture'])) {

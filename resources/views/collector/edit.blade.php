@@ -22,7 +22,15 @@
     @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
 
     <div id="app">
-        <collector-edit/>
+        <collector-edit
+            submit_url="{{ route('collector.update', $collector) }}"
+            redirect_url="{{ route('collector.edit', $collector) }}"
+            :collectors='{{ json_encode($collectors) }}'
+            :collector='{{ json_encode($collector) }}'
+            :config='{{ json_encode(config("gmap_settings")) }}'
+            >
+
+        </collector-edit>
     </div>
 </div>
 

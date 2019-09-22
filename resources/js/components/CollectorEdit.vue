@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col">
+        <div class="col-md-7 mb-3">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-map"></i>
@@ -20,11 +20,11 @@
                                 :position="pointer_marker"
                                 :clickable="true"/>
 
-                            <span v-for="collector in collectors" :key="collector.id">
+                            <span v-for="collector in m_collectors" :key="collector.id">
 
                                 <GmapMarker
                                     :position="{lat: collector.latitude, lng: collector.longitude}"
-                                    icon="/png/location.png"
+                                    :icon="icons.mosque_black"
                                     @click="onMarkerClick(collector)">
                                 </GmapMarker>
 
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="col-5">
+        <div class="col-md-5 mb-3">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-pencil"></i>
@@ -95,13 +95,33 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="address"> Alamat Lokasi: </label>
+                            <label for="address"> Alamat: </label>
                             <textarea
                                 v-model="address"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.address[0]', false)}"
                                 type="text" id="address" placeholder="Alamat lokasi"></textarea>
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.address[0]', false) }}</div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='kecamatan'> Kecamatan: </label>
+                            <input
+                                v-model='kecamatan'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.kecamatan[0]', false)}"
+                                type='text' id='kecamatan' placeholder='Kecamatan'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.kecamatan[0]', false) }}</div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='kelurahan'> Kelurahan: </label>
+                            <input
+                                v-model='kelurahan'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.kelurahan[0]', false)}"
+                                type='text' id='kelurahan' placeholder='Kelurahan'>
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.kelurahan[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -119,17 +139,101 @@
                             </div>
                         </div>
 
+                        <div class='form-group'>
+                            <label for='penasehat'> Penasehat: </label>
+                            <input
+                                v-model='penasehat'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.penasehat[0]', false)}"
+                                type='text'
+                                id='penasehat'
+                                placeholder='Penasehat'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.penasehat[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='ketua'> Ketua: </label>
+                            <input
+                                v-model='ketua'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.ketua[0]', false)}"
+                                type='text'
+                                id='ketua'
+                                placeholder='Ketua'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.ketua[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='sekretaris'> Sekretaris: </label>
+                            <input
+                                v-model='sekretaris'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.sekretaris[0]', false)}"
+                                type='text'
+                                id='sekretaris'
+                                placeholder='Sekretaris'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.sekretaris[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='bendahara'> Bendahara: </label>
+                            <input
+                                v-model='bendahara'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.bendahara[0]', false)}"
+                                type='text'
+                                id='bendahara'
+                                placeholder='Bendahara'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.bendahara[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='anggota_1'> Anggota: </label>
+                            <input
+                                v-model='anggota_1'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.anggota_1[0]', false)}"
+                                type='text'
+                                id='anggota_1'
+                                placeholder='Anggota'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.anggota_1[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
+                            <label for='anggota_2'> Anggota: </label>
+                            <input
+                                v-model='anggota_2'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.anggota_2[0]', false)}"
+                                type='text'
+                                id='anggota_2'
+                                placeholder='Anggota'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.anggota_2[0]', false) }}
+                            </div>
+                        </div>
+
                         <h3 class="mt-4"> Data Akun Administrator </h3>
                         <hr>
 
                         <div class="form-group">
-                            <label for="user_name"> Nama Administrator: </label>
+                            <label for="admin_name"> Nama Administrator: </label>
                             <input
-                                v-model="user_name"
+                                v-model="admin_name"
                                 class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.user_name[0]', false)}"
-                                type="text" id="user_name" placeholder="Nama Administrator">
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.user_name[0]', false) }}</div>
+                                :class="{'is-invalid': get(this.error_data, 'errors.admin_name[0]', false)}"
+                                type="text" id="admin_name" placeholder="Nama Administrator">
+                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.admin_name[0]', false) }}</div>
                         </div>
 
                         <div class="form-group">
@@ -177,39 +281,54 @@
 
 <script>
     import axios from 'axios'
-    import {get} from 'lodash'
+    import icons from '../icons'
+    import { get } from 'lodash'
 
     export default {
-        mounted() {
-        },
+        props: [
+            "submit_url",
+            "redirect_url",
+            "collectors",
+            "collector",
+            "config",
+        ],
 
         data() {
             return {
-                icon_url: window.icon_url,
+                icon_url: this.icon_url,
 
                 map: {
-                    center_lat: window.collector.latitude,
-                    center_lng: window.collector.longitude,
+                    center_lat: this.collector.latitude,
+                    center_lng: this.collector.longitude,
                 },
 
                 pointer_marker: {
-                    lat: window.collector.latitude,
-                    lng: window.collector.longitude,
+                    lat: this.collector.latitude,
+                    lng: this.collector.longitude,
                 },
 
-                collector_name: window.collector.name,
-                reg_number: window.collector.reg_number,
-                address: window.collector.address,
+                collector_name: this.collector.name,
+                reg_number: this.collector.reg_number,
+                address: this.collector.address,
+                kecamatan: this.collector.kecamatan,
+                kelurahan: this.collector.kelurahan,
 
-                user_name: window.collector.user.name,
-                username: window.collector.user.username,
+                admin_name: this.collector.user.name,
+                username: this.collector.user.username,
                 password: "",
                 password_confirmation: "",
                 picture: "",
 
+                penasehat: collector.members["penasehat"].name,
+                ketua: collector.members["ketua"].name,
+                sekretaris: collector.members["sekretaris"].name,
+                bendahara: collector.members["bendahara"].name,
+                anggota_1: collector.members["anggota_1"].name,
+                anggota_2: collector.members["anggota_2"].name,
+
                 error_data: null,
 
-                collectors: window.collectors.map(collector => {
+                m_collectors: this.collectors.map(collector => {
                     return {
                         ...collector,
                         isInfoWindowOpen: false
@@ -219,6 +338,10 @@
         },
 
         computed: {
+            icons() {
+                return icons
+            },
+
             form_data() {
                 return {
                     latitude: this.pointer_marker.lat,
@@ -226,10 +349,18 @@
                     collector_name: this.collector_name,
                     reg_number: this.reg_number,
                     address: this.address,
-                    user_name: this.user_name,
+                    kecamatan: this.kecamatan,
+                    kelurahan: this.kelurahan,
+                    penasehat: this.penasehat,
+                    ketua: this.ketua,
+                    sekretaris: this.sekretaris,
+                    bendahara: this.bendahara,
+                    anggota_1: this.anggota_1,
+                    anggota_2: this.anggota_2,
+                    admin_name: this.admin_name,
                     username: this.username,
                     password: this.password,
-                    password_confirmation: this.password_confirmation
+                    password_confirmation: this.password_confirmation,
                 }
             }
         },
@@ -245,7 +376,7 @@
             },
 
             onMarkerClick(collector) {
-                this.collectors = this.collectors.map(c => {
+                this.m_collectors = this.m_collectors.map(c => {
                     if (c.id == collector.id) {
                         return {...c, isInfoWindowOpen: true}
                     }
@@ -270,11 +401,9 @@
                 }
 
                 // Submit data
-                axios.post(window.submit_url, data, {headers: { 'Content-Type': 'multipart/form-data' }})
+                axios.post(this.submit_url, data, {headers: { 'Content-Type': 'multipart/form-data' }})
                     .then(response => {
-                        if (response.data.redirect) {
-                            window.location.replace(response.data.redirect)
-                        }
+                        window.location.replace(this.redirect_url)
                     })
                     .catch(error => {
                         this.error_data = error.response.data
@@ -284,16 +413,6 @@
             changeFile(e) {
                 this.picture = e.target.value
             },
-
-            deleteCollector: function(collector_id) {
-                axios.post(`/collector/delete/${collector_id}`)
-                    .then(response => {
-                        if (response.data.redirect) {
-                            window.location.replace(response.data.redirect)
-                        }
-                    })
-                    .catch(error => { alert("Something wrong happened.") })
-            }
         }
     }
 </script>
