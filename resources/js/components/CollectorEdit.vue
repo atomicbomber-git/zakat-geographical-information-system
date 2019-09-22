@@ -319,12 +319,12 @@
                 password_confirmation: "",
                 picture: "",
 
-                penasehat: collector.members["penasehat"].name,
-                ketua: collector.members["ketua"].name,
-                sekretaris: collector.members["sekretaris"].name,
-                bendahara: collector.members["bendahara"].name,
-                anggota_1: collector.members["anggota_1"].name,
-                anggota_2: collector.members["anggota_2"].name,
+                penasehat: get(collector.members, ["penasehat", "name"], ""),
+                ketua: get(collector.members, ["ketua", "name"], ""),
+                sekretaris: get(collector.members, ["sekretaris", "name"], ""),
+                bendahara: get(collector.members, ["bendahara", "name"], ""),
+                anggota_1: get(collector.members, ["anggota_1", "name"], ""),
+                anggota_2: get(collector.members, ["anggota_2", "name"], ""),
 
                 error_data: null,
 
