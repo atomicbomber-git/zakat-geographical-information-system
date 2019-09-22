@@ -29,8 +29,8 @@
                 <tr>
                     <th> # </th>
                     <th> UPZ</th>
-                    <th> Nomor Registrasi </th>
-                    <th> Pemberian </th>
+                    <th> NPWZ </th>
+                    <th> Pendistribusian </th>
                 </tr>
             </thead>
             <tbody>
