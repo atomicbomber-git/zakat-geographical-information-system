@@ -22,7 +22,7 @@
                                 :clickable="true"
                             />
 
-                            <span v-for="collector in collectors" :key="collector.id">
+                            <span v-for="collector in m_collectors" :key="collector.id">
 
                                 <GmapMarker
                                     :position="{lat: collector.latitude, lng: collector.longitude}"
@@ -56,7 +56,7 @@
                     Tambahkan Unit Pengumpulan Zakat
                 </div>
                 <div class="card-body">
-                    <form @submit="submitForm">
+                    <form @submit.prevent="onFormSubmit">
 
                         <h3> Data Unit Pengumpulan Zakat </h3>
                         <hr>
@@ -198,9 +198,15 @@
     import {get} from 'lodash'
 
     export default {
+        props: [
+            "submit_url",
+            "redirect_url",
+            "collectors",
+            "config",
+        ],
+
         mounted() {
             this.$refs.mapRef.$mapPromise.then(map => {
-                // Load Geocoder Service
                 this.geocoder = new google.maps.Geocoder;
             })
         },
@@ -208,32 +214,23 @@
         data() {
             return {
                 icon_url: window.icon_url,
-
-                pointer_marker: {
-                    lat: -0.026330,
-                    lng: 109.342504,
-                },
-
+                pointer_marker: this.config.center,
                 collector_name: "",
                 npwz: "",
                 address: "",
                 kelurahan: "",
                 kecamatan: "",
-
                 admin_name: "",
                 username: "",
                 password: "",
                 password_confirmation: "",
                 picture: "",
-
                 error_data: null,
-
-                collectors: window.collectors.map(collector => {
-                    return {
+                m_collectors: this.collectors
+                    .map(collector => ({
                         ...collector,
-                        isInfoWindowOpen: false
-                    }
-                })
+                        isInfoWindowOpen: false,
+                    }))
             }
         },
 
@@ -261,7 +258,7 @@
             moveMarker: function (e) {
                 this.pointer_marker = {
                     lat: e.latLng.lat(),
-                    lng: e.latLng.lng()
+                    lng: e.latLng.lng(),
                 }
             },
 
@@ -270,7 +267,7 @@
             },
 
             onMarkerClick(collector) {
-                this.collectors = this.collectors.map(c => {
+                this.m_collectors = this.m_collectors.map(c => {
                     if (c.id == collector.id) {
                         return {...c, isInfoWindowOpen: true}
                     }
@@ -279,9 +276,7 @@
                 })
             },
 
-            submitForm: function (e) {
-                e.preventDefault()
-
+            onFormSubmit() {
                 let data = new FormData()
 
                 let keys = Object.keys(this.form_data)
@@ -291,22 +286,16 @@
 
                 data.append('picture', this.$refs.picture.files[0])
 
-                axios.post(window.submit_url, data, {
+                axios.post(this.submit_url, data, {
                         headers: { 'Content-Type': 'multipart/form-data' }
                     })
                     .then(response => {
-                        window.location.replace(response.data.redirect)
+                        window.location.replace(this.redirect_url)
                     })
                     .catch(error => {
                         this.error_data = error.response.data
                     })
             },
-
-            deleteCollector: function(collector_id) {
-                axios.post(`/collector/delete/${collector_id}`)
-                    .then(response => { window.location.replace(response.data.redirect) })
-                    .catch(error => { alert("Something wrong happened.") })
-            }
         },
 
         watch: {

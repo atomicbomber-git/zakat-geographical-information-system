@@ -42,6 +42,14 @@
                     </div>
 
                     <div class="text-right">
+                        <a
+                            class="btn btn-default"
+                            href="{{ route('register') }}"
+                            >
+                            <i class="fa fa-sign-up"></i>
+                            Registrasi
+                        </a>
+
                         <button class="btn btn-primary">
                             Masuk
                             <i class="fa fa-sign-in"></i>
