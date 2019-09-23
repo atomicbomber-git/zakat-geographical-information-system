@@ -46,8 +46,6 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
@@ -59,7 +57,6 @@ class RegisterController extends Controller
             'anggota_1' => 'nullable|string',
             'anggota_2' => 'nullable|string',
             'collector_name' => 'required|string',
-            'reg_number' => 'required|string|unique:collectors',
             'admin_name' => 'required|string', // User real name
             'username' => 'required|string|alpha_dash|unique:users', // User login name
             'password' => 'required|string|min:8|confirmed',
@@ -101,14 +98,11 @@ class RegisterController extends Controller
 
             $collector = Collector::create([
                 'user_id' => $user->id,
-                'latitude' => $data['latitude'],
-                'longitude' => $data['longitude'],
                 'kecamatan' => $data['kecamatan'],
                 'kelurahan' => $data['kelurahan'],
                 'phone' => $data['phone'],
                 'address' => $data['address'],
                 'name' => $data['collector_name'],
-                'reg_number' => $data['reg_number'],
             ]);
 
             collect([

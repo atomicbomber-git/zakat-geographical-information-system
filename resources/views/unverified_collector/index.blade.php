@@ -33,7 +33,6 @@
                         <th> Nama Administrator </th>
                         <th> Nama Pengguna </th>
                         <th> Nama UPZ </th>
-                        <th> Nomor Registrasi </th>
                         <th> Alamat </th>
                         <th> Nomor Telefon </th>
                         <th class="text-center"> Aksi </th>
@@ -46,8 +45,7 @@
                         <td> {{ $collector->user->name }} </td>
                         <td> {{ $collector->user->username }} </td>
                         <td> {{ $collector->name }} </td>
-                        <td> {{ $collector->reg_number }} </td>
-                        <td> {{ $collector->address }} </td>
+                        <td> {{ $collector->address }}, {{ $collector->kecamatan }}, {{ $collector->kelurahan }} </td>
                         <td style="width: 10rem"> {{ $collector->phone }} </td>
                         <td class="text-center" style="width: 10rem">
                             <form

@@ -1,82 +1,11 @@
 <template>
     <div class="row">
-        <div class="col-md-7">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-map"></i>
-                    Peta Lokasi Unit Pengumpulan Zakat
-                </div>
-                <div class="card-body">
-                    <div id="app">
-                        <GmapMap
-                            ref="mapRef"
-                            :center="{lat:-0.026330, lng:109.342504}"
-                            :zoom="14"
-                            @click="moveMarker"
-                            map-type-id="terrain"
-                            style="width: 100%; height: 640px">
-
-                            <GmapMarker
-                                v-if="pointer_marker"
-                                :position="pointer_marker"
-                                :clickable="true"
-                            />
-
-                            <span v-for="collector in m_collectors" :key="collector.id">
-
-                                <GmapMarker
-                                    :position="{lat: collector.latitude, lng: collector.longitude}"
-                                    icon="/png/mosque.png"
-                                    @click="onMarkerClick(collector)">
-                                </GmapMarker>
-
-                                <GmapInfoWindow
-                                    :position="{lat: collector.latitude, lng: collector.longitude}"
-                                    :opened="collector.isInfoWindowOpen"
-                                    @closeclick="collector.isInfoWindowOpen=false">
-                                    <div class="card">
-                                        <img class="card-img-top" style="width: 14rem; height: 14rem; object-fit: cover" :src="collector.imageUrl" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card-title"> {{ collector.name }} </h5>
-                                            <p class="card-text"> {{ collector.address }} </p>
-                                        </div>
-                                    </div>
-                                </GmapInfoWindow>
-                            </span>
-                        </GmapMap>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-5 mb-3">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <form @submit.prevent="onFormSubmit">
-
                         <h3> Data Unit Pengumpulan Zakat </h3>
                         <hr>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="latitude"> Latitude: </label>
-                                <input v-model.number="pointer_marker.lat" step="any" type="number" class="form-control" id="latitude" placeholder="Latitude">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="longitude"> Longitude: </label>
-                                <input v-model.number="pointer_marker.lng" step="any" type="number" class="form-control" id="longitude" placeholder="Longitude">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="reg_number"> Nomor Registrasi: </label>
-                            <input
-                                v-model="reg_number"
-                                class="form-control"
-                                :class="{'is-invalid': get(this.error_data, 'errors.reg_number[0]', false)}"
-                                type="text" id="reg_number" placeholder="Nomor Registrasi">
-                            <div class='invalid-feedback'>{{ get(this.error_data, 'errors.reg_number[0]', false) }}</div>
-                        </div>
 
                         <div class="form-group">
                             <label for="collector_name"> Nama Lokasi: </label>
@@ -308,9 +237,7 @@
         data() {
             return {
                 icon_url: window.icon_url,
-                pointer_marker: this.config.center,
                 collector_name: "",
-                reg_number: "",
                 address: "",
                 kelurahan: "",
                 kecamatan: "",
@@ -340,10 +267,7 @@
         computed: {
             form_data() {
                 return {
-                    latitude: this.pointer_marker.lat,
-                    longitude: this.pointer_marker.lng,
                     collector_name: this.collector_name,
-                    reg_number: this.reg_number,
                     address: this.address,
                     kecamatan: this.kecamatan,
                     kelurahan: this.kelurahan,
