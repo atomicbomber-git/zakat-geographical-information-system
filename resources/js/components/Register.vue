@@ -8,12 +8,12 @@
                         <hr>
 
                         <div class="form-group">
-                            <label for="collector_name"> Nama Lokasi: </label>
+                            <label for="collector_name"> Nama UPZ: </label>
                             <input
                                 v-model="collector_name"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.collector_name[0]', false)}"
-                                type="text" id="collector_name" placeholder="Nama lokasi">
+                                type="text" id="collector_name" placeholder="Nama UPZ">
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.collector_name[0]', false) }}</div>
                         </div>
 
@@ -23,7 +23,7 @@
                                 v-model="address"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.address[0]', false)}"
-                                type="text" id="address" placeholder="Alamat lokasi"></textarea>
+                                type="text" id="address" placeholder="Alamat UPZ"></textarea>
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.address[0]', false) }}</div>
                         </div>
 
