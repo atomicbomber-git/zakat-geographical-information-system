@@ -30,7 +30,7 @@ class CollectorSeeder extends Seeder
 
                         $user = factory(User::class)
                             ->create([
-                                "type" => UserType::ADMINISTRATOR,
+                                "type" => UserType::COLLECTOR,
                                 "username" => $username,
                                 "password" => Hash::make($username),
                             ]);
