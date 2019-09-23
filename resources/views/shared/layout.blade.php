@@ -10,20 +10,22 @@
     @yield('head')
 </head>
 <body>
-    <div style="min-height: 90vh">
-        @unless($dont_show_navbar ?? false)
-            @include('shared.navbar')
-        @endunless
+    <div>
+        <div style="min-height: 90vh">
+            @unless($dont_show_navbar ?? false)
+                @include('shared.navbar')
+            @endunless
 
-        @if(!($dont_show_auth_info ?? false))
-            @auth
-                <div class="container my-3">
-                    @include("shared.auth-info")
-                </div>
-            @endauth
-        @endif
+            @if(!($dont_show_auth_info ?? false))
+                @auth
+                    <div class="container my-3">
+                        @include("shared.auth-info")
+                    </div>
+                @endauth
+            @endif
 
-        @yield('content')
+            @yield('content')
+        </div>
 
         <div>
             @yield("pre-footer")
