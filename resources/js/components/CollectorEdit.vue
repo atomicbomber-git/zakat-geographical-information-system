@@ -124,6 +124,20 @@
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.kelurahan[0]', false) }}</div>
                         </div>
 
+                        <div class='form-group'>
+                            <label for='phone'> Nomor Telefon: </label>
+                            <input
+                                v-model='phone'
+                                class='form-control'
+                                :class="{'is-invalid': get(this.error_data, 'errors.phone[0]', false)}"
+                                type='text'
+                                id='phone'
+                                placeholder='Nomor Telefon'>
+                            <div class='invalid-feedback'>
+                                 {{ get(this.error_data, 'errors.phone[0]', false) }}
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="picture"> Foto UPZ: </label>
                             <div class="custom-file">
@@ -312,6 +326,7 @@
                 address: this.collector.address,
                 kecamatan: this.collector.kecamatan,
                 kelurahan: this.collector.kelurahan,
+                phone: this.collector.phone,
 
                 admin_name: this.collector.user.name,
                 username: this.collector.user.username,
@@ -351,6 +366,7 @@
                     address: this.address,
                     kecamatan: this.kecamatan,
                     kelurahan: this.kelurahan,
+                    phone: this.phone,
                     penasehat: this.penasehat,
                     ketua: this.ketua,
                     sekretaris: this.sekretaris,

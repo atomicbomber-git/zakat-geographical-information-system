@@ -21,6 +21,7 @@ class Collector extends Model implements HasMedia
         "reg_number",
         "kecamatan",
         "kelurahan",
+        "phone",
     ];
 
     const HAS_RELATIONS = ["receivements", "donations", "muzakkis", "mustahiqs", "reports"];
