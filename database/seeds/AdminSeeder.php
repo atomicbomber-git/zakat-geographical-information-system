@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserType;
 use Illuminate\Database\Seeder;
 use App\User;
 
@@ -16,7 +17,7 @@ class AdminSeeder extends Seeder
             'name' => 'Baznas',
             'username' => 'administrator',
             'password' => bcrypt('administrator'),
-            'type' => 'ADMINISTRATOR'
+            'type' => UserType::ADMINISTRATOR,
         ]);
     }
 }

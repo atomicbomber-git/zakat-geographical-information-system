@@ -4,10 +4,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Collector;
+use App\Enums\UserType;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 
 class CollectorSeeder extends Seeder
 {
+    const AMOUNT = 10;
+
     /**
      * Run the database seeds.
      *
@@ -16,25 +20,36 @@ class CollectorSeeder extends Seeder
     public function run()
     {
         DB::transaction(function() {
-            $users = factory(User::class, 20)
-                ->make()
-                ->each(function ($user, $index) {
-                    $username = "collector_" . ($index + 1);
-                    $user->type = 'COLLECTOR';
-                    $user->username = $username;
-                    $user->password = Hash::make($username);
-                    $user->save();
-                });
 
-            foreach ($users as $user) {
-                $collector = factory(Collector::class)->create([
-                    'user_id' => $user->id
-                ]);
+            Collection::times(self::AMOUNT, function ($number) {
 
-                $collector->addMedia(__DIR__ . '/random.jpeg')
-                    ->preservingOriginal()
-                    ->toMediaCollection('images');
-            }
+                collect([TRUE, FALSE])
+                    ->each(function ($is_verified) use($number) {
+                        $username = $is_verified ? "collector_{$number}" :
+                            "unverified_{$number}";
+
+                        $user = factory(User::class)
+                            ->create([
+                                "type" => UserType::ADMINISTRATOR,
+                                "username" => $username,
+                                "password" => Hash::make($username),
+                            ]);
+
+                        $collector = factory(Collector::class)
+                            ->create([
+                                'user_id' => $user->id,
+                                'is_verified' => $is_verified,
+                            ]);
+
+                        $collector->addMedia(__DIR__ . '/random.jpeg')
+                            ->preservingOriginal()
+                            ->toMediaCollection('images');
+
+                        $collector->user()
+                            ->associate($user)
+                            ->save();
+                    });
+            });
         });
     }
 }

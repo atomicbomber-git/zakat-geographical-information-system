@@ -276,8 +276,8 @@
 
                         <div class="text-right">
                             <button class="btn btn-primary">
-                                Tambahkan
-                                <i class="fa fa-plus"></i>
+                                Registrasi
+                                <i class="fa fa-check"></i>
                             </button>
                         </div>
                     </form>
@@ -289,7 +289,7 @@
 
 <script>
     import axios from 'axios'
-    import {get} from 'lodash'
+    import { get } from 'lodash'
 
     export default {
         props: [

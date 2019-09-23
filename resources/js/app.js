@@ -33,6 +33,8 @@ Vue.use(VueGoogleMaps, {
 })
 
 // Register all Vue components
+
+Vue.component('register', require('./components/Register.vue'));
 Vue.component('receivement-base-chart', require('./components/shared/ReceivementChart.vue'));
 Vue.component('donation-base-chart', require('./components/shared/DonationChart.vue'));
 Vue.component('receiver', require('./components/Receiver.vue'));

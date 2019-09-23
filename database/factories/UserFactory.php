@@ -14,10 +14,10 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\User::class, function (Faker $faker) {
-    
+
     $username = $faker->userName;
     $password = bcrypt($username);
-    
+
     return [
         'name' => $faker->name,
         'username' => $username,

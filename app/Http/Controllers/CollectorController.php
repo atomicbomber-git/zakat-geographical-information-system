@@ -138,15 +138,11 @@ class CollectorController extends Controller
                     ]);
             });
 
-            $collector->addMediaFromRequest('picture')->toMediaCollection('images');
+            $collector->addMediaFromRequest('picture')
+                ->toMediaCollection('images');
         });
 
         session()->flash('message.success', __('messages.create.success'));
-
-        return [
-            "status" => "success",
-            "redirect" => route('collector.index')
-        ];
     }
 
     public function edit(Collector $collector)

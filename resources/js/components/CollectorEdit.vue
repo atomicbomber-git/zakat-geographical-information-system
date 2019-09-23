@@ -42,9 +42,7 @@
                                         </div>
                                     </div>
                                 </GmapInfoWindow>
-
                             </span>
-
                         </GmapMap>
                     </div>
                 </div>
@@ -53,10 +51,6 @@
 
         <div class="col-md-5 mb-3">
             <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-pencil"></i>
-                    Sunting Data Unit Pengumpulan Zakat
-                </div>
                 <div class="card-body">
                     <form @submit="submitForm">
 

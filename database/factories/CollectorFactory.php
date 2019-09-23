@@ -12,8 +12,9 @@ $factory->define(App\Collector::class, function (Faker $faker) {
         'longitude' => rand(-50, 50) / 1000 + 109.342504,
         "kecamatan" => $kecamatan,
         "kelurahan" => $kelurahan,
-        'name' => ucwords($faker->company),
-        'reg_number' => $faker->unique->randomNumber(6),
-        'address' => $faker->streetAddress
+        "name" => ucwords($faker->company),
+        "reg_number" => $faker->unique->randomNumber(6),
+        "address" => $faker->streetAddress,
+        "is_verified" => 1,
     ];
 });
