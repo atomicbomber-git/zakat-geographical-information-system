@@ -36,6 +36,12 @@
                         @endforeach
                     </li>
 
+                    <li class='nav-item {{ Route::is('unverified-collector.*') ? 'active' : '' }}'>
+                        <a class='nav-link' href='{{ route('unverified-collector.index') }}'>
+                            <i class='fa fa-users'></i>
+                            Verifikasi UPZ
+                        </a>
+                    </li>
                 @endcan
 
                 @can('act-as-collector')

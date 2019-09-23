@@ -15,6 +15,7 @@ $factory->define(App\Collector::class, function (Faker $faker) {
         "name" => ucwords($faker->company),
         "reg_number" => $faker->unique->randomNumber(6),
         "address" => $faker->streetAddress,
+        "phone" => $faker->phoneNumber,
         "is_verified" => 1,
     ];
 });

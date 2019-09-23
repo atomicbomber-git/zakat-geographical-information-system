@@ -2,6 +2,8 @@
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\UnverifiedCollectorController;
+use App\Http\Controllers\UnverifiedCollectorVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,9 +49,13 @@ Route::group(['prefix' => '/receivement', 'as' => 'receivement.'], function() {
 });
 
 Route::group(['prefix' => '/unverified-collector', 'as' => 'unverified-collector.'], function() {
-    Route::get('/index', [\App\Http\Controllers\UnverifiedCollectorController::class, 'index'])->name('index');
-    Route::post('/delete/{unverified-collector}', [\App\Http\Controllers\UnverifiedCollectorController::class, 'delete'])->name('delete');
+    Route::get('/index', [UnverifiedCollectorController::class, 'index'])->name('index');
 });
+
+Route::group(['prefix' => '/unverified-collector-verification', 'as' => 'unverified-collector-verification.'], function() {
+    Route::post('/update/{any_collector}', [UnverifiedCollectorVerificationController::class, 'update'])->name('update');
+});
+
 
 Route::group(['prefix' => '/donation', 'as' => 'donation.'], function() {
     Route::get('/index', 'DonationController@index')->name('index');

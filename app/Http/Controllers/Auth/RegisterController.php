@@ -163,7 +163,7 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        session()->flash('message.success', __('messages.create.success'));
+        session()->flash('message.success', __('messages.register.success'));
 
         return [
             "status" => "success",

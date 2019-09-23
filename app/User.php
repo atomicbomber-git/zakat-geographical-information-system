@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Enums\UserType;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -32,6 +33,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('verified', function (Builder $builder) {
+            $builder
+                ->where(function ($query) {
+                    $query
+                        ->whereHas("collector")
+                        ->where('type', UserType::COLLECTOR);
+                })
+                ->orWhere('type', '<>', UserType::COLLECTOR);
+        });
+    }
 
     public function username()
     {

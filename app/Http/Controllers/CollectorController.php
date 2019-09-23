@@ -116,6 +116,7 @@ class CollectorController extends Controller
                 'address' => $data['address'],
                 'name' => $data['collector_name'],
                 'reg_number' => $data['reg_number'],
+                'is_verified' => 1,
             ]);
 
             collect([

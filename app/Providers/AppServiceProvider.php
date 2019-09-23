@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Information;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::share('informations', $this->getInformations());
+
+        Route::bind('any_collector', function($id) {
+            return \App\Collector::withoutGlobalScopes()->findOrFail($id);
+        });
     }
 
     /**

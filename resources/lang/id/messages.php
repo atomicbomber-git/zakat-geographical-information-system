@@ -15,6 +15,9 @@ return [
     'delete' => [
         'success' => 'Data berhasil dihapus.',
         'failure' => 'Data gagal dihapus.',
-    ]
+    ],
 
+    'register' => [
+        'success' => 'Registrasi berhasil, mohon tunggu proses verifikasi oleh administrator.',
+    ]
 ];

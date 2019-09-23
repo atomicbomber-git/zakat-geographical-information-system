@@ -2,6 +2,10 @@
 @section('title', 'Peta Persebaran UPZ')
 @section('content')
 
+<div class="container">
+    @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
+</div>
+
 <div class="d-flex justify-content-center mb-4 front-secondary">
     <img
         class="img-fluid"

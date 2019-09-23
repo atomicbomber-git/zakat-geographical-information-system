@@ -96,7 +96,7 @@
                         <th class="text-center"> UPZ </th>
                         <th class="text-right"> Total Penerimaan </th>
                         <th class="text-right"> Total Pendistribusian </th>
-                        <th> NPWZ </th>
+                        <th> Nomor Registrasi </th>
                         <th class="text-center"> Aksi </th>
                     </tr>
                 </thead>
