@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -25,6 +26,15 @@ class Collector extends Model implements HasMedia
     ];
 
     const HAS_RELATIONS = ["receivements", "donations", "muzakkis", "mustahiqs", "reports"];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('verified', function (Builder $builder) {
+            $builder->where('is_verified', 1);
+        });
+    }
 
     public function registerMediaConversions(Media $media = null)
     {
@@ -74,5 +84,10 @@ class Collector extends Model implements HasMedia
         return $this->hasOne(Report::class)
             ->addSelect("collector_id", DB::raw("SUM(zakat + fitrah + infak) AS value"))
             ->groupBy("collector_id");
+    }
+
+    public function scopeUnverified($query)
+    {
+        $query->where("is_verified", 0);
     }
 }

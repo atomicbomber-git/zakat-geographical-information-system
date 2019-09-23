@@ -2,8 +2,10 @@
 
 namespace App;
 
+use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable

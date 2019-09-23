@@ -46,6 +46,11 @@ Route::group(['prefix' => '/receivement', 'as' => 'receivement.'], function() {
     Route::get('/detail/{collector}', 'ReceivementController@detail')->name('detail');
 });
 
+Route::group(['prefix' => '/unverified-collector', 'as' => 'unverified-collector.'], function() {
+    Route::get('/index', [\App\Http\Controllers\UnverifiedCollectorController::class, 'index'])->name('index');
+    Route::post('/delete/{unverified-collector}', [\App\Http\Controllers\UnverifiedCollectorController::class, 'delete'])->name('delete');
+});
+
 Route::group(['prefix' => '/donation', 'as' => 'donation.'], function() {
     Route::get('/index', 'DonationController@index')->name('index');
     Route::get('/index/print', 'DonationController@printIndex')->name('printIndex');

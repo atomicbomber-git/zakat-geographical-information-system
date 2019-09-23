@@ -33,12 +33,12 @@
                         <div class="col-md-7">
                             <p>
                                 KANTOR BAZNAS KOTA PONTIANAK <br/>
-                                Jl. Tabrani Ahmad (Komplek Kantor Camat Barat) Pontianak 78115 <br/>
+                                Jl. Nirbaya / Kota Baru, Pontianak Selatan (78121) <br/>
                             </p>
                         </div>
                         <div class="col-md-5">
-                            TEL: (0561) 812 8215 / 0812 5645 1201 <br/>
-                            FAX: (0561) 812 8215 <br/>
+                            TEL / WA: 081258790040 <br/>
+                            FAX: 056118182401 <br/>
                         </div>
                     </div>
                 </div>
