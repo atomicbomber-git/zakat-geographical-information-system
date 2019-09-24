@@ -19,3 +19,14 @@ $factory->define(App\Collector::class, function (Faker $faker) {
         "is_verified" => 1,
     ];
 });
+
+$factory->afterCreating(App\Collector::class, function (App\Collector $collector) {
+    $collector->members()
+        ->saveMany(
+            collect(["penasehat","ketua","sekretaris","bendahara","anggota_1","anggota_2",])
+                ->map(function ($position) {
+                    return factory(App\CollectorMember::class)
+                        ->make(["position" => $position]);
+                })
+        );
+});

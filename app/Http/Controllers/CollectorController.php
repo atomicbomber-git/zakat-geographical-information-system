@@ -262,7 +262,10 @@ class CollectorController extends Controller
                 ->with("message.danger", __('messages.delete.failure'));
         }
 
-        $collector->delete();
+        DB::transaction(function () use ($collector) {
+            $collector->members()->delete();
+            $collector->delete();
+        });
 
         return back()
             ->with('message.success', __('messages.delete.success'));
