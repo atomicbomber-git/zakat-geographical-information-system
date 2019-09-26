@@ -85,13 +85,6 @@
                     </li>
                 @endcan
 
-                <li class="nav-item {{ Route::is("home.*") ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('home.show') }}">
-                        <i class="fa fa-home"></i>
-                        Beranda
-                    </a>
-                </li>
-
                 <li class='nav-item {{ Route::is('map.*') ? 'active' : '' }}'>
                     <a class='nav-link' href='{{ route('map.show') }}'>
                         <i class='fa fa-map'></i>
