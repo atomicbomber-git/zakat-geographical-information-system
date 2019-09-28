@@ -21,7 +21,7 @@
             <li class="breadcrumb-item"> SIG Zakat </li>
             <li class="breadcrumb-item">
                 <a href="{{ route("collector.index", compact("year")) }}">
-                    Unit Pengumpulan Zakat
+                    Unit Pengumpul Zakat
                 </a>
             </li>
             <li class="breadcrumb-item active">

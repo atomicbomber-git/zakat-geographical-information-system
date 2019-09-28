@@ -3,12 +3,12 @@
 @endphp
 
 @extends('shared.layout')
-@section('title', 'Verifikasi Unit Pengumpulan Zakat')
+@section('title', 'Verifikasi Unit Pengumpul Zakat')
 @section('content')
 <div class="container mt-5">
     <h1 class="mb-5">
         <i class="fa fa-users"></i>
-        Verifikasi Unit Pengumpulan Zakat
+        Verifikasi Unit Pengumpul Zakat
     </h1>
 
     <nav aria-label="breadcrumb">
@@ -23,7 +23,7 @@
     <div class="card mt-5">
         <div class="card-header">
             <i class="fa fa-users"></i>
-            Verifikasi Unit Pengumpulan Zakat
+            Verifikasi Unit Pengumpul Zakat
         </div>
         <div class="card-body">
             <table class="table table-sm table-striped">

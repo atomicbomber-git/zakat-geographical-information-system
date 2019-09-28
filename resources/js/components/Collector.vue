@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-map"></i>
-                    Peta Lokasi Unit Pengumpulan Zakat
+                    Peta Lokasi Unit Pengumpul Zakat
                 </div>
                 <div class="card-body">
                     <div id="app">
@@ -54,12 +54,12 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-plus"></i>
-                    Tambahkan Unit Pengumpulan Zakat
+                    Tambahkan Unit Pengumpul Zakat
                 </div>
                 <div class="card-body">
                     <form @submit="submitForm">
 
-                        <h3> Data Unit Pengumpulan Zakat </h3>
+                        <h3> Data Unit Pengumpul Zakat </h3>
                         <hr>
 
                         <div class="form-row">

@@ -3,24 +3,24 @@
 @endphp
 
 @extends('shared.layout')
-@section('title', 'Kelola Unit Pengumpulan Zakat')
+@section('title', 'Kelola Unit Pengumpul Zakat')
 @section('content')
 <div class="container mt-5">
     <h1 class="mb-5">
         <i class="fa fa-building"></i>
-        Unit Pengumpulan Zakat
+        Unit Pengumpul Zakat
     </h1>
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> {{ config('app.short_name') }} </li>
-            <li class="breadcrumb-item active"> Unit Pengumpulan Zakat </li>
+            <li class="breadcrumb-item active"> Unit Pengumpul Zakat </li>
         </ol>
     </nav>
 
     <div class="text-right">
         <a href="{{ route('collector.create') }}" class="btn btn-dark btn-sm">
-            Tambah Unit Pengumpulan Zakat
+            Tambah Unit Pengumpul Zakat
         </a>
     </div>
 
@@ -67,7 +67,7 @@
     <div class="card mt-5">
         <div class="card-header">
             <i class="fa fa-building"></i>
-            Unit Pengumpulan Zakat
+            Unit Pengumpul Zakat
         </div>
         <div class="card-body">
             <div class="alert alert-info">

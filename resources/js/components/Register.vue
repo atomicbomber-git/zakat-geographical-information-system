@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-body">
                     <form @submit.prevent="onFormSubmit">
-                        <h3> Data Unit Pengumpulan Zakat </h3>
+                        <h3> Data Unit Pengumpul Zakat </h3>
                         <hr>
 
                         <div class="form-group">

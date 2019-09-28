@@ -15,7 +15,7 @@
                     <li class="nav-item {{ Route::is("collector.*") ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('collector.index') }}">
                             <i class="fa fa-building"></i>
-                            Unit Pengumpulan Zakat
+                            Unit Pengumpul Zakat
                         </a>
                     </li>
 

@@ -1,10 +1,10 @@
 @extends('shared.layout')
-@section('title', 'Tambah Unit Pengumpulan Zakat')
+@section('title', 'Tambah Unit Pengumpul Zakat')
 @section('content')
 <div class="container mt-5">
     <h1 class="mb-4">
         <i class="fa fa-plus"></i>
-        Tambah Unit Pengumpulan Zakat
+        Tambah Unit Pengumpul Zakat
     </h1>
 
     <nav aria-label="breadcrumb">
@@ -12,11 +12,11 @@
             <li class="breadcrumb-item"> {{ config('app.short_name') }} </li>
             <li class="breadcrumb-item">
                 <a href="{{ route('collector.index') }}">
-                    Unit Pengumpulan Zakat
+                    Unit Pengumpul Zakat
                 </a>
             </li>
             <li class="breadcrumb-item active">
-                Tambah Unit Pengumpulan Zakat
+                Tambah Unit Pengumpul Zakat
             </li>
         </ol>
     </nav>

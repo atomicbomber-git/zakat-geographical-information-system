@@ -16,7 +16,7 @@
                     <hr/>
 
                     <h2 class="h5">
-                        Saat ini, unit pengumpulan zakat terdekat adalah <strong> {{ get(this.nearest_collector_with_distance, 'name', '-') }} </strong>
+                        Saat ini, unit pengumpul zakat terdekat adalah <strong> {{ get(this.nearest_collector_with_distance, 'name', '-') }} </strong>
                         yang terletak di <span> {{ get(this.nearest_collector_with_distance, 'address', '-') }} </span> dengan jarak
                         <strong> {{ this.nearest_collector_with_distance ? numberFormat(this.nearest_collector_with_distance.distance_from_pointer_marker) : "-" }} </strong> KM
                         dan Anda dapat menyalurkan zakat disana.
@@ -142,7 +142,7 @@
                         <div class="card-body">
                             <div>
                                 <img style="width: 30px; height:30px" :src="icons.mosque_black" alt="Mesjid">
-                                Unit Pengumpulan Zakat
+                                Unit Pengumpul Zakat
                             </div>
                             <div>
                                 <img style="width: 30px; height:30px; padding: 5px" :src="icons.person_red" alt="Mesjid">
@@ -216,7 +216,7 @@
                         </div>
                         <div class="col-md-6">
                             <dl>
-                                <dt>Nama Unit Pengumpulan Zakat:</dt>
+                                <dt>Nama Unit Pengumpul Zakat:</dt>
                                 <dd>{{ selected_collector.name }}</dd>
 
                                 <dt>Alamat:</dt>
