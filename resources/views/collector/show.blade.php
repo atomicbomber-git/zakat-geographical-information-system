@@ -62,6 +62,12 @@
 
                         <dt> Jumlah Mustahiq </dt>
                         <dd> {{ $collector->mustahiqs->count() }} </dd>
+
+                        @foreach (\App\CollectorMember::POSITIONS as $key => $value)
+                        <dt> {{ $value }} </dt>
+                        <dd> {{ $collector->members[$key] ?? '-' }} </dd>
+                        @endforeach
+
                     </dl>
                 </div>
             </div>

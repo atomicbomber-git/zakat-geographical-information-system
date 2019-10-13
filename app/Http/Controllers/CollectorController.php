@@ -63,7 +63,22 @@ class CollectorController extends Controller
 
     public function show(Collector $collector)
     {
-        $collector->load(["muzakkis", "mustahiqs"]);
+        $collector->load([
+            "muzakkis",
+            "mustahiqs",
+        ]);
+
+        $collector->members = $collector
+            ->members()
+            ->select(
+                "collector_id",
+                "id",
+                "name",
+                "position",
+            )
+            ->get()
+            ->pluck("name", "position");
+
         return view("collector.show", compact("collector"));
     }
 
