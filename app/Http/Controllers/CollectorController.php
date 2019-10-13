@@ -91,7 +91,7 @@ class CollectorController extends Controller
             'anggota_1' => 'nullable|string',
             'anggota_2' => 'nullable|string',
             'collector_name' => 'required|string',
-            'reg_number' => 'required|string|unique:collectors',
+            'reg_number' => 'required|string|unique:' . (new Collector)->getTable(),
             'admin_name' => 'required|string', // User real name
             'username' => 'required|string|alpha_dash|unique:users', // User login name
             'password' => 'required|string|min:8|confirmed',
@@ -184,9 +184,9 @@ class CollectorController extends Controller
             'anggota_1' => 'nullable|string',
             'anggota_2' => 'nullable|string',
             'collector_name' => 'required|string',
-            'reg_number' => ['required', 'string', Rule::unique('collectors')->ignore($collector->id)],
+            'reg_number' => ['required', 'string', Rule::unique((new Collector)->getTable())->ignore($collector->id)],
             'admin_name' => 'required|string', // User real name
-            'username' => ['required', 'string', Rule::unique('users')->ignore($collector->user->id)], // User login name
+            'username' => ['required', 'string', Rule::unique((new User)->getTable())->ignore($collector->user->id)], // User login name
             'password' => 'sometimes|nullable|string|min:8|confirmed',
             'picture' => 'sometimes|nullable|file|mimes:jpg,jpeg,png'
         ]);
