@@ -22,14 +22,14 @@ class CollectorController extends Controller
             ->selectSub(
                 Donation::query()
                     ->select(DB::raw("SUM(amount) AS amount"))
-                    ->whereColumn("donations.collector_id", "collectors.id")
+                    ->whereColumn((new Donation)->getTable() . ".collector_id", (new Collector)->getTable() . ".id")
                     ->whereYear("transaction_date", $year)
                     ->limit(1)
             , "donation_sum")
             ->selectSub(
                 Report::query()
                     ->select(DB::raw("SUM(zakat + fitrah + infak) AS amount"))
-                    ->whereColumn("reports.collector_id", "collectors.id")
+                    ->whereColumn((new Report)->getTable() . ".collector_id", (new Collector)->getTable() . ".id")
                     ->whereYear("transaction_date", $year)
                     ->limit(1)
             , "report_sum")
