@@ -13,6 +13,8 @@ class Collector extends Model implements HasMedia
 {
     use HasMediaTrait;
 
+    public $table = "upz";
+
     public $fillable = [
         "name",
         "address",
