@@ -46,7 +46,7 @@
                         </option>
                         @endforeach
                     </select>
-    
+
                     <button class="btn btn-dark btn-sm"> Ubah Tahun </button>
                 </form>
             </div>
@@ -58,9 +58,11 @@
                             <th> # </th>
                             <th> Tanggal Transaksi </th>
                             <th> Identitas Pemberi </th>
-                            <th class="text-right"> Zakat (Rp.) </th>
-                            <th class="text-right"> Fitrah (Rp.) </th>
+                            <th class="text-right"> Zakat Mal (Rp.) </th>
+                            <th class="text-right"> Zakat Fitrah (Rp.) </th>
+                            <th class="text-right"> Zakat Fitrah Beras (Kg.) </th>
                             <th class="text-right"> Infak (Rp.) </th>
+                            <th class="text-right"> Sedekah (Rp.) </th>
                             <th class="text-right"> Total (Rp.) </th>
                             <th class="text-center"> Aksi </th>
                         </tr>
@@ -85,13 +87,15 @@
                             </td>
                             <td class="text-right"> {{ number_format($receivement->zakat) }} </td>
                             <td class="text-right"> {{ number_format($receivement->fitrah) }} </td>
+                            <td class="text-right"> {{ number_format($receivement->fitrah_beras) }} </td>
                             <td class="text-right"> {{ number_format($receivement->infak) }} </td>
+                            <td class="text-right"> {{ number_format($receivement->sedekah) }} </td>
                             <td class="text-right"> {{ number_format($receivement->total) }} </td>
                             <th class="text-center">
                                 <a href="{{ route('collector.receivement.edit', $receivement) }}" class="btn btn-dark btn-sm">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                
+
                                 <form class="form-delete d-inline-block" action='{{ route('collector.receivement.delete', $receivement) }}' method='POST'>
                                     @csrf
                                     <button type='submit' class='btn btn-danger btn-sm'>
@@ -105,7 +109,9 @@
                            <td colspan="3" class="text-right"> Total: </td>
                            <td class="text-right"> {{ number_format($receivements->sum('zakat')) }} </td>
                            <td class="text-right"> {{ number_format($receivements->sum('fitrah')) }} </td>
+                           <td class="text-right"> {{ number_format($receivements->sum('fitrah_beras')) }} </td>
                            <td class="text-right"> {{ number_format($receivements->sum('infak')) }} </td>
+                           <td class="text-right"> {{ number_format($receivements->sum('sedekah')) }} </td>
                            <td class="text-right"> {{ number_format($receivements->sum('total')) }} </td>
                            <td> </td>
                        </tr>

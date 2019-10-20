@@ -16,10 +16,20 @@ class Receivement extends Model
     ];
 
     public $fillable = [
-        "transaction_date","collector_id","name",
-        "NIK","kecamatan","kelurahan",
-        "phone", "gender","npwz",
-        "zakat","fitrah","infak",
+        "transaction_date",
+        "collector_id",
+        "name",
+        "NIK",
+        "kecamatan",
+        "kelurahan",
+        "phone",
+        "gender",
+        "npwz",
+        "zakat", // Zakat mal
+        "fitrah", // Zakat fitrah (rupiah)
+        "fitrah_beras", // Zakat fitrah (beras)
+        "infak", // Infak
+        "sedekah", // Sedekah
         "muzakki_id"
     ];
 

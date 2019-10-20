@@ -17,41 +17,74 @@
                     <div class='invalid-feedback'>{{ get(this.error_data, 'errors.transaction_date[0]', false) }}</div>
                 </div>
 
-                <div class="form-group">
-                    <label for="zakat"> Zakat: </label>
-
-                    <vue-cleave
-                        class="form-control"
-                        v-model.number="zakat"
+                <div class='form-group'>
+                    <label for='zakat'> Zakat Mal: </label>
+                    <input
+                        v-model.number='zakat'
+                        class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.zakat[0]', false)}"
-                        :options="{ numeral: true, numeralDecimalMark: ',', delimiter: '.' }" />
-
-                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.zakat[0]', false) }}</div>
+                        type='text'
+                        id='zakat'
+                        placeholder='Zakat Mal'>
+                    <div class='invalid-feedback'>
+                         {{ get(this.error_data, 'errors.zakat[0]', false) }}
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="fitrah"> Fitrah: </label>
-
-                    <vue-cleave
-                        class="form-control"
+                <div class='form-group'>
+                    <label for='fitrah'> Zakat Fitrah (Tunai): </label>
+                    <input
+                        v-model.number='fitrah'
+                        class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.fitrah[0]', false)}"
-                        v-model.number="fitrah"
-                        :options="{ numeral: true, numeralDecimalMark: ',', delimiter: '.' }" />
-
-                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.fitrah[0]', false) }}</div>
+                        type='text'
+                        id='fitrah'
+                        placeholder='Zakat Fitrah (Tunai)'>
+                    <div class='invalid-feedback'>
+                         {{ get(this.error_data, 'errors.fitrah[0]', false) }}
+                    </div>
                 </div>
 
+                <div class='form-group'>
+                    <label for='fitrah_beras'> Zakat Fitrah (Beras): </label>
+                    <input
+                        v-model.number='fitrah_beras'
+                        class='form-control'
+                        :class="{'is-invalid': get(this.error_data, 'errors.fitrah_beras[0]', false)}"
+                        type='text'
+                        id='fitrah_beras'
+                        placeholder='Zakat Fitrah (Beras)'>
+                    <div class='invalid-feedback'>
+                         {{ get(this.error_data, 'errors.fitrah_beras[0]', false) }}
+                    </div>
+                </div>
 
-                <div class="form-group">
-                    <label for="infak"> Infak: </label>
-
-                    <vue-cleave
-                        class="form-control"
+                <div class='form-group'>
+                    <label for='infak'> Infak: </label>
+                    <input
+                        v-model.number='infak'
+                        class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.infak[0]', false)}"
-                        v-model.number="infak"
-                        :options="{ numeral: true, numeralDecimalMark: ',', delimiter: '.' }" />
+                        type='text'
+                        id='infak'
+                        placeholder='Infak'>
+                    <div class='invalid-feedback'>
+                         {{ get(this.error_data, 'errors.infak[0]', false) }}
+                    </div>
+                </div>
 
-                    <div class='invalid-feedback'>{{ get(this.error_data, 'errors.infak[0]', false) }}</div>
+                <div class='form-group'>
+                    <label for='sedekah'> Sedekah: </label>
+                    <input
+                        v-model.number='sedekah'
+                        class='form-control'
+                        :class="{'is-invalid': get(this.error_data, 'errors.sedekah[0]', false)}"
+                        type='text'
+                        id='sedekah'
+                        placeholder='Sedekah'>
+                    <div class='invalid-feedback'>
+                         {{ get(this.error_data, 'errors.sedekah[0]', false) }}
+                    </div>
                 </div>
 
 
@@ -89,16 +122,19 @@ export default {
     components: { Multiselect, VueCleave },
 
     props: [
-        "submit_url", "redirect_url",
-        "muzakkis"
+        "submit_url",
+        "redirect_url",
+        "muzakkis",
     ],
 
     data() {
         return {
             transaction_date: null,
-            zakat: 0,
-            fitrah: 0,
-            infak: 0,
+            zakat: null,
+            fitrah: null,
+            fitrah_beras: null,
+            infak: null,
+            sedekah: null,
             muzakki: null,
             error_data: null
         }
@@ -110,7 +146,9 @@ export default {
                 transaction_date: this.transaction_date,
                 zakat: this.zakat,
                 fitrah: this.fitrah,
+                fitrah_beras: this.fitrah_beras,
                 infak: this.infak,
+                sedekah: this.sedekah,
                 muzakki_id: get(this.muzakki, "id", null),
             }
         }
