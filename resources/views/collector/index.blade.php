@@ -97,6 +97,7 @@
                         <th class="text-right"> Total Penerimaan </th>
                         <th class="text-right"> Total Pendistribusian </th>
                         <th> Nomor Registrasi </th>
+                        <th> Tanggal / Waktu Registrasi </th>
                         <th class="text-center"> Aksi </th>
                     </tr>
                 </thead>
@@ -118,6 +119,9 @@
                         <td class="text-right"> {{ number_format($collector->report_sum) }} </td>
                         <td class="text-right"> {{ number_format($collector->donation_sum) }} </td>
                         <td> {{ $collector->reg_number }} </td>
+                        <td>
+                            {{ \App\Helper\Formatter::datetime($collector->created_at)  }}
+                        </td>
                         <td class="text-center">
                             <div class="mb-2 d-flex justify-content-center"">
                                 <a href="{{ route('admin-report.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm mr-2">

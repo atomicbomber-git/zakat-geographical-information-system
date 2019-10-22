@@ -21,7 +21,10 @@ class ReportController extends Controller
             ->get();
 
         $yearly_reports = Report::query()
-            ->select(DB::raw('SUM(zakat + fitrah + infak) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->select(
+                DB::raw('SUM(zakat + fitrah + infak + sedekah) AS amount'),
+                DB::raw('YEAR(transaction_date) AS year')
+            )
             ->where('collector_id', auth()->user()->collector->id)
             ->groupBy('year')
             ->get();
@@ -40,7 +43,9 @@ class ReportController extends Controller
             'transaction_date' => 'required|date',
             'zakat' => 'required|numeric|gte:0',
             'fitrah' => 'required|numeric|gte:0',
+            'fitrah_beras' => 'required|numeric|gte:0',
             'infak' => 'required|numeric|gte:0',
+            'sedekah' => 'required|numeric|gte:0',
         ]);
 
         Report::create(array_merge($data, [
@@ -63,7 +68,9 @@ class ReportController extends Controller
             'transaction_date' => 'required|date',
             'zakat' => 'required|numeric|gte:0',
             'fitrah' => 'required|numeric|gte:0',
+            'fitrah_beras' => 'required|numeric|gte:0',
             'infak' => 'required|numeric|gte:0',
+            'sedekah' => 'required|numeric|gte:0',
         ]);
 
         $report->update($data);

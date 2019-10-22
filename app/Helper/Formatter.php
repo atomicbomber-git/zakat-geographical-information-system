@@ -10,6 +10,10 @@ class Formatter
         return (new Carbon($date))->format("d-m-Y");
     }
 
+    public static function datetime($datetime) {
+        return (new Carbon($datetime))->format("d-m-Y H:i:s");
+    }
+
     public static function currency($value)
     {
         return number_format($value, 0, ",", ".");

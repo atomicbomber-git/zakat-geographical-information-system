@@ -41,7 +41,9 @@ class AdminReportController extends Controller
             }])
             ->get();
 
-        return view("admin_report.print_index", compact("year", "collectors"));
+        $chunk_size = 25;
+
+        return view("admin_report.print_index", compact("year", "collectors", "chunk_size"));
     }
 
     public function detail(Collector $collector)
@@ -49,12 +51,12 @@ class AdminReportController extends Controller
         $year = request('year') ?? Carbon::today()->format("Y");
 
         $collector->load(["reports" => function ($query) use ($year) {
-            $query->select("id", "collector_id", "transaction_date", "zakat", "fitrah", "infak")
+            $query->select("id", "collector_id", "transaction_date", "zakat", "fitrah", "infak", "fitrah_beras", "sedekah")
                 ->whereYear("transaction_date", $year);
         }]);
 
         $yearly_reports = Report::query()
-            ->select(DB::raw('SUM(zakat + fitrah + infak) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->select(DB::raw('SUM(zakat + fitrah + infak + sedekah) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
             ->groupBy('year')
             ->where('collector_id', $collector->id)
             ->get()

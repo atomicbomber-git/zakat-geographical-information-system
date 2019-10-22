@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     public $fillable = [
-        'transaction_date', 'zakat', 'fitrah', 'infak', 'collector_id',
+        'transaction_date',
+        'zakat',
+        'fitrah',
+        'fitrah_beras',
+        'infak',
+        'sedekah',
+        'collector_id',
     ];
 
     public $dates = [

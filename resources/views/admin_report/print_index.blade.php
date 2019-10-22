@@ -25,8 +25,12 @@
     </style>
 </head>
 <body class="A4">
+    @foreach ($collectors->chunk($chunk_size) as $collector_chunk)
+
     <section class="sheet padding-10mm">
+        @if ($loop->first)
         <h1 style="text-align: center"> LAPORAN PENERIMAAN ZAKAT TAHUN {{ $year }} </h1>
+        @endif
 
         <table>
             <thead>
@@ -38,23 +42,33 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($collectors as $collector)
+                @foreach ($collector_chunk as $collector)
                 <tr>
-                    <td> {{ $loop->iteration }}. </td>
+                    <td> {{ $loop->parent->index * $chunk_size + $loop->iteration }}. </td>
                     <td> {{ $collector->name }} </td>
                     <td> {{ $collector->reg_number }} </td>
                     <td style="text-align:right"> {{ Formatter::currency($collector->report_total_amount["value"] ?? 0) }} </td>
                 </tr>
                 @endforeach
+
+            </tbody>
+
+            @if ($loop->last)
+
+            <tfoot>
                 <tr>
                     <td></td>
                     <td></td>
                     <td style="text-align: right; font-weight: bold"> Total: </td>
                     <td style="text-align: right"> {{ Formatter::currency($collectors->sum('report_total_amount.value')) }} </td>
                 </tr>
-            </tbody>
+            </tfoot>
+
+            @endif
         </table>
 
     </section>
+
+    @endforeach
 </body>
 </html>

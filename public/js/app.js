@@ -38069,6 +38069,7 @@ module.exports = {
 /* unused harmony export deg2rad */
 /* harmony export (immutable) */ __webpack_exports__["a"] = getDistance;
 /* harmony export (immutable) */ __webpack_exports__["b"] = numberFormat;
+/* harmony export (immutable) */ __webpack_exports__["c"] = numberNormalize;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_numeral__);
 // Helper functions
@@ -38095,7 +38096,15 @@ function numberFormat(value) {
     return __WEBPACK_IMPORTED_MODULE_0_numeral___default()(value).format("0,0[.000]");
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = ({ getDistance: getDistance, deg2rad: deg2rad, numberFormat: numberFormat });
+function numberNormalize(value) {
+    var oldLocale = __WEBPACK_IMPORTED_MODULE_0_numeral___default.a.locale();
+    __WEBPACK_IMPORTED_MODULE_0_numeral___default.a.locale('en');
+    var result = __WEBPACK_IMPORTED_MODULE_0_numeral___default()(value).value();
+    __WEBPACK_IMPORTED_MODULE_0_numeral___default.a.locale(oldLocale);
+    return result;
+}
+
+/* unused harmony default export */ var _unused_webpack_default_export = ({ getDistance: getDistance, deg2rad: deg2rad, numberFormat: numberFormat, numberNormalize: numberNormalize });
 
 /***/ }),
 /* 32 */
@@ -87609,7 +87618,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -87622,6 +87631,10 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_numeral___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_numeral__);
+//
+//
+//
+//
 //
 //
 //
@@ -87695,13 +87708,13 @@ var render = function() {
               colors: ["blue", "violet", "red", "orange"],
               dataSets: [
                 {
-                  name: "Zakat",
+                  name: "Zakat Mal",
                   values: _vm.data.map(function(record) {
                     return parseFloat(record.zakat / 1000000)
                   })
                 },
                 {
-                  name: "Fitrah",
+                  name: "Zakat Fitrah",
                   values: _vm.data.map(function(record) {
                     return parseFloat(record.fitrah / 1000000)
                   })
@@ -87710,6 +87723,12 @@ var render = function() {
                   name: "Infak",
                   values: _vm.data.map(function(record) {
                     return parseFloat(record.infak / 1000000)
+                  })
+                },
+                {
+                  name: "Sedekah",
+                  values: _vm.data.map(function(record) {
+                    return parseFloat(record.sedekah / 1000000)
                   })
                 },
                 {
@@ -99819,12 +99838,15 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_multiselect__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_multiselect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_cleave_component__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_cleave_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_cleave_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_multiselect__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_multiselect__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_cleave_component__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_cleave_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_cleave_component__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_numeral__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_numeral___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_numeral__);
 //
 //
 //
@@ -99904,6 +99926,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 
@@ -99911,7 +99972,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: { Multiselect: __WEBPACK_IMPORTED_MODULE_2_vue_multiselect___default.a, VueCleave: __WEBPACK_IMPORTED_MODULE_3_vue_cleave_component___default.a },
+    components: { Multiselect: __WEBPACK_IMPORTED_MODULE_3_vue_multiselect___default.a, VueCleave: __WEBPACK_IMPORTED_MODULE_4_vue_cleave_component___default.a },
 
     props: ["submit_url", "redirect_url", "muzakkis", "receivement"],
 
@@ -99919,10 +99980,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         return {
-            transaction_date: __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.receivement.transaction_date).format("YYYY-MM-DD"),
-            zakat: this.receivement.zakat,
-            fitrah: this.receivement.fitrah,
-            infak: this.receivement.infak,
+            transaction_date: __WEBPACK_IMPORTED_MODULE_2_moment___default()(this.receivement.transaction_date).format("YYYY-MM-DD"),
+            zakat: Object(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* numberNormalize */])(this.receivement.zakat),
+            fitrah: Object(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* numberNormalize */])(this.receivement.fitrah),
+            fitrah_beras: Object(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* numberNormalize */])(this.receivement.fitrah_beras),
+            infak: Object(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* numberNormalize */])(this.receivement.fitrah_beras),
+            sedekah: Object(__WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* numberNormalize */])(this.receivement.sedekah),
             muzakki: this.muzakkis.find(function (muzakki) {
                 return muzakki.id === _this.receivement.muzakki_id;
             }),
@@ -99937,7 +100000,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 transaction_date: this.transaction_date,
                 zakat: this.zakat,
                 fitrah: this.fitrah,
+                fitrah_beras: this.fitrah_beras,
                 infak: this.infak,
+                sedekah: this.sedekah,
                 muzakki_id: Object(__WEBPACK_IMPORTED_MODULE_0_lodash__["get"])(this.muzakki, "id", null)
             };
         }
@@ -99945,6 +100010,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         get: __WEBPACK_IMPORTED_MODULE_0_lodash__["get"],
+        numberNormalize: __WEBPACK_IMPORTED_MODULE_1__helpers__["c" /* numberNormalize */],
 
         onFormSubmit: function onFormSubmit(e) {
             var _this2 = this;
@@ -100280,7 +100346,7 @@ var render = function() {
                 )
               },
               attrs: {
-                type: "date",
+                type: "text",
                 id: "transaction_date",
                 placeholder: "Tanggal Transaksi"
               },
@@ -100297,132 +100363,229 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "invalid-feedback" }, [
               _vm._v(
-                _vm._s(
-                  _vm.get(this.error_data, "errors.transaction_date[0]", false)
-                )
+                "\n                     " +
+                  _vm._s(
+                    _vm.get(
+                      this.error_data,
+                      "errors.transaction_date[0]",
+                      false
+                    )
+                  ) +
+                  "\n                "
               )
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", { attrs: { for: "zakat" } }, [_vm._v(" Zakat: ")]),
-              _vm._v(" "),
-              _c("vue-cleave", {
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.zakat[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  options: {
-                    numeral: true,
-                    numeralDecimalMark: ",",
-                    delimiter: "."
-                  }
-                },
-                model: {
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "zakat" } }, [_vm._v(" Zakat Mal: ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
                   value: _vm.zakat,
-                  callback: function($$v) {
-                    _vm.zakat = _vm._n($$v)
-                  },
                   expression: "zakat"
                 }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.zakat[0]", false))
-                )
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", { attrs: { for: "fitrah" } }, [_vm._v(" Fitrah: ")]),
-              _vm._v(" "),
-              _c("vue-cleave", {
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.fitrah[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  options: {
-                    numeral: true,
-                    numeralDecimalMark: ",",
-                    delimiter: "."
+              ],
+              staticClass: "form-control",
+              class: {
+                "is-invalid": _vm.get(this.error_data, "errors.zakat[0]", false)
+              },
+              attrs: { type: "text", id: "zakat", placeholder: "Zakat Mal" },
+              domProps: { value: _vm.zakat },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                },
-                model: {
+                  _vm.zakat = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(
+                "\n                     " +
+                  _vm._s(_vm.get(this.error_data, "errors.zakat[0]", false)) +
+                  "\n                "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "fitrah" } }, [
+              _vm._v(" Zakat Fitrah (Tunai): ")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
                   value: _vm.fitrah,
-                  callback: function($$v) {
-                    _vm.fitrah = _vm._n($$v)
-                  },
                   expression: "fitrah"
                 }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.fitrah[0]", false))
+              ],
+              staticClass: "form-control",
+              class: {
+                "is-invalid": _vm.get(
+                  this.error_data,
+                  "errors.fitrah[0]",
+                  false
                 )
-              ])
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", { attrs: { for: "infak" } }, [_vm._v(" Infak: ")]),
-              _vm._v(" "),
-              _c("vue-cleave", {
-                staticClass: "form-control",
-                class: {
-                  "is-invalid": _vm.get(
-                    this.error_data,
-                    "errors.infak[0]",
-                    false
-                  )
-                },
-                attrs: {
-                  options: {
-                    numeral: true,
-                    numeralDecimalMark: ",",
-                    delimiter: "."
+              },
+              attrs: {
+                type: "text",
+                id: "fitrah",
+                placeholder: "Zakat Fitrah (Tunai)"
+              },
+              domProps: { value: _vm.fitrah },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                },
-                model: {
+                  _vm.fitrah = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(
+                "\n                     " +
+                  _vm._s(_vm.get(this.error_data, "errors.fitrah[0]", false)) +
+                  "\n                "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "fitrah_beras" } }, [
+              _vm._v(" Zakat Fitrah (Beras): ")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fitrah_beras,
+                  expression: "fitrah_beras"
+                }
+              ],
+              staticClass: "form-control",
+              class: {
+                "is-invalid": _vm.get(
+                  this.error_data,
+                  "errors.fitrah_beras[0]",
+                  false
+                )
+              },
+              attrs: {
+                type: "text",
+                id: "fitrah_beras",
+                placeholder: "Zakat Fitrah (Beras)"
+              },
+              domProps: { value: _vm.fitrah_beras },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.fitrah_beras = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(
+                "\n                     " +
+                  _vm._s(
+                    _vm.get(this.error_data, "errors.fitrah_beras[0]", false)
+                  ) +
+                  "\n                "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "infak" } }, [_vm._v(" Infak: ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
                   value: _vm.infak,
-                  callback: function($$v) {
-                    _vm.infak = _vm._n($$v)
-                  },
                   expression: "infak"
                 }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "invalid-feedback" }, [
-                _vm._v(
-                  _vm._s(_vm.get(this.error_data, "errors.infak[0]", false))
+              ],
+              staticClass: "form-control",
+              class: {
+                "is-invalid": _vm.get(this.error_data, "errors.infak[0]", false)
+              },
+              attrs: { type: "text", id: "infak", placeholder: "Infak" },
+              domProps: { value: _vm.infak },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.infak = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(
+                "\n                     " +
+                  _vm._s(_vm.get(this.error_data, "errors.infak[0]", false)) +
+                  "\n                "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "sedekah" } }, [_vm._v(" Sedekah: ")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.sedekah,
+                  expression: "sedekah"
+                }
+              ],
+              staticClass: "form-control",
+              class: {
+                "is-invalid": _vm.get(
+                  this.error_data,
+                  "errors.sedekah[0]",
+                  false
                 )
-              ])
-            ],
-            1
-          ),
+              },
+              attrs: { type: "text", id: "sedekah", placeholder: "Sedekah" },
+              domProps: { value: _vm.sedekah },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.sedekah = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v(
+                "\n                     " +
+                  _vm._s(_vm.get(this.error_data, "errors.sedekah[0]", false)) +
+                  "\n                "
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",

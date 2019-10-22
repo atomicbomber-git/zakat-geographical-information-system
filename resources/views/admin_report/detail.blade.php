@@ -10,7 +10,8 @@
         <i class='fa fa-money'></i>
         Detail Laporan Penerimaan Zakat
         <p class="lead">
-            {{ $collector->name }}
+            {{ $collector->name }} <br/>
+            Tahun {{ request("year") }}
         </p>
     </h1>
 
@@ -52,9 +53,11 @@
                         <tr>
                             <th> # </th>
                             <th> Tanggal Transaksi </th>
-                            <th class="text-right"> Zakat (Rp.) </th>
-                            <th class="text-right"> Fitrah (Rp.) </th>
+                            <th class="text-right"> Zakat Mal (Rp.) </th>
+                            <th class="text-right"> Zakat Fitrah Tunai (Rp.) </th>
+                            <th class="text-right"> Zakat Fitrah Beras (Kg.) </th>
                             <th class="text-right"> Infak (Rp.) </th>
+                            <th class="text-right"> Sedekah (Rp.) </th>
                             <th class="text-right"> Total (Rp.) </th>
                         </tr>
                     </thead>
@@ -65,7 +68,9 @@
                             <td> {{ Formatter::date($report->transaction_date) }} </td>
                             <td class="text-right"> {{ Formatter::currency($report->zakat) }} </td>
                             <td class="text-right"> {{ Formatter::currency($report->fitrah) }} </td>
+                            <td class="text-right"> {{ Formatter::currency($report->fitrah_beras) }} </td>
                             <td class="text-right"> {{ Formatter::currency($report->infak) }} </td>
+                            <td class="text-right"> {{ Formatter::currency($report->sedekah) }} </td>
                             <td class="text-right"> {{ Formatter::currency($report->total) }} </td>
                         </tr>
                         @endforeach
@@ -76,7 +81,9 @@
                             <td> </td>
                             <td class="text-right"> {{ Formatter::currency($collector->reports->sum('zakat')) }} </td>
                             <td class="text-right"> {{ Formatter::currency($collector->reports->sum('fitrah')) }} </td>
+                            <td class="text-right"> {{ Formatter::currency($collector->reports->sum('fitrah_beras')) }} </td>
                             <td class="text-right"> {{ Formatter::currency($collector->reports->sum('infak')) }} </td>
+                            <td class="text-right"> {{ Formatter::currency($collector->reports->sum('sedekah')) }} </td>
                             <td class="text-right"> {{ Formatter::currency($collector->reports->sum('total')) }} </td>
                         </tr>
                     </tfoot>

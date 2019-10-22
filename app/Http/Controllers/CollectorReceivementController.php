@@ -34,9 +34,14 @@ class CollectorReceivementController extends Controller
 
         $yearly_receivements = Receivement::query()
             ->select(
-                DB::raw('SUM(zakat) AS zakat'), DB::raw('SUM(fitrah) AS fitrah'), DB::raw('SUM(infak) AS infak'),
-                DB::raw('(SUM(zakat) + SUM(fitrah) + SUM(infak)) AS total'),
-                DB::raw('YEAR(transaction_date) AS year'))
+                DB::raw('SUM(zakat) AS zakat'),
+                DB::raw('SUM(fitrah) AS fitrah'),
+                DB::raw('SUM(fitrah_beras) AS fitrah_beras'),
+                DB::raw('SUM(sedekah) AS sedekah'),
+                DB::raw('SUM(infak) AS infak'),
+                DB::raw('(SUM(zakat) + SUM(fitrah) + SUM(infak) + SUM(sedekah)) AS total'),
+                DB::raw('YEAR(transaction_date) AS year')
+            )
             ->where('collector_id', auth()->user()->collector->id)
             ->groupBy('year')
             ->get();
@@ -96,7 +101,9 @@ class CollectorReceivementController extends Controller
             'transaction_date' => 'required|date',
             'zakat' => 'required|numeric|gte:0',
             'fitrah' => 'required|numeric|gte:0',
+            'fitrah_beras' => 'required|numeric|gte:0',
             'infak' => 'required|numeric|gte:0',
+            'sedekah' => 'required|numeric|gte:0',
         ]);
 
         $receivement->update($data);

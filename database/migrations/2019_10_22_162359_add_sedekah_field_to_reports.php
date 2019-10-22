@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFitrahBerasFieldToReceivements extends Migration
+class AddSedekahFieldToReports extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddFitrahBerasFieldToReceivements extends Migration
      */
     public function up()
     {
-        Schema::table('receivements', function (Blueprint $table) {
-            $table->decimal("fitrah_beras", 19, 4)
-                ->comment("Zakat fitrah beras dalam satuan kilogram.")
+        Schema::table('reports', function (Blueprint $table) {
+            $table->decimal('sedekah', 19, 4)
                 ->nullable();
         });
     }
@@ -27,8 +26,8 @@ class AddFitrahBerasFieldToReceivements extends Migration
      */
     public function down()
     {
-        Schema::table('receivements', function (Blueprint $table) {
-            $table->dropColumn("fitrah_beras");
+        Schema::table('reports', function (Blueprint $table) {
+            $table->dropColumn('sedekah');
         });
     }
 }

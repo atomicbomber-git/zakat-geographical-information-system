@@ -60,9 +60,11 @@
                         <tr>
                             <th> # </th>
                             <th> Tanggal Transaksi </th>
-                            <th class="text-right"> Zakat (Rp.) </th>
-                            <th class="text-right"> Fitrah (Rp.) </th>
+                            <th class="text-right"> Zakat Mal (Rp.) </th>
+                            <th class="text-right"> Zakat Fitrah Tunai (Rp.) </th>
+                            <th class="text-right"> Zakat Fitrah Beras (Kg.) </th>
                             <th class="text-right"> Infak (Rp.) </th>
+                            <th class="text-right"> Sedekah (Rp.) </th>
                             <th class="text-right"> Total (Rp.) </th>
                             <th class="text-center"> Aksi </th>
                         </tr>
@@ -74,7 +76,9 @@
                             <td> {{ $report->transaction_date->format('d-m-Y') }} </td>
                             <td class="text-right"> {{ number_format($report->zakat) }} </td>
                             <td class="text-right"> {{ number_format($report->fitrah) }} </td>
+                            <td class="text-right"> {{ number_format($report->fitrah_beras) }} </td>
                             <td class="text-right"> {{ number_format($report->infak) }} </td>
+                            <td class="text-right"> {{ number_format($report->sedekah) }} </td>
                             <td class="text-right"> {{ number_format($report->total) }} </td>
                             <th class="text-center">
                                 <a href="{{ route('report.edit', $report) }}" class="btn btn-dark btn-sm">

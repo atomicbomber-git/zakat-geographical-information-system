@@ -9,11 +9,11 @@
             :colors="['blue', 'violet', 'red', 'orange']"
             :dataSets="[
                 {
-                    name: 'Zakat',
+                    name: 'Zakat Mal',
                     values: data.map(record => parseFloat(record.zakat / 1000000) )
                 },
                 {
-                    name: 'Fitrah',
+                    name: 'Zakat Fitrah',
                     values: data.map(record => parseFloat(record.fitrah / 1000000) )
                 },
                 {
@@ -21,11 +21,15 @@
                     values: data.map(record => parseFloat(record.infak / 1000000) )
                 },
                 {
+                    name: 'Sedekah',
+                    values: data.map(record => parseFloat(record.sedekah / 1000000) )
+                },
+                {
                     name: 'Total',
                     values: data.map(record => parseFloat(record.total / 1000000) )
                 },
             ]"
-            
+
             :tooltipOptions="{
                 formatTooltipX: d => (d + '').toUpperCase(),
                 formatTooltipY: d => `${numeral(d * 1000000).format('$ 0.[000] a')}`,

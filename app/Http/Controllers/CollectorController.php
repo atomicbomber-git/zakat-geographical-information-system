@@ -17,7 +17,7 @@ class CollectorController extends Controller
         $available_years = $this->getReportAndDonationAvailableYears();
         $year = request('year') ?? ($available_years->first() ?? now()->format('Y'));
 
-        $collectors = Collector::select('name', 'user_id', 'reg_number', 'id')
+        $collectors = Collector::select('name', 'user_id', 'reg_number', 'id', 'created_at')
             ->with('user:id,name,username')
             ->selectSub(
                 Donation::query()
@@ -28,7 +28,7 @@ class CollectorController extends Controller
             , "donation_sum")
             ->selectSub(
                 Report::query()
-                    ->select(DB::raw("SUM(zakat + fitrah + infak) AS amount"))
+                    ->select(DB::raw("SUM(zakat + fitrah + infak + sedekah) AS amount"))
                     ->whereColumn((new Report)->getTable() . ".collector_id", (new Collector)->getTable() . ".id")
                     ->whereYear("transaction_date", $year)
                     ->limit(1)
@@ -45,7 +45,7 @@ class CollectorController extends Controller
             ->keyBy("year");
 
         $yearly_reports = Report::query()
-            ->select(DB::raw('SUM(zakat + fitrah + infak) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->select(DB::raw('SUM(zakat + fitrah + infak + sedekah) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
             ->groupBy('year')
             ->get()
             ->keyBy('year');

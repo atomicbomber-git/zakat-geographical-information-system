@@ -14,7 +14,7 @@ class AddSedekahFieldToReceivements extends Migration
     public function up()
     {
         Schema::table('receivements', function (Blueprint $table) {
-            $table->decimal("sedekah")->nullable();
+            $table->decimal("sedekah", 19, 4)->nullable();
         });
     }
 

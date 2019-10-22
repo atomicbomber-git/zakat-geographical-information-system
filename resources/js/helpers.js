@@ -25,4 +25,12 @@ export function numberFormat(value) {
     return numeral(value).format("0,0[.000]")
 }
 
-export default { getDistance, deg2rad, numberFormat }
+export function numberNormalize(value) {
+    let oldLocale = numeral.locale()
+    numeral.locale('en')
+    let result = numeral(value).value()
+    numeral.locale(oldLocale)
+    return result
+}
+
+export default { getDistance, deg2rad, numberFormat, numberNormalize }

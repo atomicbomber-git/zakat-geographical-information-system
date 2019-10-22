@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class CollectorSeeder extends Seeder
 {
-    const AMOUNT = 10;
+    const AMOUNT = 35;
 
     /**
      * Run the database seeds.
