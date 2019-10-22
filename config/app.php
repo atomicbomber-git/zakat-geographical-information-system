@@ -236,4 +236,10 @@ return [
         relative to the public path
     */
     'login_image' => 'image/login.jpg',
+
+    /*
+        Google Cloud Platform API key
+    */
+
+    'gcp_api_key' => env('GCP_API_KEY'),
 ];

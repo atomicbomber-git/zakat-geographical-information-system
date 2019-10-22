@@ -22,11 +22,13 @@ Vue.use(Chart)
 import VModal from 'vue-js-modal'
 Vue.use(VModal)
 
+let gcp_api_key = document.querySelector("meta[name=gcp-api-key]").getAttribute("content")
+
 // Add Vue Google Maps
 import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
     load: {
-      key: 'AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU',
+      key: gcp_api_key,
       libraries: 'places',
       language: 'id',
     },

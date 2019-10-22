@@ -50359,11 +50359,13 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue2_frappe__["a" /* default */]);
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_js_modal___default.a);
 
+var gcp_api_key = document.querySelector("meta[name=gcp-api-key]").getAttribute("content");
+
 // Add Vue Google Maps
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__, {
     load: {
-        key: 'AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU',
+        key: gcp_api_key,
         libraries: 'places',
         language: 'id'
     }
