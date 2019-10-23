@@ -8,6 +8,7 @@
                 </div>
                 <div class="card-body p-0">
                     <GmapMap
+                        ref="mapRef"
                         @click="onMapClick"
                         :center="{
                             lat: this.collector.latitude,
@@ -247,10 +248,24 @@ export default {
     components: { Multiselect },
 
     props: [
-        "gmap_settings", "collector",
-        "submit_url", "redirect_url",
-        "original_mustahiqs"
+        "gmap_settings",
+        "collector",
+        "submit_url",
+        "redirect_url",
+        "original_mustahiqs",
+        "datasource_url",
     ],
+
+    mixins: [
+        require('../../../vue_mixins/GmapDatalayer').default,
+    ],
+
+    mounted() {
+        this.$refs.mapRef.$mapPromise.then(map => {
+            this.map = map
+            this.loadAndSetupDatalayer(this.datasource_url)
+        })
+    },
 
     data() {
         return {

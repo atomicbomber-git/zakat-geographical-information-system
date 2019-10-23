@@ -30,6 +30,7 @@
             redirect_url='{{ route("collector.mustahiq.index") }}'
             :collector='{{ json_encode($collector) }}'
             :original_mustahiqs='{{ json_encode($mustahiqs) }}'
+            datasource_url="{{ asset(config('app.datasource_publicpath')) }}"
             />
     </div>
 </div>

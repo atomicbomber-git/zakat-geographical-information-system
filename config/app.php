@@ -240,6 +240,11 @@ return [
     /*
         Google Cloud Platform API key
     */
-
     'gcp_api_key' => env('GCP_API_KEY'),
+
+    /*
+        Public asset path for the Google Map datasource to be loaded by
+        the data.loadGeoJson() method
+    */
+    'datasource_publicpath' => 'geojson/pontianak.geojson',
 ];

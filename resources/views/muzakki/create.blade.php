@@ -28,6 +28,7 @@
             redirect_url='{{ route("collector.muzakki.index") }}'
             :collector='{{ json_encode($collector) }}'
             :original_muzakkis='{{ json_encode($muzakkis) }}'
+            ref="mapRef"ref="mapRef"
             />
     </div>
 </div>

@@ -312,6 +312,8 @@ import icons from '../icons.js'
 import { getDistance, numberFormat } from '../helpers.js'
 import KecamatanToggle from './KecamatanToggle'
 import { Promise } from 'q';
+import GmapDatalayerMixin from '../vue_mixins/GmapDatalayer'
+import GmapDatalayer from '../vue_mixins/GmapDatalayer'
 
 export default {
     props: [
@@ -320,9 +322,12 @@ export default {
         "gmap_settings",
         "kecamatans",
         "can_see_muzakkis",
+        "datasource_url",
     ],
 
     components: { KecamatanToggle, Multiselect },
+
+    mixins: [ GmapDatalayer ],
 
     mounted() {
         this.$refs.mapRef.$mapPromise.then(map => {
@@ -344,6 +349,7 @@ export default {
 
             this.services_loaded = true
             this.loadAndSetCurrentLocation()
+            this.loadAndSetupDatalayer(this.datasource_url)
         })
     },
 

@@ -289,7 +289,8 @@
 
 <script>
     import axios from 'axios'
-    import {get} from 'lodash'
+    import { get } from 'lodash'
+    import GmapDatalayerMixin from '../vue_mixins/GmapDatalayer'
 
     export default {
         props: [
@@ -297,11 +298,19 @@
             "redirect_url",
             "collectors",
             "config",
+            "datasource_url",
+        ],
+
+        mixins: [
+            GmapDatalayerMixin
         ],
 
         mounted() {
             this.$refs.mapRef.$mapPromise.then(map => {
-                this.geocoder = new google.maps.Geocoder;
+                this.geocoder = new google.maps.Geocoder
+                this.map = map
+
+                this.loadAndSetupDatalayer(this.datasource_url)
             })
         },
 

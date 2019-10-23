@@ -4,6 +4,7 @@
 
 <div class="container-fluid mt-3" id="app">
     <guest-map
+        datasource_url="{{ asset(config("app.datasource_publicpath")) }}"
         :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
         :collector='{{ json_encode($collector) }}'
         :collectors='{{ json_encode($collectors) }}'

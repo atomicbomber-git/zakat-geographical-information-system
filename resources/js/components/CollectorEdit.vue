@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <div id="app">
                         <GmapMap
+                            ref="mapRef"
                             :center="{lat: this.map.center_lat, lng: this.map.center_lng}"
                             :zoom="14"
                             @click="moveMarker"
@@ -291,6 +292,7 @@
     import axios from 'axios'
     import icons from '../icons'
     import { get } from 'lodash'
+    import GmapDatalayerMixin from '../vue_mixins/GmapDatalayer'
 
     export default {
         props: [
@@ -299,7 +301,19 @@
             "collectors",
             "collector",
             "config",
+            "datasource_url",
         ],
+
+        mixins: [
+            GmapDatalayerMixin
+        ],
+
+        mounted() {
+            this.$refs.mapRef.$mapPromise.then(map => {
+                this.map = map
+                this.loadAndSetupDatalayer(this.datasource_url)
+            })
+        },
 
         data() {
             return {

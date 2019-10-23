@@ -28,6 +28,7 @@
             :collectors='{{ json_encode($collectors) }}'
             :collector='{{ json_encode($collector) }}'
             :config='{{ json_encode(config("gmap_settings")) }}'
+            datasource_url="{{ asset(config('app.datasource_publicpath')) }}"
             >
 
         </collector-edit>

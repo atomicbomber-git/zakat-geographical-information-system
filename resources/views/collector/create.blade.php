@@ -27,6 +27,7 @@
             redirect_url="{{ route('collector.index') }}"
             :collectors='{{ json_encode($collectors) }}'
             :config='{{ json_encode(config("gmap_settings")) }}'
+            datasource_url="{{ asset(config('app.datasource_publicpath')) }}"
             >
         </collector-create>
     </div>

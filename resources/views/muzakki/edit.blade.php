@@ -31,6 +31,7 @@
             :collector='{{ json_encode($collector) }}'
             :muzakki='{{ json_encode($muzakki) }}'
             :original_muzakkis='{{ json_encode($muzakkis) }}'
+            datasource_url="{{ asset(config('app.datasource_publicpath')) }}"
             />
     </div>
 </div>

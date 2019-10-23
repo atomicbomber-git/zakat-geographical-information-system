@@ -8,6 +8,7 @@
                 </div>
                 <div class="card-body p-0">
                     <GmapMap
+                        ref="mapRef"
                         @click="onMapClick"
                         :center="{
                             lat: this.mustahiq.latitude,
@@ -300,8 +301,20 @@ export default {
         "submit_url",
         "redirect_url",
         "original_mustahiqs",
-        "mustahiq"
+        "mustahiq",
+        "datasource_url",
     ],
+
+    mixins: [
+        require('../../../vue_mixins/GmapDatalayer').default,
+    ],
+
+    mounted() {
+        this.$refs.mapRef.$mapPromise.then(map => {
+            this.map = map
+            this.loadAndSetupDatalayer(this.datasource_url)
+        })
+    },
 
     data() {
         return {

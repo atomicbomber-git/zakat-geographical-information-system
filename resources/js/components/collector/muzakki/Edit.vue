@@ -8,6 +8,7 @@
                 </div>
                 <div class="card-body p-0">
                     <GmapMap
+                        ref="mapRef"
                         @click="onMapClick"
                         :center="{
                             lat: this.muzakki.latitude,
@@ -207,13 +208,29 @@
 
 import { get } from 'lodash'
 import axios from 'axios'
+import GmapDatalayerMixin from '../../../vue_mixins/GmapDatalayer'
 
 export default {
     props: [
-        "gmap_settings", "collector",
-        "submit_url", "redirect_url",
-        "original_muzakkis", "muzakki"
+        "gmap_settings",
+        "collector",
+        "submit_url",
+        "redirect_url",
+        "original_muzakkis",
+        "muzakki",
+        "datasource_url",
     ],
+
+    mixins: [
+        GmapDatalayerMixin
+    ],
+
+    mounted() {
+        this.$refs.mapRef.$mapPromise.then(map => {
+            this.map = map
+            this.loadAndSetupDatalayer(this.datasource_url)
+        })
+    },
 
     data() {
         return {
@@ -231,6 +248,7 @@ export default {
 
             name: this.muzakki.name,
             gender: this.muzakki.gender,
+            occupation: this.muzakki.occupation,
             nik: this.muzakki.NIK,
             address: this.muzakki.address,
             kecamatan: this.muzakki.kecamatan,
