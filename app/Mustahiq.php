@@ -49,4 +49,9 @@ class Mustahiq extends Model
     {
         return $this->hasMany(Donation::class);
     }
+
+    public function receivements()
+    {
+        return $this->hasMany(Receivement::class);
+    }
 }

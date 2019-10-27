@@ -12,8 +12,29 @@ class MapController extends Controller
 {
     public function show()
     {
-        $collectors = Collector::select('id', 'name', 'address', 'latitude', 'longitude', 'kecamatan', 'kelurahan')
-            ->with('mustahiqs')
+        $collectors = Collector::query()
+            ->select(
+                'id',
+                'name',
+                'address',
+                'latitude',
+                'longitude',
+                'kecamatan',
+                'kelurahan'
+            )
+            ->with([
+                'mustahiqs',
+                'mustahiqs.donations' => function ($query) {
+                    $query
+                        ->select(
+                            'id',
+                            'mustahiq_id',
+                            'transaction_date',
+                            'amount'
+                        )
+                        ->orderByDesc('transaction_date');
+                },
+            ])
             ->when(Gate::allows("see-muzakkis-on-map"),
                 function ($query) {
                     $query->with('muzakkis');

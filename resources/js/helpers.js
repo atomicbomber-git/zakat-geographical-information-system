@@ -22,7 +22,19 @@ export function getDistance(lat1, lon1, lat2, lon2) {
 }
 
 export function numberFormat(value) {
-    return numeral(value).format("0,0[.000]")
+    let oldLocale = numeral.locale()
+    numeral.locale('en')
+    let result = numeral(value).format("0,0[.000]")
+    numeral.locale(oldLocale)
+    return result
+}
+
+export function currencyFormat(value) {
+    let oldLocale = numeral.locale()
+    numeral.locale('en')
+    let result = numeral(value).format("0,0")
+    numeral.locale(oldLocale)
+    return result
 }
 
 export function numberNormalize(value) {
