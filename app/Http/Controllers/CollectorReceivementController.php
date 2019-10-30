@@ -36,12 +36,30 @@ class CollectorReceivementController extends Controller
             ->groupBy('year')
             ->get();
 
+
+
+        $latest_muzakki_receivement_year_query =
+            Receivement::query()
+                ->selectRaw("YEAR(transaction_date)")
+                ->whereColumn("muzakkis.id", "receivements.muzakki_id")
+                ->orderByDesc("transaction_date")
+                ->limit(1);
+
         $muzakkis = Muzakki::query()
             ->select(
                 "id",
                 "name",
                 "NIK",
             )
+            ->selectSub(
+                Receivement::query()
+                    ->select("transaction_date")
+                    ->whereColumn("muzakkis.id", "receivements.muzakki_id")
+                    ->orderByDesc("transaction_date")
+                    ->limit(1),
+                "latest_receivement_date"
+            )
+            ->whereRaw("({$latest_muzakki_receivement_year_query->toSql()}) = ?", [$year])
             ->orderBy("name")
             ->get();
 

@@ -34,7 +34,7 @@
         </div>
         <div class="card-body">
 
-            {{-- <div class="alert alert-info">
+            <div class="alert alert-info">
                 <strong> Menampilkan laporan penerimaan zakat untuk tahun {{ $year }} </strong>
 
                 <form class="form-inline mt-2 mb-4" method="GET">
@@ -49,7 +49,7 @@
 
                     <button class="btn btn-dark btn-sm"> Ubah Tahun </button>
                 </form>
-            </div> --}}
+            </div>
 
             <div class='table-responsive'>
                 <table class='table table-sm table-bordered'>
@@ -57,6 +57,7 @@
                         <tr>
                             <th> # </th>
                             <th> Muzakki </th>
+                            <th> Tanggal Transaksi Terakhir </th>
                             <th class="text-center"> Aksi </th>
                         </tr>
                    </thead>
@@ -65,6 +66,7 @@
                         <tr>
                             <td> {{ $loop->iteration }}. </td>
                             <td> {{ $muzakki->name }} ({{ $muzakki->NIK }}) </td>
+                            <td> {{ \App\Helper\Formatter::date($muzakki->latest_receivement_date) }} </td>
                             <td class="text-center">
                                 <a
                                     class="btn btn-dark btn-sm"
