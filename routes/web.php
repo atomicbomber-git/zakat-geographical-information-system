@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\CollectorMuzakkiReceivementController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapController;
@@ -135,4 +137,9 @@ Route::group(['prefix' => '/information', 'as' => 'information.'], function() {
     Route::get('/show/{information}', [InformationController::class, 'show'])->name('show');
     Route::get('/edit/{information}', [InformationController::class, 'edit'])->name('edit');
     Route::post('/update/{information}', [InformationController::class, 'update'])->name('update');
+});
+
+
+Route::group(['prefix' => '/collector-muzakki-receivement', 'as' => 'collector-muzakki-receivement.'], function() {
+    Route::get('/index/{muzakki}', [CollectorMuzakkiReceivementController::class, 'index'])->name('index');
 });

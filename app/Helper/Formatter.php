@@ -19,6 +19,11 @@ class Formatter
         return number_format($value, 0, ",", ".");
     }
 
+    public static function number($value)
+    {
+        return number_format($value, 0, ",", ".");
+    }
+
     public static function gender($value)
     {
         $genders = [
