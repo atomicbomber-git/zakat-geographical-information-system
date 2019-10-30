@@ -274,6 +274,10 @@
         <modal name="mustahiq-info" height="auto" width="800">
             <div class="card" v-if="selected_mustahiq">
                 <div class="card-body">
+                    <h1 class="h5">
+                        Identitas
+                    </h1>
+
                     <dl>
                         <dt>Nama:</dt>
                         <dd>{{ selected_mustahiq.name }}</dd>
@@ -284,9 +288,35 @@
                         <dt>Usia:</dt>
                         <dd>{{ selected_mustahiq.age }}</dd>
 
-                        <dt>Pekerjaan:</dt>
-                        <dd>{{ selected_mustahiq.occupation }}</dd>
+                        <dt> Pekerjaan: </dt>
+                        <dd> {{ selected_mustahiq.occupation }} </dd>
                     </dl>
+
+                    <h1 class="h5 mt-5">
+                        Penerimaan Zakat
+                    </h1>
+
+                    <table
+                        v-if="selected_mustahiq.donations.length > 0"
+                        class="table table-sm table-bordered table-striped">
+                        <thead class="thead thead-dark">
+                            <tr>
+                                <th> Tanggal </th>
+                                <th class="text-right"> Jumlah (Rp.) </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr
+                                :key="donation.id"
+                                v-for="donation in selected_mustahiq.donations"
+                                >
+
+                                <td> {{ donation.transaction_date }} </td>
+                                <td class="text-right"> {{ currencyFormat(donation.amount) }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </modal>
@@ -314,6 +344,7 @@ import KecamatanToggle from './KecamatanToggle'
 import { Promise } from 'q';
 import GmapDatalayerMixin from '../vue_mixins/GmapDatalayer'
 import GmapDatalayer from '../vue_mixins/GmapDatalayer'
+import { currencyFormat } from '../helpers'
 
 export default {
     props: [
@@ -525,6 +556,7 @@ export default {
     methods: {
         get,
         numberFormat,
+        currencyFormat,
 
         getCollectorIconScaledSize(collector) {
             if (this.nearest_collector_with_distance && (this.nearest_collector_with_distance.id === collector.id)) {
