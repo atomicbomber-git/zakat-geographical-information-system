@@ -39,6 +39,7 @@ class AdminReportController extends Controller
             ->with(["report_total_amount" => function ($query) use($year) {
                 $query->whereYear("transaction_date", $year);
             }])
+            ->orderBy("name")
             ->get();
 
         $chunk_size = 25;
