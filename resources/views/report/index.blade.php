@@ -101,7 +101,9 @@
                             <td class="text-right"> Total: </td>
                             <td class="text-right"> {{ number_format($reports->sum('zakat')) }} </td>
                             <td class="text-right"> {{ number_format($reports->sum('fitrah')) }} </td>
+                            <td class="text-right"> {{ number_format($reports->sum('fitrah_beras')) }} </td>
                             <td class="text-right"> {{ number_format($reports->sum('infak')) }} </td>
+                            <td class="text-right"> {{ number_format($reports->sum('sedekah')) }} </td>
                             <td class="text-right"> {{ number_format($reports->sum('total')) }} </td>
                             <td></td>
                         </tr>
