@@ -22,6 +22,31 @@ class CollectorDonationController extends Controller
 
         $year = request('year') ?? $available_years->first();
 
+        $latest_mustahiq_donation_date_query =
+            Donation::query()
+                ->selectRaw("YEAR(transaction_date)")
+                ->whereColumn("mustahiqs.id", "donations.mustahiq_id")
+                ->orderByDesc("transaction_date")
+                ->limit(1);
+
+        $mustahiqs = Mustahiq::query()
+            ->select(
+                "id",
+                "name",
+                "NIK",
+            )
+            ->selectSub(
+                Donation::query()
+                    ->selectRaw("transaction_date")
+                    ->whereColumn("mustahiqs.id", "donations.mustahiq_id")
+                    ->orderByDesc("transaction_date")
+                    ->limit(1),
+                "latest_donation_date",
+            )
+            ->orderBy("name")
+            ->whereRaw("({$latest_mustahiq_donation_date_query->toSql()}) = ?", [$year])
+            ->get();
+
         $donations = Donation::query()
             ->select(
                 "id", "transaction_date", "mustahiq_id", "amount"
@@ -37,9 +62,15 @@ class CollectorDonationController extends Controller
             ->groupBy('year')
             ->get();
 
-        return view('collector.donation.index', compact('donations', 'year', 'available_years', 'yearly_donations'));
+        return view('collector.donation.index',
+            compact(
+                'mustahiqs',
+                'year',
+                'available_years',
+                'yearly_donations'
+            ));
     }
-    
+
     public function create()
     {
         $mustahiqs = Mustahiq::query()
@@ -52,7 +83,7 @@ class CollectorDonationController extends Controller
 
         return view('collector.donation.create', compact('mustahiqs'));
     }
-    
+
     public function store()
     {
         $data = $this->validate(request(), [
@@ -60,14 +91,14 @@ class CollectorDonationController extends Controller
             'amount' => 'required|gt:0',
             'mustahiq_id' => 'required|exists:mustahiqs,id'
         ]);
-        
+
         Donation::create(array_merge($data, [
             "collector_id" => Auth::user()->collector->id
         ]));
 
         session()->flash('message-success', __('messages.create.success'));
     }
-    
+
     public function edit(Donation $donation)
     {
         $mustahiqs = Mustahiq::query()
@@ -81,7 +112,7 @@ class CollectorDonationController extends Controller
         $donation->load("mustahiq");
         return view('collector.donation.edit', compact('donation', 'mustahiqs'));
     }
-    
+
     public function update(Donation $donation)
     {
         $data = $this->validate(request(), [
@@ -93,7 +124,7 @@ class CollectorDonationController extends Controller
         $donation->update($data);
         session()->flash('message-success', __('messages.update.success'));
     }
-    
+
     public function delete(Donation $donation) {
         $donation->delete();
         return back()

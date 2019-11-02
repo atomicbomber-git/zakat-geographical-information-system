@@ -56,60 +56,32 @@
             </div>
 
             <div class='table-responsive'>
-                <table class='table table-sm table-bordered table-striped'>
-                    <thead class="thead-dark">
-                        <tr>
-                            <th> # </th>
-                            <th> Tanggal Transaksi </th>
-                            <th> Identitas Penerima </th>
-                            <th> asnaf </th>
-                            <th> Program Bantuan </th>
-                            <th class="text-right"> Jumlah Zakat (Rp.) </th>
-                            <th class="text-center"> Aksi </th>
-                        </tr>
+                <table class='table table-sm table-bordered'>
+                    <thead class="thead thead-dark">
+                         <tr>
+                             <th> # </th>
+                             <th> Mustahiq </th>
+                             <th> Tanggal Transaksi Terakhir </th>
+                             <th class="text-center"> Aksi </th>
+                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($donations as $donation)
-                        <tr>
-                            <td> {{ $loop->iteration }}. </td>
-                            <td> {{ $donation->transaction_date->format('d-m-Y') }} </td>
-                            <td>
-                                <div> <strong> {{ $donation->mustahiq->name }} </strong> </div>
-                                <div> {{ $donation->mustahiq->nik }} (NIK) </div>
-                                <div> {{ Mustahiq::GENDERS[$donation->mustahiq->gender] }}, {{ $donation->occupation }} </div>
-                                <div> {{ $donation->mustahiq->phone }} (Telp.) </div>
-                                <div> {{ $donation->mustahiq->address }} </div>
-                                <div> Kecamatan {{ $donation->mustahiq->kecamatan }}, Kelurahan {{ $donation->mustahiq->kelurahan }} </div>
-                            </td>
-                            <td> {{ $donation->mustahiq->asnaf }} </td>
-                            <td> {{ $donation->mustahiq->help_program }} </td>
-                            <td class="text-right"> {{ number_format($donation->amount) }} </td>
-                            <td class="text-center">
-                                <a href="{{ route('collector.donation.edit', $donation) }}" class="btn btn-dark btn-sm">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <form class="form-delete d-inline-block" action='{{ route('collector.donation.delete', $donation) }}' method='POST'>
-                                    @csrf
-                                    <button type='submit' class='btn btn-danger btn-sm'>
-                                        <i class='fa fa-trash'></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
+                        @foreach ($mustahiqs as $mustahiq)
+                         <tr>
+                             <td> {{ $loop->iteration }}. </td>
+                             <td> {{ $mustahiq->name }} ({{ $mustahiq->NIK }}) </td>
+                             <td> {{ \App\Helper\Formatter::date($mustahiq->latest_donation_date) }} </td>
+                             <td class="text-center">
+                                 <a
+                                     class="btn btn-dark btn-sm"
+                                     href="{{ route("collector-mustahiq-donation.index", $mustahiq) }}">
+                                     Detail
+                                 </a>
+                             </td>
+                         </tr>
                         @endforeach
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="text-right"> Total: </td>
-                            <td class="text-right"> {{ number_format($donations->sum('amount')) }} </td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
+                 </table>
             </div>
         </div>
     </div>

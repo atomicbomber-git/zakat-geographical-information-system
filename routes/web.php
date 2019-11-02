@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CollectorMustahiqDonationController;
 use App\Http\Controllers\CollectorMuzakkiReceivementController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\HomeController;
@@ -142,4 +143,8 @@ Route::group(['prefix' => '/information', 'as' => 'information.'], function() {
 
 Route::group(['prefix' => '/collector-muzakki-receivement', 'as' => 'collector-muzakki-receivement.'], function() {
     Route::get('/index/{muzakki}', [CollectorMuzakkiReceivementController::class, 'index'])->name('index');
+});
+
+Route::group(['prefix' => '/collector-mustahiq-donation', 'as' => 'collector-mustahiq-donation.'], function() {
+    Route::get('/index/{mustahiq}', [CollectorMustahiqDonationController::class, 'index'])->name('index');
 });
