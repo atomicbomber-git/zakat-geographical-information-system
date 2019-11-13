@@ -27,6 +27,36 @@
         <receivement-chart/>
     </div>
 
+    <div class="row mt-3 text-center">
+        <div class="col-md">
+            <div class="card">
+                <div class="card-body">
+                    <div class="h4 text-primary">
+                        Mustahiq
+                    </div>
+
+                    <div class="font-weight-bold" style="color: #6c7680">
+                        {{ \App\Helper\Formatter::number($mustahiqs_count) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md">
+            <div class="card">
+                <div class="card-body">
+                    <div class="h4 text-primary">
+                        Muzakki
+                    </div>
+
+                    <div class="font-weight-bold" style="color: #6c7680">
+                        {{ \App\Helper\Formatter::number($muzakkis_count) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header">
             <i class="fa fa-arrow-down"></i>

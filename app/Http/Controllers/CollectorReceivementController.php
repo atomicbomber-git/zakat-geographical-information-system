@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mustahiq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -63,11 +64,16 @@ class CollectorReceivementController extends Controller
             ->orderBy("name")
             ->get();
 
+        $muzakkis_count = Muzakki::count();
+        $mustahiqs_count = Mustahiq::count();
+
         return view('collector_receivement.index', compact(
             'year',
             'available_years',
             'yearly_receivements',
             'muzakkis',
+            'muzakkis_count',
+            'mustahiqs_count',
         ));
     }
 

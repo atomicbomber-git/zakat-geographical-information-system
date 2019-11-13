@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Collector;
 use App\Donation;
+use App\Mustahiq;
+use App\Muzakki;
 use App\Report;
 use App\User;
 use Illuminate\Validation\Rule;
@@ -58,7 +60,19 @@ class CollectorController extends Controller
             ];
         });
 
-        return view('collector.index', compact('collectors', 'year', 'available_years', 'chart_data'));
+        $muzakkis_count = Muzakki::count();
+        $mustahiqs_count = Mustahiq::count();
+        $collectors_count = Collector::count();
+
+        return view('collector.index', compact(
+            'collectors',
+            'year',
+            'available_years',
+            'chart_data',
+            'muzakkis_count',
+            'mustahiqs_count',
+            'collectors_count',
+        ));
     }
 
     public function show(Collector $collector)
