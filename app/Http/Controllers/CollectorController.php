@@ -6,6 +6,7 @@ use App\Collector;
 use App\Donation;
 use App\Mustahiq;
 use App\Muzakki;
+use App\Receivement;
 use App\Report;
 use App\User;
 use Illuminate\Validation\Rule;
@@ -30,7 +31,7 @@ class CollectorController extends Controller
             , "donation_sum")
             ->selectSub(
                 Report::query()
-                    ->select(DB::raw("SUM(zakat + fitrah + infak + sedekah) AS amount"))
+                    ->withAmount()
                     ->whereColumn((new Report)->getTable() . ".collector_id", (new Collector)->getTable() . ".id")
                     ->whereYear("transaction_date", $year)
                     ->limit(1)
@@ -47,10 +48,12 @@ class CollectorController extends Controller
             ->keyBy("year");
 
         $yearly_reports = Report::query()
-            ->select(DB::raw('SUM(zakat + fitrah + infak + sedekah) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->select(DB::raw('YEAR(transaction_date) AS year'))
+            ->withAmount()
             ->groupBy('year')
             ->get()
-            ->keyBy('year');
+            ->keyBy('year')
+            ;
 
         $chart_data = $available_years->map(function ($year) use($yearly_donations, $yearly_reports) {
             return [
