@@ -23,7 +23,8 @@ class AdminReportController extends Controller
             ->get();
 
         $yearly_reports = Report::query()
-            ->select(DB::raw('SUM(zakat + fitrah + infak) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->select(DB::raw('YEAR(transaction_date) AS year'))
+            ->withAmount()
             ->groupBy('year')
             ->get()
             ->makeHidden('total');
@@ -57,7 +58,8 @@ class AdminReportController extends Controller
         }]);
 
         $yearly_reports = Report::query()
-            ->select(DB::raw('SUM(zakat + fitrah + infak + sedekah) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
+            ->select(DB::raw('YEAR(transaction_date) AS year'))
+            ->withAmount()
             ->groupBy('year')
             ->where('collector_id', $collector->id)
             ->get()
