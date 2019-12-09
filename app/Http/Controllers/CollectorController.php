@@ -115,7 +115,7 @@ class CollectorController extends Controller
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
-            'phone' => 'required|string',
+            'phone' => 'required|numeric|string',
             'penasehat' => 'required|string',
             'ketua' => 'required|string',
             'sekretaris' => 'required|string',
@@ -123,7 +123,7 @@ class CollectorController extends Controller
             'anggota_1' => 'nullable|string',
             'anggota_2' => 'nullable|string',
             'collector_name' => 'required|string',
-            'reg_number' => 'required|string|unique:' . (new Collector)->getTable(),
+            'reg_number' => 'required|numeric|unique:' . (new Collector)->getTable(),
             'admin_name' => 'required|string', // User real name
             'username' => 'required|string|alpha_dash|unique:users', // User login name
             'password' => 'required|string|min:8|confirmed',

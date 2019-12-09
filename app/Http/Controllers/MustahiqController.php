@@ -51,7 +51,7 @@ class MustahiqController extends Controller
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'name' => 'required|string',
-            'nik' => 'required|string',
+            'nik' => 'required|numeric|string',
             'age' => 'required|gte:1',
             'address' => 'required|string',
             'kecamatan' => 'required|string',
@@ -60,7 +60,7 @@ class MustahiqController extends Controller
             'gender' => ['required', Rule::in('l', 'p')],
             'occupation' => 'required|string',
             'asnaf' => 'required|string',
-            'nomor_kk' => 'required|string',
+            'nomor_kk' => 'required|numeric|string',
             'description' => 'required|string',
         ]);
 
