@@ -97,7 +97,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="h4 text-primary">
-                        Unit Pengumpulan Zakat
+                        Unit Pengumpul Zakat
                     </div>
 
                     <div class="font-weight-bold" style="color: #6c7680">
