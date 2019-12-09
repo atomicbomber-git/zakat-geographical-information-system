@@ -49,7 +49,7 @@ class RegisterController extends Controller
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
-            'phone' => 'required|string',
+            'phone' => 'required|string|numeric',
             'penasehat' => 'required|string',
             'ketua' => 'required|string',
             'sekretaris' => 'required|string',

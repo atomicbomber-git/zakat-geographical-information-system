@@ -52,7 +52,7 @@ class MuzakkiController extends Controller
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'name' => 'required|string',
-            'nik' => 'required|string|unique:muzakkis',
+            'nik' => 'required|string|numeric|unique:muzakkis',
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
