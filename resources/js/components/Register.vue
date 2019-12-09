@@ -228,12 +228,6 @@
             "config",
         ],
 
-        mounted() {
-            this.$refs.mapRef.$mapPromise.then(map => {
-                this.geocoder = new google.maps.Geocoder;
-            })
-        },
-
         data() {
             return {
                 icon_url: window.icon_url,

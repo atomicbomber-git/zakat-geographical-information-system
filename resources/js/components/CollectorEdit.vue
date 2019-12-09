@@ -22,27 +22,34 @@
                                 :clickable="true"/>
 
                             <span v-for="collector in m_collectors" :key="collector.id">
+                                <template
+                                    v-if="
+                                        !get(collector, 'latitude', false) &&
+                                        !get(collector, 'longitude', false)
+                                    "
+                                    >
 
-                                <GmapMarker
-                                    :position="{lat: collector.latitude, lng: collector.longitude}"
-                                    :icon="icons.mosque_black"
-                                    @click="onMarkerClick(collector)">
-                                </GmapMarker>
+                                    <GmapMarker
+                                        :position="{lat: collector.latitude, lng: collector.longitude}"
+                                        :icon="icons.mosque_black"
+                                        @click="onMarkerClick(collector)">
+                                    </GmapMarker>
 
-                                <GmapInfoWindow
-                                    :position="{lat: collector.latitude, lng: collector.longitude}"
-                                    :opened="collector.isInfoWindowOpen"
-                                    @closeclick="collector.isInfoWindowOpen=false">
-                                    <div>
-                                        <div class="card">
-                                            <img class="card-img-top" style="width: 14rem; height: 14rem; object-fit: cover" :src="collector.imageUrl" alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title"> {{ collector.name }} </h5>
-                                                <p class="card-text"> {{ collector.address }} </p>
+                                    <GmapInfoWindow
+                                        :position="{lat: collector.latitude, lng: collector.longitude}"
+                                        :opened="collector.isInfoWindowOpen"
+                                        @closeclick="collector.isInfoWindowOpen=false">
+                                        <div>
+                                            <div class="card">
+                                                <img class="card-img-top" style="width: 14rem; height: 14rem; object-fit: cover" :src="collector.imageUrl" alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"> {{ collector.name }} </h5>
+                                                    <p class="card-text"> {{ collector.address }} </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </GmapInfoWindow>
+                                    </GmapInfoWindow>
+                                </template>
                             </span>
                         </GmapMap>
                     </div>
@@ -320,13 +327,13 @@
                 icon_url: this.icon_url,
 
                 map: {
-                    center_lat: this.collector.latitude,
-                    center_lng: this.collector.longitude,
+                    center_lat: this.collector.latitude || this.config.center.latitude,
+                    center_lng: this.collector.longitude || this.config.center.longitude,
                 },
 
                 pointer_marker: {
-                    lat: this.collector.latitude,
-                    lng: this.collector.longitude,
+                    lat: this.collector.latitude || this.config.center.latitude,
+                    lng: this.collector.longitude || this.config.center.longitude,
                 },
 
                 collector_name: this.collector.name,

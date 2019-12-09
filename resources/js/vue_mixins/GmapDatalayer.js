@@ -4,7 +4,8 @@ export default {
             this.map.data.loadGeoJson(datasource_url)
 
             this.map.data.setStyle({
-                fillColor: 'lightgreen'
+                fillColor: 'lightgreen',
+                clickable: false,
             })
         }
     }
