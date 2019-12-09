@@ -24,8 +24,8 @@
                             <span v-for="collector in m_collectors" :key="collector.id">
                                 <template
                                     v-if="
-                                        !get(collector, 'latitude', false) &&
-                                        !get(collector, 'longitude', false)
+                                        get(collector, 'latitude', false) &&
+                                        get(collector, 'longitude', false)
                                     "
                                     >
 
@@ -327,13 +327,13 @@
                 icon_url: this.icon_url,
 
                 map: {
-                    center_lat: this.collector.latitude || this.config.center.latitude,
-                    center_lng: this.collector.longitude || this.config.center.longitude,
+                    center_lat: this.collector.latitude || this.config.center.lat,
+                    center_lng: this.collector.longitude || this.config.center.lng,
                 },
 
                 pointer_marker: {
-                    lat: this.collector.latitude || this.config.center.latitude,
-                    lng: this.collector.longitude || this.config.center.longitude,
+                    lat: this.collector.latitude || this.config.center.lat,
+                    lng: this.collector.longitude || this.config.center.lng,
                 },
 
                 collector_name: this.collector.name,

@@ -96075,13 +96075,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             icon_url: this.icon_url,
 
             map: {
-                center_lat: this.collector.latitude || this.config.center.latitude,
-                center_lng: this.collector.longitude || this.config.center.longitude
+                center_lat: this.collector.latitude || this.config.center.lat,
+                center_lng: this.collector.longitude || this.config.center.lng
             },
 
             pointer_marker: {
-                lat: this.collector.latitude || this.config.center.latitude,
-                lng: this.collector.longitude || this.config.center.longitude
+                lat: this.collector.latitude || this.config.center.lat,
+                lng: this.collector.longitude || this.config.center.lng
             },
 
             collector_name: this.collector.name,
@@ -96240,8 +96240,8 @@ var render = function() {
                       "span",
                       { key: collector.id },
                       [
-                        !_vm.get(collector, "latitude", false) &&
-                        !_vm.get(collector, "longitude", false)
+                        _vm.get(collector, "latitude", false) &&
+                        _vm.get(collector, "longitude", false)
                           ? [
                               _c("GmapMarker", {
                                 attrs: {
