@@ -65,8 +65,8 @@ class CollectorReceivementController extends Controller
             ->orderBy("name")
             ->get();
 
-        $muzakkis_count = Muzakki::count();
-        $mustahiqs_count = Mustahiq::count();
+        $muzakkis_count = auth()->user()->collector->muzakkis()->count();
+        $mustahiqs_count = auth()->user()->collector->mustahiqs()->count();
 
         return view('collector_receivement.index', compact(
             'year',

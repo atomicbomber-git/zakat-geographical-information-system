@@ -35,6 +35,7 @@ class CollectorDonationController extends Controller
                 "name",
                 "NIK",
             )
+            ->where('collector_id', auth()->user()->collector->id)
             ->selectSub(
                 Donation::query()
                     ->selectRaw("transaction_date")
