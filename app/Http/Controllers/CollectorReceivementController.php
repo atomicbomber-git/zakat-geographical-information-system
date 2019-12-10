@@ -31,7 +31,7 @@ class CollectorReceivementController extends Controller
                 DB::raw('SUM(sedekah) AS sedekah'),
                 DB::raw('SUM(infak) AS infak'),
                 DB::raw('(SUM(zakat) + SUM(fitrah) + SUM(infak) + SUM(sedekah)) AS total'),
-                DB::raw('YEAR(transaction_date) AS year')
+                DB::raw('YEAR(transaction_date) AS year'),
             )
             ->where('collector_id', auth()->user()->collector->id)
             ->groupBy('year')
@@ -52,6 +52,7 @@ class CollectorReceivementController extends Controller
                 "name",
                 "NIK",
             )
+            ->where('collector_id', auth()->user()->collector->id)
             ->selectSub(
                 Receivement::query()
                     ->select("transaction_date")
