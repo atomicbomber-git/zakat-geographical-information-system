@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="mustahiq"> Mustahiq: </label>
+                    <label for="mustahiq"> Mustahik: </label>
                     <multiselect
                         track-by="id"
                         label="name"

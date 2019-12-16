@@ -32,7 +32,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="h4 text-primary">
-                        Mustahiq
+                        Mustahik
                     </div>
 
                     <div class="font-weight-bold" style="color: #6c7680">
@@ -46,7 +46,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="h4 text-primary">
-                        Muzakki
+                        Muzaki
                     </div>
 
                     <div class="font-weight-bold" style="color: #6c7680">
@@ -86,7 +86,7 @@
                    <thead class="thead thead-dark">
                         <tr>
                             <th> # </th>
-                            <th> Muzakki </th>
+                            <th> Muzaki </th>
                             <th> Tanggal Transaksi Terakhir </th>
                             <th class="text-center"> Aksi </th>
                         </tr>

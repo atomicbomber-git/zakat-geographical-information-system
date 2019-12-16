@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             <i class="fa fa-map"></i>
-            Peta Persebaran UPZ, Muzakki, dan Mustahiq
+            Peta Persebaran UPZ, Muzaki, dan Mustahik
         </div>
 
         <div class="card-body">
@@ -91,20 +91,20 @@
                                     :key="collector.id"
                                 />
 
-                                <!-- Mustahiq Markers -->
+                                <!-- Mustahik Markers -->
                                 <template v-for="mustahiq in collector.mustahiqs">
                                     <GmapMarker
-                                        @click="onMustahiqMarkerClick(mustahiq)"
+                                        @click="onMustahikMarkerClick(mustahiq)"
                                         :icon="icons.person_red"
                                         :position="{ lat: mustahiq.latitude, lng: mustahiq.longitude }"
                                         :key="`mustahiq_${mustahiq.id}`"
                                     />
                                 </template>
 
-                                <!-- Muzakki Markers -->
+                                <!-- Muzaki Markers -->
                                 <template v-for="muzakki in collector.muzakkis">
                                     <GmapMarker
-                                        @click="onMuzakkiMarkerClick(muzakki)"
+                                        @click="onMuzakiMarkerClick(muzakki)"
                                         :icon="icons.person_green"
                                         :position="{ lat: muzakki.latitude, lng: muzakki.longitude }"
                                         :key="`muzakki_${muzakki.id}`"
@@ -146,12 +146,12 @@
                             </div>
                             <div>
                                 <img style="width: 30px; height:30px; padding: 5px" :src="icons.person_red" alt="Mesjid">
-                                Mustahiq
+                                Mustahik
                             </div>
 
                             <div v-if="can_see_muzakkis">
                                 <img style="width: 30px; height:30px; padding: 5px" :src="icons.person_green" alt="Mesjid">
-                                Muzakki
+                                Muzaki
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                     </button>
 
                     <div v-if="is_filter_visible">
-                        <!-- Muzakkis visibility toggle -->
+                        <!-- Muzakis visibility toggle -->
                         <div v-if="this.can_see_muzakkis" class="list-group-item mb-3">
                             <div class="custom-control custom-checkbox">
                                 <input
@@ -182,7 +182,7 @@
                                 <label
                                     class="custom-control-label"
                                     for="checkbox_muzakki_visibility"
-                                >Tampilkan Muzakki</label>
+                                >Tampilkan Muzaki</label>
                             </div>
                         </div>
 
@@ -222,7 +222,7 @@
                                 <dt>Alamat:</dt>
                                 <dd>{{ selected_collector.address }}</dd>
 
-                                <dt>Jumlah Mustahiq</dt>
+                                <dt>Jumlah Mustahik</dt>
                                 <dd>{{ selected_collector.mustahiqs.length }}</dd>
                             </dl>
 
@@ -251,7 +251,7 @@
                             <hr>
 
                             <p class="mb-2">
-                                <strong>Mustahiq Terdekat:</strong>
+                                <strong>Mustahik Terdekat:</strong>
                             </p>
                             <p>
                                 {{ get(selected_collector.nearest_mustahiq, 'name', '-') }}
@@ -608,12 +608,12 @@ export default {
             })
         },
 
-        onMustahiqMarkerClick(mustahiq) {
+        onMustahikMarkerClick(mustahiq) {
             this.selected_mustahiq = mustahiq
             this.$modal.show('mustahiq-info');
         },
 
-        onMuzakkiMarkerClick(muzakki) {
+        onMuzakiMarkerClick(muzakki) {
             this.selected_muzakki = muzakki
             this.$modal.show('muzakki-info');
         },

@@ -73,14 +73,14 @@
                     <li class='nav-item {{ Route::is('collector.mustahiq.*') ? 'active' : '' }}'>
                         <a class='nav-link' href='{{ route('collector.mustahiq.index') }}'>
                             <i class='fa fa-user'></i>
-                            Mustahiq
+                            Mustahik
                         </a>
                     </li>
 
                     <li class='nav-item {{ Route::is('collector.muzakki.*') ? 'active' : '' }}'>
                         <a class='nav-link' href='{{ route('collector.muzakki.index') }}'>
                             <i class='fa fa-user'></i>
-                            Muzakki
+                            Muzaki
                         </a>
                     </li>
                 @endcan

@@ -57,10 +57,10 @@
                         <dt> Kelurahan </dt>
                         <dd> {{ $collector->kelurahan }} </dd>
 
-                        <dt> Jumlah Muzakki </dt>
+                        <dt> Jumlah Muzaki </dt>
                         <dd> {{ $collector->muzakkis->count() }} </dd>
 
-                        <dt> Jumlah Mustahiq </dt>
+                        <dt> Jumlah Mustahik </dt>
                         <dd> {{ $collector->mustahiqs->count() }} </dd>
 
                         @foreach (\App\CollectorMember::POSITIONS as $key => $value)
@@ -76,7 +76,7 @@
 
     <div class="card mt-3">
         <div class="card-header">
-            Daftar Mustahiq
+            Daftar Mustahik
         </div>
 
         <div class="card-body">
@@ -117,7 +117,7 @@
 
     <div class="card mt-3">
         <div class="card-header">
-            Daftar Muzakki
+            Daftar Muzaki
         </div>
         <div class="card-body">
             <div class='table-responsive'>

@@ -1,10 +1,10 @@
 @extends('shared.layout')
-@section('title', 'Tambah Muzakki')
+@section('title', 'Tambah Muzaki')
 @section('content')
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-plus'></i>
-        Tambah Muzakki
+        Tambah Muzaki
     </h1>
 
     <nav aria-label="breadcrumb">
@@ -12,11 +12,11 @@
             <li class="breadcrumb-item"> <a href=""> SIG Zakat </a> </li>
             <li class="breadcrumb-item">
                 <a href="{{ route('collector.muzakki.index') }}">
-                    Muzakki
+                    Muzaki
                 </a>
             </li>
             <li class="breadcrumb-item active">
-                Tambah Muzakki
+                Tambah Muzaki
             </li>
         </ol>
     </nav>

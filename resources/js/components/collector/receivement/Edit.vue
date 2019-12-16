@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="muzakki"> Muzakki: </label>
+                    <label for="muzakki"> Muzaki: </label>
                     <multiselect
                         track-by="id"
                         :custom-label="({name, nik}) => `${name} (${nik})`"

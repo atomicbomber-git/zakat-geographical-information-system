@@ -89959,11 +89959,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
                 lng: location.lng
             });
         },
-        onMustahiqMarkerClick: function onMustahiqMarkerClick(mustahiq) {
+        onMustahikMarkerClick: function onMustahikMarkerClick(mustahiq) {
             this.selected_mustahiq = mustahiq;
             this.$modal.show('mustahiq-info');
         },
-        onMuzakkiMarkerClick: function onMuzakkiMarkerClick(muzakki) {
+        onMuzakiMarkerClick: function onMuzakiMarkerClick(muzakki) {
             this.selected_muzakki = muzakki;
             this.$modal.show('muzakki-info');
         },
@@ -92659,7 +92659,7 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      return _vm.onMustahiqMarkerClick(mustahiq)
+                                      return _vm.onMustahikMarkerClick(mustahiq)
                                     }
                                   }
                                 })
@@ -92679,7 +92679,7 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      return _vm.onMuzakkiMarkerClick(muzakki)
+                                      return _vm.onMuzakiMarkerClick(muzakki)
                                     }
                                   }
                                 })
@@ -92762,7 +92762,7 @@ var render = function() {
                       attrs: { src: _vm.icons.person_red, alt: "Mesjid" }
                     }),
                     _vm._v(
-                      "\n                            Mustahiq\n                        "
+                      "\n                            Mustahik\n                        "
                     )
                   ]),
                   _vm._v(" "),
@@ -92777,7 +92777,7 @@ var render = function() {
                           attrs: { src: _vm.icons.person_green, alt: "Mesjid" }
                         }),
                         _vm._v(
-                          "\n                            Muzakki\n                        "
+                          "\n                            Muzaki\n                        "
                         )
                       ])
                     : _vm._e()
@@ -92867,7 +92867,7 @@ var render = function() {
                                   staticClass: "custom-control-label",
                                   attrs: { for: "checkbox_muzakki_visibility" }
                                 },
-                                [_vm._v("Tampilkan Muzakki")]
+                                [_vm._v("Tampilkan Muzaki")]
                               )
                             ]
                           )
@@ -92946,7 +92946,7 @@ var render = function() {
                             _vm._v(_vm._s(_vm.selected_collector.address))
                           ]),
                           _vm._v(" "),
-                          _c("dt", [_vm._v("Jumlah Mustahiq")]),
+                          _c("dt", [_vm._v("Jumlah Mustahik")]),
                           _vm._v(" "),
                           _c("dd", [
                             _vm._v(
@@ -92998,7 +92998,7 @@ var render = function() {
                         _c("hr"),
                         _vm._v(" "),
                         _c("p", { staticClass: "mb-2" }, [
-                          _c("strong", [_vm._v("Mustahiq Terdekat:")])
+                          _c("strong", [_vm._v("Mustahik Terdekat:")])
                         ]),
                         _vm._v(" "),
                         _c("p", [
@@ -93173,7 +93173,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("i", { staticClass: "fa fa-map" }),
-      _vm._v("\n        Peta Persebaran UPZ, Muzakki, dan Mustahiq\n    ")
+      _vm._v("\n        Peta Persebaran UPZ, Muzaki, dan Mustahik\n    ")
     ])
   },
   function() {
@@ -99013,7 +99013,7 @@ var render = function() {
             { staticClass: "form-group" },
             [
               _c("label", { attrs: { for: "mustahiq" } }, [
-                _vm._v(" Mustahiq: ")
+                _vm._v(" Mustahik: ")
               ]),
               _vm._v(" "),
               _c("multiselect", {
@@ -99330,7 +99330,7 @@ var render = function() {
             { staticClass: "form-group" },
             [
               _c("label", { attrs: { for: "mustahiq" } }, [
-                _vm._v(" Mustahiq: ")
+                _vm._v(" Mustahik: ")
               ]),
               _vm._v(" "),
               _c("multiselect", {
@@ -99921,9 +99921,7 @@ var render = function() {
             "div",
             { staticClass: "form-group" },
             [
-              _c("label", { attrs: { for: "muzakki" } }, [
-                _vm._v(" Muzakki: ")
-              ]),
+              _c("label", { attrs: { for: "muzakki" } }, [_vm._v(" Muzaki: ")]),
               _vm._v(" "),
               _c("multiselect", {
                 attrs: {
@@ -100812,9 +100810,7 @@ var render = function() {
             "div",
             { staticClass: "form-group" },
             [
-              _c("label", { attrs: { for: "muzakki" } }, [
-                _vm._v(" Muzakki: ")
-              ]),
+              _c("label", { attrs: { for: "muzakki" } }, [_vm._v(" Muzaki: ")]),
               _vm._v(" "),
               _c("multiselect", {
                 attrs: {

@@ -1,5 +1,5 @@
 @php
-    use App\Mustahiq;
+    use App\Mustahik;
 @endphp
 
 @extends('shared.layout')
@@ -60,7 +60,7 @@
                     <thead class="thead thead-dark">
                          <tr>
                              <th> # </th>
-                             <th> Mustahiq </th>
+                             <th> Mustahik </th>
                              <th> Tanggal Transaksi Terakhir </th>
                              <th class="text-center"> Aksi </th>
                          </tr>

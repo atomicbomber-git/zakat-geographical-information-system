@@ -34,8 +34,8 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner text-center">
                 <div class="carousel-item active">
-                    <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/muzakki.jpeg") }}" alt="Gambar Muzakki">
-                    <h3> Muzakki </h3>
+                    <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/muzakki.jpeg") }}" alt="Gambar Muzaki">
+                    <h3> Muzaki </h3>
                     <span> {{ $muzakkis_count }} </span>
                 </div>
                 <div class="carousel-item">
@@ -44,8 +44,8 @@
                     <span> {{ $collectors_count }} </span>
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/mustahiq.jpeg") }}" alt="Gambar Mustahiq">
-                    <h3> Mustahiq </h3>
+                    <img class="d-block mx-auto mb-3 rounded-circle" style="width: 150px; height: 150px;" src="{{ asset("image/mustahiq.jpeg") }}" alt="Gambar Mustahik">
+                    <h3> Mustahik </h3>
                     <span> {{ $mustahiqs_count }} </span>
                 </div>
             </div>

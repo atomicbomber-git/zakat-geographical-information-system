@@ -69,7 +69,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="h4 text-primary">
-                        Mustahiq
+                        Mustahik
                     </div>
 
                     <div class="font-weight-bold" style="color: #6c7680">
@@ -83,7 +83,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="h4 text-primary">
-                        Muzakki
+                        Muzaki
                     </div>
 
                     <div class="font-weight-bold" style="color: #6c7680">
@@ -156,8 +156,8 @@
                                 {{ $collector->name }}
                             </div>
                             <div>
-                                <span class="badge badge-primary"> Muzakki: {{ $collector->muzakkis_count }} </span>
-                                <span class="badge badge-primary"> Mustahiq: {{ $collector->mustahiqs_count }} </span>
+                                <span class="badge badge-primary"> Muzaki: {{ $collector->muzakkis_count }} </span>
+                                <span class="badge badge-primary"> Mustahik: {{ $collector->mustahiqs_count }} </span>
                             </div>
                         </td>
                         <td class="text-right"> {{ number_format($collector->report_sum) }} </td>

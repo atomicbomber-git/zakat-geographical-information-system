@@ -1,10 +1,10 @@
 @extends('shared.layout')
-@section('title', 'Muzakki')
+@section('title', 'Muzaki')
 @section('content')
 <div class="container my-5">
     <h1 class='mb-5'>
         <i class='fa fa-user'></i>
-        Muzakki
+        Muzaki
     </h1>
 
     @include('shared.alert.success')
@@ -12,13 +12,13 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item active"> Muzakki </li>
+            <li class="breadcrumb-item active"> Muzaki </li>
         </ol>
     </nav>
 
     <div class="my-3 text-right">
         <a href="{{ route("collector.muzakki.create") }}" class="btn btn-sm btn-dark">
-            Tambah Muzakki
+            Tambah Muzaki
             <i class="fa fa-plus"></i>
         </a>
     </div>
@@ -26,7 +26,7 @@
     <div class="card">
         <div class="card-header">
             <i class="fa fa-user"></i>
-            Muzakki
+            Muzaki
         </div>
         <div class="card-body">
             <div class='table-responsive'>
