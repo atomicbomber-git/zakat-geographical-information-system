@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Collector;
+use App\Muzakki;
 use App\Receivement;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -21,6 +22,12 @@ class CollectorReceivementReportPrintController extends Controller
 
         $receivements = Receivement::query()
             ->with("muzakki")
+            ->orderBy(
+                Muzakki::query()
+                    ->whereColumn("receivements.muzakki_id", "muzakkis.id")
+                    ->select("name")
+                    ->limit(1)
+            )
             ->where("collector_id", $collector->id ?? null)
             ->whereYear("transaction_date", $data["year"])
             ->get();

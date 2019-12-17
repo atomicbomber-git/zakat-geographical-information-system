@@ -23,8 +23,7 @@
                     <thead>
                         <tr>
                             <th> # </th>
-                            <th> Muzaki </th>
-                            <th> NIK </th>
+                            <th> Nama </th>
                             <th> Alamat </th>
                             <th style="text-align:right"> Zakat (Rp.) </th>
                             <th style="text-align:right"> Fitrah (Rp.) </th>
@@ -38,7 +37,6 @@
                             <tr>
                                 <td> {{ $loop->iteration }}. </td>
                                 <td> {{ $receivement->muzakki->name }} </td>
-                                <td> {{ $receivement->muzakki->NIK }} </td>
                                 <td>
                                     {{ $receivement->muzakki->address }} <br>
                                     Kecamatan {{ $receivement->muzakki->kecamatan }} <br>
