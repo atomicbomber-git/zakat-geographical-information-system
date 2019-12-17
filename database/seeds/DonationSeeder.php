@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Collector;
 use App\Donation;
+use Illuminate\Support\Facades\DB;
 
 class DonationSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class DonationSeeder extends Seeder
                 ->with("mustahiqs:id,collector_id")
                 ->get();
 
-            factory(Donation::class, 400)
+            factory(Donation::class, 1600)
                 ->make()
                 ->each(function($donation) use($collectors) {
                     $collector = $collectors->random();

@@ -27,6 +27,26 @@
         </a>
     </div>
 
+    <div class="my-3">
+        <div class="alert alert-info">
+            <form class="form-inline text-right" method="GET">
+                <label for="year" class="ml-auto mr-2"> Tahun Laporan: </label>
+                <select class="form-control form-control-sm mr-2" name="year" id="year">
+                    @foreach ($available_years as $av_year)
+                    <option value="{{ $av_year }}">
+                        {{ $av_year }}
+                    </option>
+                    @endforeach
+                </select>
+
+                <button formaction="{{ route('collector-donation-report-print.show') }}" class="btn btn-dark btn-sm mr-2">
+                    Cetak Laporan Pendistribusian
+                    <i class="fa fa-print"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
     <div id="app">
         <donation-chart/>
     </div>

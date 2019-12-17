@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CollectorDonationReportPrint;
+use App\Http\Controllers\CollectorDonationReportPrintController;
 use App\Http\Controllers\CollectorMustahiqDonationController;
 use App\Http\Controllers\CollectorMuzakkiReceivementController;
 use App\Http\Controllers\CollectorReceivementReportPrintController;
@@ -154,3 +156,8 @@ Route::group(['prefix' => '/collector-mustahiq-donation', 'as' => 'collector-mus
 Route::group(['prefix' => '/collector-receivement-report-print', 'as' => 'collector-receivement-report-print.'], function() {
     Route::get('/show', [CollectorReceivementReportPrintController::class, 'show'])->name('show');
 });
+
+Route::group(['prefix' => '/collector-donation-report-print', 'as' => 'collector-donation-report-print.'], function() {
+    Route::get('/show', [CollectorDonationReportPrintController::class, 'show'])->name('show');
+});
+
