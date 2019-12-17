@@ -101128,6 +101128,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -101138,7 +101153,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { Multiselect: __WEBPACK_IMPORTED_MODULE_3_vue_multiselect__["Multiselect"] },
 
-    props: ["gmap_settings", "collector", "submit_url", "redirect_url", "original_mustahiqs", "datasource_url"],
+    props: ["gmap_settings", "collector", "submit_url", "redirect_url", "original_mustahiqs", "datasource_url", "program_bantuan_types"],
 
     mixins: [__webpack_require__(8).default],
 
@@ -101176,7 +101191,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             occupation: null,
             asnaf: null,
             nomor_kk: null,
-            description: null
+            description: null,
+            program_bantuan: null
         };
     },
 
@@ -101201,7 +101217,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 phone: this.phone,
                 occupation: this.occupation,
                 asnaf: this.asnaf
-            }, _defineProperty(_ref, 'asnaf', this.asnaf), _defineProperty(_ref, 'nomor_kk', this.nomor_kk), _defineProperty(_ref, 'description', this.description), _ref;
+            }, _defineProperty(_ref, 'asnaf', this.asnaf), _defineProperty(_ref, 'nomor_kk', this.nomor_kk), _defineProperty(_ref, 'description', this.description), _defineProperty(_ref, 'program_bantuan', this.program_bantuan), _ref;
         }
     },
 
@@ -101601,7 +101617,7 @@ var render = function() {
                       false
                     )
                   },
-                  attrs: { type: "text", id: "nik", placeholder: "NIK" },
+                  attrs: { type: "number", id: "nik", placeholder: "NIK" },
                   domProps: { value: _vm.nik },
                   on: {
                     input: function($event) {
@@ -101643,7 +101659,7 @@ var render = function() {
                     )
                   },
                   attrs: {
-                    type: "text",
+                    type: "number",
                     id: "nomor_kk",
                     placeholder: "Nomor KK"
                   },
@@ -101690,7 +101706,7 @@ var render = function() {
                       false
                     )
                   },
-                  attrs: { type: "text", id: "age", placeholder: "Usia" },
+                  attrs: { type: "number", id: "age", placeholder: "Usia" },
                   domProps: { value: _vm.age },
                   on: {
                     input: function($event) {
@@ -101963,6 +101979,48 @@ var render = function() {
                   _c("div", { staticClass: "invalid-feedback" }, [
                     _vm._v(
                       _vm._s(_vm.get(this.error_data, "errors.asnaf[0]", false))
+                    )
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { attrs: { for: "asnaf" } }, [
+                    _vm._v(" Program Bantuan: ")
+                  ]),
+                  _vm._v(" "),
+                  _c("multiselect", {
+                    attrs: {
+                      options: _vm.program_bantuan_types,
+                      selectLabel: "",
+                      selectedLabel: "",
+                      deselectLabel: "",
+                      "preselect-first": true
+                    },
+                    model: {
+                      value: _vm.program_bantuan,
+                      callback: function($$v) {
+                        _vm.program_bantuan = $$v
+                      },
+                      expression: "program_bantuan"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(
+                          _vm.get(
+                            this.error_data,
+                            "errors.program_bantuan[0]",
+                            false
+                          )
+                        ) +
+                        "\n                        "
                     )
                   ])
                 ],
@@ -102417,6 +102475,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -102426,7 +102499,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { Multiselect: __WEBPACK_IMPORTED_MODULE_3_vue_multiselect__["Multiselect"] },
 
-    props: ["gmap_settings", "collector", "submit_url", "redirect_url", "original_mustahiqs", "mustahiq", "datasource_url"],
+    props: ["gmap_settings", "collector", "submit_url", "redirect_url", "original_mustahiqs", "mustahiq", "datasource_url", "program_bantuan_types"],
 
     mixins: [__webpack_require__(8).default],
 
@@ -102464,7 +102537,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             occupation: this.mustahiq.occupation,
             asnaf: this.mustahiq.asnaf,
             nomor_kk: this.mustahiq.nomor_kk,
-            description: this.mustahiq.description
+            description: this.mustahiq.description,
+            program_bantuan: this.mustahiq.program_bantuan
         };
     },
 
@@ -102488,7 +102562,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 occupation: this.occupation,
                 asnaf: this.asnaf,
                 nomor_kk: this.nomor_kk,
-                description: this.description
+                description: this.description,
+                program_bantuan: this.program_bantuan
             };
         }
     },
@@ -103243,6 +103318,48 @@ var render = function() {
                   _c("div", { staticClass: "invalid-feedback" }, [
                     _vm._v(
                       _vm._s(_vm.get(this.error_data, "errors.asnaf[0]", false))
+                    )
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { attrs: { for: "asnaf" } }, [
+                    _vm._v(" Program Bantuan: ")
+                  ]),
+                  _vm._v(" "),
+                  _c("multiselect", {
+                    attrs: {
+                      options: _vm.program_bantuan_types,
+                      selectLabel: "",
+                      selectedLabel: "",
+                      deselectLabel: "",
+                      "preselect-first": true
+                    },
+                    model: {
+                      value: _vm.program_bantuan,
+                      callback: function($$v) {
+                        _vm.program_bantuan = $$v
+                      },
+                      expression: "program_bantuan"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(
+                          _vm.get(
+                            this.error_data,
+                            "errors.program_bantuan[0]",
+                            false
+                          )
+                        ) +
+                        "\n                        "
                     )
                   ])
                 ],

@@ -123,7 +123,7 @@
                                 v-model='nik'
                                 class='form-control'
                                 :class="{'is-invalid': get(this.error_data, 'errors.nik[0]', false)}"
-                                type='text' id='nik' placeholder='NIK'>
+                                type='number' id='nik' placeholder='NIK'>
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.nik[0]', false) }}</div>
                         </div>
 
@@ -133,7 +133,7 @@
                                 v-model='nomor_kk'
                                 class='form-control'
                                 :class="{'is-invalid': get(this.error_data, 'errors.nomor_kk[0]', false)}"
-                                type='text'
+                                type='number'
                                 id='nomor_kk'
                                 placeholder='Nomor KK'>
                             <div class='invalid-feedback'>
@@ -147,7 +147,7 @@
                                 v-model.number='age'
                                 class='form-control'
                                 :class="{'is-invalid': get(this.error_data, 'errors.age[0]', false)}"
-                                type='text' id='age' placeholder='Usia'>
+                                type='number' id='age' placeholder='Usia'>
                             <div class='invalid-feedback'>{{ get(this.error_data, 'errors.age[0]', false) }}</div>
                         </div>
 
@@ -215,6 +215,21 @@
                         </div>
 
                         <div class='form-group'>
+                            <label for='asnaf'> Program Bantuan: </label>
+                            <multiselect
+                                :options="program_bantuan_types"
+                                v-model="program_bantuan"
+                                selectLabel=""
+                                selectedLabel=""
+                                deselectLabel=""
+                                :preselect-first="true"
+                                />
+                            <div class='invalid-feedback'>
+                                {{ get(this.error_data, 'errors.program_bantuan[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
                             <label for='description'> Deskripsi Kondisi: </label>
                             <textarea
                                 v-model='description'
@@ -254,6 +269,7 @@ export default {
         "redirect_url",
         "original_mustahiqs",
         "datasource_url",
+        "program_bantuan_types",
     ],
 
     mixins: [
@@ -293,6 +309,7 @@ export default {
             asnaf: null,
             nomor_kk: null,
             description: null,
+            program_bantuan: null,
         }
     },
 
@@ -318,6 +335,7 @@ export default {
                 asnaf: this.asnaf,
                 nomor_kk: this.nomor_kk,
                 description: this.description,
+                program_bantuan: this.program_bantuan,
             }
         }
     },

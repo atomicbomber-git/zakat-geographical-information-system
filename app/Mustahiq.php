@@ -6,6 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mustahiq extends Model
 {
+    const PROGRAM_BANTUAN_KEMANUSIAAN = "Kemanusiaan";
+    const PROGRAM_BANTUAN_KESEHATAN = "Kesehatan";
+    const PROGRAM_BANTUAN_PENDIDIKAN = "Pendidikan";
+    const PROGRAM_BANTUAN_EKONOMI = "Ekonomi";
+    const PROGRAM_BANTUAN_DAKWAH = "Dakwah";
+    const PROGRAM_BANTUAN_ADVOKASI = "Advokasi";
+
+    public const PROGRAM_BANTUAN_TYPES = [
+        self::PROGRAM_BANTUAN_KEMANUSIAAN,
+        self::PROGRAM_BANTUAN_KESEHATAN,
+        self::PROGRAM_BANTUAN_PENDIDIKAN,
+        self::PROGRAM_BANTUAN_EKONOMI,
+        self::PROGRAM_BANTUAN_DAKWAH,
+        self::PROGRAM_BANTUAN_ADVOKASI,
+    ];
+
     public const GENDERS = [
         'l' => 'Laki-Laki',
         'p' => 'Perempuan'
@@ -22,22 +38,7 @@ class Mustahiq extends Model
         "Ibnu Sabil",
     ];
 
-    public $fillable = [
-        "latitude",
-        "longitude",
-        "name",
-        "nik",
-        "age",
-        "address",
-        "kecamatan",
-        "kelurahan",
-        "phone",
-        "gender",
-        "occupation",
-        "asnaf",
-        "nomor_kk",
-        "collector_id",
-        "description",
+    public $guarded = [
     ];
 
     public function collector()

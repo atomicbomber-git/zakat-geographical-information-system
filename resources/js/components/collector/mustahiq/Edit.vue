@@ -264,6 +264,21 @@
                         </div>
 
                         <div class='form-group'>
+                            <label for='asnaf'> Program Bantuan: </label>
+                            <multiselect
+                                :options="program_bantuan_types"
+                                v-model="program_bantuan"
+                                selectLabel=""
+                                selectedLabel=""
+                                deselectLabel=""
+                                :preselect-first="true"
+                                />
+                            <div class='invalid-feedback'>
+                                {{ get(this.error_data, 'errors.program_bantuan[0]', false) }}
+                            </div>
+                        </div>
+
+                        <div class='form-group'>
                             <label for='description'> Deskripsi Kondisi: </label>
                             <textarea
                                 v-model='description'
@@ -303,6 +318,7 @@ export default {
         "original_mustahiqs",
         "mustahiq",
         "datasource_url",
+        "program_bantuan_types",
     ],
 
     mixins: [
@@ -342,6 +358,7 @@ export default {
             asnaf: this.mustahiq.asnaf,
             nomor_kk: this.mustahiq.nomor_kk,
             description: this.mustahiq.description,
+            program_bantuan: this.mustahiq.program_bantuan,
         };
     },
 
@@ -366,6 +383,7 @@ export default {
                 asnaf: this.asnaf,
                 nomor_kk: this.nomor_kk,
                 description: this.description,
+                program_bantuan: this.program_bantuan,
             };
         }
     },

@@ -31,6 +31,7 @@
             :collector='{{ json_encode($collector) }}'
             :original_mustahiqs='{{ json_encode($mustahiqs) }}'
             datasource_url="{{ asset(config('app.datasource_publicpath')) }}"
+            :program_bantuan_types="{{ json_encode(\App\Mustahiq::PROGRAM_BANTUAN_TYPES) }}"
             />
     </div>
 </div>

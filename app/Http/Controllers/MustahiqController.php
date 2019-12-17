@@ -19,6 +19,7 @@ class MustahiqController extends Controller
                 "collector_id", "age", "description",
                 "created_at",
                 "updated_at",
+                "program_bantuan",
             )
             ->whereHas("collector", function (Builder $query) {
                 $query->where("id", Auth::user()->collector->id);
@@ -52,7 +53,7 @@ class MustahiqController extends Controller
             'longitude' => 'required|numeric',
             'name' => 'required|string',
             'nik' => 'required|numeric|string',
-            'age' => 'required|gte:1',
+            'age' => 'required|numeric|gte:1',
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
@@ -62,6 +63,7 @@ class MustahiqController extends Controller
             'asnaf' => 'required|string',
             'nomor_kk' => 'required|numeric|string',
             'description' => 'required|string',
+            'program_bantuan' => 'required|string',
         ]);
 
         Mustahiq::create(array_merge($data, [
@@ -96,7 +98,7 @@ class MustahiqController extends Controller
             'longitude' => 'required|numeric',
             'name' => 'required|string',
             'nik' => 'required|string',
-            'age' => 'required|gte:1',
+            'age' => 'required|numeric|gte:1',
             'address' => 'required|string',
             'kecamatan' => 'required|string',
             'kelurahan' => 'required|string',
@@ -106,6 +108,7 @@ class MustahiqController extends Controller
             'asnaf' => 'required|string',
             'nomor_kk' => 'required|string',
             'description' => 'required|string',
+            'program_bantuan' => 'required|string',
         ]);
 
         $mustahiq->update($data);

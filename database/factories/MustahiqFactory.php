@@ -21,6 +21,7 @@ $factory->define(App\Mustahiq::class, function (Faker $faker) {
         "nomor_kk" => $faker->ean13(),
         "age" => rand(14, 80),
         'latitude' => rand(-50, 50) / 1000 + -0.026330,
-        'longitude' => rand(-50, 50) / 1000 + 109.342504
+        'longitude' => rand(-50, 50) / 1000 + 109.342504,
+        "program_bantuan" => $faker->randomElement(Mustahiq::PROGRAM_BANTUAN_TYPES),
     ];
 });

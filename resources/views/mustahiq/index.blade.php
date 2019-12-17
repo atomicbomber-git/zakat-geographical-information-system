@@ -43,6 +43,7 @@
                             <th> Pekerjaan </th>
                             <th> Asnaf </th>
                             <th> Deskripsi Kondisi </th>
+                            <th> Program Bantuan </th>
                             <th class="text-center"> Aksi </th>
                         </tr>
                     </thead>
@@ -63,6 +64,7 @@
                             <td> {{ $mustahiq->occupation }} </td>
                             <td> {{ $mustahiq->asnaf }} </td>
                             <td> {{ $mustahiq->description }} </td>
+                            <td> {{ $mustahiq->program_bantuan }} </td>
                             <td class="text-center">
                                 @can("update", $mustahiq)
                                 <a href="{{ route("collector.mustahiq.edit", $mustahiq) }}" class="btn btn-dark btn-sm">
