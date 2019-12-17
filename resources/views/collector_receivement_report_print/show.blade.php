@@ -14,7 +14,7 @@
             <section class="sheet padding-10mm">
                 @if($loop->first)
                     <h1 style="text-align: center">
-                        LAPORAN PENDISTRIBUSIAN ZAKAT TAHUN {{ $year }} <br>
+                        LAPORAN PENERIMAAN ZAKAT TAHUN {{ $year }} <br>
                         UNIT PENDISTRIBUSIAN ZAKAT {{ $collector->name }}
                     </h1>
                 @endif
