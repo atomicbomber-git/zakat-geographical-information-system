@@ -18,7 +18,7 @@ class ReceivementSeeder extends Seeder
                 ->with("muzakkis:id,collector_id")
                 ->get();
 
-            factory(Receivement::class, 400)
+            factory(Receivement::class, 2000)
                 ->make()
                 ->each(function($receivement) use($collectors) {
                     $collector = $collectors->random();

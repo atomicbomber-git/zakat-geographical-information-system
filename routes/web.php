@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\CollectorMustahiqDonationController;
 use App\Http\Controllers\CollectorMuzakkiReceivementController;
+use App\Http\Controllers\CollectorReceivementReportPrintController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\UnverifiedCollectorController;
 use App\Http\Controllers\UnverifiedCollectorVerificationController;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -147,4 +149,8 @@ Route::group(['prefix' => '/collector-muzakki-receivement', 'as' => 'collector-m
 
 Route::group(['prefix' => '/collector-mustahiq-donation', 'as' => 'collector-mustahiq-donation.'], function() {
     Route::get('/index/{mustahiq}', [CollectorMustahiqDonationController::class, 'index'])->name('index');
+});
+
+Route::group(['prefix' => '/collector-receivement-report-print', 'as' => 'collector-receivement-report-print.'], function() {
+    Route::get('/show', [CollectorReceivementReportPrintController::class, 'show'])->name('show');
 });

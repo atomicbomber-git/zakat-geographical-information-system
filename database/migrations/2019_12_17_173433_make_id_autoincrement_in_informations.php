@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class ChangeBigintToIntInInformations extends Migration
+class MakeIdAutoincrementInInformations extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class ChangeBigintToIntInInformations extends Migration
      */
     public function up()
     {
-        Schema::table('information', function (Blueprint $table) {
+        Schema::table('informations', function (Blueprint $table) {
             DB::select("
-                ALTER TABLE information MODIFY COLUMN id INT(11)
+                ALTER TABLE information MODIFY COLUMN id INT(11) NOT NULL AUTO_INCREMENT
             ");
         });
     }
@@ -28,9 +28,9 @@ class ChangeBigintToIntInInformations extends Migration
      */
     public function down()
     {
-        Schema::table('information', function (Blueprint $table) {
+        Schema::table('informations', function (Blueprint $table) {
             DB::select("
-                ALTER TABLE information MODIFY COLUMN id BIGINT(11)
+                ALTER TABLE information MODIFY COLUMN id INT(11)
             ");
         });
     }
