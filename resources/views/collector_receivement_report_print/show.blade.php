@@ -55,7 +55,6 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
                                     <td style="text-align: right; font-weight: bold"> Total: </td>
                                     <td style="text-align: right"> {{ \App\Helper\Formatter::currency($receivement->sum("zakat")) }} </td>
                                     <td style="text-align: right"> {{ \App\Helper\Formatter::currency($receivement->sum("fitrah")) }} </td>
