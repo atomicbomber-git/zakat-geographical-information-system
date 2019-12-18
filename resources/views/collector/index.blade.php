@@ -18,13 +18,24 @@
         </ol>
     </nav>
 
+    @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
+
     <div class="text-right">
         <a href="{{ route('collector.create') }}" class="btn btn-dark btn-sm">
             Tambah Unit Pengumpul Zakat
         </a>
     </div>
 
-    @include('shared.message', ['session_key' => 'message.success', 'state' => 'success'])
+    <div class="my-3">
+        <div class="alert alert-info">
+            <form class="form-inline d-flex justify-content-end" method="GET">
+                <button formaction="{{ route('mustahiq-and-muzakki-data-print.show') }}" class="btn btn-dark btn-sm mr-2">
+                    Cetak Data Mustahik dan Muzaki
+                    <i class="fa fa-print"></i>
+                </button>
+            </form>
+        </div>
+    </div>
 
     <div class="my-3">
         <div class="alert alert-info">
