@@ -7,7 +7,7 @@ use App\Muzakki;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
-class MustahiqAndMuzakkiDataPrint extends Controller
+class MustahiqDataPrintController extends Controller
 {
     public function show(Request $request)
     {
