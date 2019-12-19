@@ -1,6 +1,6 @@
 @extends('shared.print-layout')
 
-@section('title', 'Print DATA MUSTAHIK DAN MUZAKI')
+@section('title', 'Print Data Mustahik')
 
 @section('extra-style')
     <style>
@@ -10,11 +10,11 @@
 
 @section('content')
     <body class="A4 landscape">
-        @foreach ($donations->chunk($row_per_page) as $donations)
+        @foreach ($mustahiqs->chunk($rowPerPage) as $mustahiqChunk)
             <section class="sheet padding-10mm">
                 @if($loop->first)
                     <h1 style="text-align: center">
-                        DATA MUSTAHIK DAN MUZAKI PONTIANAK <br>
+                        DATA MUSTAHIK KOTA PONTIANAK <br>
                     </h1>
                 @endif
 
@@ -28,29 +28,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($donations as $donation)
+                        @foreach ($mustahiqChunk as $mustahiq)
                             <tr>
-                                <td> {{ $loop->iteration }}. </td>
-                                <td> {{ $donation->mustahiq->name }} </td>
+                                <td> {{ ($loop->parent->index * $rowPerPage) + $loop->iteration }}. </td>
+                                <td> {{ $mustahiq->name }} </td>
                                 <td>
-                                    {{ $donation->mustahiq->address }} <br>
-                                    Kecamatan {{ $donation->mustahiq->kecamatan }} <br>
-                                    Kelurahan {{ $donation->mustahiq->kelurahan }}
+                                    {{ $mustahiq->address }} <br>
+                                    Kecamatan {{ $mustahiq->kecamatan }} <br>
+                                    Kelurahan {{ $mustahiq->kelurahan }}
                                 </td>
-                                <td style="text-align:right"> {{ \App\Helper\Formatter::currency($donation->amount) }} </td>
+                                <td style="text-align:right"> {{ \App\Helper\Formatter::currency($mustahiq->amount) }} </td>
                             </tr>
                         @endforeach
                     </tbody>
-                        @if ($loop->last)
-                            <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td style="text-align: right; font-weight: bold"> Total: </td>
-                                    <td style="text-align: right"> {{ \App\Helper\Formatter::currency($donation->sum("amount")) }} </td>
-                                </tr>
-                            </tfoot>
-                        @endif
                 </table>
             </section>
         @endforeach

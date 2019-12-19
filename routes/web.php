@@ -8,6 +8,7 @@ use App\Http\Controllers\InformationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MustahiqDataPrintController;
+use App\Http\Controllers\MuzakkiDataPrintController;
 use App\Http\Controllers\UnverifiedCollectorController;
 use App\Http\Controllers\UnverifiedCollectorVerificationController;
 use Illuminate\Support\Facades\Auth;
@@ -163,4 +164,8 @@ Route::group(['prefix' => '/collector-donation-report-print', 'as' => 'collector
 
 Route::group(['prefix' => '/mustahiq-data-print', 'as' => 'mustahiq-data-print.'], function() {
     Route::get('/show', [MustahiqDataPrintController::class, 'show'])->name('show');
+});
+
+Route::group(['prefix' => '/muzakki-data-print', 'as' => 'muzakki-data-print.'], function() {
+    Route::get('/show', [MuzakkiDataPrintController::class, 'show'])->name('show');
 });

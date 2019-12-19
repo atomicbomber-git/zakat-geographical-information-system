@@ -1,6 +1,6 @@
 @extends('shared.print-layout')
 
-@section('title', 'Print DATA MUSTAHIK DAN MUZAKI')
+@section('title', 'Print Data Muzaki')
 
 @section('extra-style')
     <style>
@@ -10,11 +10,11 @@
 
 @section('content')
     <body class="A4 landscape">
-        @foreach ($recordRowChunks as $recordRowChunk)
+        @foreach ($muzakkis->chunk($rowPerPage) as $muzakkiChunk)
             <section class="sheet padding-10mm">
                 @if($loop->first)
                     <h1 style="text-align: center">
-                        DATA MUSTAHIK DAN MUZAKI PONTIANAK <br>
+                        DATA MUZAKI KOTA PONTIANAK <br>
                     </h1>
                 @endif
 
@@ -28,16 +28,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($recordRowChunk as $recordRow)
+                        @foreach ($muzakkiChunk as $muzakki)
                             <tr>
                                 <td> {{ ($loop->parent->index * $rowPerPage) + $loop->iteration }}. </td>
-                                <td> {{ $recordRow["value"]->name ?? null }} </td>
+                                <td> {{ $muzakki->name }} </td>
                                 <td>
-                                    {{ $recordRow["value"]->address ?? null }} <br>
-                                    Kecamatan {{ $recordRow["value"]->kecamatan ?? null }} <br>
-                                    Kelurahan {{ $recordRow["value"]->kelurahan ?? null }}
+                                    {{ $muzakki->address }} <br>
+                                    Kecamatan {{ $muzakki->kecamatan }} <br>
+                                    Kelurahan {{ $muzakki->kelurahan }}
                                 </td>
-                                <td style="text-align:right"> {{ \App\Helper\Formatter::currency($recordRow["value"]->amount ?? 0) }} </td>
+                                <td style="text-align:right"> {{ \App\Helper\Formatter::currency($muzakki->amount) }} </td>
                             </tr>
                         @endforeach
                     </tbody>

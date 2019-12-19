@@ -27,10 +27,19 @@
     </div>
 
     <div class="my-3">
-        <div class="alert alert-info">
-            <form class="form-inline d-flex justify-content-end" method="GET">
-                <button formaction="{{ route('mustahiq-and-muzakki-data-print.show') }}" class="btn btn-dark btn-sm mr-2">
-                    Cetak Data Mustahik dan Muzaki
+        <div class="alert alert-info d-flex justify-content-end">
+            <form class="form-inline" method="GET">
+                <button formaction="{{ route('mustahiq-data-print.show') }}" class="btn btn-dark btn-sm mr-2">
+                    Cetak Data Mustahik
+                    <i class="fa fa-print"></i>
+                </button>
+            </form>
+
+            <form class="form-inline" method="GET">
+                <button
+                    class="btn btn-dark btn-sm"
+                    formaction="{{ route('muzakki-data-print.show') }}">
+                    Cetak Data Muzaki
                     <i class="fa fa-print"></i>
                 </button>
             </form>
