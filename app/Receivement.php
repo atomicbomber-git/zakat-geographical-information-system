@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Receivement extends Model
 {
@@ -46,5 +48,15 @@ class Receivement extends Model
     public function getGenderAttribute($value)
     {
         return $this::GENDERS[$value];
+    }
+
+    public function scopeWithAmount(Builder $query, string $as = "amount")
+    {
+        $query->addSelect(DB::raw("(
+            COALESCE(zakat, 0) +
+            COALESCE(fitrah, 0) +
+            COALESCE(infak, 0) +
+            COALESCE(sedekah, 0)
+        ) AS $as"));
     }
 }

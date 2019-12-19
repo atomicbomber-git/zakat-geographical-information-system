@@ -36,14 +36,14 @@ class Report extends Model
         return $this->zakat + $this->fitrah + $this->infak;
     }
 
-    public function scopeWithAmount(Builder $query)
+    public function scopeWithAmount(Builder $query, string $as = "amount")
     {
         $query->addSelect(DB::raw("
             SUM(COALESCE(zakat, 0)) +
             SUM(COALESCE(fitrah, 0)) +
             SUM(COALESCE(infak, 0)) +
             SUM(COALESCE(sedekah, 0))
-                AS amount
+                AS $as
         "));
     }
 }
