@@ -1,0 +1,21 @@
+image: registry.gitlab.com/james.patrick.keegan.business/zakat-geographical-information-system:latest
+
+stages:
+  - deploy
+
+deploy_production:
+  stage: deploy
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+    - ~/.composer/vendor/bin/envoy run deploy --production_server_ip="$PRODUCTION_SERVER_IP"
+  environment:
+    name: production
+    url: $PRODUCTION_SERVER_IP
+  when: manual
+  only:
+    - master
