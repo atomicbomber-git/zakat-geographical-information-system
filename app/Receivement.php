@@ -59,4 +59,14 @@ class Receivement extends Model
             COALESCE(sedekah, 0)
         ) AS $as"));
     }
+
+    public function scopeWithAmountSum(Builder $query, string $as = "amount")
+    {
+        $query->addSelect(DB::raw("(SUM(
+            COALESCE(zakat, 0) +
+            COALESCE(fitrah, 0) +
+            COALESCE(infak, 0) +
+            COALESCE(sedekah, 0)
+        )) AS $as"));
+    }
 }

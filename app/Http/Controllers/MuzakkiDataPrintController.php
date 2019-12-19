@@ -28,12 +28,7 @@ class MuzakkiDataPrintController extends Controller
             ->addSelect([
                 "amount" => Receivement::query()
                     ->whereColumn("muzakkis.id", "receivements.muzakki_id")
-                    ->selectRaw("SUM(
-                        COALESCE(zakat, 0) +
-                        COALESCE(fitrah, 0) +
-                        COALESCE(infak, 0) +
-                        COALESCE(sedekah, 0)
-                    )")
+                    ->withAmountSum()
                     ->limit(1)
             ])
             ->orderBy("name")
