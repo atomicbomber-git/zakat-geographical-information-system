@@ -1,0 +1,20 @@
+name: Continuous Delivery
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: webfactory/ssh-agent@v0.1.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Configuring ssh
+        run: echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+      - name: Install Laravel Envoy
+        run: composer global require "laravel/envoy=^1.6.4"
+      - name: Run Laravel Envoy
+        run: ~/.composer/vendor/bin/envoy run deploy --production="${{ secrets.PRODUCTION_SERVER }}"
