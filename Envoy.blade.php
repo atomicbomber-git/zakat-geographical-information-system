@@ -1,6 +1,6 @@
 @servers(['production' => $production])
 
-@task('deploy', ['on' => 'web'])
+@task('deploy', ['on' => 'production'])
     cd /var/www/zakat-geographical-information-system/
     git pull origin master
     composer install --optimize-autoloader --no-dev
