@@ -1,4 +1,4 @@
-@servers(['production' => $production_server_ip])
+@servers(['production' => $production])
 
 @task('deploy', ['on' => 'web'])
     cd /var/www/zakat-geographical-information-system/
