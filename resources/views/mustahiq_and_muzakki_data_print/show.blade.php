@@ -10,7 +10,7 @@
 
 @section('content')
     <body class="A4 landscape">
-        @foreach ($donations->chunk($row_per_page) as $donations)
+        @foreach ($recordRowChunks as $recordRowChunk)
             <section class="sheet padding-10mm">
                 @if($loop->first)
                     <h1 style="text-align: center">
@@ -28,29 +28,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($donations as $donation)
+                        @foreach ($recordRowChunk as $recordRow)
                             <tr>
-                                <td> {{ $loop->iteration }}. </td>
-                                <td> {{ $donation->mustahiq->name }} </td>
+                                <td> {{ ($loop->parent->index * $rowPerPage) + $loop->iteration }}. </td>
+                                <td> {{ $recordRow["value"]->name ?? null }} </td>
                                 <td>
-                                    {{ $donation->mustahiq->address }} <br>
-                                    Kecamatan {{ $donation->mustahiq->kecamatan }} <br>
-                                    Kelurahan {{ $donation->mustahiq->kelurahan }}
+                                    {{ $recordRow["value"]->address ?? null }} <br>
+                                    Kecamatan {{ $recordRow["value"]->kecamatan ?? null }} <br>
+                                    Kelurahan {{ $recordRow["value"]->kelurahan ?? null }}
                                 </td>
-                                <td style="text-align:right"> {{ \App\Helper\Formatter::currency($donation->amount) }} </td>
+                                <td style="text-align:right"> {{ \App\Helper\Formatter::currency($recordRow["value"]->amount ?? 0) }} </td>
                             </tr>
                         @endforeach
                     </tbody>
-                        @if ($loop->last)
-                            <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td style="text-align: right; font-weight: bold"> Total: </td>
-                                    <td style="text-align: right"> {{ \App\Helper\Formatter::currency($donation->sum("amount")) }} </td>
-                                </tr>
-                            </tfoot>
-                        @endif
                 </table>
             </section>
         @endforeach
