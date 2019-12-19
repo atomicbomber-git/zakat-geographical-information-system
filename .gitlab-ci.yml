@@ -12,10 +12,10 @@ deploy_production:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
-    - ~/.composer/vendor/bin/envoy run deploy --production_server_ip="$PRODUCTION_SERVER_IP"
+    - ~/.composer/vendor/bin/envoy run deploy --production_server_ip="$PRODUCTION"
   environment:
     name: production
-    url: $PRODUCTION_SERVER_IP
+    url: $PRODUCTION_URL
   when: manual
   only:
     - master
