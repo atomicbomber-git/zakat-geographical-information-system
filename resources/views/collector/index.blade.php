@@ -151,76 +151,78 @@
                 </form>
             </div>
 
-            <table class="table table-sm table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th> # </th>
-                        <th> Nama Administrator </th>
-                        <th> Nama Pengguna </th>
-                        <th class="text-center"> UPZ </th>
-                        <th class="text-right"> Total Penerimaan </th>
-                        <th class="text-right"> Total Pendistribusian </th>
-                        <th> Nomor Registrasi </th>
-                        <th> Tanggal / Waktu Registrasi </th>
-                        <th class="text-center"> Aksi </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($collectors as $collector)
-                    <tr>
-                        <td> {{ $loop->iteration }}. </td>
-                        <td> {{ $collector->user->name }} </td>
-                        <td> {{ $collector->user->username }} </td>
-                        <td class="text-center">
-                            <div>
-                                {{ $collector->name }}
-                            </div>
-                            <div>
-                                <span class="badge badge-primary"> Muzaki: {{ $collector->muzakkis_count }} </span>
-                                <span class="badge badge-primary"> Mustahik: {{ $collector->mustahiqs_count }} </span>
-                            </div>
-                        </td>
-                        <td class="text-right"> {{ number_format($collector->report_sum) }} </td>
-                        <td class="text-right"> {{ number_format($collector->donation_sum) }} </td>
-                        <td> {{ $collector->reg_number }} </td>
-                        <td>
-                            {{ \App\Helper\Formatter::datetime($collector->created_at)  }}
-                        </td>
-                        <td class="text-center">
-                            <div class="mb-2 d-flex justify-content-center"">
-                                <a href="{{ route('admin-report.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm mr-2">
-                                    Penerimaan
-                                </a>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th> # </th>
+                            <th> Nama Administrator </th>
+                            <th> Nama Pengguna </th>
+                            <th class="text-center"> UPZ </th>
+                            <th class="text-right"> Total Penerimaan </th>
+                            <th class="text-right"> Total Pendistribusian </th>
+                            <th> Nomor Registrasi </th>
+                            <th> Tanggal / Waktu Registrasi </th>
+                            <th class="text-center"> Aksi </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($collectors as $collector)
+                        <tr>
+                            <td> {{ $loop->iteration }}. </td>
+                            <td> {{ $collector->user->name }} </td>
+                            <td> {{ $collector->user->username }} </td>
+                            <td class="text-center">
+                                <div>
+                                    {{ $collector->name }}
+                                </div>
+                                <div>
+                                    <span class="badge badge-primary"> Muzaki: {{ $collector->muzakkis_count }} </span>
+                                    <span class="badge badge-primary"> Mustahik: {{ $collector->mustahiqs_count }} </span>
+                                </div>
+                            </td>
+                            <td class="text-right"> {{ number_format($collector->report_sum) }} </td>
+                            <td class="text-right"> {{ number_format($collector->donation_sum) }} </td>
+                            <td> {{ $collector->reg_number }} </td>
+                            <td>
+                                {{ \App\Helper\Formatter::datetime($collector->created_at)  }}
+                            </td>
+                            <td class="text-center">
+                                <div class="mb-2 d-flex justify-content-center"">
+                                    <a href="{{ route('admin-report.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm mr-2">
+                                        Penerimaan
+                                    </a>
 
-                                <a href="{{ route('donation.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm">
-                                    Pendistribusian
-                                </a>
-                            </div>
+                                    <a href="{{ route('donation.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm">
+                                        Pendistribusian
+                                    </a>
+                                </div>
 
-                            <div class="d-flex justify-content-center">
-                                <a href="{{ route('collector.show', $collector) }}" class="btn btn-dark btn-sm mr-2">
-                                    <i class="fa fa-list"></i>
-                                </a>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ route('collector.show', $collector) }}" class="btn btn-dark btn-sm mr-2">
+                                        <i class="fa fa-list"></i>
+                                    </a>
 
-                                <a href="{{ route('collector.edit', $collector) }}" class="btn btn-dark btn-sm mr-2">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
+                                    <a href="{{ route('collector.edit', $collector) }}" class="btn btn-dark btn-sm mr-2">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
 
-                                <form
-                                    class="form-delete d-inline-block"
-                                    action="{{ route('collector.delete', $collector) }}"
-                                    method="POST">
-                                    @csrf
-                                    <button {{ Auth::user()->can("delete", $collector) ? '' : 'disabled' }} class="btn btn-danger btn-sm">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    <form
+                                        class="form-delete d-inline-block"
+                                        action="{{ route('collector.delete', $collector) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button {{ Auth::user()->can("delete", $collector) ? '' : 'disabled' }} class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
