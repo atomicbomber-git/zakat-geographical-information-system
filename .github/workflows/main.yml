@@ -13,7 +13,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Configuring ssh
-        run: echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+        run: echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
       - name: Install Laravel Envoy
         run: composer global require "laravel/envoy=^1.6.4"
       - name: Run Laravel Envoy
