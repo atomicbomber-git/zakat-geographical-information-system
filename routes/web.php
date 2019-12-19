@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CollectorDonationReportPrintController;
 use App\Http\Controllers\CollectorMustahiqDonationController;
+use App\Http\Controllers\CollectorMuzakkiDataPrintController;
 use App\Http\Controllers\CollectorMuzakkiReceivementController;
 use App\Http\Controllers\CollectorReceivementReportPrintController;
 use App\Http\Controllers\InformationController;
@@ -168,4 +169,8 @@ Route::group(['prefix' => '/mustahiq-data-print', 'as' => 'mustahiq-data-print.'
 
 Route::group(['prefix' => '/muzakki-data-print', 'as' => 'muzakki-data-print.'], function() {
     Route::get('/show', [MuzakkiDataPrintController::class, 'show'])->name('show');
+});
+
+Route::group(['prefix' => '/collector/{collector}/muzakki/data-print', 'as' => 'collector-muzakki-data-print.'], function() {
+    Route::get('/show', [CollectorMuzakkiDataPrintController::class, 'show'])->name('show');
 });
