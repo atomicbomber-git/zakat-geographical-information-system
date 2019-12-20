@@ -1,6 +1,6 @@
 @extends('shared.print-layout')
 
-@section('title', 'Print Data Muzaki')
+@section('title', 'Print Data Mustahik')
 
 @section('extra-style')
     <style>
@@ -10,11 +10,11 @@
 
 @section('content')
     <body class="A4 landscape">
-        @foreach ($muzakkis->chunk($rowPerPage) as $muzakkiChunk)
+        @foreach ($mustahiqs->chunk($rowPerPage) as $mustahiqChunk)
             <section class="sheet padding-10mm">
                 @if($loop->first)
                     <h1 style="text-align: center">
-                        DATA MUZAKI UPZ {{ $collector->name }}
+                        DATA MUSTAHIK UPZ {{ $collector->name }} <br>
                     </h1>
                 @endif
 
@@ -29,18 +29,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($muzakkiChunk as $muzakki)
+                        @foreach ($mustahiqChunk as $mustahiq)
                             <tr>
                                 <td> {{ ($loop->parent->index * $rowPerPage) + $loop->iteration }}. </td>
-                                <td> {{ $muzakki->name }} </td>
+                                <td> {{ $mustahiq->name }} </td>
                                 <td>
-                                    {{ $muzakki->address }} <br>
+                                    {{ $mustahiq->address }} <br>
                                 </td>
                                 <td>
-                                    {{ $muzakki->receivements_last_transaction_date }}
+                                    {{ $mustahiq->donations_last_transaction_date }} <br>
                                 </td>
                                 <td style="text-align:right">
-                                    {{ \App\Helper\Formatter::currency($muzakki->receivements_amount_sum) }}
+                                    {{ \App\Helper\Formatter::currency($mustahiq->donations_amount_sum) }}
                                 </td>
                             </tr>
                         @endforeach

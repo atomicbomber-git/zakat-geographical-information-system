@@ -24,6 +24,7 @@
                             <th> # </th>
                             <th> Nama </th>
                             <th> Alamat </th>
+                            <th> Tanggal Transaksi Terakhir </th>
                             <th style="text-align:right"> Jumlah (Rp.) </th>
                         </tr>
                     </thead>
@@ -35,8 +36,11 @@
                                 <td>
                                     {{ $mustahiq->address }} <br>
                                 </td>
+                                <td>
+                                    {{ $mustahiq->donations_last_transaction_date }} <br>
+                                </td>
                                 <td style="text-align:right">
-                                    {{ \App\Helper\Formatter::currency($mustahiq->amount) }}
+                                    {{ \App\Helper\Formatter::currency($mustahiq->donations_amount_sum) }}
                                 </td>
                             </tr>
                         @endforeach

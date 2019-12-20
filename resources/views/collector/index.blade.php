@@ -228,7 +228,7 @@
 
                                     <a
                                         class="btn btn-dark btn-sm"
-                                        href="{{ route('collector-muzakki-data-print.show', $collector) }}"
+                                        href="{{ route('collector-mustahiq-data-print.show', $collector) }}"
                                         >
                                         Data Mustahik
                                     </a>

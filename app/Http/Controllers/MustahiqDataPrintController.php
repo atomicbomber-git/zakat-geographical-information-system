@@ -19,19 +19,8 @@ class MustahiqDataPrintController extends Controller
                 "kecamatan",
                 "kelurahan",
             )
-            ->addSelect([
-                "last_transaction_date" => Donation::query()
-                    ->whereColumn("mustahiqs.id", "donations.mustahiq_id")
-                    ->select("transaction_date")
-                    ->orderByDesc("transaction_date")
-                    ->limit(1)
-            ])
-            ->addSelect([
-                "amount" => Donation::query()
-                    ->whereColumn("mustahiqs.id", "donations.mustahiq_id")
-                    ->selectRaw("SUM(amount)")
-                    ->limit(1)
-            ])
+            ->withDonationsLastTransactionDate()
+            ->withDonationsAmountSum()
             ->orderBy("name")
             ->get();
 

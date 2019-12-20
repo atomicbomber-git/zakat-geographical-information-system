@@ -19,6 +19,7 @@ class CollectorMuzakkiDataPrintController extends Controller
             ->get();
 
         return view("collector_muzakki_data_print.show", [
+            "collector" => $collector,
             "muzakkis" => $muzakkis,
             "rowPerPage" => static::ROW_PER_PAGE,
         ]);
