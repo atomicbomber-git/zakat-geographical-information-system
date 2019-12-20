@@ -7,7 +7,7 @@ use App\Muzakki;
 
 class MuzakkiDataPrintController extends Controller
 {
-    const ROW_PER_PAGE = 8;
+    const ROW_PER_PAGE = 24;
 
     public function show()
     {
@@ -18,19 +18,8 @@ class MuzakkiDataPrintController extends Controller
                 "kecamatan",
                 "kelurahan",
             )
-            ->addSelect([
-                "last_transaction_date" => Receivement::query()
-                    ->whereColumn("muzakkis.id", "receivements.muzakki_id")
-                    ->select("transaction_date")
-                    ->orderByDesc("transaction_date")
-                    ->limit(1)
-            ])
-            ->addSelect([
-                "amount" => Receivement::query()
-                    ->whereColumn("muzakkis.id", "receivements.muzakki_id")
-                    ->withAmountSum()
-                    ->limit(1)
-            ])
+            ->withReceivementLastTransactionDate()
+            ->withReceivementAmountSum()
             ->orderBy("name")
             ->get();
 

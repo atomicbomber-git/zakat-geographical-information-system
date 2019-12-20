@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class MustahiqDataPrintController extends Controller
 {
-    const ROW_PER_PAGE = 8;
+    const ROW_PER_PAGE = 24;
 
     public function show(Request $request)
     {

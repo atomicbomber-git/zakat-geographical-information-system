@@ -34,10 +34,10 @@
                                 <td> {{ $mustahiq->name }} </td>
                                 <td>
                                     {{ $mustahiq->address }} <br>
-                                    Kecamatan {{ $mustahiq->kecamatan }} <br>
-                                    Kelurahan {{ $mustahiq->kelurahan }}
                                 </td>
-                                <td style="text-align:right"> {{ \App\Helper\Formatter::currency($mustahiq->amount) }} </td>
+                                <td style="text-align:right">
+                                    {{ \App\Helper\Formatter::currency($mustahiq->amount) }}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -198,7 +198,7 @@
                                     </a>
                                 </div>
 
-                                <div class="d-flex justify-content-center">
+                                <div class="mb-2 d-flex justify-content-center">
                                     <a href="{{ route('collector.show', $collector) }}" class="btn btn-dark btn-sm mr-2">
                                         <i class="fa fa-list"></i>
                                     </a>
@@ -216,6 +216,22 @@
                                             <i class="fa fa-trash"></i>
                                         </button>
                                     </form>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <a
+                                        class="btn btn-dark btn-sm"
+                                        href="{{ route('collector-muzakki-data-print.show', $collector) }}"
+                                        >
+                                        Data Muzaki
+                                    </a>
+
+                                    <a
+                                        class="btn btn-dark btn-sm"
+                                        href="{{ route('collector-muzakki-data-print.show', $collector) }}"
+                                        >
+                                        Data Mustahik
+                                    </a>
                                 </div>
                             </td>
                         </tr>
