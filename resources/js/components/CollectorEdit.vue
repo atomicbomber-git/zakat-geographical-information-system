@@ -8,6 +8,23 @@
                 </div>
                 <div class="card-body">
                     <div id="app">
+                        <div class="mb-2">
+                            <multiselect
+                                placeholder="Pencarian Lokasi"
+                                selectLabel=""
+                                selectedLabel=""
+                                deselectLabel=""
+                                track-by="place_id"
+                                label="formatted_address"
+                                :options="places"
+                                v-model="place"
+                                :internal-search="false"
+                                :loading="is_searching_place"
+                                @search-change="onPlaceSearchChange"
+                                >
+                            </multiselect>
+                        </div>
+
                         <GmapMap
                             ref="mapRef"
                             :center="{lat: this.map.center_lat, lng: this.map.center_lng}"
@@ -298,8 +315,9 @@
 <script>
     import axios from 'axios'
     import icons from '../icons'
-    import { get } from 'lodash'
+    import { get,debounce } from 'lodash'
     import GmapDatalayerMixin from '../vue_mixins/GmapDatalayer'
+    import { Multiselect } from "vue-multiselect"
 
     export default {
         props: [
@@ -311,6 +329,10 @@
             "datasource_url",
         ],
 
+        components: {
+            Multiselect
+        },
+
         mixins: [
             GmapDatalayerMixin
         ],
@@ -318,12 +340,17 @@
         mounted() {
             this.$refs.mapRef.$mapPromise.then(map => {
                 this.map = map
+                this.geocoder = new google.maps.Geocoder
                 this.loadAndSetupDatalayer(this.datasource_url)
             })
         },
 
         data() {
             return {
+                is_searching_place: false,
+                place: null,
+                places: [],
+
                 icon_url: this.icon_url,
 
                 map: {
@@ -396,8 +423,44 @@
             }
         },
 
+        watch: {
+            place() {
+                if (this.place === null) {
+                    return
+                }
+
+                this.pointer_marker = {
+                    lat: this.place.geometry.location.lat(),
+                    lng: this.place.geometry.location.lng(),
+                }
+            }
+        },
+
         methods: {
             get: get,
+
+            onPlaceSearchChange: debounce(function (search_query) {
+                if (search_query == "") {
+                    return
+                }
+
+                let geocodingRequest = {
+                    address: search_query,
+                    componentRestrictions: {
+                        country: 'ID',
+                        administrativeArea: 'Kota Pontianak',
+                        locality: 'Kota Pontianak',
+                    },
+                }
+
+                this.is_searching_place = true
+                this.geocoder.geocode(geocodingRequest, (results, status) => {
+                    if (status == 'OK') {
+                        this.places = results
+                    }
+                    this.is_searching_place = false
+                });
+            }, 200),
 
             moveMarker: function (e) {
                 this.pointer_marker = {

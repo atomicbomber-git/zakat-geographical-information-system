@@ -1,0 +1,13 @@
+
+$ids = [130, 129, 128, 127, 126, 116, 103, 96, 50, 56];
+$mustahiqs = Mustahiq::whereIn("collector_id", $ids)->get();
+Donation::whereIn("mustahiq_id", $mustahiqs->pluck("id"))->delete();
+
+
+
+$muzakkis = Muzakki::whereIn("collector_id", $ids)->get();
+Receivement::whereIn("muzakki_id", $muzakkis->pluck("id"))->delete();
+Muzakki::whereIn("collector_id", $ids)->delete();
+
+Report::whereIn("collector_id", $ids)->delete();
+Collector::whereIn("id", $ids)->get();

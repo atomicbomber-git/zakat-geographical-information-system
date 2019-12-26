@@ -94117,6 +94117,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vue_mixins_GmapDatalayer__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_multiselect__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_multiselect__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -94408,6 +94410,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -94415,6 +94435,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ["submit_url", "redirect_url", "collectors", "config", "datasource_url"],
+
+    components: {
+        Multiselect: __WEBPACK_IMPORTED_MODULE_3_vue_multiselect__["Multiselect"]
+    },
 
     mixins: [__WEBPACK_IMPORTED_MODULE_2__vue_mixins_GmapDatalayer__["default"]],
 
@@ -94430,6 +94454,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
     data: function data() {
         return {
+            is_searching_place: false,
+            place: null,
+            places: [],
+
+            map_center: this.config.center,
+
             icon_url: window.icon_url,
             pointer_marker: this.config.center,
             collector_name: "",
@@ -94488,6 +94518,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     methods: {
         get: __WEBPACK_IMPORTED_MODULE_1_lodash__["get"],
+        debounce: __WEBPACK_IMPORTED_MODULE_1_lodash__["debounce"],
 
         moveMarker: function moveMarker(e) {
             this.pointer_marker = {
@@ -94495,6 +94526,31 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 lng: e.latLng.lng()
             };
         },
+
+        onPlaceSearchChange: Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["debounce"])(function (search_query) {
+            var _this2 = this;
+
+            if (search_query == "") {
+                return;
+            }
+
+            var geocodingRequest = {
+                address: search_query,
+                componentRestrictions: {
+                    country: 'Indonesia',
+                    administrativeArea: 'Kota Pontianak',
+                    locality: 'Kota Pontianak'
+                }
+            };
+
+            this.is_searching_place = true;
+            this.geocoder.geocode(geocodingRequest, function (results, status) {
+                if (status == 'OK') {
+                    _this2.places = results;
+                }
+                _this2.is_searching_place = false;
+            });
+        }, 200),
 
         changeFile: function changeFile(event) {
             this.picture = event.target.value;
@@ -94509,7 +94565,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             });
         },
         onFormSubmit: function onFormSubmit() {
-            var _this2 = this;
+            var _this3 = this;
 
             var data = new FormData();
 
@@ -94523,39 +94579,49 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(this.submit_url, data, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             }).then(function (response) {
-                window.location.replace(_this2.redirect_url);
+                window.location.replace(_this3.redirect_url);
             }).catch(function (error) {
-                _this2.error_data = error.response.data;
+                _this3.error_data = error.response.data;
             });
         }
     },
 
     watch: {
         pointer_marker: function pointer_marker() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.geocoder.geocode({ location: this.pointer_marker }, function (results, status) {
                 if (status == "OK") {
                     var first_result = results[0];
 
-                    _this3.address = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(first_result, "formatted_address", "-");
+                    _this4.address = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(first_result, "formatted_address", "-");
 
                     if (first_result.address_components !== null) {
                         var kelurahan_component = first_result.address_components.find(function (component) {
                             return component.types[0] === "administrative_area_level_4" && component.types[1] === "political";
                         });
-                        _this3.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kelurahan_component, "long_name", "-");
+                        _this4.kelurahan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kelurahan_component, "long_name", "-");
 
                         var kecamatan_component = first_result.address_components.find(function (component) {
                             return component.types[0] === "administrative_area_level_3" && component.types[1] === "political";
                         });
-                        _this3.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kecamatan_component, "long_name", "-");
+                        _this4.kecamatan = Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["get"])(kecamatan_component, "long_name", "-");
                     }
                     return;
                 }
 
                 console.error({ results: results, status: status });
             });
+        },
+        place: function place() {
+            if (this.place === null) {
+                return;
+            }
+
+            this.pointer_marker = {
+                lat: this.place.geometry.location.lat(),
+                lng: this.place.geometry.location.lng()
+            };
         }
     }
 });
@@ -94579,12 +94645,41 @@ var render = function() {
             { attrs: { id: "app" } },
             [
               _c(
+                "div",
+                { staticClass: "mb-2" },
+                [
+                  _c("multiselect", {
+                    attrs: {
+                      placeholder: "Pencarian Lokasi",
+                      selectLabel: "",
+                      selectedLabel: "",
+                      deselectLabel: "",
+                      "track-by": "place_id",
+                      label: "formatted_address",
+                      options: _vm.places,
+                      "internal-search": false,
+                      loading: _vm.is_searching_place
+                    },
+                    on: { "search-change": _vm.onPlaceSearchChange },
+                    model: {
+                      value: _vm.place,
+                      callback: function($$v) {
+                        _vm.place = $$v
+                      },
+                      expression: "place"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
                 "GmapMap",
                 {
                   ref: "mapRef",
                   staticStyle: { width: "100%", height: "640px" },
                   attrs: {
-                    center: { lat: -0.02633, lng: 109.342504 },
+                    center: _vm.map_center,
                     zoom: 14,
                     "map-type-id": "terrain"
                   },
@@ -95688,6 +95783,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vue_mixins_GmapDatalayer__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_multiselect__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_multiselect__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -95987,6 +96084,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -95996,6 +96111,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ["submit_url", "redirect_url", "collectors", "collector", "config", "datasource_url"],
 
+    components: {
+        Multiselect: __WEBPACK_IMPORTED_MODULE_4_vue_multiselect__["Multiselect"]
+    },
+
     mixins: [__WEBPACK_IMPORTED_MODULE_3__vue_mixins_GmapDatalayer__["default"]],
 
     mounted: function mounted() {
@@ -96003,11 +96122,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
         this.$refs.mapRef.$mapPromise.then(function (map) {
             _this.map = map;
+            _this.geocoder = new google.maps.Geocoder();
             _this.loadAndSetupDatalayer(_this.datasource_url);
         });
     },
     data: function data() {
         return {
+            is_searching_place: false,
+            place: null,
+            places: [],
+
             icon_url: this.icon_url,
 
             map: {
@@ -96079,8 +96203,46 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     },
 
+    watch: {
+        place: function place() {
+            if (this.place === null) {
+                return;
+            }
+
+            this.pointer_marker = {
+                lat: this.place.geometry.location.lat(),
+                lng: this.place.geometry.location.lng()
+            };
+        }
+    },
+
     methods: {
         get: __WEBPACK_IMPORTED_MODULE_2_lodash__["get"],
+
+        onPlaceSearchChange: Object(__WEBPACK_IMPORTED_MODULE_2_lodash__["debounce"])(function (search_query) {
+            var _this2 = this;
+
+            if (search_query == "") {
+                return;
+            }
+
+            var geocodingRequest = {
+                address: search_query,
+                componentRestrictions: {
+                    country: 'ID',
+                    administrativeArea: 'Kota Pontianak',
+                    locality: 'Kota Pontianak'
+                }
+            };
+
+            this.is_searching_place = true;
+            this.geocoder.geocode(geocodingRequest, function (results, status) {
+                if (status == 'OK') {
+                    _this2.places = results;
+                }
+                _this2.is_searching_place = false;
+            });
+        }, 200),
 
         moveMarker: function moveMarker(e) {
             this.pointer_marker = {
@@ -96101,7 +96263,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
         submitForm: function submitForm(e) {
-            var _this2 = this;
+            var _this3 = this;
 
             e.preventDefault();
 
@@ -96119,9 +96281,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             // Submit data
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(this.submit_url, data, { headers: { 'Content-Type': 'multipart/form-data' } }).then(function (response) {
-                window.location.replace(_this2.redirect_url);
+                window.location.replace(_this3.redirect_url);
             }).catch(function (error) {
-                _this2.error_data = error.response.data;
+                _this3.error_data = error.response.data;
             });
         },
 
@@ -96149,6 +96311,35 @@ var render = function() {
             "div",
             { attrs: { id: "app" } },
             [
+              _c(
+                "div",
+                { staticClass: "mb-2" },
+                [
+                  _c("multiselect", {
+                    attrs: {
+                      placeholder: "Pencarian Lokasi",
+                      selectLabel: "",
+                      selectedLabel: "",
+                      deselectLabel: "",
+                      "track-by": "place_id",
+                      label: "formatted_address",
+                      options: _vm.places,
+                      "internal-search": false,
+                      loading: _vm.is_searching_place
+                    },
+                    on: { "search-change": _vm.onPlaceSearchChange },
+                    model: {
+                      value: _vm.place,
+                      callback: function($$v) {
+                        _vm.place = $$v
+                      },
+                      expression: "place"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c(
                 "GmapMap",
                 {

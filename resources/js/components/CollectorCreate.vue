@@ -8,9 +8,26 @@
                 </div>
                 <div class="card-body">
                     <div id="app">
+                        <div class="mb-2">
+                            <multiselect
+                                placeholder="Pencarian Lokasi"
+                                selectLabel=""
+                                selectedLabel=""
+                                deselectLabel=""
+                                track-by="place_id"
+                                label="formatted_address"
+                                :options="places"
+                                v-model="place"
+                                :internal-search="false"
+                                :loading="is_searching_place"
+                                @search-change="onPlaceSearchChange"
+                                >
+                            </multiselect>
+                        </div>
+
                         <GmapMap
                             ref="mapRef"
-                            :center="{lat:-0.026330, lng:109.342504}"
+                            :center="map_center"
                             :zoom="14"
                             @click="moveMarker"
                             map-type-id="terrain"
@@ -289,8 +306,9 @@
 
 <script>
     import axios from 'axios'
-    import { get } from 'lodash'
+    import { get, debounce } from 'lodash'
     import GmapDatalayerMixin from '../vue_mixins/GmapDatalayer'
+    import { Multiselect } from "vue-multiselect"
 
     export default {
         props: [
@@ -301,8 +319,12 @@
             "datasource_url",
         ],
 
+        components: {
+            Multiselect,
+        },
+
         mixins: [
-            GmapDatalayerMixin
+            GmapDatalayerMixin,
         ],
 
         mounted() {
@@ -316,6 +338,12 @@
 
         data() {
             return {
+                is_searching_place: false,
+                place: null,
+                places: [],
+
+                map_center: this.config.center,
+
                 icon_url: window.icon_url,
                 pointer_marker: this.config.center,
                 collector_name: "",
@@ -373,6 +401,7 @@
 
         methods: {
             get: get,
+            debounce: debounce,
 
             moveMarker: function (e) {
                 this.pointer_marker = {
@@ -380,6 +409,29 @@
                     lng: e.latLng.lng(),
                 }
             },
+
+            onPlaceSearchChange: debounce(function (search_query) {
+                if (search_query == "") {
+                    return
+                }
+
+                let geocodingRequest = {
+                    address: search_query,
+                    componentRestrictions: {
+                        country: 'Indonesia',
+                        administrativeArea: 'Kota Pontianak',
+                        locality: 'Kota Pontianak',
+                    },
+                }
+
+                this.is_searching_place = true
+                this.geocoder.geocode(geocodingRequest, (results, status) => {
+                    if (status == 'OK') {
+                        this.places = results
+                    }
+                    this.is_searching_place = false
+                });
+            }, 200),
 
             changeFile(event) {
                 this.picture = event.target.value
@@ -443,6 +495,17 @@
 
                     console.error({results, status})
                 })
+            },
+
+            place() {
+                if (this.place === null) {
+                    return
+                }
+
+                this.pointer_marker = {
+                    lat: this.place.geometry.location.lat(),
+                    lng: this.place.geometry.location.lng(),
+                }
             }
         }
     }
