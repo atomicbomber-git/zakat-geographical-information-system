@@ -28,7 +28,7 @@
             redirect_url='{{ route("collector.muzakki.index") }}'
             :collector='{{ json_encode($collector) }}'
             :original_muzakkis='{{ json_encode($muzakkis) }}'
-            ref="mapRef"ref="mapRef"
+            datasource_url="{{ asset(config('app.datasource_publicpath')) }}"
             />
     </div>
 </div>

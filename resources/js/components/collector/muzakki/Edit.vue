@@ -227,6 +227,7 @@ import { get } from 'lodash'
 import axios from 'axios'
 import GmapDatalayerMixin from '@/vue_mixins/GmapDatalayer'
 import geotagInPontianak from "@/geotagInPontianak"
+import { Multiselect } from "vue-multiselect"
 
 export default {
     props: [
@@ -242,6 +243,10 @@ export default {
     mixins: [
         GmapDatalayerMixin
     ],
+
+    components: {
+        Multiselect
+    },
 
     mounted() {
         this.$refs.mapRef.$mapPromise.then(map => {
@@ -339,29 +344,25 @@ export default {
         },
 
         autofillAdresses() {
-            axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.pointer_marker.lat},${this.pointer_marker.lng}&key=AIzaSyBDzI0csQYqh24xwIyl_-rlKynmiam4DGU&language=id`)
-                .then(response => {
-                    let first_result = response.data.results[0]
+            this.geocoder.geocode({ location: this.pointer_marker }, (results, status) => {
 
-                    this.address = get(first_result, "formatted_address", "-")
+                let first_result = results[0]
+                this.address = get(first_result, "formatted_address", "-")
 
-                    if (first_result.address_components !== null) {
-                         let kelurahan_component = first_result.address_components.find(component => {
-                            return component.types[0] === "administrative_area_level_4" &&
-                                component.types[1] === "political"
-                        })
-                        this.kelurahan = get(kelurahan_component, "long_name", "-")
+                if (first_result.address_components !== null) {
+                        let kelurahan_component = first_result.address_components.find(component => {
+                        return component.types[0] === "administrative_area_level_4" &&
+                            component.types[1] === "political"
+                    })
+                    this.kelurahan = get(kelurahan_component, "long_name", "-")
 
-                        let kecamatan_component = first_result.address_components.find(component => {
-                            return component.types[0] === "administrative_area_level_3" &&
-                                component.types[1] === "political"
-                        })
-                        this.kecamatan = get(kecamatan_component, "long_name", "-")
-                    }
-                })
-                .catch(error => {
-                    console.error(error)
-                })
+                    let kecamatan_component = first_result.address_components.find(component => {
+                        return component.types[0] === "administrative_area_level_3" &&
+                            component.types[1] === "political"
+                    })
+                    this.kecamatan = get(kecamatan_component, "long_name", "-")
+                }
+            })
         },
 
         onFormSubmit() {
