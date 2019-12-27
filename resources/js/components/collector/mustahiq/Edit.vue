@@ -6,7 +6,24 @@
                     <i class="fa fa-map"></i>
                     Peta
                 </div>
-                <div class="card-body p-0">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <multiselect
+                            placeholder="Pencarian Lokasi"
+                            selectLabel=""
+                            selectedLabel=""
+                            deselectLabel=""
+                            track-by="place_id"
+                            label="formatted_address"
+                            :options="places"
+                            v-model="place"
+                            :internal-search="false"
+                            :loading="is_searching_place"
+                            @search-change="onPlaceSearchChange"
+                            >
+                        </multiselect>
+                    </div>
+
                     <GmapMap
                         ref="mapRef"
                         @click="onMapClick"
@@ -304,8 +321,9 @@
 <script>
 import { get } from "lodash";
 import axios from "axios";
-import asnafs from "../../../asnaf_catalog";
+import asnafs from "@/asnaf_catalog";
 import { Multiselect } from 'vue-multiselect'
+import geotagInPontianak from "@/geotagInPontianak"
 
 export default {
     components: { Multiselect },
@@ -322,18 +340,23 @@ export default {
     ],
 
     mixins: [
-        require('../../../vue_mixins/GmapDatalayer').default,
+        require('@/vue_mixins/GmapDatalayer').default,
     ],
 
     mounted() {
         this.$refs.mapRef.$mapPromise.then(map => {
             this.map = map
+            this.geocoder = new google.maps.Geocoder
             this.loadAndSetupDatalayer(this.datasource_url)
         })
     },
 
     data() {
         return {
+            is_searching_place: false,
+            place: null,
+            places: [],
+
             mustahiqs: this.original_mustahiqs.map(mustahiq => ({
                 ...mustahiq,
                 infoWindowOpened: false
@@ -388,8 +411,35 @@ export default {
         }
     },
 
+    watch: {
+        place() {
+            if (this.place === null) {
+                return
+            }
+
+            this.pointer_marker = {
+                lat: this.place.geometry.location.lat(),
+                lng: this.place.geometry.location.lng(),
+            }
+        }
+    },
+
     methods: {
         get: get,
+
+        onPlaceSearchChange: function (searchQuery) {
+            geotagInPontianak({
+                geocoder: this.geocoder,
+                searchQuery: searchQuery,
+                onBegin: () => { this.is_searching = true },
+                onFinish: (results, status) => {
+                    if (status == 'OK') {
+                        this.places = results
+                    }
+                    this.is_searching_place = false
+                }
+            })
+        },
 
         onMapClick(e) {
             this.pointer_marker = {

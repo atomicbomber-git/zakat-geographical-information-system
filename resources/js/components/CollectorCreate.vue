@@ -309,6 +309,7 @@
     import { get, debounce } from 'lodash'
     import GmapDatalayerMixin from '../vue_mixins/GmapDatalayer'
     import { Multiselect } from "vue-multiselect"
+    import geotagInPontianak from "../geotagInPontianak"
 
     export default {
         props: [
@@ -410,28 +411,19 @@
                 }
             },
 
-            onPlaceSearchChange: debounce(function (search_query) {
-                if (search_query == "") {
-                    return
-                }
-
-                let geocodingRequest = {
-                    address: search_query,
-                    componentRestrictions: {
-                        country: 'Indonesia',
-                        administrativeArea: 'Kota Pontianak',
-                        locality: 'Kota Pontianak',
-                    },
-                }
-
-                this.is_searching_place = true
-                this.geocoder.geocode(geocodingRequest, (results, status) => {
-                    if (status == 'OK') {
-                        this.places = results
+            onPlaceSearchChange: function (searchQuery) {
+                geotagInPontianak({
+                    geocoder: this.geocoder,
+                    searchQuery: searchQuery,
+                    onBegin: () => { this.is_searching = true },
+                    onFinish: (results, status) => {
+                        if (status == 'OK') {
+                            this.places = results
+                        }
+                        this.is_searching_place = false
                     }
-                    this.is_searching_place = false
-                });
-            }, 200),
+                })
+            },
 
             changeFile(event) {
                 this.picture = event.target.value
