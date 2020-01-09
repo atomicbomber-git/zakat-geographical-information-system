@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Collector;
 use App\Donation;
 use App\Mustahiq;
 use Illuminate\Http\Request;
@@ -10,13 +11,11 @@ class CollectorDonationReportPrintController extends Controller
 {
     const ROW_PER_PAGE = 8;
 
-    public function show(Request $request)
+    public function show(Request $request, Collector $collector)
     {
         $data = $request->validate([
             "year" => "required|integer|gte:0"
         ]);
-
-        $collector = $request->user()->collector;
 
         $donations = Donation::query()
             ->with("mustahiq")

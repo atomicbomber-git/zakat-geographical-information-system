@@ -6,7 +6,6 @@ use App\Collector;
 use Illuminate\Support\Facades\DB;
 use App\Receivement;
 use App\Muzakki;
-use Illuminate\Support\Facades\Auth;
 
 class CollectorReceivementController extends Controller
 {
@@ -50,7 +49,7 @@ class CollectorReceivementController extends Controller
                 "name",
                 "NIK",
             )
-            ->where('collector_id', auth()->user()->collector->id)
+            ->where('collector_id', $collector->id)
             ->selectSub(
                 Receivement::query()
                     ->select("transaction_date")
@@ -63,8 +62,8 @@ class CollectorReceivementController extends Controller
             ->orderBy("name")
             ->get();
 
-        $muzakkis_count = auth()->user()->collector->muzakkis()->count();
-        $mustahiqs_count = auth()->user()->collector->mustahiqs()->count();
+        $muzakkis_count = $collector->muzakkis()->count();
+        $mustahiqs_count = $collector->mustahiqs()->count();
 
         return view('collector_receivement.index', compact(
             'year',
@@ -106,7 +105,7 @@ class CollectorReceivementController extends Controller
         ]);
 
         $data['collector_id'] = auth()->user()->collector->id;
-        return Receivement::create($data);
+        Receivement::create($data);
 
         session()->flash('message-success', __('messages.create.success'));
     }

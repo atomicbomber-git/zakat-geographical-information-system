@@ -163,7 +163,10 @@
                             <th class="text-right"> Total Pendistribusian </th>
                             <th> Nomor Registrasi </th>
                             <th> Tanggal / Waktu Registrasi </th>
-                            <th class="text-center"> Aksi </th>
+                            <th
+                                class="text-center">
+                                Aksi
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -188,17 +191,23 @@
                                 {{ \App\Helper\Formatter::datetime($collector->created_at)  }}
                             </td>
                             <td class="text-center">
-                                <div class="mb-2 d-flex justify-content-center"">
-                                    <a href="{{ route('admin-report.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm mr-2">
+                                <div class="d-flex justify-content-between mt-2">
+                                    <a
+                                        class="btn btn-dark btn-sm"
+                                        href="{{ route('collector.receivement.index', ['collector' => $collector, 'year' => $year]) }}"
+                                        >
                                         Penerimaan
                                     </a>
 
-                                    <a href="{{ route('donation.detail', ['collector' => $collector, 'year' => $year]) }}" class="btn btn-dark btn-sm">
+                                    <a
+                                        class="btn btn-dark btn-sm"
+                                        href="{{ route('collector.donation.index', ['collector' => $collector, 'year' => $year]) }}"
+                                        >
                                         Pendistribusian
                                     </a>
                                 </div>
 
-                                <div class="mb-2 d-flex justify-content-center">
+                                <div class="mb-2 d-flex justify-content-center mt-2">
                                     <a href="{{ route('collector.show', $collector) }}" class="btn btn-dark btn-sm mr-2">
                                         <i class="fa fa-list"></i>
                                     </a>
@@ -234,7 +243,7 @@
                                     </a>
                                 </div>
 
-                                <div class="d-flex justify-content-between mt-3">
+                                <div class="d-flex justify-content-between mt-2">
                                     <a
                                         class="btn btn-dark btn-sm"
                                         href="{{ route('collector.mustahiq.index', $collector) }}"
@@ -249,6 +258,8 @@
                                         Kelola Muzaki
                                     </a>
                                 </div>
+
+
                             </td>
                         </tr>
                         @endforeach

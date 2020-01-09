@@ -11,17 +11,24 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"> SIG Zakat </li>
+            <li class="breadcrumb-item">
+                {{ config("app.short_name") }}
+            </li>
             <li class="breadcrumb-item">
                 UPZ {{ $collector->name }}
             </li>
-            <li class="breadcrumb-item active"> Penerimaan Zakat </li>
+            <li class="breadcrumb-item active">
+                Penerimaan Zakat
+            </li>
         </ol>
     </nav>
 
     <div class="my-4 text-right">
-        <a href="{{ route('collector.receivement.create', $collector) }}" class="btn btn-dark btn-sm">
-            Tambah Penerimaan Zakat
+        <a
+            href="{{ route('collector.receivement.create', $collector) }}"
+            class="btn btn-dark btn-sm"
+            >
+                Tambah Penerimaan Zakat
             <i class="fa fa-plus"></i>
         </a>
     </div>
@@ -38,7 +45,9 @@
                     @endforeach
                 </select>
 
-                <button formaction="{{ route('collector-receivement-report-print.show') }}" class="btn btn-dark btn-sm mr-2">
+                <button
+                    formaction="{{ route('collector-receivement-report-print.show', $collector) }}"
+                    class="btn btn-dark btn-sm mr-2">
                     Cetak Laporan Penerimaan
                     <i class="fa fa-print"></i>
                 </button>

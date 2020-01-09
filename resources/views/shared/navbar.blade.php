@@ -53,12 +53,12 @@
                             Zakat
                         </a>
                         <div class='dropdown-menu' aria-labelledby='collector'>
-                            <a class='dropdown-item' href='{{ route('collector.donation.index') }}'>
+                            <a class='dropdown-item' href='{{ route('collector.donation.index', Auth::user()->collector ?? null) }}'>
                                 <i class='fa fa-arrow-up'></i>
                                 Pendistribusian Zakat
                             </a>
 
-                            <a class='dropdown-item' href='{{ route('collector.receivement.index', Auth::user()->collector->id ?? null) }}'>
+                            <a class='dropdown-item' href='{{ route('collector.receivement.index', Auth::user()->collector ?? null) }}'>
                                 <i class='fa fa-arrow-down'></i>
                                 Penerimaan Zakat
                             </a>

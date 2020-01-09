@@ -11,9 +11,14 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"> SIG Zakat </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('collector.donation.index') }}">
+                {{ config("app.short_name") }}
+            </li>
+            <li class="breadcrumb-item">
+                UPZ {{ $mustahiq->collector->name }}
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('collector.donation.index', $mustahiq->collector) }}">
                     Pendistribusian Zakat
                 </a>
             </li>

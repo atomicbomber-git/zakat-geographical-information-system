@@ -127,9 +127,9 @@ Route::group(['middleware' => ['collector-verified']], function () {
     });
 
     Route::group(['prefix' => '/collector-donation', 'as' => 'collector.donation.'], function() {
-        Route::get('/index', 'CollectorDonationController@index')->name('index');
-        Route::get('/create', 'CollectorDonationController@create')->name('create');
-        Route::post('/store', 'CollectorDonationController@store')->name('store');
+        Route::get('/index/{collector}', 'CollectorDonationController@index')->name('index');
+        Route::get('/create/{collector}', 'CollectorDonationController@create')->name('create');
+        Route::post('/store/{collector}', 'CollectorDonationController@store')->name('store');
         Route::get('/edit/{donation}', 'CollectorDonationController@edit')->name('edit');
         Route::post('/update/{donation}', 'CollectorDonationController@update')->name('update');
         Route::post('/delete/{donation}', 'CollectorDonationController@delete')->name('delete');
@@ -158,11 +158,11 @@ Route::group(['prefix' => '/collector-mustahiq-donation', 'as' => 'collector-mus
 });
 
 Route::group(['prefix' => '/collector-receivement-report-print', 'as' => 'collector-receivement-report-print.'], function() {
-    Route::get('/show', [CollectorReceivementReportPrintController::class, 'show'])->name('show');
+    Route::get('/show/{collector}', [CollectorReceivementReportPrintController::class, 'show'])->name('show');
 });
 
 Route::group(['prefix' => '/collector-donation-report-print', 'as' => 'collector-donation-report-print.'], function() {
-    Route::get('/show', [CollectorDonationReportPrintController::class, 'show'])->name('show');
+    Route::get('/show/{collector}', [CollectorDonationReportPrintController::class, 'show'])->name('show');
 });
 
 Route::group(['prefix' => '/mustahiq-data-print', 'as' => 'mustahiq-data-print.'], function() {

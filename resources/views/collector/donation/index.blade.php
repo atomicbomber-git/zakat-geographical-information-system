@@ -15,13 +15,22 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item active"> Pendistribusian Zakat </li>
+            <li class="breadcrumb-item">
+                {{ config("app.short_name") }}
+            </li>
+            <li class="breadcrumb-item">
+                UPZ {{ $collector->name }}
+            </li>
+            <li class="breadcrumb-item active">
+                Pendistribusian Zakat
+            </li>
         </ol>
     </nav>
 
     <div class="my-4 text-right">
-        <a href="{{ route('collector.donation.create') }}" class="btn btn-dark btn-sm">
+        <a
+            href="{{ route('collector.donation.create', $collector) }}"
+            class="btn btn-dark btn-sm">
             Tambah Pendistribusian Zakat
             <i class="fa fa-plus"></i>
         </a>
@@ -33,13 +42,18 @@
                 <label for="year" class="ml-auto mr-2"> Tahun Laporan: </label>
                 <select class="form-control form-control-sm mr-2" name="year" id="year">
                     @foreach ($available_years as $av_year)
-                    <option value="{{ $av_year }}">
+                    <option
+                        {{ $av_year === request("year") ? "selected" : "" }}
+                        value="{{ $av_year }}"
+                        >
                         {{ $av_year }}
                     </option>
                     @endforeach
                 </select>
 
-                <button formaction="{{ route('collector-donation-report-print.show') }}" class="btn btn-dark btn-sm mr-2">
+                <button
+                    formaction="{{ route('collector-donation-report-print.show', $collector) }}"
+                    class="btn btn-dark btn-sm mr-2">
                     Cetak Laporan Pendistribusian
                     <i class="fa fa-print"></i>
                 </button>

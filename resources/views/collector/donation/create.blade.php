@@ -11,17 +11,28 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item active"> <a href="{{ route('collector.donation.index') }}"> Pendistribusian Zakat </a> </li>
-            <li class="breadcrumb-item active"> Tambah Pendistribusian Zakat </li>
+            <li class="breadcrumb-item">
+                {{ config("app.short_name") }}
+            </li>
+            <li class="breadcrumb-item">
+                UPZ {{ $collector->name }}
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="{{ route('collector.donation.index', $collector) }}">
+                    Pendistribusian Zakat
+                </a>
+            </li>
+            <li class="breadcrumb-item active">
+                Tambah Pendistribusian Zakat
+            </li>
         </ol>
     </nav>
 
     <div id="app" class="width-md">
         <collector-donation-create
             :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
-            submit_url="{{ route('collector.donation.store') }}"
-            redirect_url="{{ route('collector.donation.index') }}"
+            submit_url="{{ route('collector.donation.store', $collector) }}"
+            redirect_url="{{ route('collector.donation.index', $collector) }}"
             :mustahiqs='{{ json_encode($mustahiqs) }}'
             />
     </div>

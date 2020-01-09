@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CollectorDonationController extends Controller
 {
-    public function index()
+    public function index(Collector $collector)
     {
         $available_years = Donation::query()
             ->select(DB::raw('YEAR(transaction_date) AS year'))
-            ->where('collector_id', auth()->user()->collector->id)
+            ->where('collector_id', $collector->id)
             ->orderByDesc('year')
             ->groupBy('year')
             ->pluck('year');
@@ -35,7 +35,7 @@ class CollectorDonationController extends Controller
                 "name",
                 "NIK",
             )
-            ->where('collector_id', auth()->user()->collector->id)
+            ->where('collector_id', $collector->id)
             ->selectSub(
                 Donation::query()
                     ->selectRaw("transaction_date")
@@ -53,13 +53,13 @@ class CollectorDonationController extends Controller
                 "id", "transaction_date", "mustahiq_id", "amount"
             )
             ->with("mustahiq")
-            ->where('collector_id', auth()->user()->collector->id)
+            ->where('collector_id', $collector->id)
             ->whereYear('transaction_date', $year)
             ->get();
 
         $yearly_donations = Donation::query()
             ->select(DB::raw('SUM(amount) AS amount'), DB::raw('YEAR(transaction_date) AS year'))
-            ->where('collector_id', auth()->user()->collector->id)
+            ->where('collector_id', $collector->id)
             ->groupBy('year')
             ->get();
 
@@ -68,24 +68,28 @@ class CollectorDonationController extends Controller
                 'mustahiqs',
                 'year',
                 'available_years',
-                'yearly_donations'
+                'yearly_donations',
+                'collector',
             ));
     }
 
-    public function create()
+    public function create(Collector $collector)
     {
         $mustahiqs = Mustahiq::query()
             ->select("name", "id", "nik")
-            ->whereHas("collector", function ($query) {
-                $query->where("id", Auth::user()->collector->id);
+            ->whereHas("collector", function ($query) use($collector) {
+                $query->where("id", $collector->id);
             })
             ->orderBy("name")
             ->get();
 
-        return view('collector.donation.create', compact('mustahiqs'));
+        return view('collector.donation.create', compact(
+            'mustahiqs',
+            'collector',
+        ));
     }
 
-    public function store()
+    public function store(Collector $collector)
     {
         $data = $this->validate(request(), [
             'transaction_date' => 'required|date',
