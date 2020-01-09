@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Mustahiq;
-use Illuminate\Http\Request;
+use App\Collector;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 use App\Receivement;
 use App\Muzakki;
 use Illuminate\Support\Facades\Auth;
 
 class CollectorReceivementController extends Controller
 {
-    public function index()
+    public function index(Collector $collector)
     {
         $available_years = Receivement::query()
             ->select(DB::raw('YEAR(transaction_date) AS year'))
-            ->where('collector_id', auth()->user()->collector->id)
+            ->where('collector_id', $collector->id)
             ->orderByDesc('year')
             ->groupBy('year')
             ->pluck('year');
@@ -33,7 +31,7 @@ class CollectorReceivementController extends Controller
                 DB::raw('YEAR(transaction_date) AS year'),
             )
             ->withAmountSum("total")
-            ->where('collector_id', auth()->user()->collector->id)
+            ->where('collector_id', $collector->id)
             ->groupBy('year')
             ->get();
 
@@ -75,20 +73,24 @@ class CollectorReceivementController extends Controller
             'muzakkis',
             'muzakkis_count',
             'mustahiqs_count',
+            'collector',
         ));
     }
 
-    public function create()
+    public function create(Collector $collector)
     {
         $muzakkis = Muzakki::query()
             ->select("id", "name", "nik")
-            ->whereHas("collector", function ($query) {
-                $query->where("id", Auth::user()->collector->id);
+            ->whereHas("collector", function ($query) use ($collector) {
+                $query->where("id", $collector->id);
             })
             ->orderBy("name")
             ->get();
 
-        return view('collector.receivement.create', compact('muzakkis'));
+        return view('collector.receivement.create', compact(
+            'muzakkis',
+            'collector'
+        ));
     }
 
     public function store()
@@ -113,13 +115,16 @@ class CollectorReceivementController extends Controller
     {
         $muzakkis = Muzakki::query()
             ->select("id", "name", "nik")
-            ->whereHas("collector", function ($query) {
-                $query->where("id", Auth::user()->collector->id);
+            ->whereHas("collector", function ($query) use ($receivement) {
+                $query->where("id", $receivement->collector->id);
             })
             ->orderBy("name")
             ->get();
 
-        return view('collector.receivement.edit', compact('receivement', 'muzakkis'));
+        return view('collector.receivement.edit', compact(
+            'receivement',
+            'muzakkis',
+        ));
     }
 
     public function update(Receivement $receivement)

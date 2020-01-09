@@ -118,9 +118,9 @@ Route::group(['middleware' => ['collector-verified']], function () {
     });
 
     Route::group(['prefix' => '/collector-receivement', 'as' => 'collector.receivement.'], function() {
-        Route::get('/index', 'CollectorReceivementController@index')->name('index');
-        Route::get('/create', 'CollectorReceivementController@create')->name('create');
-        Route::post('/store', 'CollectorReceivementController@store')->name('store');
+        Route::get('/index/{collector}', 'CollectorReceivementController@index')->name('index');
+        Route::get('/create/{collector}', 'CollectorReceivementController@create')->name('create');
+        Route::post('/store/{collector}', 'CollectorReceivementController@store')->name('store');
         Route::get('/edit/{receivement}', 'CollectorReceivementController@edit')->name('edit');
         Route::post('/update/{receivement}', 'CollectorReceivementController@update')->name('update');
         Route::post('/delete/{receivement}', 'CollectorReceivementController@delete')->name('delete');

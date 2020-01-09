@@ -8,12 +8,14 @@
         <div class="card-body">
             <form @submit.prevent="onFormSubmit">
                 <div class='form-group'>
-                    <label for='transaction_date'> Tanggal Transaksi: </label>
+                    <label for='transaction_date'>
+                        Tanggal Transaksi:
+                    </label>
                     <input
                         v-model='transaction_date'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.transaction_date[0]', false)}"
-                        type='text'
+                        type='date'
                         id='transaction_date'
                         placeholder='Tanggal Transaksi'>
                     <div class='invalid-feedback'>
@@ -27,7 +29,7 @@
                         v-model='zakat'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.zakat[0]', false)}"
-                        type='text'
+                        type='number'
                         id='zakat'
                         placeholder='Zakat Mal'>
                     <div class='invalid-feedback'>
@@ -41,7 +43,7 @@
                         v-model='fitrah'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.fitrah[0]', false)}"
-                        type='text'
+                        type='number'
                         id='fitrah'
                         placeholder='Zakat Fitrah (Tunai)'>
                     <div class='invalid-feedback'>
@@ -55,7 +57,7 @@
                         v-model='fitrah_beras'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.fitrah_beras[0]', false)}"
-                        type='text'
+                        type='number'
                         id='fitrah_beras'
                         placeholder='Zakat Fitrah (Beras)'>
                     <div class='invalid-feedback'>
@@ -69,7 +71,7 @@
                         v-model='infak'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.infak[0]', false)}"
-                        type='text'
+                        type='number'
                         id='infak'
                         placeholder='Infak'>
                     <div class='invalid-feedback'>
@@ -83,7 +85,7 @@
                         v-model='sedekah'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.sedekah[0]', false)}"
-                        type='text'
+                        type='number'
                         id='sedekah'
                         placeholder='Sedekah'>
                     <div class='invalid-feedback'>

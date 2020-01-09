@@ -58,7 +58,7 @@
                                 Pendistribusian Zakat
                             </a>
 
-                            <a class='dropdown-item' href='{{ route('collector.receivement.index') }}'>
+                            <a class='dropdown-item' href='{{ route('collector.receivement.index', Auth::user()->collector->id ?? null) }}'>
                                 <i class='fa fa-arrow-down'></i>
                                 Penerimaan Zakat
                             </a>
@@ -78,7 +78,7 @@
                     </li>
 
                     <li class='nav-item {{ Route::is('collector.muzakki.*') ? 'active' : '' }}'>
-                        <a class='nav-link' href='{{ route('collector.muzakki.index') }}'>
+                        <a class='nav-link' href='{{ route('collector.muzakki.index', Auth::user()->collector->id ?? null) }}'>
                             <i class='fa fa-user'></i>
                             Muzaki
                         </a>

@@ -23,7 +23,7 @@
                         v-model.number='zakat'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.zakat[0]', false)}"
-                        type='text'
+                        type='number'
                         id='zakat'
                         placeholder='Zakat Mal'>
                     <div class='invalid-feedback'>
@@ -37,7 +37,7 @@
                         v-model.number='fitrah'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.fitrah[0]', false)}"
-                        type='text'
+                        type='number'
                         id='fitrah'
                         placeholder='Zakat Fitrah (Tunai)'>
                     <div class='invalid-feedback'>
@@ -51,7 +51,7 @@
                         v-model.number='fitrah_beras'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.fitrah_beras[0]', false)}"
-                        type='text'
+                        type='number'
                         id='fitrah_beras'
                         placeholder='Zakat Fitrah (Beras)'>
                     <div class='invalid-feedback'>
@@ -65,7 +65,7 @@
                         v-model.number='infak'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.infak[0]', false)}"
-                        type='text'
+                        type='number'
                         id='infak'
                         placeholder='Infak'>
                     <div class='invalid-feedback'>
@@ -79,7 +79,7 @@
                         v-model.number='sedekah'
                         class='form-control'
                         :class="{'is-invalid': get(this.error_data, 'errors.sedekah[0]', false)}"
-                        type='text'
+                        type='number'
                         id='sedekah'
                         placeholder='Sedekah'>
                     <div class='invalid-feedback'>

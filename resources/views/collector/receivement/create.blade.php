@@ -12,16 +12,22 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
-            <li class="breadcrumb-item active"> <a href="{{ route('collector.receivement.index') }}"> Penerimaan Zakat </a> </li>
-            <li class="breadcrumb-item active"> Tambah Penerimaan Zakat </li>
+            <li class="breadcrumb-item active">
+                <a href="{{ route('collector.receivement.index', $collector) }}">
+                    Penerimaan Zakat
+                </a>
+            </li>
+            <li class="breadcrumb-item active">
+                Tambah Penerimaan Zakat
+            </li>
         </ol>
     </nav>
 
     <div id="app" class="width-md">
         <collector-receivement-create
             :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
-            submit_url="{{ route('collector.receivement.store') }}"
-            redirect_url="{{ route('collector.receivement.index') }}"
+            submit_url="{{ route('collector.receivement.store', $collector) }}"
+            redirect_url="{{ route('collector.receivement.index', $collector) }}"
             :muzakkis='{{ json_encode($muzakkis) }}'
             />
     </div>

@@ -99923,7 +99923,7 @@ var render = function() {
               class: {
                 "is-invalid": _vm.get(this.error_data, "errors.zakat[0]", false)
               },
-              attrs: { type: "text", id: "zakat", placeholder: "Zakat Mal" },
+              attrs: { type: "number", id: "zakat", placeholder: "Zakat Mal" },
               domProps: { value: _vm.zakat },
               on: {
                 input: function($event) {
@@ -99971,7 +99971,7 @@ var render = function() {
                 )
               },
               attrs: {
-                type: "text",
+                type: "number",
                 id: "fitrah",
                 placeholder: "Zakat Fitrah (Tunai)"
               },
@@ -100022,7 +100022,7 @@ var render = function() {
                 )
               },
               attrs: {
-                type: "text",
+                type: "number",
                 id: "fitrah_beras",
                 placeholder: "Zakat Fitrah (Beras)"
               },
@@ -100068,7 +100068,7 @@ var render = function() {
               class: {
                 "is-invalid": _vm.get(this.error_data, "errors.infak[0]", false)
               },
-              attrs: { type: "text", id: "infak", placeholder: "Infak" },
+              attrs: { type: "number", id: "infak", placeholder: "Infak" },
               domProps: { value: _vm.infak },
               on: {
                 input: function($event) {
@@ -100113,7 +100113,7 @@ var render = function() {
                   false
                 )
               },
-              attrs: { type: "text", id: "sedekah", placeholder: "Sedekah" },
+              attrs: { type: "number", id: "sedekah", placeholder: "Sedekah" },
               domProps: { value: _vm.sedekah },
               on: {
                 input: function($event) {
@@ -100286,6 +100286,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_cleave_component___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_cleave_component__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_numeral__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_numeral___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_numeral__);
+//
+//
 //
 //
 //
@@ -100764,7 +100766,9 @@ var render = function() {
         [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "transaction_date" } }, [
-              _vm._v(" Tanggal Transaksi: ")
+              _vm._v(
+                "\n                    Tanggal Transaksi:\n                "
+              )
             ]),
             _vm._v(" "),
             _c("input", {
@@ -100785,7 +100789,7 @@ var render = function() {
                 )
               },
               attrs: {
-                type: "text",
+                type: "date",
                 id: "transaction_date",
                 placeholder: "Tanggal Transaksi"
               },
@@ -100831,7 +100835,7 @@ var render = function() {
               class: {
                 "is-invalid": _vm.get(this.error_data, "errors.zakat[0]", false)
               },
-              attrs: { type: "text", id: "zakat", placeholder: "Zakat Mal" },
+              attrs: { type: "number", id: "zakat", placeholder: "Zakat Mal" },
               domProps: { value: _vm.zakat },
               on: {
                 input: function($event) {
@@ -100875,7 +100879,7 @@ var render = function() {
                 )
               },
               attrs: {
-                type: "text",
+                type: "number",
                 id: "fitrah",
                 placeholder: "Zakat Fitrah (Tunai)"
               },
@@ -100922,7 +100926,7 @@ var render = function() {
                 )
               },
               attrs: {
-                type: "text",
+                type: "number",
                 id: "fitrah_beras",
                 placeholder: "Zakat Fitrah (Beras)"
               },
@@ -100964,7 +100968,7 @@ var render = function() {
               class: {
                 "is-invalid": _vm.get(this.error_data, "errors.infak[0]", false)
               },
-              attrs: { type: "text", id: "infak", placeholder: "Infak" },
+              attrs: { type: "number", id: "infak", placeholder: "Infak" },
               domProps: { value: _vm.infak },
               on: {
                 input: function($event) {
@@ -101005,7 +101009,7 @@ var render = function() {
                   false
                 )
               },
-              attrs: { type: "text", id: "sedekah", placeholder: "Sedekah" },
+              attrs: { type: "number", id: "sedekah", placeholder: "Sedekah" },
               domProps: { value: _vm.sedekah },
               on: {
                 input: function($event) {

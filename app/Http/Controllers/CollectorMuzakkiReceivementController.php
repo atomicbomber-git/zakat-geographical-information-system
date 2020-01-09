@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Collector;
 use App\Muzakki;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\Request;
 
 class CollectorMuzakkiReceivementController extends Controller
 {
-    public function index(Request $request, Muzakki $muzakki)
+    public function index(Muzakki $muzakki)
     {
         $muzakki->load([
             "receivements" => function (HasMany $hasMany) {

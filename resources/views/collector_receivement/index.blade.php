@@ -12,12 +12,15 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
+            <li class="breadcrumb-item">
+                UPZ {{ $collector->name }}
+            </li>
             <li class="breadcrumb-item active"> Penerimaan Zakat </li>
         </ol>
     </nav>
 
     <div class="my-4 text-right">
-        <a href="{{ route('collector.receivement.create') }}" class="btn btn-dark btn-sm">
+        <a href="{{ route('collector.receivement.create', $collector) }}" class="btn btn-dark btn-sm">
             Tambah Penerimaan Zakat
             <i class="fa fa-plus"></i>
         </a>
