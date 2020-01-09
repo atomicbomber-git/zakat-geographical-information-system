@@ -13,6 +13,9 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> <a href=""> SIG Zakat </a> </li>
             <li class="breadcrumb-item">
+                UPZ {{ $collector->name }}
+            </li>
+            <li class="breadcrumb-item">
                 <a href="{{ route('collector.mustahiq.index') }}">
                     Mustahik
                 </a>
@@ -26,8 +29,8 @@
     <div id="app">
         <collector-mustahiq-create
             :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
-            submit_url='{{ route("collector.mustahiq.store") }}'
-            redirect_url='{{ route("collector.mustahiq.index") }}'
+            submit_url='{{ route("collector.mustahiq.store", $collector) }}'
+            redirect_url='{{ route("collector.mustahiq.index", $collector) }}'
             :collector='{{ json_encode($collector) }}'
             :original_mustahiqs='{{ json_encode($mustahiqs) }}'
             datasource_url="{{ asset(config('app.datasource_publicpath')) }}"

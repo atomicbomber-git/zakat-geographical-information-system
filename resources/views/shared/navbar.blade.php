@@ -71,7 +71,7 @@
                     </li>
 
                     <li class='nav-item {{ Route::is('collector.mustahiq.*') ? 'active' : '' }}'>
-                        <a class='nav-link' href='{{ route('collector.mustahiq.index') }}'>
+                        <a class='nav-link' href='{{ route('collector.mustahiq.index', Auth::user()->collector->id ?? null) }}'>
                             <i class='fa fa-user'></i>
                             Mustahik
                         </a>

@@ -12,7 +12,8 @@
         "laravel/tinker": "^1.0",
         "sentry/sentry-laravel": "1.5.0",
         "spatie/laravel-blade-javascript": "^2.2",
-        "spatie/laravel-medialibrary": "^7.9.0"
+        "spatie/laravel-medialibrary": "^7.9.0",
+        "spatie/laravel-view-models": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

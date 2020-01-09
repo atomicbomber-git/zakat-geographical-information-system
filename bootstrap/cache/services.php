@@ -33,10 +33,11 @@
     29 => 'Sentry\\Laravel\\ServiceProvider',
     30 => 'Spatie\\BladeJavaScript\\BladeJavaScriptServiceProvider',
     31 => 'Spatie\\MediaLibrary\\MediaLibraryServiceProvider',
-    32 => 'App\\Providers\\AppServiceProvider',
-    33 => 'App\\Providers\\AuthServiceProvider',
-    34 => 'App\\Providers\\EventServiceProvider',
-    35 => 'App\\Providers\\RouteServiceProvider',
+    32 => 'Spatie\\ViewModels\\Providers\\ViewModelsServiceProvider',
+    33 => 'App\\Providers\\AppServiceProvider',
+    34 => 'App\\Providers\\AuthServiceProvider',
+    35 => 'App\\Providers\\EventServiceProvider',
+    36 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -60,10 +61,11 @@
     17 => 'Sentry\\Laravel\\ServiceProvider',
     18 => 'Spatie\\BladeJavaScript\\BladeJavaScriptServiceProvider',
     19 => 'Spatie\\MediaLibrary\\MediaLibraryServiceProvider',
-    20 => 'App\\Providers\\AppServiceProvider',
-    21 => 'App\\Providers\\AuthServiceProvider',
-    22 => 'App\\Providers\\EventServiceProvider',
-    23 => 'App\\Providers\\RouteServiceProvider',
+    20 => 'Spatie\\ViewModels\\Providers\\ViewModelsServiceProvider',
+    21 => 'App\\Providers\\AppServiceProvider',
+    22 => 'App\\Providers\\AuthServiceProvider',
+    23 => 'App\\Providers\\EventServiceProvider',
+    24 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (

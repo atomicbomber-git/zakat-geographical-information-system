@@ -233,6 +233,22 @@
                                         Data Mustahik
                                     </a>
                                 </div>
+
+                                <div class="d-flex justify-content-between mt-3">
+                                    <a
+                                        class="btn btn-dark btn-sm"
+                                        href="{{ route('collector.mustahiq.index', $collector) }}"
+                                        >
+                                        Kelola Mustahik
+                                    </a>
+
+                                    <a
+                                        class="btn btn-dark btn-sm"
+                                        href="{{ route('collector.muzakki.index', $collector) }}"
+                                        >
+                                        Kelola Muzaki
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                         @endforeach

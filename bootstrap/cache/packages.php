@@ -81,4 +81,11 @@
       0 => 'Spatie\\MediaLibrary\\MediaLibraryServiceProvider',
     ),
   ),
+  'spatie/laravel-view-models' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\ViewModels\\Providers\\ViewModelsServiceProvider',
+    ),
+  ),
 );

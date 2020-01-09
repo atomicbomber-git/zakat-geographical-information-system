@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserType;
 use App\User;
 use App\Muzakki;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -55,7 +56,7 @@ class MuzakkiPolicy
     public function delete(User $user, Muzakki $muzakki)
     {
         return
-            ($user->collector->id === $muzakki->collector_id) &&
+            ($user->type === UserType::ADMINISTRATOR || (($user->collector->id ?? null) === $muzakki->collector_id)) &&
             (($muzakki->receivements_count ?? -1) === 0);
     }
 

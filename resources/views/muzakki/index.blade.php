@@ -12,12 +12,13 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> SIG Zakat </li>
+            <li class="breadcrumb-item"> UPZ {{ $collector->name }} </li>
             <li class="breadcrumb-item active"> Muzaki </li>
         </ol>
     </nav>
 
     <div class="my-3 text-right">
-        <a href="{{ route("collector.muzakki.create") }}" class="btn btn-sm btn-dark">
+        <a href="{{ route("collector.muzakki.create", $collector) }}" class="btn btn-sm btn-dark">
             Tambah Muzaki
             <i class="fa fa-plus"></i>
         </a>
@@ -59,7 +60,7 @@
                             <td> {{ $muzakki->npwz }} </td>
                             <td class="text-center">
 
-                                <a href="{{ route('collector.muzakki.edit', $muzakki) }}" class="btn btn-dark btn-sm">
+                                <a href="{{ route('collector.muzakki.edit', [$collector, $muzakki]) }}" class="btn btn-dark btn-sm">
                                     <i class="fa fa-pencil"></i>
                                 </a>
 

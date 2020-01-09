@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Collector;
 use App\Muzakki;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,7 @@ use Illuminate\Validation\Rule;
 
 class MuzakkiController extends Controller
 {
-    public function index()
+    public function index(Collector $collector)
     {
         $muzakkis = Muzakki::query()
             ->select(
@@ -18,17 +19,17 @@ class MuzakkiController extends Controller
                 "phone", "gender", "npwz", "collector_id", "occupation",
             )
             ->withCount("receivements")
-            ->whereHas("collector", function (Builder $query) {
-                $query->where("id", Auth::user()->collector->id);
+            ->whereHas("collector", function (Builder $query) use ($collector) {
+                $query->where("id", $collector->id);
             })
             ->orderByDesc("updated_at")
             ->orderByDesc("created_at")
             ->get();
 
-        return view("muzakki.index", compact("muzakkis"));
+        return view("muzakki.index", compact("muzakkis", "collector"));
     }
 
-    public function create()
+    public function create(Collector $collector)
     {
         $muzakkis = Muzakki::query()
             ->select(
@@ -36,17 +37,15 @@ class MuzakkiController extends Controller
                 "phone", "gender", "npwz", "collector_id", "latitude", "longitude"
             )
             ->withCount("receivements")
-            ->whereHas("collector", function (Builder $query) {
-                $query->where("id", Auth::user()->collector->id);
+            ->whereHas("collector", function (Builder $query) use ($collector) {
+                $query->where("id", $collector);
             })
             ->get();
-
-        $collector = Auth::user()->collector;
 
         return view("muzakki.create", compact("muzakkis", "collector"));
     }
 
-    public function store()
+    public function store(Collector $collector)
     {
         $data = $this->validate(request(), [
             'latitude' => 'required|numeric',
@@ -63,13 +62,13 @@ class MuzakkiController extends Controller
         ]);
 
         Muzakki::create(array_merge($data, [
-            "collector_id" => Auth::user()->collector->id,
+            "collector_id" => $collector,
         ]));
 
         session()->flash('message-success', __('messages.create.success'));
     }
 
-    public function edit(Muzakki $muzakki)
+    public function edit(Collector $collector, Muzakki $muzakki)
     {
         $muzakkis = Muzakki::query()
             ->select(
@@ -78,12 +77,10 @@ class MuzakkiController extends Controller
                 "occupation",
             )
             ->withCount("receivements")
-            ->whereHas("collector", function (Builder $query) {
-                $query->where("id", Auth::user()->collector->id);
+            ->whereHas("collector", function (Builder $query) use ($collector) {
+                $query->where("id", $collector);
             })
             ->get();
-
-        $collector = Auth::user()->collector;
 
         return view("muzakki.edit", compact("muzakki", "muzakkis", "collector"));
     }

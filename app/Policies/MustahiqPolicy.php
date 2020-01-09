@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\UserType;
 use App\User;
 use App\Mustahiq;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -42,7 +43,7 @@ class MustahiqPolicy
      */
     public function update(User $user, Mustahiq $mustahiq)
     {
-        return $user->collector->id === $mustahiq->collector_id;
+        return $user->type === UserType::ADMINISTRATOR || (($user->collector->id ?? null) === $mustahiq->collector_id);
     }
 
     /**
@@ -54,8 +55,8 @@ class MustahiqPolicy
      */
     public function delete(User $user, Mustahiq $mustahiq)
     {
-        return 
-            ($user->collector->id === $mustahiq->collector_id) &&
+        return
+            (true || (($user->collector->id ?? null) === $mustahiq->collector_id)) &&
             (($mustahiq->donations_count ?? -1) === 0);
     }
 

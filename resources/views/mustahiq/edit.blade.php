@@ -12,8 +12,9 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"> <a href=""> SIG Zakat </a> </li>
+            <li class="breadcrumb-item"> UPZ {{ $collector->name }} </a> </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('collector.mustahiq.index') }}">
+                <a href="{{ route('collector.mustahiq.index', $collector) }}">
                     Mustahik
                 </a>
             </li>
@@ -27,7 +28,7 @@
         <collector-mustahiq-edit
             :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
             submit_url='{{ route("collector.mustahiq.update", $mustahiq) }}'
-            redirect_url='{{ route("collector.mustahiq.index") }}'
+            redirect_url='{{ route("collector.mustahiq.index", $collector) }}'
             :collector='{{ json_encode($collector) }}'
             :mustahiq='{{ json_encode($mustahiq) }}'
             :original_mustahiqs='{{ json_encode($mustahiqs) }}'

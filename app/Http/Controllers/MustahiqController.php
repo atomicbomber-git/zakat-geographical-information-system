@@ -2,51 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Collector;
 use App\Mustahiq;
+use App\ViewModels\MustahiqIndexViewModel;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\Rule;
 
 class MustahiqController extends Controller
 {
-    public function index()
+    public function index(Collector $collector)
     {
-        $mustahiqs = Mustahiq::query()
-            ->select(
-                "id", "name", "nik", "address",
-                "kecamatan", "kelurahan", "phone", "gender",
-                "occupation", "asnaf", "nomor_kk",
-                "collector_id", "age", "description",
-                "created_at",
-                "updated_at",
-                "program_bantuan",
-            )
-            ->whereHas("collector", function (Builder $query) {
-                $query->where("id", Auth::user()->collector->id);
-            })
-            ->withCount("donations")
-            ->orderByDesc("updated_at")
-            ->orderByDesc("created_at")
-            ->get();
-
-        return view("mustahiq.index", compact("mustahiqs"));
+        return view("mustahiq.index", new MustahiqIndexViewModel(
+            $collector
+        ));
     }
 
-    public function create()
+    public function create(Collector $collector)
     {
         $mustahiqs = Mustahiq::query()
             ->select("name", "id", "latitude", "longitude", "address")
-            ->whereHas("collector", function ($query) {
-                $query->where("id", Auth::user()->collector->id);
+            ->whereHas("collector", function ($query) use ($collector) {
+                $query->where("id", $collector);
             })
             ->orderBy("name")
             ->get();
 
-        $collector = Auth::user()->collector;
         return view("mustahiq.create", compact("mustahiqs", "collector"));
     }
 
-    public function store()
+    public function store(Collector $collector)
     {
         $data = $this->validate(request(), [
             'latitude' => 'required|numeric',
@@ -67,7 +51,7 @@ class MustahiqController extends Controller
         ]);
 
         Mustahiq::create(array_merge($data, [
-            "collector_id" => Auth::user()->collector->id,
+            "collector_id" => $collector->id,
         ]));
 
         session()->flash('message-success', __('messages.create.success'));

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminMustahiqController;
 use App\Http\Controllers\CollectorDonationReportPrintController;
 use App\Http\Controllers\CollectorMustahiqDataPrintController;
 use App\Http\Controllers\CollectorMustahiqDonationController;
@@ -90,19 +91,19 @@ Route::group(['prefix' => '/error', 'as' => 'error.'], function() {
 
 Route::group(['middleware' => ['collector-verified']], function () {
     Route::group(['prefix' => '/mustahiq', 'as' => 'collector.mustahiq.'], function() {
-        Route::get('/index', 'MustahiqController@index')->name('index');
-        Route::get('/create', 'MustahiqController@create')->name('create');
-        Route::post('/store', 'MustahiqController@store')->name('store');
+        Route::get('/index/{collector}', 'MustahiqController@index')->name('index');
+        Route::get('/create/{collector}', 'MustahiqController@create')->name('create');
+        Route::post('/store/{collector}', 'MustahiqController@store')->name('store');
         Route::get('/edit/{mustahiq}', 'MustahiqController@edit')->name('edit');
         Route::post('/update/{mustahiq}', 'MustahiqController@update')->name('update');
         Route::post('/delete/{mustahiq}', 'MustahiqController@delete')->name('delete');
     });
 
     Route::group(['prefix' => '/muzakki', 'as' => 'collector.muzakki.'], function() {
-        Route::get('/index', 'MuzakkiController@index')->name('index');
-        Route::get('/create', 'MuzakkiController@create')->name('create');
-        Route::post('/store', 'MuzakkiController@store')->name('store');
-        Route::get('/edit/{muzakki}', 'MuzakkiController@edit')->name('edit');
+        Route::get('/index/{collector}', 'MuzakkiController@index')->name('index');
+        Route::get('/create/{collector}', 'MuzakkiController@create')->name('create');
+        Route::post('/store/{collector}', 'MuzakkiController@store')->name('store');
+        Route::get('/edit/{collector}/{muzakki}', 'MuzakkiController@edit')->name('edit');
         Route::post('/update/{muzakki}', 'MuzakkiController@update')->name('update');
         Route::post('/delete/{muzakki}', 'MuzakkiController@delete')->name('delete');
     });
@@ -178,4 +179,13 @@ Route::group(['prefix' => '/collector/{collector}/muzakki/data-print', 'as' => '
 
 Route::group(['prefix' => '/collector/{collector}/mustahiq/data-print', 'as' => 'collector-mustahiq-data-print.'], function() {
     Route::get('/show', [CollectorMustahiqDataPrintController::class, 'show'])->name('show');
+});
+
+Route::group(['prefix' => '/admin/mustahiq', 'as' => 'admin.mustahiq.'], function() {
+    Route::get('/index/{collector}', [AdminMustahiqController::class, 'index'])->name('index');
+    Route::get('/create/{collector}', [AdminMustahiqController::class, 'create'])->name('create');
+    Route::post('/store/{collector}', [AdminMustahiqController::class, 'store'])->name('store');
+    Route::get('/edit/{mustahiq}', [AdminMustahiqController::class, 'edit'])->name('edit');
+    Route::post('/update/{mustahiq}', [AdminMustahiqController::class, 'update'])->name('update');
+    Route::post('/delete/{mustahiq}', [AdminMustahiqController::class, 'delete'])->name('delete');
 });
