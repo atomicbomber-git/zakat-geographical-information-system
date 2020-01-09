@@ -183,7 +183,7 @@
                                 v-model.number="age"
                                 class="form-control"
                                 :class="{'is-invalid': get(this.error_data, 'errors.age[0]', false)}"
-                                type="text"
+                                type="number"
                                 id="age"
                                 placeholder="Usia"
                             >

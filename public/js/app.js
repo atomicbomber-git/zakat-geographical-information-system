@@ -103482,7 +103482,7 @@ var render = function() {
                       false
                     )
                   },
-                  attrs: { type: "text", id: "age", placeholder: "Usia" },
+                  attrs: { type: "number", id: "age", placeholder: "Usia" },
                   domProps: { value: _vm.age },
                   on: {
                     input: function($event) {

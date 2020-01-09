@@ -27,7 +27,7 @@
     <div id="app">
         <collector-mustahiq-edit
             :gmap_settings='{{ json_encode(config("gmap_settings")) }}'
-            submit_url='{{ route("collector.mustahiq.update", $mustahiq) }}'
+            submit_url='{{ route("collector.mustahiq.update", [$collector, $mustahiq]) }}'
             redirect_url='{{ route("collector.mustahiq.index", $collector) }}'
             :collector='{{ json_encode($collector) }}'
             :mustahiq='{{ json_encode($mustahiq) }}'

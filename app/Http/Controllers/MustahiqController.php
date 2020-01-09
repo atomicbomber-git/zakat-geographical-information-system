@@ -57,19 +57,18 @@ class MustahiqController extends Controller
         session()->flash('message-success', __('messages.create.success'));
     }
 
-    public function edit(Mustahiq $mustahiq)
+    public function edit(Collector $collector, Mustahiq $mustahiq)
     {
         $this->authorize("update", $mustahiq);
 
         $mustahiqs = Mustahiq::query()
             ->select("name", "id", "latitude", "longitude", "address")
-            ->whereHas("collector", function ($query) {
-                $query->where("id", Auth::user()->collector->id);
+            ->whereHas("collector", function ($query) use($collector) {
+                $query->where("id", $collector);
             })
             ->orderBy("name")
             ->get();
 
-        $collector = Auth::user()->collector;
         return view("mustahiq.edit", compact("mustahiq", "collector", "mustahiqs"));
     }
 
@@ -106,7 +105,8 @@ class MustahiqController extends Controller
 
         $mustahiq->delete();
 
-        return back()
+        return redirect()
+            ->route("collector.mustahiq.index", $mustahiq->collector)
             ->with("message-success", __("messages.delete.success"));
     }
 }

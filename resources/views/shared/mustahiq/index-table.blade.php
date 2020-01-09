@@ -35,7 +35,7 @@
             <td> {{ $mustahiq->program_bantuan }} </td>
             <td class="text-center">
                 @can("update", $mustahiq)
-                <a href="{{ route("collector.mustahiq.edit", $mustahiq) }}" class="btn btn-dark btn-sm">
+                <a href="{{ route("collector.mustahiq.edit", [$collector, $mustahiq]) }}" class="btn btn-dark btn-sm">
                     <i class="fa fa-pencil"></i>
                 </a>
                 @endcan

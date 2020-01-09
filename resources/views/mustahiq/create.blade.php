@@ -16,7 +16,7 @@
                 UPZ {{ $collector->name }}
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('collector.mustahiq.index') }}">
+                <a href="{{ route('collector.mustahiq.index', $collector) }}">
                     Mustahik
                 </a>
             </li>

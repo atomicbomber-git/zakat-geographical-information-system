@@ -56,7 +56,10 @@ class MustahiqPolicy
     public function delete(User $user, Mustahiq $mustahiq)
     {
         return
-            (true || (($user->collector->id ?? null) === $mustahiq->collector_id)) &&
+            (
+                $user->type === UserType::ADMINISTRATOR ||
+                (($user->collector->id ?? null) === $mustahiq->collector_id)
+            ) &&
             (($mustahiq->donations_count ?? -1) === 0);
     }
 

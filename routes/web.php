@@ -94,7 +94,7 @@ Route::group(['middleware' => ['collector-verified']], function () {
         Route::get('/index/{collector}', 'MustahiqController@index')->name('index');
         Route::get('/create/{collector}', 'MustahiqController@create')->name('create');
         Route::post('/store/{collector}', 'MustahiqController@store')->name('store');
-        Route::get('/edit/{mustahiq}', 'MustahiqController@edit')->name('edit');
+        Route::get('/edit/{collector}/{mustahiq}', 'MustahiqController@edit')->name('edit');
         Route::post('/update/{mustahiq}', 'MustahiqController@update')->name('update');
         Route::post('/delete/{mustahiq}', 'MustahiqController@delete')->name('delete');
     });
